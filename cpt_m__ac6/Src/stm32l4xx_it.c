@@ -311,8 +311,11 @@ void TIM4_IRQHandler(void)
   //TIM4->SR &= ~TIM_SR_UIF; // —Å–±—Ä–∞—Å—ã–≤–∞–µ–º –ø—Ä–µ—Ä—ã–≤–∞–Ω–∏–µ
   TIM4->SR = ~TIM_SR_UIF; // —Å–±—Ä–∞—Å—ã–≤–∞–µ–º –ø—Ä–µ—Ä—ã–≤–∞–Ω–∏–µ
 
+  // —“–Œ◊ ” Õ»∆≈:
+  // HAL_TIM_IRQHandler(&htim4);
+  // Õ”∆ÕŒ «¿ ŒÃÃ≈Õ“»–Œ¬¿“‹ !!
   /* USER CODE END TIM4_IRQn 0 */
-  //HAL_TIM_IRQHandler(&htim4);
+  HAL_TIM_IRQHandler(&htim4);
   /* USER CODE BEGIN TIM4_IRQn 1 */
 
   /* USER CODE END TIM4_IRQn 1 */

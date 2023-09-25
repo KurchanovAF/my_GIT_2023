@@ -1,0 +1,6 @@
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:cpt_m__ac6
+eclipse.preferences.version=1
+org.eclipse.launchbar.core.descriptorType.default\:cpt_m__ac6/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:cpt_m__ac6/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local

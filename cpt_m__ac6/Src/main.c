@@ -31,13 +31,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "var.h"
-// Kurchanov 28.07.2020
 #include "AD5668.h"
 #include "my_FUN.h"
-// Kurchanov 24.02.2021
 #include "LSM303D.h"
-// Kurchanov 23.08.2021
-// Р СњР В°РЎРѓРЎвЂљРЎР‚Р С•Р в„–Р С”Р В° Р Т‘Р В°РЎвЂљРЎвЂЎР С‘Р С”Р В° РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№
 #include "interface_ADT7410.h"
 
 static inline void ProgressPID_TEC_CTRL(void);
@@ -50,8 +46,6 @@ static inline void ProgressPID_SENSOR_CELL(void);
 static inline void Progress_MESSAGE(void);
 static inline void ProgressPID_MICROWAVE(void);
 static inline void ProgressPID_DOPLER_FREQ(void);
-
-// Р СњР В°РЎРѓРЎвЂљРЎР‚Р С•Р в„–Р С”Р В° Р Т‘Р В°РЎвЂљРЎвЂЎР С‘Р С”Р В° РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№
 //void InitTEMP(void);
 
 /* USER CODE END Includes */
@@ -179,43 +173,40 @@ int main(void)
 	HAL_GPIO_WritePin(EN_GPIO_Port, EN_Pin, GPIO_PIN_SET);
 	
 	//=======================================================
-	// Р СњР В°РЎРѓРЎвЂљРЎР‚Р С•Р в„–Р С”Р В° РЎРЏР Т‘РЎР‚Р В°
+	// Настройка ядра
 	//=======================================================
-	// Р В Р В°Р В·РЎР‚Р ВµРЎв‚¬Р В°Р ВµР С? Р С‘РЎРѓР С—Р С•Р В»РЎРЉР В·Р С•Р Р†Р В°РЎвЂљРЎРЉ DWT (Р СџР С•Р Т‘РЎРѓРЎвЂЎР ВµРЎвЂљ РЎвЂљР В°Р С”РЎвЂљР С•Р Р†)
+	// Разрешаем использовать DWT (Подсчет тактов)
 	CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-	// Р РЋР В±РЎР‚Р В°РЎРѓРЎвЂ№Р Р†Р В°Р ВµР С? РЎРѓРЎвЂЎР ВµРЎвЂљРЎвЂЎР С‘Р С”
+	// Сбрасываем счетчик
 	DWT->CYCCNT = 0;
-	// Р вЂ™Р С”Р В»РЎР‹РЎвЂЎР В°Р ВµР С? РЎРѓРЎвЂЎР ВµРЎвЂљРЎвЂЎР С‘Р С”
+	// Включаем счетчик
 	DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;	
 	
-	// Р СњР В°РЎРѓРЎвЂљРЎР‚Р С•Р в„–Р С”Р В° Р Р†Р Р…Р ВµРЎв‚¬Р Р…Р ВµР С–Р С• Р В¦Р С’Р СџР В°
+	// Настройка внешнего ЦАПа
 	AD5668_Init();
-	// Р СњР В°РЎРѓРЎвЂљРЎР‚Р С•Р в„–Р С”Р В° РЎРѓР С‘Р Р…РЎвЂљР ВµР В·Р В°РЎвЂљР С•РЎР‚Р В°
+	// Настройка синтезатора
 	LMX2486_Init();
-	// Р СњР В°РЎРѓРЎвЂљРЎР‚Р С•Р в„–Р С”Р В° РЎвЂ Р С‘РЎвЂћРЎР‚Р С•Р Р†Р С•Р С–Р С• РЎвЂљР ВµРЎР‚Р С?Р С•Р С?Р ВµРЎвЂљРЎР‚Р В°
+	// Настройка цифрового термометра
 	//if (flagConnectedTempSensor == true){
 	//	InitTEMP();
 	//}
-	// Р СњР В°РЎРѓРЎвЂљРЎР‚Р С•Р в„–Р С”Р В° Р Т‘Р В°РЎвЂљРЎвЂЎР С‘Р С”Р В° LSM303D
+	// Настройка датчика LSM303D
 	//I2C_HandleTypeDef *hi2c; // PC0 (I2C3-CK), PC1 (I2C3-D)
 	LSM303D_Initialize(&hi2c3);
-	// Р РЋРЎвЂЎР С‘РЎвЂљРЎвЂ№Р Р†Р В°Р Р…Р С‘Р Вµ Р С—Р С•Р С”Р В°Р В·Р В°Р Р…Р С‘Р в„– РЎвЂљР ВµРЎР‚Р С?Р С•Р С?Р ВµРЎвЂљРЎР‚Р В°
+	// Считывание показаний термометра
 	//uint16_t LSM303D_GetTemperature(I2C_HandleTypeDef *hi2c)
-	// Р РЋРЎвЂЎР С‘РЎвЂљРЎвЂ№Р Р†Р В°Р Р…Р С‘Р Вµ Р С—Р С•Р С”Р В°Р В·Р В°Р Р…Р С‘Р в„– Р В°Р С”РЎРѓР ВµР В»Р ВµРЎР‚Р С•meРЎвЂљРЎР‚Р В°
+	// Считывание показаний акселероmeтра
 	// void LSM303D_GetValueAcc(I2C_HandleTypeDef *hi2c, int *X, int *Y, int *Z)
-	// Р РЋРЎвЂЎР С‘РЎвЂљРЎвЂ№Р Р†Р В°Р Р…Р С‘Р Вµ Р С—Р С•Р С”Р В°Р В·Р В°Р Р…Р С‘Р в„– Р С?Р В°Р С–Р Р…Р ВµРЎвЂљР С•Р С?Р ВµРЎвЂљРЎР‚Р В°
+	// Считывание показаний магнетометра
 	// void LSM303D_GetValueMag(I2C_HandleTypeDef *hi2c, int *X, int *Y, int *Z)
 
-	// Kurchanov 2021_04_27
 	HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
 	//=======================================================
-	// Р В Р В°Р В·РЎР‚Р ВµРЎв‚¬Р В°Р ВµР С? Р С—РЎР‚Р ВµРЎР‚РЎвЂ№Р Р†Р В°Р Р…Р С‘Р Вµ UART3
+	// Разрешаем прерывание UART3
 	//=======================================================
 	NVIC_EnableIRQ (USART3_IRQn);          
-	USART3->CR1 |= USART_CR1_RXNEIE; // Р СџРЎР‚Р ВµРЎР‚РЎвЂ№Р Р†Р В°Р Р…Р С‘Р Вµ Р С—Р С• Р С—РЎР‚Р С‘Р ВµР С?РЎС“ Р Т‘Р В°Р Р…Р Р…РЎвЂ№РЎвЂ¦
-	// Kurchanov 26.01.2021
-	//HAL_NVIC_SetPriority(USART3_IRQn, 7, 0);
+	USART3->CR1 |= USART_CR1_RXNEIE; // Прерывание по приему данных
 	HAL_NVIC_SetPriority(USART3_IRQn, 1, 0);
 	
 	AD5668_SetValue(AD5668_DAC_ALL, 0); 
@@ -230,17 +221,16 @@ int main(void)
 	fixValue_OUT2_DOPLER_CRNT = value_VY;
 	
 	AD8400_SetValue(value_OutFactor);
-	//AD8400_SetValue(value_OutFactor);
 	//=======================================================
-	// Р СџР ВµРЎР‚Р Р†Р С•Р Р…Р В°РЎвЂЎР В°Р В»РЎРЉР Р…Р В°РЎРЏ РЎС“РЎРѓРЎвЂљР В°Р Р…Р С•Р Р†Р С”Р В° Р С”Р В°Р Р…Р В°Р В»Р С•Р Р† Р В¦Р С’Р СџР В°
+	// Первоначальная установка каналов ЦАПа
 	//=======================================================
-	// Р Р€РЎРѓРЎвЂљР В°Р Р…Р С•Р Р†Р С”Р В° Р Р†РЎвЂ№РЎвЂ¦Р С•Р Т‘Р С•Р Р† Р В¦Р С’Р СџР В°
+	// Установка выходов ЦАПа
 	//AD5668_SetValue(AD5668_DAC_UT1A, value_UT1A); 	
 	//// UT2A	
 	//AD5668_SetValue(AD5668_DAC_UT2A, value_UT2A);
 	//// VY
 	//AD5668_SetValue(AD5668_DAC_VY, value_VY);
-	//// U2R Р СљР С•Р Т‘РЎС“Р В»РЎРЏРЎвЂ Р С‘РЎРЏ
+	//// U2R Модуляция
 	//AD5668_SetValue(AD5668_DAC_U2R, value_U2R);
 	//// VT1
 	//AD5668_SetValue(AD5668_DAC_VT1, value_VT1);
@@ -253,45 +243,45 @@ int main(void)
 	
 	
 	//=======================================================
-	// Р СњР В°РЎРѓРЎвЂљРЎР‚Р В°Р С‘Р Р†Р В°Р ВµР С? Р С—РЎР‚Р С•Р С–РЎР‚Р В°Р С?Р С?Р Р…Р С•Р Вµ Р С—РЎР‚Р ВµРЎР‚РЎвЂ№Р Р†Р В°Р Р…Р С‘Р Вµ
+	// Настраиваем программное прерывание
 	//=======================================================
-	// Р СџРЎР‚Р С•Р С–РЎР‚Р В°Р С?Р С?Р Р…Р С•Р Вµ Р С—РЎР‚Р ВµРЎР‚РЎвЂ№Р Р†Р В°Р Р…Р С‘Р Вµ EXTI0
+	// Программное прерывание EXTI0
 	EXTI->IMR1 |= EXTI_IMR1_IM0;
 	EXTI->RTSR1 = EXTI_RTSR1_RT0;
-	// Р РЋР В±РЎР‚Р В°РЎРѓРЎвЂ№Р Р†Р В°Р ВµР С? РЎвЂћР В»Р В°Р С–Р С‘
+	// Сбрасываем флаги
 	EXTI->PR1 |= EXTI_PR1_PIF0;
 	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	
 	//=======================================================
-	// Р СњР В°РЎРѓРЎвЂљРЎР‚Р С•Р в„–Р С”Р В° Р С’Р В¦Р Сџ
+	// Настройка АЦП
 	//=======================================================
-	// Р СџРЎР‚Р С•Р С‘Р В·Р Р†Р С•Р Т‘Р С‘Р С? Р С”Р В°Р В»Р С‘Р В±РЎР‚Р С•Р Р†Р С”РЎС“ Р С’Р В¦Р Сџ 1
+	// Производим калибровку АЦП 1
 	HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
 	uint32_t calibrationFactorADC1  = HAL_ADCEx_Calibration_GetValue(&hadc1, ADC_SINGLE_ENDED);
 	HAL_ADCEx_Calibration_SetValue(&hadc1, ADC_SINGLE_ENDED, calibrationFactorADC1);
-	// Р СџРЎР‚Р С•Р С‘Р В·Р Р†Р С•Р Т‘Р С‘Р С? Р С”Р В°Р В»Р С‘Р В±РЎР‚Р С•Р Р†Р С”РЎС“ Р С’Р В¦Р Сџ 2
+	// Производим калибровку АЦП 2
 	HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 	uint32_t calibrationFactorADC2  = HAL_ADCEx_Calibration_GetValue(&hadc2, ADC_SINGLE_ENDED);
 	HAL_ADCEx_Calibration_SetValue(&hadc2, ADC_SINGLE_ENDED, calibrationFactorADC2);
 	
 	
-	// Р вЂ™Р С”Р В»РЎР‹РЎвЂЎР В°Р ВµР С? ADC
+	// Включаем ADC
 	ADC_Enable(&hadc1);
 	ADC_Enable(&hadc2);
-	// Р СњР В°РЎРѓРЎвЂљРЎР‚Р В°Р С‘Р Р†Р В°Р ВµР С? Р В±РЎС“РЎвЂћР ВµРЎР‚РЎвЂ№ DMA Р Т‘Р В»РЎРЏ ADC
+	//Настраиваем буферы DMA для ADC
 	// ADC1 
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&DMA1_Data, 2*ADC_ARRAY_DMA1_HALF_SIZE);
 	// ADC2
 	HAL_ADC_Start_DMA(&hadc2, (uint32_t*)&DMA2_Data, 2*ADC_ARRAY_DMA2_HALF_SIZE);
 	
-	//Р вЂ™Р С”Р В»РЎР‹РЎвЂЎР В°Р ВµР С? Р В¦Р С’Р Сџ
+	//Включаем ЦАП
 	HAL_DAC_Start(&hdac1,DAC_CHANNEL_2);
-	// Р Р€РЎРѓРЎвЂљР В°Р Р…Р В°Р Р†Р В»Р С‘Р Р†Р В°Р ВµР С? Р В·Р Р…Р В°РЎвЂЎР ВµР Р…Р С‘Р Вµ
+	// Устанавливаем значение
 	//HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, (uint32_t)value_RFI);
 	
-	// Р вЂ™РЎвЂ№Р С”Р В»РЎР‹РЎвЂЎР В°Р ВµР С? Р С—РЎР‚Р ВµРЎР‚РЎвЂ№Р Р†Р В°Р Р…Р С‘Р Вµ РЎРѓР С‘РЎРѓРЎвЂљР ВµР С?Р Р…Р С•Р С–Р С• РЎвЂљР В°Р в„–Р С?Р ВµРЎР‚Р В°
-	// Kurchanov 26.01.2021																// Р СњР Р€Р вЂ“Р СњР С› Р В Р С’Р вЂ”Р С›Р вЂ?Р В Р С’Р СћР В¬Р РЋР Р‡ !
+	// Выключаем прерывание системного таймера
+	// НУЖНО РАЗОБРАТЬСЯ !
 	//SysTick->CTRL &=~(SysTick_CTRL_TICKINT_Msk);
 	//HAL_NVIC_DisableIRQ(SysTick_IRQn);
 	
@@ -302,21 +292,16 @@ int main(void)
 	TIM_CCxChannelCmd(TIM3, TIM_CHANNEL_1, TIM_CCx_ENABLE);
 	TIM3->BDTR|=(TIM_BDTR_MOE);
 	// MOD CRNT 12KHz
-	// Kurchanov 2021_04_20
-	// Р С–Р С‘Р В±РЎР‚Р С‘Р Т‘ РЎвЂЎР В°РЎРѓРЎвЂљР С•РЎвЂљ 480 Р С”Р вЂњРЎвЂ  Р С‘ 12 Р С”Р вЂњРЎвЂ 
+	// гибрид частот 480 кГц и 12 кГц
 	TIM4->CNT = 0;
 	TIM_CCxChannelCmd(TIM4, TIM_CHANNEL_3, TIM_CCx_ENABLE);
 	TIM4->BDTR|=(TIM_BDTR_MOE);
 
-	// Kurchanov 2021_04_20
-	//*
 	my_TST_U32 = TIM4->DIER;
-	//TIM4->DIER |= TIM_IT_UPDATE;//TIM_DIER_UIE;                   // РЎР‚Р В°Р В·РЎР‚Р ВµРЎв‚¬Р В°Р ВµР С? Р С—РЎР‚Р ВµРЎР‚РЎвЂ№Р Р†Р В°Р Р…Р С‘Р Вµ Р С—Р С• Р С—Р ВµРЎР‚Р ВµР С—Р С•Р В»Р Р…Р ВµР Р…Р С‘РЎР‹
-	TIM4->DIER = TIM_IT_UPDATE;
-	// #define TIM_IT_UPDATE                      TIM_DIER_UIE                         //!< Update interrupt
+	TIM4->DIER = TIM_IT_UPDATE;					// разрешаем прерывание по переполнению
 	HAL_NVIC_SetPriority(TIM4_IRQn, 0, 0);
-	NVIC_EnableIRQ(TIM4_IRQn);                    // Р С–Р В»Р С•Р В±Р В°Р В»РЎРЉР Р…Р С• РЎР‚Р В°Р В·РЎР‚Р ВµРЎв‚¬Р В°Р ВµР С? Р С—РЎР‚Р ВµРЎР‚РЎвЂ№Р Р†Р В°Р Р…Р С‘Р Вµ
-	//*/
+	NVIC_EnableIRQ(TIM4_IRQn);                  // глобально разрешаем прерывание
+
 
 	// SX 100KHz
 	TIM8->CNT = 0;
@@ -328,15 +313,17 @@ int main(void)
 	//TIM17->BDTR|=(TIM_BDTR_MOE);	
 	HAL_TIM_IC_Start(&htim17,TIM_CHANNEL_1);
 	
+	// сброс в начальное состояние D-триггеров
+	// аппаратного синхронного детектора
+	// детектор не используется из-за ошибки в разводке
 	HAL_GPIO_WritePin(RES_GPIO_Port, RES_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(RES_GPIO_Port, RES_Pin, GPIO_PIN_SET);
-
-	//========== 2022.01.10
+	// выходная ножка PPS
 	HAL_GPIO_WritePin(RES_GPIO_Port, PPS1_Pin, GPIO_PIN_RESET);
 
-	// Р РЋР С‘Р Р…РЎвЂ¦РЎР‚Р С•Р Р…Р Р…РЎвЂ№Р в„– Р В·Р В°Р С—РЎС“РЎРѓР С” РЎвЂљР В°Р в„–Р С?Р ВµРЎР‚Р С•Р Р†
+	// Синхронный запуск таймеров
 	HAL_TIM_Base_Start(&htim1);
-	// Р РЋР С‘Р Р…РЎвЂ¦РЎР‚Р С•Р Р…Р С‘Р В·Р В°РЎвЂ Р С‘РЎРЏ DAC
+	// Синхронизация DAC
 	TIM_CCxChannelCmd(TIM1, TIM_CHANNEL_4, TIM_CCx_ENABLE);
 	TIM1->BDTR|=(TIM_BDTR_MOE);
   /* USER CODE END 2 */
@@ -344,7 +331,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  // Р вЂњР С‘РЎРѓРЎвЂљР С•Р С–РЎР‚Р В°Р С?Р С?Р В° Р С™Р С‘РЎРѓР В»Р С•Р Р†Р В°
+  // Гистограмма Кислова
   step_diff = max_diff/num_cell;
   for(int i = 0; i < num_cell; i++) cell[i] = 0;
   no = 0;
@@ -372,23 +359,23 @@ int main(void)
   while (1){
 	  my_I++;
 		
-	    // Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Т‘Р В»Р С‘Р Р…РЎвЂ№ Р Р†Р С•Р В»Р Р…РЎвЂ№ РЎвЂЎР В°РЎРѓРЎвЂљР С•РЎвЂљР С•Р в„– Р С?Р В°Р С”Р ВµРЎвЂљР В°
+	    // Захват длины волны частотой макета
 	    ProgressPID_DOPLER_FREQ();
-		// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№ Р В»Р В°Р В·Р ВµРЎР‚Р В°
+		// Захват температуры лазера
 		ProgressPID_TEC_CTRL();
-		// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Т‘Р С•Р С—Р В»Р ВµРЎР‚Р В° РЎвЂљР С•Р С”Р С•Р С? Р В»Р В°Р В·Р ВµРЎР‚Р В°
+		// Захват доплера током лазера
 		ProgressPID_DOPLER_CTRL();
-		// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Т‘Р С•Р С—Р В»Р ВµРЎР‚Р В° РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚Р С•Р в„– Р В»Р В°Р В·Р ВµРЎР‚Р В°
+		// Захват доплера температурой лазера
 		ProgressPID_DOPLER_TEC();
-		// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ РЎРѓР С‘Р С–Р Р…Р В°Р В»Р В° DC РЎвЂћР С•РЎвЂљР С•Р С—РЎР‚Р С‘Р ВµР С?Р Р…Р С‘Р С”Р В°
+		// Захват сигнала DC фотоприемника
 		ProgressPID_OPTICS_PWR();
-		// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ РЎвЂЎР В°РЎРѓРЎвЂљР С•РЎвЂљРЎвЂ№
+		// Захват частоты
 		ProgressPID_FREQ();
-		// Р С’Р Р…Р В°Р В»Р С•Р С–Р С•Р Р†РЎвЂ№Р в„– Р В·Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№ РЎРЏРЎвЂЎР ВµР в„–Р С”Р С‘
+		// Аналоговый захват температуры ячейки
 		ProgressPID_CELL();
-		// Р В¦Р С‘РЎвЂћРЎР‚Р С•Р Р†Р С•Р в„– Р В·Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№ РЎРЏРЎвЂЎР ВµР в„–Р С”Р С‘
+		// Цифровой захват температуры ячейки
 		ProgressPID_SENSOR_CELL();
-		// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р С?Р С•РЎвЂ°Р Р…Р С•РЎРѓРЎвЂљР С‘ Р РЋР вЂ™Р В§ Р Р…Р В° Р Р†РЎвЂ¦Р С•Р Т‘Р Вµ Р В»Р В°Р В·Р ВµРЎР‚Р В°
+		// Захват мощности СВЧ на входе лазера
 		ProgressPID_MICROWAVE();
 		
 		Progress_MESSAGE();
@@ -397,7 +384,7 @@ int main(void)
 		}
 		
 
-		// Р В Р В°Р В·Р В±Р С•РЎР‚ Р С”Р С•Р С?Р В°Р Р…Р Т‘
+		// Разбор команд
 		byteUSART = USART_GetByte();
 		if ( byteUSART != -1){
 			BufferMsg[lengthBufferCmd] = (uint8_t)byteUSART;
@@ -406,11 +393,11 @@ int main(void)
 				lengthBufferCmd = 0;
 			}
 			//===================================================
-			// Р С›Р В±РЎР‚Р В°Р В±Р В°РЎвЂљРЎвЂ№Р Р†Р В°Р ВµР С? РЎРѓР С•Р С•Р В±РЎвЂ°Р ВµР Р…Р С‘Р Вµ Р С‘ РЎС“Р Т‘Р В°Р В»РЎРЏР ВµР С? Р ВµР С–Р С• Р С‘Р В· Р С•РЎвЂЎР ВµРЎР‚Р ВµР Т‘Р С‘
+			// Обрабатываем сообщение и удаляем его из очереди
 			//===================================================
 			cmdID = GetCmdID(BufferMsg, &lengthBufferCmd);
 			if (cmdID != 0){
-				// Р В Р ВµР В°Р С–Р С‘РЎР‚РЎС“Р ВµР С? Р Р…Р В° Р С”Р С•Р С?Р В°Р Р…Р Т‘РЎС“
+				// Реагируем на команду
 				ComputeCmd(cmdID);
 			}
 		}   
@@ -484,37 +471,37 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
-// Р В Р В°Р В±Р С•РЎвЂљР В° РЎРѓ Р С—Р ВµРЎвЂљР В»Р ВµР в„– РЎР‚Р ВµР С–РЎС“Р В»Р С‘РЎР‚Р С•Р Р†Р С”Р С‘ Р С?Р С•РЎвЂ°Р Р…Р С•РЎРѓРЎвЂљР С‘ Р РЋР вЂ™Р В§ Р Р…Р В° Р Р…Р С•Р В¶Р С”Р Вµ Р В»Р В°Р В·Р ВµРЎР‚Р В°
+//Работа с петлей регулировки мощности СВЧ на ножке лазера
 // bool flagUpdateCompute_MICROWAVE = false;
 static inline void ProgressPID_MICROWAVE(void){
 	static float delta;
 	static float deltaPID;
-	// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Р†Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…
+	// Захват включен
 	// PID_FLAG_LOOP_MICROWAVE_CTRL
 	if ((statusLoopPID & PID_FLAG_LOOP_MICROWAVE) == PID_FLAG_LOOP_MICROWAVE){
 		if(!flagProcess_MICROWAVE)
 		{
-			// Р СњР В°РЎвЂЎР В°Р В»Р С• Р С—РЎР‚Р С•РЎвЂ Р ВµРЎРѓРЎРѓР В° РЎР‚Р ВµР С–РЎС“Р В»Р С‘РЎР‚Р С•Р Р†Р В°Р Р…Р С‘РЎРЏ
-			// Р вЂ”Р В°Р С—Р С•Р С?Р С‘Р Р…Р В°Р ВµР С? Р Р…Р В°РЎвЂЎР В°Р В»РЎРЉР Р…Р С•Р Вµ Р В·Р Р…Р В°РЎвЂЎР ВµР Р…Р С‘Р Вµ Р С?Р С•РЎвЂ°Р Р…Р С•РЎРѓРЎвЂљР С‘
+			// Начало процесса регулирования
+			// Запоминаем начальное значение мощности
 			startResult_OUT_3R = avrResult_OUT_3R;
 			fixValue_MICROWAVE = value_RFI;
-			flagProcess_MICROWAVE = true; // Р СџРЎР‚Р С•РЎвЂ Р ВµРЎРѓРЎРѓ РЎР‚Р ВµР С–РЎС“Р В»Р С‘РЎР‚Р С•Р Р†Р В°Р Р…Р С‘РЎРЏ Р Р…Р В°РЎвЂЎР В°РЎвЂљ
+			flagProcess_MICROWAVE = true;	// Процесс регулирования начат
 			//my_alarm |= 0x10;
 		}
 		else
 		{
 			//my_alarm |= 0x20;
 		}
-		// Р В Р В°РЎРѓРЎвЂЎР ВµРЎвЂљ Р Р†Р С•Р В·Р Т‘Р ВµР в„–РЎРѓРЎвЂљР Р†Р С‘РЎРЏ PID РЎР‚Р ВµР С–РЎС“Р В»РЎРЏРЎвЂљР С•РЎР‚Р В°
-		// 	Р Т‘Р В»РЎРЏ РЎР‚Р ВµР С–РЎС“Р В»Р С‘РЎР‚Р С•Р Р†Р С”Р С‘ Р С?Р С•РЎвЂ°Р Р…Р С•РЎРѓРЎвЂљР С‘ Р РЋР вЂ™Р В§ Р Р…Р В° Р Р…Р С•Р В¶Р С”Р Вµ Р В»Р В°Р В·Р ВµРЎР‚Р В°
-		// Р вЂўРЎРѓРЎвЂљРЎРЉ Р Р…Р С•Р Р†РЎвЂ№Р Вµ Р Т‘Р В°Р Р…Р Р…РЎвЂ№Р Вµ
+		// Расчет воздействия PID регулятора
+		// для регулировки мощности СВЧ на ножке лазера
+		// Есть новые данные
 		if (flagUpdateCompute_MICROWAVE == true){
 			flagUpdateCompute_MICROWAVE = false;
 			delta = avrResult_OUT_3R - startResult_OUT_3R;
-			resultMICROWAVE =	delta;											// Р С™РЎС“РЎР‚РЎвЂЎР В°Р Р…Р С•Р Р†
+			resultMICROWAVE =	delta;
 			//my_alarm |= 0x40;
 
-			// Р С›Р С—РЎР‚Р ВµР Т‘Р ВµР В»РЎРЏР ВµР С? Р Р†РЎвЂ№Р С—Р С•Р В»Р Р…Р ВµР Р… Р В»Р С‘ Р В·Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ
+			// Определяем выполнен ли захват
 			/*
 			float absDelta = delta;
 			if (absDelta < 0){
@@ -537,7 +524,7 @@ static inline void ProgressPID_MICROWAVE(void){
 			//deltaPID = my_FLT;
 			//my_delta = delta;
 			//my_deltaPID = deltaPID;
-			value_RFI = fixValue_MICROWAVE - deltaPID;	// Kurchanov 15.02.2021
+			value_RFI = fixValue_MICROWAVE - deltaPID;
 			if (value_RFI < 0){
 				value_RFI = 0;
 			}
@@ -552,8 +539,8 @@ static inline void ProgressPID_MICROWAVE(void){
 	{
 		if(flagProcess_MICROWAVE)
 		{
-			// Р С™Р С•Р Р…Р ВµРЎвЂ  Р С—РЎР‚Р С•РЎвЂ Р ВµРЎРѓРЎРѓР В° РЎР‚Р ВµР С–РЎС“Р В»Р С‘РЎР‚Р С•Р Р†Р В°Р Р…Р С‘РЎРЏ
-			flagProcess_MICROWAVE = false; // Р СџРЎР‚Р С•РЎвЂ Р ВµРЎРѓРЎРѓ РЎР‚Р ВµР С–РЎС“Р В»Р С‘РЎР‚Р С•Р Р†Р В°Р Р…Р С‘РЎРЏ Р С•Р С”Р С•Р Р…РЎвЂЎР ВµР Р…
+			// Конец процесса регулирования
+			flagProcess_MICROWAVE = false; // Процесс регулирования окончен
 			Reset_MICROWAVE_PID();
 			//my_alarm &= ~(0x10);
 			//my_alarm &= ~(0x20);
@@ -562,7 +549,7 @@ static inline void ProgressPID_MICROWAVE(void){
 	}
 }
 
-// Р В Р В°Р В±Р С•РЎвЂљР В° РЎРѓ Р С—Р ВµРЎвЂљР В»Р ВµР в„– РЎР‚Р ВµР С–РЎС“Р В»Р С‘РЎР‚Р С•Р Р†Р С”Р С‘ Р Т‘Р В»Р С‘Р Р…РЎвЂ№ Р Р†Р С•Р В»Р Р…РЎвЂ№ Р В»Р В°Р В·Р ВµРЎР‚Р В° РЎРЊР С”РЎРѓРЎвЂљРЎР‚Р ВµР С?РЎС“Р С?Р С•Р С? РЎвЂЎР В°РЎРѓРЎвЂљР С•РЎвЂљРЎвЂ№
+// Работа с петлей регулировки длины волны лазера экстремумом частоты
 // bool flagUpdateCompute_DOPLER_FREQ = false;
 static inline void ProgressPID_DOPLER_FREQ(void){
 	static float delta;
@@ -571,15 +558,15 @@ static inline void ProgressPID_DOPLER_FREQ(void){
 
 	// delta_DOPLER_DC = ???
 
-	// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Р†Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…
+	// Захват включен
 	// PID_FLAG_LOOP_DOPLER_FREQ_CTRL
 	if ((statusLoopPID & PID_FLAG_LOOP_DOPLER_FREQ) == PID_FLAG_LOOP_DOPLER_FREQ){
 		if(!flagProcess_DOPLER_FREQ)
 		{
-			Reset_DOPLER_FREQ_PID();					// Р РЋР В±РЎР‚Р С•РЎРѓ Р С—РЎР‚Р С‘ Р С—Р ВµРЎР‚Р Р†Р С•Р С? Р В·Р В°Р С—РЎС“РЎРѓР С”Р Вµ
+			Reset_DOPLER_FREQ_PID();					// Сброс при первом запуске
 			flagProcess_DOPLER_FREQ = true;
 		}
-		if (flagUpdateCompute_DOPLER_FREQ == true){		// Р СџРЎР‚Р С•РЎв‚¬Р В»Р С• 2 Р С–РЎР‚РЎС“Р С—Р С—РЎвЂ№ Р С—Р С• 16 Р С?Р С‘Р В»Р В»Р С‘РЎРѓР ВµР С”РЎС“Р Р…Р Т‘, Р Т‘Р С‘РЎРѓР С”РЎР‚Р С‘Р С?Р С‘Р Р…Р В°РЎвЂљР С•РЎР‚ РЎР‚Р В°РЎРѓРЎРѓРЎвЂЎР С‘РЎвЂљР В°Р Р…
+		if (flagUpdateCompute_DOPLER_FREQ == true){		// Прошло 2 группы по 16 миллисекунд, дискриминатор рассчитан
 			flagUpdateCompute_DOPLER_FREQ = false;
 				delta = resultDOPLER_FREQ;
 
@@ -603,21 +590,21 @@ static inline void ProgressPID_DOPLER_FREQ(void){
 		}
 }
 
-// Р В Р В°Р В±Р С•РЎвЂљР В° РЎРѓ Р С—Р ВµРЎвЂљР В»Р ВµР в„– РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№ Р В»Р В°Р В·Р ВµРЎР‚Р В°
+// Работа с петлей температуры лазера
 static inline void ProgressPID_TEC_CTRL(void){
 	static float delta;
 	static float deltaPID;
-	// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Р†Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…
+	// Захват включен
 	if ((statusLoopPID & PID_FLAG_LOOP_TEC_CTRL) == PID_FLAG_LOOP_TEC_CTRL){
-		// Р В Р В°РЎРѓРЎвЂЎР ВµРЎвЂљ Р Р†Р С•Р В·Р Т‘Р ВµР в„–РЎРѓРЎвЂљР Р†Р С‘РЎРЏ PID РЎР‚Р ВµР С–РЎС“Р В»РЎРЏРЎвЂљР С•РЎР‚Р В°
-		// 	Р Т‘Р В»РЎРЏ Р С”Р С•Р С?Р С—Р ВµР Р…РЎРѓР В°РЎвЂ Р С‘Р С‘ РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№ Р В»Р В°Р В·Р ВµРЎР‚Р В° 100 Hz
-		// Р вЂўРЎРѓРЎвЂљРЎРЉ Р Р…Р С•Р Р†РЎвЂ№Р Вµ Р Т‘Р В°Р Р…Р Р…РЎвЂ№Р Вµ
+		// Расчет воздействия PID регулятора
+		// для компенсации температуры лазера 100 Hz
+		// Есть новые данные
 		if (flagUpdateCompute_TEC_CTRL == true){
 			flagUpdateCompute_TEC_CTRL = false;
 			delta = level_CONTR - avrResult_CONTR;
-			resultTec =	delta;											// Р С™РЎС“РЎР‚РЎвЂЎР В°Р Р…Р С•Р Р†
+			resultTec =	delta;
 
-			// Р С›Р С—РЎР‚Р ВµР Т‘Р ВµР В»РЎРЏР ВµР С? Р Р†РЎвЂ№Р С—Р С•Р В»Р Р…Р ВµР Р… Р В»Р С‘ Р В·Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ
+			// Определяем выполнен ли захват
 			float absDelta = delta;
 			if (absDelta < 0){
 				absDelta = -absDelta;
@@ -651,12 +638,12 @@ static inline void ProgressPID_TEC_CTRL(void){
 static inline void ProgressPID_FREQ(void){
 	static float delta;
 	static float deltaPID;
-	// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Р†Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…
+	// Захват включен
 	if ((statusLoopPID & PID_FLAG_LOOP_FREQ) == PID_FLAG_LOOP_FREQ){
 		if (flagUpdateCompute_OUT2_CPT_FREQ == true){
 			flagUpdateCompute_OUT2_CPT_FREQ = false;
 			delta = result_OUT2_CPT_FREQ_CPT;
-			//delta = result_OUT2_CPT_FREQ_CPT + result_OUT2_CPT_CRNT_DOPLER * (float)7.08e-2;	// Р С™РЎС“РЎР‚РЎвЂЎР В°Р Р…Р С•Р Р†
+			//delta = result_OUT2_CPT_FREQ_CPT + result_OUT2_CPT_CRNT_DOPLER * (float)7.08e-2;
 			deltaPID = Compute_FREQ_PID(delta);
 			value_UT1A = fixValue_UT1A + deltaPID;
 			if (value_UT1A < 0){
@@ -671,10 +658,10 @@ static inline void ProgressPID_FREQ(void){
 	}
 }
 
-static inline void ProgressPID_DOPLER_TEC(void){	// Р В Р ВµР С–РЎС“Р В»Р С‘РЎР‚Р С•Р Р†Р С”Р В° Р Т‘Р В»Р С‘Р Р…РЎвЂ№ Р Р†Р С•Р В»Р Р…РЎвЂ№ РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚Р С•Р в„– Р В»Р В°Р В·Р ВµРЎР‚Р В°
+static inline void ProgressPID_DOPLER_TEC(void){	// Регулировка длины волны температурой лазера
 	static float delta;
 	static float deltaPID;
-	// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Р†Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…
+	// Захват включен
 	if ((statusLoopPID & PID_FLAG_LOOP_DOPLER_TEC) == PID_FLAG_LOOP_DOPLER_TEC){
 		if (flagUpdateCompute_OUT2_DOPLER_TEC == true){
 			flagUpdateCompute_OUT2_DOPLER_TEC = false;
@@ -698,7 +685,7 @@ static inline void ProgressPID_DOPLER_TEC(void){	// Р В Р ВµР С–РЎС“Р В»Р С‘РЎР‚
 }
 
 
-static inline void Progress_MESSAGE(void){	// Kurchanov 27.07.2020
+static inline void Progress_MESSAGE(void){
 	static int i = 0;
 	if(b_MESSAGE)
 		{
@@ -723,9 +710,9 @@ static inline void Progress_MESSAGE(void){	// Kurchanov 27.07.2020
 			//F3 = (float)(my_F2F1_rez);
 			//F3 = (float)(0x0000ffff & my_F1F2_rez);
 
-			//F1 = (float)(my_DMA2_Data[36]);	// РЎР‚Р В°Р В±Р С•РЎвЂљР В°Р ВµРЎвЂљ
-			//F1 = (float)(my_DMA2_Data[0]);	// РЎР‚Р В°Р В±Р С•РЎвЂљР В°Р ВµРЎвЂљ
-			//F3 = (float)(p_my_DMA2_Data[36]);	// РЎР‚Р В°Р В±Р С•РЎвЂљР В°Р ВµРЎвЂљ
+			//F1 = (float)(my_DMA2_Data[36]);	// работает
+			//F1 = (float)(my_DMA2_Data[0]);	// работает
+			//F3 = (float)(p_my_DMA2_Data[36]);	// работает
 			
 																	//F3 = (float)i_MESSAGE_2;
 	//F3 = (float)(my_DMA2_Data_F0[12]);
@@ -753,21 +740,21 @@ static inline void Progress_MESSAGE(void){	// Kurchanov 27.07.2020
 }
 
 
-static inline void ProgressPID_OPTICS_PWR(void){	// Kurchanov 07.05.2020
+static inline void ProgressPID_OPTICS_PWR(void){
 	static float delta;
 	static float deltaPID;
 	static int iF0 = 0;
-	// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Р†Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…
-	if ((statusLoopPID & PID_FLAG_LOOP_OPTICS_PWR) == PID_FLAG_LOOP_OPTICS_PWR){	// !!!
+	// Захват включен
+	if ((statusLoopPID & PID_FLAG_LOOP_OPTICS_PWR) == PID_FLAG_LOOP_OPTICS_PWR){
 		if (flagUpdateCompute_OUT1_OPTICS_PWR == true){
 			flagUpdateCompute_OUT1_OPTICS_PWR = false;
 			if(!flagProcess_OUT1_OPTICS_PWR)
 			{
-				Reset_OPTICS_PWR_PID();	// РЎвЂћР С‘Р С”РЎРѓР С‘РЎР‚РЎС“Р ВµР С? Р Р†Р ВµР В»Р С‘РЎвЂЎР С‘Р Р…РЎвЂ№ fix_avrResult_OUT_DC Р С‘ fixValue_VY
+				Reset_OPTICS_PWR_PID();	// фиксируем величины fix_avrResult_OUT_DC и fixValue_VY
 				flagProcess_OUT1_OPTICS_PWR = true;
 			}
 				
-			// ProgressPID_DOPLER_CTRL() РЎС“Р В¶Р Вµ РЎР‚Р В°Р В±Р С•РЎвЂљР В°Р ВµРЎвЂљ !!
+			// ProgressPID_DOPLER_CTRL() уже работает !!
 			result_OUT1_OPTICS_PWR = avrResult_OUT_DC - fix_avrResult_OUT_DC;	// ??? avrResult_OUT_0R
 			delta = result_OUT1_OPTICS_PWR;
 
@@ -786,8 +773,8 @@ static inline void ProgressPID_OPTICS_PWR(void){	// Kurchanov 07.05.2020
 				GetOptionPID((int)GET_MESSAGE, &F1, &F2, &F3);
 			}
 			
-			// Р вЂ”Р вЂќР вЂўР РЋР В¬ Р СџР С›Р С™Р С’ Р С›Р РЋР СћР С’Р СњР С›Р вЂ™РїС—Р…?Р вЂєР РЋР Р‡, Р Т‘Р В°Р В»РЎРЉРЎв‚¬Р Вµ Р Р…Р Вµ Р С—РЎР‚Р В°Р Р†Р С‘Р В»
-			// Р Р…РЎС“Р В¶Р Р…Р С• РЎС“Р С—РЎР‚Р В°Р Р†Р В»РЎРЏРЎвЂљРЎРЉ Р Р†Р ВµР В»Р С‘РЎвЂЎР С‘Р Р…Р С•Р в„– value_VY
+			// ЗДЕСЬ ПОКА ОСТАНОВИЛСЯ, дальше не правил
+			// нужно управлять величиной value_VY
 			
 			//ltaPID = Compute_TECCTRL_PID(delta);
 			value_VY = fixValue_VY - deltaPID;
@@ -803,10 +790,10 @@ static inline void ProgressPID_OPTICS_PWR(void){	// Kurchanov 07.05.2020
 	}
 }
 
-static inline void ProgressPID_DOPLER_CTRL(void){	// Р В Р ВµР С–РЎС“Р В»Р С‘РЎР‚Р С•Р Р†Р С”Р В° Р Т‘Р В»Р С‘Р Р…РЎвЂ№ Р Р†Р С•Р В»Р Р…РЎвЂ№ РЎвЂљР С•Р С”Р С•Р С? Р В»Р В°Р В·Р ВµРЎР‚Р В°
+static inline void ProgressPID_DOPLER_CTRL(void){	// Регулировка длины волны током лазера
 	static float delta;
 	static float deltaPID;
-	// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Р†Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…
+	// Захват включен
 	if ((statusLoopPID & PID_FLAG_LOOP_DOPLER_CRNT) == PID_FLAG_LOOP_DOPLER_CRNT){
 		if (flagUpdateCompute_OUT2_DOPLER_CRNT == true){
 			flagUpdateCompute_OUT2_DOPLER_CRNT = false;
@@ -830,16 +817,16 @@ static inline void ProgressPID_DOPLER_CTRL(void){	// Р В Р ВµР С–РЎС“Р В»Р С‘РЎР
 static inline void ProgressPID_CELL(void){
 	static float delta;
 	static float deltaPID;
-	// Р СџРЎР‚Р С‘ РЎС“РЎРѓРЎвЂљР В°Р Р…Р С•Р Р†Р С”Р Вµ РЎР‚Р В°Р Р…Р ВµР Вµ Р Р…Р Вµ РЎС“РЎРѓРЎвЂљР В°Р Р…Р С•Р Р†Р В»Р ВµР Р…Р Р…Р С•Р С–Р С• РЎвЂћР В»Р В°Р С–Р В° PID_FLAG_LOOP_CELL
-	// Р Р†РЎвЂ№Р В·РЎвЂ№Р Р†Р В°РЎвЂљРЎРЉ Reset_CELL_PID();
-	// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Р†Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…
+	// При установке ранее не установленного флага PID_FLAG_LOOP_CELL
+	// вызывать Reset_CELL_PID();
+	// Захват включен
 	if ((statusLoopPID & PID_FLAG_LOOP_CELL) == PID_FLAG_LOOP_CELL){
 		if(!b_PID_FLAG_LOOP_CELL)
 		{
-			Reset_CELL_PID();						//  Р РЋР В±РЎР‚Р С•РЎРѓ PID РЎР‚Р ВµР С–РЎС“Р В»РЎРЏРЎвЂљР С•РЎР‚Р В° РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№ РЎРЏРЎвЂЎР ВµР в„–Р С”Р С‘
+			Reset_CELL_PID();						// Сброс PID регулятора температуры ячейки
 			b_PID_FLAG_LOOP_CELL = true;
 		}
-		if (flagUpdateCompute_CELL == true){		// flagUpdateCompute_CELL - 1 Р В Р С’Р вЂ” Р Р† 16 Р С?Р С‘Р В»Р В»Р С‘РЎРѓР ВµР С”РЎС“Р Р…Р Т‘ resultTemp_CELL = avrResult_OUT_0R; sum_OUT_0R = 0;
+		if (flagUpdateCompute_CELL == true){		// flagUpdateCompute_CELL - 1 РАЗ в 16 миллисекунд resultTemp_CELL = avrResult_OUT_0R; sum_OUT_0R = 0;
 			flagUpdateCompute_CELL = false;
 			delta = resultTemp_CELL;
 
@@ -868,23 +855,23 @@ static inline void ProgressPID_CELL(void){
 static inline void ProgressPID_SENSOR_CELL(void){
 	static float delta;
 	static float deltaPID;
-	// Р вЂ”Р В°РЎвЂ¦Р Р†Р В°РЎвЂљ Р Р†Р С”Р В»РЎР‹РЎвЂЎР ВµР Р…
+	// Захват включен
 	if ((statusLoopPID & PID_FLAG_LOOP_SENSOR_TEMP_CELL) == PID_FLAG_LOOP_SENSOR_TEMP_CELL){
 		if(!b_PID_FLAG_LOOP_SENSOR_TEMP_CELL)
 		{
-			Reset_CELL_PID();						// Р РЋР В±РЎР‚Р С•РЎРѓ PID РЎР‚Р ВµР С–РЎС“Р В»РЎРЏРЎвЂљР С•РЎР‚Р В° РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№ РЎРЏРЎвЂЎР ВµР в„–Р С”Р С‘
+			Reset_CELL_PID();						// Сброс PID регулятора температуры ячейки
 			b_PID_FLAG_LOOP_SENSOR_TEMP_CELL = true;
 		}
-		// Р вЂўРЎРѓРЎвЂљРЎРЉ Р Р…Р С•Р Р†РЎвЂ№Р Вµ Р Т‘Р В°Р Р…Р Р…РЎвЂ№Р Вµ
-		if (flagUpdateTempCell == true ){			// Р РЋР вЂўР в„ўР В§Р С’Р РЋ Р В¤Р вЂєР С’Р вЂњ Р СњР вЂў Р С›Р СџР В Р вЂўР вЂќР вЂўР вЂєР вЂўР Сњ Р РЋР С›Р вЂ™Р РЋР вЂўР Сљ, Р С•Р Р… = false
+		// Есть новые данные
+		if (flagUpdateTempCell == true ){			// СЕЙЧАС ФЛАГ НЕ ОПРЕДЕЛЕН СОВСЕМ, он = false
 			flagUpdateTempCell = false;
-			GetTEMP(); // value_TempCell - РЎРЊРЎвЂљР С• РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚Р В°
+			GetTEMP(); // value_TempCell - это температура
 			//value_TempCell = 335577;
 			f_MESSAGE_3 = value_Temp_D_Cell;
 
 			delta = levelTemp_D_CELL - value_Temp_D_Cell;
-			resultTemp_D_CELL = delta*98.0f; // Р вЂќР вЂєР Р‡ Р С?Р С•Р Р…Р С‘РЎвЂљР С•РЎР‚Р С‘Р Р…Р С–Р В° funWork_TEST_ADC() dataSend[4] = (int)(resultTemp_CELL*1000);
-			// Р С™Р С›Р В­Р В¤Р В¤Р пїЅР В¦Р пїЅР вЂўР СњР СћР В«
+			resultTemp_D_CELL = delta*98.0f; // ДЛЯ мониторинга funWork_TEST_ADC() dataSend[4] = (int)(resultTemp_CELL*1000);
+			// КОЭФФИЦИЕНТЫ
 			// 62 ==> 2048
 			// 65 ==> 1755
 			//  3 ==> -293
@@ -899,14 +886,14 @@ static inline void ProgressPID_SENSOR_CELL(void){
 				value__T5 = 55000;
 			}
 			value_T5 = value__T5;
-			flagUpdate_T5 = true; // РЎС“Р С—РЎР‚Р В°Р Р†Р В»РЎРЏР ВµР С? Р Р…Р В°Р С–РЎР‚Р ВµР Р†Р В°РЎвЂљР ВµР В»Р ВµР С? Р С—Р С•Р С”Р В°
+			flagUpdate_T5 = true; // управляем нагревателем пока
 		}
 	}	
 }
 //*/
 
 
-// Р СњР В°РЎРѓРЎвЂљРЎР‚Р В°Р С‘Р Р†Р В°Р ВµР С? Р Т‘Р В°РЎвЂљРЎвЂЎР С‘Р С” РЎвЂљР ВµР С?Р С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№ РЎРЏРЎвЂЎР ВµР в„–Р С”Р С‘ Р С—Р С• I2C
+// Настраиваем датчик температуры ячейки по I2C
 /*
 void InitTEMP(void){
 	//=======================================================
@@ -914,7 +901,7 @@ void InitTEMP(void){
 	I2C3_TxBuffer[0]	= ADT7410_REG_CONF;
 	I2C3_TxBuffer[1]	= ADT7410_RES_16 | ADT7410_CONV_SPS;
 	if (HAL_I2C_Master_Transmit(&hi2c3, addressI2C3<<1, &I2C3_TxBuffer[0], 2, 200) != HAL_OK){}
-	// Р вЂ”Р В°Р В±Р С‘РЎР‚Р В°Р ВµР С? Р Т‘Р В°Р Р…Р Р…РЎвЂ№Р Вµ
+	// Забираем данные
 	if (HAL_I2C_Master_Receive(&hi2c3, addressI2C3<<1, &I2C3_RxBuffer[0], 2, 200) == HAL_OK){
 		value_TempCell = ((int)(I2C3_RxBuffer[0] << 8 | I2C3_RxBuffer[1]))/128.0f;
 		TempCellIsCorrect = true;
