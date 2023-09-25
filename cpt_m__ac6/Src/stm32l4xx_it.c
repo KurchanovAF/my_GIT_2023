@@ -395,21 +395,21 @@ void DMA2_Channel4_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-// РћР±СЂР°Р±РѕС‚С‡РёРє РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
+// Обработчик программного прерывания
 void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 										//	HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 2, 0);
 										//	HAL_NVIC_SetPriority(DMA2_Channel4_IRQn, 3, 0);
 										//	HAL_NVIC_SetPriority(USART3_IRQn, 1, 0);					main()
 										//	HAL_NVIC_SetPriority(USART3_IRQn, 0, 0);					HAL_UART_MspInit()
-										//	HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);		РџСЂРёРѕСЂРёС‚РµС‚ = 11
-										//
-										//	РџСЂРµСЂС‹РІР°РЅРёСЏ РѕС‚ С‚Р°Р№РјРµСЂРѕРІ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅС‹
-										// UART3 - РЅР°РёРІС‹СЃС€РёР№ РїСЂРёРѕСЂРёС‚РµС‚ (Р·Р°С‡РµРј?)
-	// РћС‡РёСЃС‚РёР»Рё С„Р»Р°Рі РїСЂРµСЂС‹РІР°РЅРёСЏ
+										//	HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);		Приоритет = 11
+										//	Прерывания от таймеров раньше были не установлены (а теперь TIM4)
+										//  HAL_NVIC_SetPriority(TIM4_IRQn, 0, 0);
+										//  UART3 - наивысший приоритет (зачем?)
+	// Очистили флаг прерывания
 	EXTI->PR1 |= EXTI_PR1_PIF0;
 
 	//=================================
-	iT1__ = DWT->CYCCNT;	// РџР•Р пїЅ?РћР” = 119992 - 119995 // 119985 - 119990
+	iT1__ = DWT->CYCCNT;	// ПЕРИОД = 119992 - 119995 // 119985 - 119990
 	DWT->CYCCNT = 0;
 
 	/*
@@ -418,7 +418,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	}
 	//*/
 	DEBUG_maxDWT3 = DWT->CYCCNT;	// 59984 59986 59993 60007
-	// DEBUG_maxDWT3 = 68437, 60 РњР“С†, 1141 РјРєСЃ > 1 РјСЃ !!!
+	// DEBUG_maxDWT3 = 68437, 60 МГц, 1141 мкс > 1 мс !!!
 	// UpdateDataADC1() ==> maxDWT = 8329
 	 
 	DEBUG_maxDWT2 = DWT->CYCCNT;
@@ -428,7 +428,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	//DWT->CYCCNT = 0;
 	iT__n++;
 
-	// Р—Р°Р±РёСЂР°РµРј РІСЃРµ РґР°РЅРЅС‹Рµ РёР· Р±СѓС„РµСЂР°
+	// Забираем все данные из буфера
 	if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;
 	if(itemPartResultDMA1_ADC1 == itemPartResultDMA2_ADC2) my_alarm |= 0x20;
 
@@ -445,10 +445,10 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	itemPartResultDMA2_ADC2 = 0;
 
 	//my_alarm = 1;
-	// РЈСЃС‚Р°РЅРѕРІРєР° СѓРїСЂР°РІР»СЏСЋС‰РёС… РїР°СЂР°РјРµС‚СЂРѕРІ,
-	// РІС‹РґРµР»РµРЅРѕ 12 РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅС‹С… РїРѕСЂС†РёР№
-	// РєР°Р¶РґР°СЏ - РІ СЃРІРѕСЋ РёРґСѓС‰СѓСЋ РґСЂСѓРі Р·Р° РґСЂСѓРіРѕРј
-	// РјРёР»Р»РёСЃРµРєСѓРЅРґСѓ
+	// Установка управляющих параметров,
+	// выделено 12 последовательных порций
+	// каждая - в свою идущую друг за другом
+	// миллисекунду
 	//
 	/*
 	switch(itemWork)
@@ -459,7 +459,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	}
 	//*/
 
-	// Р’РЅРµ РѕС‡РµСЂРµРґРё !!
+	// Вне очереди !!
 	if (flagUpdate_U2R == true){
 		flagUpdate_U2R = false;
 		AD5668_WriteValue(AD5668_DAC_U2R , value_U2R);
@@ -469,26 +469,26 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 		flagUpdate_VY = false;
 		AD5668_WriteValue(AD5668_DAC_VY , value_VY);
 	}
-	if(b_my_ms_num)			// 1-Р№ С†РёРєР» РёР· 16 РјСЃ СѓР¶Рµ РїСЂРѕР№РґРµРЅ
+	if(b_my_ms_num)			// 1-й цикл из 16 мс уже пройден
 	switch(my_ms_num){
 		case 0:
-			// РџР°СЂР°РјРµС‚СЂС‹ РЅРµ РјРµРЅСЏСЋС‚СЃСЏ
-			//  1 - С‚РѕС‡РЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ С‡Р°СЃС‚РѕС‚РѕР№ (UT1A - РїРµСЂРµРїСѓС‚Р°РЅС‹)
-			//  2 - РјРѕС‰РЅРѕСЃС‚СЊ РЅР°РіСЂРµРІР° Р»Р°Р·РµСЂР°
-			//  3 - РіСЂСѓР±Р°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° Р»Р°Р·РµСЂР°
-			//  4 - Р·Р°РєР°Р·Р°РЅРЅС‹Р№ СѓСЂРѕРІРµРЅСЊ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ Р»Р°Р·РµСЂР°
-			//  5 - РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° РєР°С‚СѓС€РµРє
-			//  6 - РјРѕС‰РЅРѕСЃС‚СЊ РЅР°РіСЂРµРІР° СЏС‡РµР№РєРё
-			//  7 - С‚РѕРЅРєР°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° Р»Р°Р·РµСЂР°
-			//  8 - РіСЂСѓР±Р°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‡Р°СЃС‚РѕС‚С‹ (UT2A)
-			//  9 - СѓСЂРѕРІРµРЅСЊ РЎР’Р§
-			// 10 - РїР°СЂР°РјРµС‚СЂС‹ РґРµР»РёС‚РµР»СЏ Р¤РђРџР§
-			// 11 - СѓСЃРёР»РµРЅРёРµ С„РѕС‚РѕРїСЂРёРµРјРЅРёРєР°
-			//HAL_GPIO_WritePin(PPS1_GPIO_Port, PPS1_Pin, GPIO_PIN_RESET);	// РЅРµ СЂР°Р±РѕС‚Р°РµС‚
+			// Параметры не меняются
+			//  1 - точное управление частотой (UT1A - перепутан с UT2A)
+			//  2 - мощность нагрева лазера
+			//  3 - грубая настройка тока лазера
+			//  4 - заказанный уровень температуры лазера
+			//  5 - настройка тока катушек
+			//  6 - мощность нагрева ячейки
+			//  7 - тонкая настройка тока лазера
+			//  8 - грубая настройка частоты (UT2A)
+			//  9 - уровень СВЧ
+			// 10 - параметры делителя ФАПЧ
+			// 11 - усиление фотоприемника
+			//HAL_GPIO_WritePin(PPS1_GPIO_Port, PPS1_Pin, GPIO_PIN_RESET);	// не работает
 			break;
 		case 1:
 			//HAL_GPIO_WritePin(PPS1_GPIO_Port, PPS1_Pin, GPIO_PIN_RESET);
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РІР°Р¶РЅРµР№С€РёРµ РїР°СЂР°РјРµС‚СЂС‹, С‚РѕС‡РЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ С‡Р°СЃС‚РѕС‚РѕР№
+			// Устанавливаются важнейшие параметры, точное управление частотой
 			if (flagUpdate_UT1A == true){
 				flagUpdate_UT1A = false;
 				iT2__ = DWT->CYCCNT;
@@ -499,7 +499,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 2:
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 2-Р№ РѕС‡РµСЂРµРґРё, РјРѕС‰РЅРѕСЃС‚СЊ РЅР°РіСЂРµРІР° Р»Р°Р·РµСЂР°
+			// Устанавливаются параметры 2-й очереди, мощность нагрева лазера
 			if (flagUpdate_DTX == true){
 				flagUpdate_DTX = false;
 				AD5668_WriteValue(AD5668_DAC_DTX , value_DTX);
@@ -507,7 +507,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 3:
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 3-Р№ РѕС‡РµСЂРµРґРё, РіСЂСѓР±Р°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° Р»Р°Р·РµСЂР°
+			// Устанавливаются параметры 3-й очереди, грубая настройка тока лазера
 			/*
 			if (flagUpdate_VY == true){
 				flagUpdate_VY = false;
@@ -517,8 +517,8 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 4:
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 4-Р№ РѕС‡РµСЂРµРґРё, Р·Р°РєР°Р·Р°РЅРЅС‹Р№ СѓСЂРѕРІРµРЅСЊ С‚РµРјРїРµСЂР°С‚СѓСЂС‹
-			// СѓРїСЂР°РІР»РµРЅРёРµ РјРѕСЃС‚РѕРј РґР°С‚С‡РёРєР° С‚РµРјРїРµСЂР°С‚СѓСЂС‹ Р»Р°Р·РµСЂР°
+			// Устанавливаются параметры 4-й очереди, заказанный уровень температуры
+			// управление мостом датчика температуры лазера
 			//HAL_GPIO_WritePin(PPS1_GPIO_Port, PPS1_Pin, GPIO_PIN_SET);
 			if (flagUpdate_VT1 == true){
 				flagUpdate_VT1 = false;
@@ -527,7 +527,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 5:
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 5-Р№ РѕС‡РµСЂРµРґРё, РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° РєР°С‚СѓС€РµРє
+			// Устанавливаются параметры 5-й очереди, настройка тока катушек
 			if (flagUpdate_L1 == true){
 				flagUpdate_L1 = false;
 				AD5668_WriteValue(AD5668_DAC_L1 , value_L1);
@@ -535,7 +535,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 6:
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 6-Р№ РѕС‡РµСЂРµРґРё, РјРѕС‰РЅРѕСЃС‚СЊ РЅР°РіСЂРµРІР° СЏС‡РµР№РєРё
+			// Устанавливаются параметры 6-й очереди, мощность нагрева ячейки
 			if (flagUpdate_T5 == true){
 				flagUpdate_T5 = false;
 				AD5668_WriteValue(AD5668_DAC_T5 , value_T5);
@@ -543,7 +543,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 7:
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 7-Р№ РѕС‡РµСЂРµРґРё, С‚РѕРЅРєР°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° Р»Р°Р·РµСЂР°
+			// Устанавливаются параметры 7-й очереди, тонкая настройка тока лазера
 			/*
 			if (flagUpdate_U2R == true){
 				flagUpdate_U2R = false;
@@ -553,7 +553,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 8:
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 8-Р№ РѕС‡РµСЂРµРґРё, РіСЂСѓР±Р°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‡Р°СЃС‚РѕС‚С‹
+			// Устанавливаются параметры 8-й очереди, грубая настройка частоты
 			if (flagUpdate_UT2A == true){
 				flagUpdate_UT2A = false;
 				AD5668_WriteValue(AD5668_DAC_UT2A , value_UT2A);
@@ -561,7 +561,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 9:
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 9-Р№ РѕС‡РµСЂРµРґРё, СѓСЂРѕРІРµРЅСЊ РЎР’Р§
+			// Устанавливаются параметры 9-й очереди, уровень СВЧ
 			if (flagUpdate_RFI == true){
 				flagUpdate_RFI = false;
 				value_RFI = value_RFI & 0xFFF;
@@ -571,7 +571,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 10:
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 10-Р№ РѕС‡РµСЂРµРґРё, РїР°СЂР°РјРµС‚СЂС‹ РґРµР»РёС‚РµР»СЏ Р¤РђРџР§
+			// Устанавливаются параметры 10-й очереди, параметры делителя ФАПЧ
 			if (flagUpdate_LMX2486 == true){
 				flagUpdate_LMX2486 = false;
 				LMX2486_SetFreq(LMX_ValueN, LMX_ValueFN, LMX_ValueFD);
@@ -580,7 +580,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 11:
-			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 11-Р№ РѕС‡РµСЂРµРґРё, СѓСЃРёР»РµРЅРёРµ С„РѕС‚РѕРїСЂРёРµРјРЅРёРєР°
+			// Устанавливаются параметры 11-й очереди, усиление фотоприемника
 			if (flagUpdate_OutFactor == true){
 				flagUpdate_OutFactor = false;
 				AD8400_SetValue(value_OutFactor);
@@ -592,7 +592,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	}
 	if(my_ms_num == 16) my_ms_num = 0;
 
-	// РџСЂРѕРіСЂР°РјРјРЅР°СЏ РјРѕРґСѓР»СЏС†РёСЏ
+	// Программная модуляция
 	switch(itemMOD_CRNT){
 		case 0:
 			//value_U2R = fixValue_U2R + MOD_CRNT_width;
@@ -623,7 +623,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			break;
 	}
 	
-	// РџРѕС‚РѕРєРѕРІС‹Рµ С„СѓРЅРєС†РёРё
+	// Потоковые функции
 	switch(itemWork){
 		case WORK_NONE:
 			funWork_VOID_TEST();
@@ -728,7 +728,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	{
 		flagUpdateTempCell = true;
 		iF0 = 0;
-		i_MESSAGE_1 = iT1__; // РџРµСЂРёРѕРґ РіР»Р°РІРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
+		i_MESSAGE_1 = iT1__; // Период главного прерывания
 		i_MESSAGE_2 = iT4__; // Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ РіР»Р°РІРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
 		i_MESSAGE_3 = (int)delta_DOPLER_DC; // РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРѕРёР·РѕС€РµРґС€РёС… РіР»Р°РІРЅС‹С… РїСЂРµСЂС‹РІР°РЅРёР№
 		//i_MESSAGE_3 = 141570;	// TEST
