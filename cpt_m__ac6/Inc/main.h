@@ -78,13 +78,6 @@ void Error_Handler(void);
 #define ADC2_OUT0R_GPIO_Port GPIOC
 #define RES_Pin GPIO_PIN_5
 #define RES_GPIO_Port GPIOC
-//=======================================
-#define PPS1_Pin GPIO_PIN_7
-#define PPS1_GPIO_Port GPIOC
-#define PPS2_Pin GPIO_PIN_9
-#define PPS2_GPIO_Port GPIOA
-//=======================================
-
 #define DAC_CLR_Pin GPIO_PIN_0
 #define DAC_CLR_GPIO_Port GPIOB
 #define ADC1_OUT3_Pin GPIO_PIN_1
@@ -93,6 +86,8 @@ void Error_Handler(void);
 #define DAC_LDAC_GPIO_Port GPIOB
 #define DAC_nCS_Pin GPIO_PIN_12
 #define DAC_nCS_GPIO_Port GPIOB
+#define PPS1_Pin GPIO_PIN_7
+#define PPS1_GPIO_Port GPIOC
 #define SX100KHZ_Pin GPIO_PIN_8
 #define SX100KHZ_GPIO_Port GPIOC
 #define DAC_LDACA11_Pin GPIO_PIN_11

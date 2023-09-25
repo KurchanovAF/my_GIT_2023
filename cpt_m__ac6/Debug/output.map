@@ -3991,7 +3991,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/dac.o
  .debug_macro   0x00000000       0x44 Src/dac.o
  .debug_macro   0x00000000      0x349 Src/dac.o
- .debug_macro   0x00000000      0x10c Src/dac.o
+ .debug_macro   0x00000000      0x100 Src/dac.o
  .group         0x00000000        0xc Src/dma.o
  .group         0x00000000        0xc Src/dma.o
  .group         0x00000000        0xc Src/dma.o
@@ -4086,7 +4086,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/dma.o
  .debug_macro   0x00000000       0x44 Src/dma.o
  .debug_macro   0x00000000      0x349 Src/dma.o
- .debug_macro   0x00000000      0x10c Src/dma.o
+ .debug_macro   0x00000000      0x100 Src/dma.o
  .group         0x00000000        0xc Src/gpio.o
  .group         0x00000000        0xc Src/gpio.o
  .group         0x00000000        0xc Src/gpio.o
@@ -4181,7 +4181,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/gpio.o
  .debug_macro   0x00000000       0x44 Src/gpio.o
  .debug_macro   0x00000000      0x349 Src/gpio.o
- .debug_macro   0x00000000      0x10c Src/gpio.o
+ .debug_macro   0x00000000      0x100 Src/gpio.o
  .group         0x00000000        0xc Src/hist.o
  .group         0x00000000        0xc Src/hist.o
  .group         0x00000000        0xc Src/hist.o
@@ -4375,7 +4375,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/i2c.o
  .debug_macro   0x00000000       0x44 Src/i2c.o
  .debug_macro   0x00000000      0x349 Src/i2c.o
- .debug_macro   0x00000000      0x10c Src/i2c.o
+ .debug_macro   0x00000000      0x100 Src/i2c.o
  .group         0x00000000        0xc Src/interface_AD5668.o
  .group         0x00000000        0xc Src/interface_AD5668.o
  .group         0x00000000        0xc Src/interface_AD5668.o
@@ -4668,7 +4668,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/interface_ADT7410.o
  .debug_macro   0x00000000       0x44 Src/interface_ADT7410.o
  .debug_macro   0x00000000      0x349 Src/interface_ADT7410.o
- .debug_macro   0x00000000      0x10c Src/interface_ADT7410.o
+ .debug_macro   0x00000000      0x100 Src/interface_ADT7410.o
  .debug_macro   0x00000000       0x22 Src/interface_ADT7410.o
  .debug_macro   0x00000000       0x10 Src/interface_ADT7410.o
  .debug_macro   0x00000000       0xe8 Src/interface_ADT7410.o
@@ -4891,7 +4891,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/main.o
  .debug_macro   0x00000000       0x44 Src/main.o
  .debug_macro   0x00000000      0x349 Src/main.o
- .debug_macro   0x00000000      0x10c Src/main.o
+ .debug_macro   0x00000000      0x100 Src/main.o
  .debug_macro   0x00000000       0x22 Src/main.o
  .debug_macro   0x00000000       0x10 Src/main.o
  .debug_macro   0x00000000       0xe8 Src/main.o
@@ -5457,7 +5457,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/spi.o
  .debug_macro   0x00000000       0x44 Src/spi.o
  .debug_macro   0x00000000      0x349 Src/spi.o
- .debug_macro   0x00000000      0x10c Src/spi.o
+ .debug_macro   0x00000000      0x100 Src/spi.o
  .group         0x00000000        0xc Src/stm32l4xx_hal_msp.o
  .group         0x00000000        0xc Src/stm32l4xx_hal_msp.o
  .group         0x00000000        0xc Src/stm32l4xx_hal_msp.o
@@ -5552,7 +5552,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/stm32l4xx_hal_msp.o
  .debug_macro   0x00000000       0x44 Src/stm32l4xx_hal_msp.o
  .debug_macro   0x00000000      0x349 Src/stm32l4xx_hal_msp.o
- .debug_macro   0x00000000      0x10c Src/stm32l4xx_hal_msp.o
+ .debug_macro   0x00000000      0x100 Src/stm32l4xx_hal_msp.o
  .group         0x00000000        0xc Src/stm32l4xx_it.o
  .group         0x00000000        0xc Src/stm32l4xx_it.o
  .group         0x00000000        0xc Src/stm32l4xx_it.o
@@ -5653,7 +5653,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/stm32l4xx_it.o
  .debug_macro   0x00000000       0x44 Src/stm32l4xx_it.o
  .debug_macro   0x00000000      0x349 Src/stm32l4xx_it.o
- .debug_macro   0x00000000      0x10c Src/stm32l4xx_it.o
+ .debug_macro   0x00000000      0x100 Src/stm32l4xx_it.o
  .debug_macro   0x00000000       0x22 Src/stm32l4xx_it.o
  .debug_macro   0x00000000       0x10 Src/stm32l4xx_it.o
  .debug_macro   0x00000000       0xe8 Src/stm32l4xx_it.o
@@ -5975,7 +5975,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/tim.o
  .debug_macro   0x00000000       0x44 Src/tim.o
  .debug_macro   0x00000000      0x349 Src/tim.o
- .debug_macro   0x00000000      0x10c Src/tim.o
+ .debug_macro   0x00000000      0x100 Src/tim.o
  .group         0x00000000        0xc Src/usart.o
  .group         0x00000000        0xc Src/usart.o
  .group         0x00000000        0xc Src/usart.o
@@ -6072,7 +6072,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/usart.o
  .debug_macro   0x00000000       0x44 Src/usart.o
  .debug_macro   0x00000000      0x349 Src/usart.o
- .debug_macro   0x00000000      0x10c Src/usart.o
+ .debug_macro   0x00000000      0x100 Src/usart.o
  .group         0x00000000        0xc Src/usart_protocol.o
  .group         0x00000000        0xc Src/usart_protocol.o
  .group         0x00000000        0xc Src/usart_protocol.o
@@ -8197,7 +8197,7 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_ranges  0x00001d70       0x68 Src/usart_protocol.o
  .debug_ranges  0x00001dd8       0x20 startup/startup_stm32l476xx.o
 
-.debug_macro    0x00000000    0x2d20b
+.debug_macro    0x00000000    0x2d1ff
  .debug_macro   0x00000000      0x273 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_macro   0x00000273      0xa54 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_macro   0x00000cc7      0x1bf Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
@@ -8262,42 +8262,42 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_macro   0x000286f3      0x234 Src/LSM303D.o
  .debug_macro   0x00028927      0x385 Src/LSM303D.o
  .debug_macro   0x00028cac      0x23e Src/adc.o
- .debug_macro   0x00028eea      0x10c Src/adc.o
- .debug_macro   0x00028ff6      0x23e Src/dac.o
- .debug_macro   0x00029234      0x23e Src/dma.o
- .debug_macro   0x00029472      0x23e Src/gpio.o
- .debug_macro   0x000296b0      0x2f7 Src/hist.o
- .debug_macro   0x000299a7       0x22 Src/hist.o
- .debug_macro   0x000299c9       0x10 Src/hist.o
- .debug_macro   0x000299d9       0xe8 Src/hist.o
- .debug_macro   0x00029ac1      0x1d0 Src/hist.o
- .debug_macro   0x00029c91       0x52 Src/hist.o
- .debug_macro   0x00029ce3       0xb1 Src/hist.o
- .debug_macro   0x00029d94      0x23e Src/i2c.o
- .debug_macro   0x00029fd2      0x24d Src/interface_AD5668.o
- .debug_macro   0x0002a21f      0x24e Src/interface_AD8400.o
- .debug_macro   0x0002a46d      0x309 Src/interface_ADT7410.o
- .debug_macro   0x0002a776       0x10 Src/interface_ADT7410.o
- .debug_macro   0x0002a786      0x2fc Src/interface_LMX2486.o
- .debug_macro   0x0002aa82      0x36a Src/main.o
- .debug_macro   0x0002adec      0x38b Src/main.o
- .debug_macro   0x0002b177      0x2f6 Src/my_FUN_.o
- .debug_macro   0x0002b46d      0x2f0 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x0002b75d      0x2f0 Src/pid_MICROWAVE.o
- .debug_macro   0x0002ba4d       0x24 Src/pid_cell.o
- .debug_macro   0x0002ba71       0x24 Src/pid_dopler_crnt.o
- .debug_macro   0x0002ba95       0x24 Src/pid_dopler_tec.o
- .debug_macro   0x0002bab9       0x24 Src/pid_freq.o
- .debug_macro   0x0002badd      0x2f0 Src/pid_optics_pwr.o
- .debug_macro   0x0002bdcd       0x24 Src/pid_tec_ctrl.o
- .debug_macro   0x0002bdf1      0x23e Src/spi.o
- .debug_macro   0x0002c02f      0x234 Src/stm32l4xx_hal_msp.o
- .debug_macro   0x0002c263      0x321 Src/stm32l4xx_it.o
- .debug_macro   0x0002c584      0x22b Src/system_stm32l4xx.o
- .debug_macro   0x0002c7af      0x23e Src/tim.o
- .debug_macro   0x0002c9ed      0x23e Src/usart.o
- .debug_macro   0x0002cc2b      0x2f4 Src/usart_protocol.o
- .debug_macro   0x0002cf1f      0x2ec Src/var.o
+ .debug_macro   0x00028eea      0x100 Src/adc.o
+ .debug_macro   0x00028fea      0x23e Src/dac.o
+ .debug_macro   0x00029228      0x23e Src/dma.o
+ .debug_macro   0x00029466      0x23e Src/gpio.o
+ .debug_macro   0x000296a4      0x2f7 Src/hist.o
+ .debug_macro   0x0002999b       0x22 Src/hist.o
+ .debug_macro   0x000299bd       0x10 Src/hist.o
+ .debug_macro   0x000299cd       0xe8 Src/hist.o
+ .debug_macro   0x00029ab5      0x1d0 Src/hist.o
+ .debug_macro   0x00029c85       0x52 Src/hist.o
+ .debug_macro   0x00029cd7       0xb1 Src/hist.o
+ .debug_macro   0x00029d88      0x23e Src/i2c.o
+ .debug_macro   0x00029fc6      0x24d Src/interface_AD5668.o
+ .debug_macro   0x0002a213      0x24e Src/interface_AD8400.o
+ .debug_macro   0x0002a461      0x309 Src/interface_ADT7410.o
+ .debug_macro   0x0002a76a       0x10 Src/interface_ADT7410.o
+ .debug_macro   0x0002a77a      0x2fc Src/interface_LMX2486.o
+ .debug_macro   0x0002aa76      0x36a Src/main.o
+ .debug_macro   0x0002ade0      0x38b Src/main.o
+ .debug_macro   0x0002b16b      0x2f6 Src/my_FUN_.o
+ .debug_macro   0x0002b461      0x2f0 Src/pid_DOPLER_FREQ.o
+ .debug_macro   0x0002b751      0x2f0 Src/pid_MICROWAVE.o
+ .debug_macro   0x0002ba41       0x24 Src/pid_cell.o
+ .debug_macro   0x0002ba65       0x24 Src/pid_dopler_crnt.o
+ .debug_macro   0x0002ba89       0x24 Src/pid_dopler_tec.o
+ .debug_macro   0x0002baad       0x24 Src/pid_freq.o
+ .debug_macro   0x0002bad1      0x2f0 Src/pid_optics_pwr.o
+ .debug_macro   0x0002bdc1       0x24 Src/pid_tec_ctrl.o
+ .debug_macro   0x0002bde5      0x23e Src/spi.o
+ .debug_macro   0x0002c023      0x234 Src/stm32l4xx_hal_msp.o
+ .debug_macro   0x0002c257      0x321 Src/stm32l4xx_it.o
+ .debug_macro   0x0002c578      0x22b Src/system_stm32l4xx.o
+ .debug_macro   0x0002c7a3      0x23e Src/tim.o
+ .debug_macro   0x0002c9e1      0x23e Src/usart.o
+ .debug_macro   0x0002cc1f      0x2f4 Src/usart_protocol.o
+ .debug_macro   0x0002cf13      0x2ec Src/var.o
 
 .debug_line     0x00000000    0x1c451
  .debug_line    0x00000000      0x9f0 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
@@ -8348,7 +8348,7 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_line    0x0001bb6f      0x864 Src/var.o
  .debug_line    0x0001c3d3       0x7e startup/startup_stm32l476xx.o
 
-.debug_str      0x00000000   0x10b240
+.debug_str      0x00000000   0x10b217
  .debug_str     0x00000000    0xff631 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
                               0xffc93 (size before relaxing)
  .debug_str     0x000ff631      0xe5a Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o
@@ -8383,65 +8383,65 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
                               0xffd79 (size before relaxing)
  .debug_str     0x00105dbf      0xf6d Src/LSM303D.o
                              0x10038d (size before relaxing)
- .debug_str     0x00106d2c      0x492 Src/adc.o
-                              0xffb31 (size before relaxing)
- .debug_str     0x001071be       0x46 Src/dac.o
-                              0xff9d3 (size before relaxing)
- .debug_str     0x00107204       0x24 Src/dma.o
-                              0xff9e8 (size before relaxing)
- .debug_str     0x00107228       0x27 Src/gpio.o
-                              0xff5a4 (size before relaxing)
- .debug_str     0x0010724f     0x2ae7 Src/hist.o
+ .debug_str     0x00106d2c      0x469 Src/adc.o
+                              0xffb08 (size before relaxing)
+ .debug_str     0x00107195       0x46 Src/dac.o
+                              0xff9aa (size before relaxing)
+ .debug_str     0x001071db       0x24 Src/dma.o
+                              0xff9bf (size before relaxing)
+ .debug_str     0x001071ff       0x27 Src/gpio.o
+                              0xff57b (size before relaxing)
+ .debug_str     0x00107226     0x2ae7 Src/hist.o
                              0x101c77 (size before relaxing)
- .debug_str     0x00109d36       0x35 Src/i2c.o
-                              0xffa82 (size before relaxing)
- .debug_str     0x00109d6b       0x65 Src/interface_AD5668.o
+ .debug_str     0x00109d0d       0x35 Src/i2c.o
+                              0xffa59 (size before relaxing)
+ .debug_str     0x00109d42       0x65 Src/interface_AD5668.o
                               0xff50e (size before relaxing)
- .debug_str     0x00109dd0       0x5f Src/interface_AD8400.o
+ .debug_str     0x00109da7       0x5f Src/interface_AD8400.o
                               0xff0ca (size before relaxing)
- .debug_str     0x00109e2f       0x38 Src/interface_ADT7410.o
-                             0x102567 (size before relaxing)
- .debug_str     0x00109e67      0x195 Src/interface_LMX2486.o
+ .debug_str     0x00109e06       0x38 Src/interface_ADT7410.o
+                             0x10253e (size before relaxing)
+ .debug_str     0x00109e3e      0x195 Src/interface_LMX2486.o
                              0x101ec3 (size before relaxing)
- .debug_str     0x00109ffc      0x7aa Src/main.o
-                             0x10512a (size before relaxing)
- .debug_str     0x0010a7a6       0x1e Src/my_FUN.o
+ .debug_str     0x00109fd3      0x7aa Src/main.o
+                             0x105101 (size before relaxing)
+ .debug_str     0x0010a77d       0x1e Src/my_FUN.o
                                  0x3e (size before relaxing)
- .debug_str     0x0010a7c4       0x59 Src/my_FUN_.o
+ .debug_str     0x0010a79b       0x59 Src/my_FUN_.o
                              0x101cc6 (size before relaxing)
- .debug_str     0x0010a81d       0xce Src/pid_DOPLER_FREQ.o
+ .debug_str     0x0010a7f4       0xce Src/pid_DOPLER_FREQ.o
                              0x101d66 (size before relaxing)
- .debug_str     0x0010a8eb       0xba Src/pid_MICROWAVE.o
+ .debug_str     0x0010a8c2       0xba Src/pid_MICROWAVE.o
                              0x101d4e (size before relaxing)
- .debug_str     0x0010a9a5       0x88 Src/pid_cell.o
+ .debug_str     0x0010a97c       0x88 Src/pid_cell.o
                                0x2def (size before relaxing)
- .debug_str     0x0010aa2d       0xe4 Src/pid_dopler_crnt.o
+ .debug_str     0x0010aa04       0xe4 Src/pid_dopler_crnt.o
                                0x2e5f (size before relaxing)
- .debug_str     0x0010ab11       0xd9 Src/pid_dopler_tec.o
+ .debug_str     0x0010aae8       0xd9 Src/pid_dopler_tec.o
                                0x2e4f (size before relaxing)
- .debug_str     0x0010abea       0x21 Src/pid_freq.o
+ .debug_str     0x0010abc1       0x21 Src/pid_freq.o
                                0x2def (size before relaxing)
- .debug_str     0x0010ac0b       0xc4 Src/pid_optics_pwr.o
+ .debug_str     0x0010abe2       0xc4 Src/pid_optics_pwr.o
                              0x101d5a (size before relaxing)
- .debug_str     0x0010accf       0xb9 Src/pid_tec_ctrl.o
+ .debug_str     0x0010aca6       0xb9 Src/pid_tec_ctrl.o
                                0x2e20 (size before relaxing)
- .debug_str     0x0010ad88       0x17 Src/spi.o
-                              0xff9a9 (size before relaxing)
- .debug_str     0x0010ad9f       0x1b Src/stm32l4xx_hal_msp.o
-                              0xff4e2 (size before relaxing)
- .debug_str     0x0010adba      0x2c4 Src/stm32l4xx_it.o
-                             0x10328a (size before relaxing)
- .debug_str     0x0010b07e       0x50 Src/system_stm32l4xx.o
+ .debug_str     0x0010ad5f       0x17 Src/spi.o
+                              0xff980 (size before relaxing)
+ .debug_str     0x0010ad76       0x1b Src/stm32l4xx_hal_msp.o
+                              0xff4b9 (size before relaxing)
+ .debug_str     0x0010ad91      0x2c4 Src/stm32l4xx_it.o
+                             0x103261 (size before relaxing)
+ .debug_str     0x0010b055       0x50 Src/system_stm32l4xx.o
                               0xff172 (size before relaxing)
- .debug_str     0x0010b0ce       0x4e Src/tim.o
-                             0x1002e7 (size before relaxing)
- .debug_str     0x0010b11c       0x1a Src/usart.o
-                              0xffea3 (size before relaxing)
- .debug_str     0x0010b136       0xca Src/usart_protocol.o
+ .debug_str     0x0010b0a5       0x4e Src/tim.o
+                             0x1002be (size before relaxing)
+ .debug_str     0x0010b0f3       0x1a Src/usart.o
+                              0xffe7a (size before relaxing)
+ .debug_str     0x0010b10d       0xca Src/usart_protocol.o
                              0x102146 (size before relaxing)
- .debug_str     0x0010b200       0x1f Src/var.o
+ .debug_str     0x0010b1d7       0x1f Src/var.o
                              0x101cee (size before relaxing)
- .debug_str     0x0010b21f       0x21 startup/startup_stm32l476xx.o
+ .debug_str     0x0010b1f6       0x21 startup/startup_stm32l476xx.o
                                  0x4f (size before relaxing)
 
 .comment        0x00000000       0x7f
