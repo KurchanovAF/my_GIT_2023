@@ -259,18 +259,18 @@ void DMA1_Channel1_IRQHandler(void)
 
 	// Вся партия данных получена
 	if ( itemPartResultDMA1_ADC1 != 0 && 
-		 itemPartResultDMA2_ADC2 != 0){
-		if(1) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		//  Прерывание вызывать НЕЛЬЗЯ
+		 itemPartResultDMA2_ADC2 != 0){	// Kurchanov 18.01.2021
+		if(1) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		// РџСЂРµСЂС‹РІР°РЅРёРµ РІС‹Р·С‹РІР°С‚СЊ РќР•Р›Р¬Р—РЇ
 		{
-			// Вызов программного прерывания
-			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
-			my_alarm |= 0x01;							// ВЫПОЛНЯЕТСЯ
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Проявляется при сканировании длины волны
+			// Р’С‹Р·РѕРІ РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
+			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// РџР•Р пїЅ?РћР” = 60000
+			my_alarm |= 0x01;							// Р’Р«РџРћР›РќРЇР•РўРЎРЇ
+			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// РџСЂРѕСЏРІР»СЏРµС‚СЃСЏ РїСЂРё СЃРєР°РЅРёСЂРѕРІР°РЅРёРё РґР»РёРЅС‹ РІРѕР»РЅС‹
 		}
-		else										// Прерывание вызывать МОЖНО
+		else										// РџСЂРµСЂС‹РІР°РЅРёРµ РІС‹Р·С‹РІР°С‚СЊ РњРћР–РќРћ
 		{
-			//my_alarm |= 0x02;	// НЕ ВЫПОЛНЯЕТСЯ // Приоритет Very High
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Не проявляется
+			//my_alarm |= 0x02;	// РќР• Р’Р«РџРћР›РќРЇР•РўРЎРЇ // РџСЂРёРѕСЂРёС‚РµС‚ Very High
+			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// РќРµ РїСЂРѕСЏРІР»СЏРµС‚СЃСЏ
 		}
 	}
 	#if defined(AUTODMA1)
@@ -287,35 +287,35 @@ void DMA1_Channel1_IRQHandler(void)
 void TIM4_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM4_IRQn 0 */
-  // 1) увеличить счетчик №1
-  // 2) если стал равен 19 установить признак 2-й части периода если была первая и одновременно
-  // записать нужное значение в регистр sConfigOC.Pulse
+  // 1) СѓРІРµР»РёС‡РёС‚СЊ СЃС‡РµС‚С‡РёРє в„–1
+  // 2) РµСЃР»Рё СЃС‚Р°Р» СЂР°РІРµРЅ 19 СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РїСЂРёР·РЅР°Рє 2-Р№ С‡Р°СЃС‚Рё РїРµСЂРёРѕРґР° РµСЃР»Рё Р±С‹Р»Р° РїРµСЂРІР°СЏ Рё РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ
+  // Р·Р°РїРёСЃР°С‚СЊ РЅСѓР¶РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РІ СЂРµРіРёСЃС‚СЂ sConfigOC.Pulse
   //htim4->Instance->
   num_TIM4++;
   if(num_TIM4 == 40)	// 10 ==> 5 + 5
   {
 	  if(b_TIM4)
 	  {
-		  // первая половина окончилась
+		  // РїРµСЂРІР°СЏ РїРѕР»РѕРІРёРЅР° РѕРєРѕРЅС‡РёР»Р°СЃСЊ
 		  //htim4.Instance->CCR3 = (uint32_t)69;//40;//55;//40;
 		  b_TIM4 = false;
 	  }
 	  else
 	  {
-		  // вторая половина окончилась
+		  // РІС‚РѕСЂР°СЏ РїРѕР»РѕРІРёРЅР° РѕРєРѕРЅС‡РёР»Р°СЃСЊ
 		  //htim4.Instance->CCR3 = (uint32_t)65;//85;//70;//85;
 		  b_TIM4 = true;
 	  }
 	  num_TIM4 = 0;
   }
-  //TIM4->SR &= ~TIM_SR_UIF; // сбрасываем прерывание
-  TIM4->SR = ~TIM_SR_UIF; // сбрасываем прерывание
+  //TIM4->SR &= ~TIM_SR_UIF; // СЃР±СЂР°СЃС‹РІР°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ
+  TIM4->SR = ~TIM_SR_UIF; // СЃР±СЂР°СЃС‹РІР°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ
 
   // СТРОЧКУ НИЖЕ:
   // HAL_TIM_IRQHandler(&htim4);
   // НУЖНО ЗАКОММЕНТИРОВАТЬ !!
   /* USER CODE END TIM4_IRQn 0 */
-  //HAL_TIM_IRQHandler(&htim4);			// закомментировал
+  HAL_TIM_IRQHandler(&htim4);
   /* USER CODE BEGIN TIM4_IRQn 1 */
 
   /* USER CODE END TIM4_IRQn 1 */
@@ -344,46 +344,46 @@ void DMA2_Channel4_IRQHandler(void)
   /* USER CODE BEGIN DMA2_Channel4_IRQn 0 */
 	// ADC2 Priority High
 	uint32_t flag_it = DMA2->ISR;
-	// Первая половина буфера заполнена
+	// РџРµСЂРІР°СЏ РїРѕР»РѕРІРёРЅР° Р±СѓС„РµСЂР° Р·Р°РїРѕР»РЅРµРЅР°
 	if ( (flag_it & DMA_FLAG_HT4) == DMA_FLAG_HT4){
-		// Отключаем прерывание по заполнению первой половины
+		// РћС‚РєР»СЋС‡Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ РїРѕ Р·Р°РїРѕР»РЅРµРЅРёСЋ РїРµСЂРІРѕР№ РїРѕР»РѕРІРёРЅС‹
     DMA2_Channel4->CCR &= ~DMA_IT_HT;
-		// Номер части буфера, заполнена 1
+		// РќРѕРјРµСЂ С‡Р°СЃС‚Рё Р±СѓС„РµСЂР° Р·Р°РїРѕР»РЅРµРЅР° 1
 		itemPartResultDMA2_ADC2 = 1;	
-	// Буфер был заполнен
+	// Р‘СѓС„РµСЂ Р±С‹Р» Р·Р°РїРѕР»РЅРµРЅ
   } else if ((flag_it & DMA_ISR_TCIF4) == DMA_ISR_TCIF4){ 
-		// Включаем прерывание по заполнению первой половины
+		// Р’РєР»СЋС‡Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ РїРѕ Р·Р°РїРѕР»РЅРµРЅРёСЋ РїРµСЂРІРѕР№ РїРѕР»РѕРІРёРЅС‹
     DMA2_Channel4->CCR |= DMA_IT_HT;
-		// Номер части буфера, заполнена 2
+		// РќРѕРјРµСЂ С‡Р°СЃС‚Рё Р±СѓС„РµСЂР° Р·Р°РїРѕР»РЅРµРЅР° 2
 		itemPartResultDMA2_ADC2 = 2;			
   }
-	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
+	// Clear all interrupt flags ERRATA РЅРµ РѕС‡РёС‰Р°С‚СЊ CGIF, РІР·Р°РјРµРЅ HTIFx, TCIFx Рё TEIFx
 	DMA2->IFCR |= DMA_IFCR_CTCIF4;
 	DMA2->IFCR |= DMA_IFCR_CHTIF4;
 	DMA2->IFCR |= DMA_IFCR_CTEIF4;
 	
 	//=================================
-	//iT1__ = DWT->CYCCNT;	// ПЕРИОД = 60121 - 60125
+	//iT1__ = DWT->CYCCNT;	// РџР•Р пїЅ?РћР” = 60121 - 60125
 	//DWT->CYCCNT = 0;
 
-	// Вся партия данных получена
+	// Р’СЃСЏ РїР°СЂС‚РёСЏ РґР°РЅРЅС‹С… РїРѕР»СѓС‡РµРЅР°
 	if ( itemPartResultDMA1_ADC1 != 0 && 
-		 itemPartResultDMA2_ADC2 != 0){
-		if(1) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		// Прерывание вызывать НЕЛЬЗЯ
+		 itemPartResultDMA2_ADC2 != 0){	// Kurchanov 18.01.2021
+		if(1) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		// РџСЂРµСЂС‹РІР°РЅРёРµ РІС‹Р·С‹РІР°С‚СЊ РќР•Р›Р¬Р—РЇ
 		{
-			// Вызов программного прерывания
-			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// Всегда выполняется именно здесь
-			my_alarm |= 0x04;							// НЕ ВЫПОЛНЯЕТСЯ
+			// Р’С‹Р·РѕРІ РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
+			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// Р’СЃРµРіРґР° РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РёРјРµРЅРЅРѕ Р·РґРµСЃСЊ
+			my_alarm |= 0x04;							// РќР• Р’Р«РџРћР›РќРЇР•РўРЎРЇ
 			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x20;
 			//EXTI->PR1 |= EXTI_PR1_PIF0;
 		}
-		else										// Прерывание вызывать МОЖНО
+		else										// РџСЂРµСЂС‹РІР°РЅРёРµ РІС‹Р·С‹РІР°С‚СЊ РњРћР–РќРћ
 		{
-			// Вызов программного прерывания
-			//EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
+			// Р’С‹Р·РѕРІ РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
+			//EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// РџР•Р пїЅ?РћР” = 60000
 			//EXTI->SWIER1 |= EXTI_SWIER1_SWI0;
-			//my_alarm |= 0x08;							// ВЫПОЛНЯЕТСЯ		// Приоритет High
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x20;	// Проявляется при сканировании длины волны
+			//my_alarm |= 0x08;							// Р’Р«РџРћР›РќРЇР•РўРЎРЇ		// РџСЂРёРѕСЂРёС‚РµС‚ High
+			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x20;	// РџСЂРѕСЏРІР»СЏРµС‚СЃСЏ РїСЂРё СЃРєР°РЅРёСЂРѕРІР°РЅРёРё РґР»РёРЅС‹ РІРѕР»РЅС‹
 		}
 	}
 	#if defined(AUTODMA2)
