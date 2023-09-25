@@ -1,0 +1,83 @@
+/*
+ * pid_MICROWAVE.c
+ *
+ *  Created on: 11 февр. 2021 г.
+ *      Author: Анатолий
+ */
+#include "pid_MICROWAVE.h"
+#include "var.h"
+
+//=========================================================
+// ПИД регулятор для удержания мощности СВЧ лазера
+//=========================================================
+// Коэффициенты регулятора
+float MICROWAVE_factorKp =  1.00f;
+float MICROWAVE_factorKi =  0.01f;
+float MICROWAVE_factorKd =  0.00f;
+
+float MICROWAVE_rangeMax = 65535.0f;
+float MICROWAVE_rangeMin = -65535.0f;
+//=========================================================
+
+float MICROWAVE_valueP = 0.0;
+float MICROWAVE_valueI = 0.0;
+float MICROWAVE_valueD = 0.0;
+float MICROWAVE_valueS = 0.0;
+float MICROWAVE_nowValue = 0.0;
+float MICROWAVE_backValue = 0.0;
+bool MICROWAVE_flagRun = false;
+
+void Reset_MICROWAVE_PID(void){
+	MICROWAVE_valueP = 0.0f;
+	MICROWAVE_valueI = 0.0f;
+	MICROWAVE_valueD = 0.0f;
+	MICROWAVE_valueS = 0.0f;
+	MICROWAVE_nowValue = 0.0;
+	MICROWAVE_backValue = 0.0;
+	MICROWAVE_flagRun = false;
+}
+// Расчет воздействия
+float Compute_MICROWAVE_PID(float value){
+	my_INT++;
+	my_FLT = value;
+	// Предыдущие значение
+	MICROWAVE_backValue = MICROWAVE_nowValue;
+	// Текущие значение
+	MICROWAVE_nowValue = value;
+	//===================================================
+	// Пропорциональная составляющая
+	//===================================================
+	MICROWAVE_valueP = MICROWAVE_nowValue;
+	//===================================================
+	// Интегральная составляющая
+	//===================================================
+	if (MICROWAVE_factorKi != 0){
+		MICROWAVE_valueI += MICROWAVE_factorKi * MICROWAVE_valueP;
+		if (MICROWAVE_valueI > MICROWAVE_rangeMax){
+			MICROWAVE_valueI = MICROWAVE_rangeMax;
+		}
+		if(MICROWAVE_valueI < MICROWAVE_rangeMin){
+			MICROWAVE_valueI = MICROWAVE_rangeMin;
+		}
+	}
+	//===================================================
+	// Дифференциальная составляющая
+	//===================================================
+	MICROWAVE_valueD = MICROWAVE_nowValue - MICROWAVE_backValue;
+	//===================================================
+	// Суммарное воздействие
+	//===================================================
+	// Первый проход (нет дифференциальной части)
+	if (MICROWAVE_flagRun == false){
+		MICROWAVE_flagRun = true;
+		MICROWAVE_valueS = MICROWAVE_factorKp * MICROWAVE_valueP +
+										MICROWAVE_valueI;
+	} else {
+		MICROWAVE_valueS = MICROWAVE_factorKp * MICROWAVE_valueP +
+										MICROWAVE_valueI +
+										MICROWAVE_factorKd * MICROWAVE_valueD;
+	}
+	return MICROWAVE_valueS;
+}
+
+

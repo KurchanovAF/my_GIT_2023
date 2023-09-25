@@ -1,0 +1,501 @@
+#include "var.h"
+#include "my_FUN.h"
+
+#ifdef my_EQ_test
+extern uint16_t* pDataDMA2;
+//extern volatile uint16_t* volatile pDataDMA2;
+
+//extern uint16_t* p_my_DMA2_Data;
+//	extern uint16_t* p_my_DMA2_Data_F0;
+//extern uint16_t* p_my_DMA2_Data_F1;
+//extern uint16_t* p_my_DMA2_Data_F2;
+extern int32_t* p_my_F1F2_rez;
+extern int32_t* p_my_F2F1_rez;
+
+
+void my_EQ_test_1()
+{
+	// РЎСЂР°РІРЅРёРІР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ РјР°СЃСЃРёРІРѕРІ
+	// p_my_DMA2_Data_[360+36] Рё p_my_DMA2_Data[360+36]
+	//
+	//b_eq = true;
+	//int i;
+
+	//for(int i = 0; i < 396; i++)
+	// 360+3*55=525
+	for(int i = 0; i < 525; i++)
+	{
+		/*
+		if(p_my_DMA2_Data_[i] != p_my_DMA2_Data[i])
+		{
+			b_eq = false;
+		}
+		else
+		{
+			b_eq = true;
+		}
+		//*/
+		if(my_DMA2_Data_[i] != my_DMA2_Data[i])
+		{
+			b_eq = false;
+		}
+		else
+		{
+			b_eq = true;
+		}
+	}
+};
+
+void my_EQ_test_2()
+{
+	// РЎСЂР°РІРЅРёРІР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ РјР°СЃСЃРёРІРѕРІ
+	// p_my_DMA2_Data_F0_[120+12] Рё p_my_DMA2_Data_F0[120+12]
+	//
+	//b_eq = true;
+	int i;
+	for(i = 0; i < 132; i++)
+	{
+		if(p_my_DMA2_Data_F0_[i] != p_my_DMA2_Data_F0[i]) b_eq = false;
+	}
+};
+
+void my_EQ_test_3()
+{
+	// РЎСЂР°РІРЅРёРІР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ РјР°СЃСЃРёРІРѕРІ
+	// p_my_DMA2_Data_F1_[120+12] Рё p_my_DMA2_Data_F1[120+12]
+	//
+	//b_eq = true;
+	int i;
+	for(i = 0; i < 105; i++)
+	{
+		if(my_DMA2_Data_F1_[i] != my_DMA2_Data_F1[i])
+		{
+			b_eq = false;
+		}
+		else
+		{
+			b_eq = true;
+		}
+	}
+};
+
+void my_EQ_test_4()
+{
+	// РЎСЂР°РІРЅРёРІР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ РјР°СЃСЃРёРІРѕРІ
+	// p_my_DMA2_Data_F2_[120+12] Рё p_my_DMA2_Data_F2[120+12]
+	//
+	//b_eq = true;
+	int i;
+	for(i = 0; i < 132; i++)
+	{
+		if(my_DMA2_Data_F2_[i] != my_DMA2_Data_F2[i])
+		{
+			b_eq = false;
+		}
+		else
+		{
+			b_eq = true;
+		}
+	}
+};
+
+void my_EQ_test_5()
+{
+	// РЎСЂР°РІРЅРёРІР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ РјР°СЃСЃРёРІРѕРІ
+	// p_my_DMA2_rez_F1F2_[5] Рё p_my_DMA2_rez_F1F2[5]
+	//
+	//b_eq = true;
+	int i;
+	for(i = 0; i < 5; i++)
+	{
+		if(p_my_F1F2_rez_[i] != p_my_F1F2_rez[i]) b_eq = false;
+	}
+};
+
+void my_EQ_test_6()
+{
+	// РЎСЂР°РІРЅРёРІР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ РјР°СЃСЃРёРІРѕРІ
+	// p_my_DMA2_rez_F2F1_[6] Рё p_my_DMA2_rez_F2F1[6]
+	//
+	//b_eq = true;
+	int i;
+	for(i = 0; i < 6; i++)
+	{
+		if(p_my_F2F1_rez_[i] != p_my_F2F1_rez[i]) b_eq = false;
+	}
+};
+
+void my_EQ_test_7()
+{
+	// РЎСЂР°РІРЅРёРІР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ РјР°СЃСЃРёРІРѕРІ
+	// p_my_DMA2_rez_F2F1_[6] Рё p_my_DMA2_rez_F2F1[6]
+	//
+	//b_eq = true;
+	int i;
+	for(i = 0; i < 120; i++)
+	{
+		if(p_my_DMA2_Data_F1_F2_[i] != p_my_DMA2_Data_F1_F2[i]) b_eq = false;
+	}
+};
+#endif
+
+#ifdef my_C_fun
+/*
+void my_DataADC2_1_OLD()
+{
+	// При режекции используется сумма с разносом в 1/2 периода
+	// 36 = 3*12, 12 = 6 + 5 + 1, 6 = 12/2, 5 = 10/2, 1 - для удобства
+	for(int i = 0; i < 36; i++)
+	{
+		//p_my_DMA2_Data[i] = p_my_DMA2_Data[i + 36];
+		p_my_DMA2_Data_[i] = p_my_DMA2_Data_[i + 360];
+	}
+	for(int i = 0; i < ADC_ARRAY_DMA2_HALF_SIZE; i++)
+	{
+		p_my_DMA2_Data_[i + 36] = pDataDMA2[i];
+	}
+}
+//*/
+
+void my_DataADC2_1_()
+{
+	// При режекции используются суммы с разносом в 5/2 периода
+	// 165 = 3*55, 55 = 30 + 25, 30 = 12*5/2, 25 = 10*5/2
+	for(int i = 0; i < 168; i++)
+	{
+		p_my_DMA2_Data_[i] = p_my_DMA2_Data_[i + 360];
+	}
+	for(int i = 0; i < ADC_ARRAY_DMA2_HALF_SIZE; i++)
+	{
+		p_my_DMA2_Data_[i + 168] = pDataDMA2[i];
+	}
+}
+
+/*
+void my_DataADC2_2_OLD()
+{
+	// 360 + 36 = 396
+	// 120 + 12 = 132
+  uint16_t	uiH; //
+	sum__OUT_2R_ 	= 0;
+	sum__OUT_0R_ 	= 0;
+	sum__SD2_			= 0;
+	for(int i = 0; i < 12; i++)
+	{
+		p_my_DMA2_Data_F0_[i] = p_my_DMA2_Data_[3*i + 0];
+	}
+	for(int i = 12; i < 132; i++)
+	{
+		uiH = p_my_DMA2_Data_[3*i + 0];
+		p_my_DMA2_Data_F0_[i] = uiH;
+		sum__OUT_2R_ += uiH;
+		sum__OUT_0R_ += p_my_DMA2_Data_[3*i + 1];
+		sum__SD2_ 		+= p_my_DMA2_Data_[3*i + 2];
+	}
+	sum_OUT_0R_ 	+= sum__OUT_0R_;
+	sum_OUT_2R_ 	+= sum__OUT_2R_;
+	sum_SD2_		 	+= sum__SD2_;
+}
+//*/
+
+void my_DataADC2_2_()
+{
+	// При режекции используются суммы с разносом в 5/2 периода
+	// 165 = 3*55, 55 = 30 + 25, 30 = 12*5/2, 25 = 10*5/2
+
+	// 360 + 165 = 525
+	// 120 +  55 = 175
+	uint16_t	uiH; //	Где размещена эта переменная ?
+	sum__OUT_2R_ 	= 0;
+	sum__OUT_0R_ 	= 0;
+	sum__SD2_			= 0;
+	for(int i = 0; i < 56; i++)
+	{
+		p_my_DMA2_Data_F0_[i] = p_my_DMA2_Data_[3*i + 0];
+	}
+	// Анализируем на участке длиной 120 отсчетов
+	max_Data_F0_ = 0;
+	min_Data_F0_ = 0;
+	for(int i = 56; i < 176; i++)
+	{
+		uiH = p_my_DMA2_Data_[3*i + 0];
+		p_my_DMA2_Data_F0_[i] = uiH;
+		sum__OUT_2R_ += uiH;
+		sum__OUT_0R_ += p_my_DMA2_Data_[3*i + 1];
+		sum__SD2_ 		+= p_my_DMA2_Data_[3*i + 2];
+		if(max_Data_F0_ <= uiH) max_Data_F0_ = uiH;
+		if(min_Data_F0_ >= uiH) min_Data_F0_ = uiH;
+	}
+	sum_OUT_0R_ 	+= sum__OUT_0R_;
+	sum_OUT_2R_ 	+= sum__OUT_2R_;
+	sum_SD2_		 	+= sum__SD2_;
+}
+
+/*
+void my_F1_OLD()
+{
+	// 120 + 6 = 126
+	for(int i = 0; i < 126; i++)
+	{
+		p_my_DMA2_Data_F1_[i] = 
+		  p_my_DMA2_Data_F0_[i] + 
+		  p_my_DMA2_Data_F0_[i + 6];
+	}
+}
+//*/
+
+void my_F1_()
+{
+	uint16_t	uiH;
+	// +5 отсчетов, 120 + 5 = 125
+	// Анализируем на участке длиной 120 отсчетов
+	max_Data_F1_ = 0;
+	min_Data_F1_ = 0;
+	for(int i = 0; i < 120; i++)
+	{
+		p_my_DMA2_Data_F1_[i] = uiH =
+		  p_my_DMA2_Data_F0_[i + 26] +
+		  p_my_DMA2_Data_F0_[i + 56];
+		// 5/2 периода для 10 кГц = 30
+		if(max_Data_F1_ <= uiH) max_Data_F1_ = uiH;
+		if(min_Data_F1_ >= uiH) min_Data_F1_ = uiH;
+	}
+}
+
+/*
+void my_F2_OLD()
+{
+	// 120 + 6 = 126
+	for(int i = 0; i < 126; i++)
+	{
+		p_my_DMA2_Data_F2_[i] = 
+		  p_my_DMA2_Data_F0_[i + 1] + 
+		  p_my_DMA2_Data_F0_[i + 6];
+	}
+}
+//*/
+
+void my_F2_()
+{
+	uint16_t	uiH;
+	// +30 отсчетов, 120 + 30 = 150
+	for(int i = 0; i < 30; i++)
+	{
+		p_my_DMA2_Data_F2_[i] =
+			p_my_DMA2_Data_F0_[i + 1] +
+			p_my_DMA2_Data_F0_[i + 26];
+			// 5/2 периода для 12 кГц = 25
+			// ВАЖНО - начало массива Data_F2_ нужно только
+			// для расчета массива Data_F1_F2_, а не для
+			// синхронного детектирования
+		}
+	// Анализируем на участке длиной 120 отсчетов
+	max_Data_F2_ = 0;
+	min_Data_F2_ = 0;
+	for(int i = 30; i < 150; i++)
+	{
+		p_my_DMA2_Data_F2_[i] = uiH =
+		  p_my_DMA2_Data_F0_[i + 1] +
+		  p_my_DMA2_Data_F0_[i + 26];
+		// 5/2 периода для 12 кГц = 25
+		// ВАЖНО - начало массива Data_F2_ нужно только
+		// для расчета массива Data_F1_F2_, а не для
+		// синхронного детектирования
+		if(max_Data_F2_ <= uiH) max_Data_F2_ = uiH;
+		if(min_Data_F2_ >= uiH) min_Data_F2_ = uiH;
+	}
+}
+
+/*
+void my_F1F2__OLD()
+{
+	// 24*5 = 120
+	for(int i = 0; i < 5; i++)
+	{
+		p_my_F1F2_rez_[i] = 0;
+	}	
+	for(int i = 0; i < 12; i++)
+	{		
+		p_my_F1F2_rez_[0] -= 
+		    (p_my_DMA2_Data_F1_[10*i + 5 + 1] - p_my_DMA2_Data_F1_[10*i + 0 + 1])-
+		    (p_my_DMA2_Data_F1_[10*i + 10 + 1] - p_my_DMA2_Data_F1_[10*i + 5 + 1]);
+		p_my_F1F2_rez_[1] -= 
+		    (p_my_DMA2_Data_F1_[10*i + 5 + 2] - p_my_DMA2_Data_F1_[10*i + 0 + 2])-
+		    (p_my_DMA2_Data_F1_[10*i + 10 + 2] - p_my_DMA2_Data_F1_[10*i + 5 + 2]);
+		p_my_F1F2_rez_[2] -= 
+		    (p_my_DMA2_Data_F1_[10*i + 5 + 3] - p_my_DMA2_Data_F1_[10*i + 0 + 3])-
+		    (p_my_DMA2_Data_F1_[10*i + 10 + 3] - p_my_DMA2_Data_F1_[10*i + 5 + 3]);
+		p_my_F1F2_rez_[3] -= 
+		    (p_my_DMA2_Data_F1_[10*i + 5 + 4] - p_my_DMA2_Data_F1_[10*i + 0 + 4])-
+		    (p_my_DMA2_Data_F1_[10*i + 10 + 4] - p_my_DMA2_Data_F1_[10*i + 5 + 4]);
+		p_my_F1F2_rez_[4] -= 
+		    (p_my_DMA2_Data_F1_[10*i + 5 + 5] - p_my_DMA2_Data_F1_[10*i + 0 + 5])-
+		    (p_my_DMA2_Data_F1_[10*i + 10 + 5] - p_my_DMA2_Data_F1_[10*i + 5 + 5]);
+	}
+}
+//*/
+
+
+/*
+void my_F1F2_OLD()
+{
+	// 24*5 = 120
+	for(int i = 0; i < 5; i++)
+	{
+		p_my_F1F2_rez_[i] = 0;
+	}	
+	for(int i = 0; i < 12; i++)
+	{		
+		p_my_F1F2_rez_[0] += 
+		    (p_my_DMA2_Data_F1_[10*i + 10 + 1] - p_my_DMA2_Data_F1_[10*i + 5 + 1]);
+		p_my_F1F2_rez_[1] += 
+		    (p_my_DMA2_Data_F1_[10*i + 10 + 2] - p_my_DMA2_Data_F1_[10*i + 5 + 2]);
+		p_my_F1F2_rez_[2] += 
+		    (p_my_DMA2_Data_F1_[10*i + 10 + 3] - p_my_DMA2_Data_F1_[10*i + 5 + 3]);
+		p_my_F1F2_rez_[3] += 
+		    (p_my_DMA2_Data_F1_[10*i + 10 + 4] - p_my_DMA2_Data_F1_[10*i + 5 + 4]);
+		p_my_F1F2_rez_[4] += 
+		    (p_my_DMA2_Data_F1_[10*i + 10 + 5] - p_my_DMA2_Data_F1_[10*i + 5 + 5]);
+	}
+}
+//*/
+
+void my_F1F2_()
+{
+	// Частота 10 кГц в Data_F1_[120] уже вырезана
+	// Детектируем частоту 12 кГц
+	for(int i = 0; i < 5; i++)
+	{
+		p_my_F1F2_rez_[i] = 0;
+	}
+	for(int i = 0; i < 12; i++)
+	{
+		p_my_F1F2_rez_[0] +=
+		    (p_my_DMA2_Data_F1_[10*i + 5 + 0] - p_my_DMA2_Data_F1_[10*i + 0]);
+		p_my_F1F2_rez_[1] +=
+		    (p_my_DMA2_Data_F1_[10*i + 5 + 1] - p_my_DMA2_Data_F1_[10*i + 1]);
+		p_my_F1F2_rez_[2] +=
+		    (p_my_DMA2_Data_F1_[10*i + 5 + 2] - p_my_DMA2_Data_F1_[10*i + 2]);
+		p_my_F1F2_rez_[3] +=
+		    (p_my_DMA2_Data_F1_[10*i + 5 + 3] - p_my_DMA2_Data_F1_[10*i + 3]);
+		p_my_F1F2_rez_[4] +=
+		    (p_my_DMA2_Data_F1_[10*i + 5 + 4] - p_my_DMA2_Data_F1_[10*i + 4]);
+	}
+}
+
+/*
+void my_F2F1__OLD()
+{
+	// 24*5 = 120
+	// РґРµС‚РµРєС‚РёСЂСѓРµРј С‡Р°СЃС‚РѕС‚Сѓ СЃ РїРѕР»РѕРІРёРЅРѕР№ РїРµСЂРёРѕРґР° 6 С‚Р°РєС‚РѕРІ
+	// РґРµС‚РµРєС‚РёСЂСѓРµРј Р§РђРЎРўРћРўРЈ
+	for(int i = 0; i < 6; i++)
+	{
+		//p_my_F2F1_rez[i] = 0;
+	}	
+	for(int i = 0; i < 10; i++)
+	{		
+		p_my_F2F1_rez_[0] += 
+		    (p_my_DMA2_Data_F2_[12*i + 6 + 0] - p_my_DMA2_Data_F2_[12*i + 0 + 0])-
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 0] - p_my_DMA2_Data_F2_[12*i + 6 + 0]);
+		p_my_F2F1_rez_[1] += 
+		    (p_my_DMA2_Data_F2_[12*i + 6 + 1] - p_my_DMA2_Data_F2_[12*i + 0 + 1])-
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 1] - p_my_DMA2_Data_F2_[12*i + 6 + 1]);
+		p_my_F2F1_rez_[2] += 
+		    (p_my_DMA2_Data_F2_[12*i + 6 + 2] - p_my_DMA2_Data_F2_[12*i + 0 + 2])-
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 2] - p_my_DMA2_Data_F2_[12*i + 6 + 2]);
+		p_my_F2F1_rez_[3] += 
+		    (p_my_DMA2_Data_F2_[12*i + 6 + 3] - p_my_DMA2_Data_F2_[12*i + 0 + 3])-
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 3] - p_my_DMA2_Data_F2_[12*i + 6 + 3]);
+		p_my_F2F1_rez_[4] += 
+		    (p_my_DMA2_Data_F2_[12*i + 6 + 4] - p_my_DMA2_Data_F2_[12*i + 0 + 4])-
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 4] - p_my_DMA2_Data_F2_[12*i + 6 + 4]);
+		p_my_F2F1_rez_[5] += 
+		    (p_my_DMA2_Data_F2_[12*i + 6 + 5] - p_my_DMA2_Data_F2_[12*i + 0 + 5])-
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 5] - p_my_DMA2_Data_F2_[12*i + 6 + 5]);
+		// i - РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ = 9, 12*i+12+5=125=126-1
+		//
+		//	РќРЈР–РќРћ 126 РґР»СЏ Р±СѓС„РµСЂР° F2 (РґР»РёРЅР° F0 = 120+12=132)
+		//
+	}
+}
+//*/
+
+/*
+void my_F2F1_OLD()
+{
+	// 24*5 = 120
+	// РґРµС‚РµРєС‚РёСЂСѓРµРј С‡Р°СЃС‚РѕС‚Сѓ СЃ РїРѕР»РѕРІРёРЅРѕР№ РїРµСЂРёРѕРґР° 6 С‚Р°РєС‚РѕРІ
+	// РґРµС‚РµРєС‚РёСЂСѓРµРј Р§РђРЎРўРћРўРЈ
+	for(int i = 0; i < 6; i++)
+	{
+		p_my_F2F1_rez_[i] = 0;
+	}	
+	// СЏС‡РµР№РєРё в„–0 - в„–5 F2[] РЅР° РїСЂРµРґС‹РґСѓС‰РµРј РїРѕР»СѓР±СѓС„РµСЂРµ РёРјРµР»Рё РЅРѕРјРµСЂР° в„–120 - в„–125
+	for(int i = 0; i < 10; i++)
+	{		
+		p_my_F2F1_rez_[0] += 
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 0] - p_my_DMA2_Data_F2_[12*i + 6 + 0]);
+		p_my_F2F1_rez_[1] += 
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 1] - p_my_DMA2_Data_F2_[12*i + 6 + 1]);
+		p_my_F2F1_rez_[2] += 
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 2] - p_my_DMA2_Data_F2_[12*i + 6 + 2]);
+		p_my_F2F1_rez_[3] += 
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 3] - p_my_DMA2_Data_F2_[12*i + 6 + 3]);
+		p_my_F2F1_rez_[4] += 
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 4] - p_my_DMA2_Data_F2_[12*i + 6 + 4]);
+		p_my_F2F1_rez_[5] += 
+		    (p_my_DMA2_Data_F2_[12*i + 12 + 5] - p_my_DMA2_Data_F2_[12*i + 6 + 5]);
+		// i - РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ = 9, 12*i+12+5=125=126-1
+		//
+		//	РќРЈР–РќРћ 126 РґР»СЏ Р±СѓС„РµСЂР° F2 (РґР»РёРЅР° F0 = 120+12=132)
+		//
+	}
+}
+//*/
+
+void my_F2F1_()
+{
+	// Частота 12 кГц в Data_F2_[150] уже вырезана
+	// Детектируем частоту 10 кГц
+	for(int i = 0; i < 6; i++)
+	{
+		p_my_F2F1_rez_[i] = 0;
+	}
+	for(int i = 0; i < 10; i++)
+	{
+		p_my_F2F1_rez_[0] +=
+		    (p_my_DMA2_Data_F2_[12*i + 36 + 0] - p_my_DMA2_Data_F2_[12*i + 30 + 0]);
+		p_my_F2F1_rez_[1] +=
+		    (p_my_DMA2_Data_F2_[12*i + 36 + 1] - p_my_DMA2_Data_F2_[12*i + 30 + 1]);
+		p_my_F2F1_rez_[2] +=
+		    (p_my_DMA2_Data_F2_[12*i + 36 + 2] - p_my_DMA2_Data_F2_[12*i + 30 + 2]);
+		p_my_F2F1_rez_[3] +=
+		    (p_my_DMA2_Data_F2_[12*i + 36 + 3] - p_my_DMA2_Data_F2_[12*i + 30 + 3]);
+		p_my_F2F1_rez_[4] +=
+		    (p_my_DMA2_Data_F2_[12*i + 36 + 4] - p_my_DMA2_Data_F2_[12*i + 30 + 4]);
+		p_my_F2F1_rez_[5] +=
+		    (p_my_DMA2_Data_F2_[12*i + 36 + 5] - p_my_DMA2_Data_F2_[12*i + 30 + 5]);
+		// Первые 30 отсчетов в буфере _Data_F2_ мы здесьт не используем, они нужны
+		// для построения буфера Data_F1_F2_ и анализа шумов и пульсаций лазера
+	}
+}
+
+void my_F1_F2_()
+{
+	uint16_t	uiH;
+	// Частота 12 кГц в Data_F2_[150] уже вырезана
+	// Вырезаем частоту 10 кГц
+	// Анализируем на участке длиной 120 отсчетов
+	max_Data_F1_F2_ = 0;
+	min_Data_F1_F2_ = 0;
+	for(int i = 0; i < 120; i++)
+	{
+		p_my_DMA2_Data_F1_F2_[i] = uiH =
+		  p_my_DMA2_Data_F2_[i] +
+		  p_my_DMA2_Data_F2_[i + 30];
+		if(max_Data_F1_F2_ <= uiH) max_Data_F1_F2_ = uiH;
+		if(min_Data_F1_F2_ >= uiH) min_Data_F1_F2_ = uiH;
+	}
+}
+#endif

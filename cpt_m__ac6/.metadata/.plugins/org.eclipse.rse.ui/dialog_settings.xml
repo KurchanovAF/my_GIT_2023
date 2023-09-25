@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="RemoteSearchPage">
+		<item value="false" key="includeArchives"/>
+		<item value="false" key="fileNameRegex"/>
+		<item value="false" key="caseSensitive"/>
+		<item value="true" key="includeSubfolders"/>
+		<item value="5" key="dataSize"/>
+		<item value="true" key="stringRegex"/>
+		<item value="true" key="fileNameCaseSensitive"/>
+	</section>
+	<section name="RemoteSearchPage.data4">
+		<item value="DESKTOP-TT116FA" key="profileName"/>
+		<item value="AD5668" key="searchString"/>
+		<item value="false" key="includeArchives"/>
+		<item value="false" key="fileNameRegex"/>
+		<item value="false" key="caseSensitive"/>
+		<item value="true" key="includeSubfolders"/>
+		<item value="true" key="stringRegex"/>
+		<item value="true" key="fileNameCaseSensitive"/>
+		<item value="Local" key="connectionName"/>
+		<item value="D:\GIT\my__MARS\CPT_MARS___ac6" key="folderName"/>
+		<item value="*.c *.h" key="fileNames"/>
+	</section>
+	<section name="RemoteSearchPage.data3">
+		<item value="DESKTOP-TT116FA" key="profileName"/>
+		<item value="USART_TypeDef" key="searchString"/>
+		<item value="false" key="includeArchives"/>
+		<item value="false" key="fileNameRegex"/>
+		<item value="false" key="caseSensitive"/>
+		<item value="true" key="includeSubfolders"/>
+		<item value="false" key="stringRegex"/>
+		<item value="true" key="fileNameCaseSensitive"/>
+		<item value="Local" key="connectionName"/>
+		<item value="D:\GIT\my__MARS\CPT_MARS___ac6" key="folderName"/>
+		<item value="*" key="fileNames"/>
+	</section>
+	<section name="RemoteSearchPage.data0">
+		<item value="DESKTOP-TT116FA" key="profileName"/>
+		<item value="LSM303D_Initialize" key="searchString"/>
+		<item value="false" key="includeArchives"/>
+		<item value="false" key="fileNameRegex"/>
+		<item value="false" key="caseSensitive"/>
+		<item value="true" key="includeSubfolders"/>
+		<item value="false" key="stringRegex"/>
+		<item value="true" key="fileNameCaseSensitive"/>
+		<item value="Local" key="connectionName"/>
+		<item value="D:\GIT\irq_KPN" key="folderName"/>
+		<item value="*" key="fileNames"/>
+	</section>
+	<section name="RemoteSearchPage.data2">
+		<item value="DESKTOP-TT116FA" key="profileName"/>
+		<item value="_stdint.h" key="searchString"/>
+		<item value="false" key="includeArchives"/>
+		<item value="false" key="fileNameRegex"/>
+		<item value="false" key="caseSensitive"/>
+		<item value="true" key="includeSubfolders"/>
+		<item value="false" key="stringRegex"/>
+		<item value="true" key="fileNameCaseSensitive"/>
+		<item value="Local" key="connectionName"/>
+		<item value="D:\GIT\my__MARS\CPT_MARS___ac6" key="folderName"/>
+		<item value="*.c,*.h" key="fileNames"/>
+	</section>
+	<section name="RemoteSearchPage.data1">
+		<item value="DESKTOP-TT116FA" key="profileName"/>
+		<item value="*" key="searchString"/>
+		<item value="false" key="includeArchives"/>
+		<item value="false" key="fileNameRegex"/>
+		<item value="false" key="caseSensitive"/>
+		<item value="true" key="includeSubfolders"/>
+		<item value="false" key="stringRegex"/>
+		<item value="true" key="fileNameCaseSensitive"/>
+		<item value="Local" key="connectionName"/>
+		<item value="D:\GIT\my__MARS\CPT_MARS___ac6\cpt_m__ac6\.metadata\.plugins\org.eclipse.search" key="folderName"/>
+		<item value="*.c,*.h" key="fileNames"/>
+	</section>
+</section>

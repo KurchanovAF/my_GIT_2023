@@ -1,0 +1,62 @@
+17:41:46 **** Incremental Build of configuration Debug for project KPN ****
+make -j16 all 
+Building file: ../Src/machine_fkpn.c
+Invoking: MCU GCC Compiler
+Building file: ../Src/pid_vt1.c
+Building file: ../Src/spi.c
+D:\GIT\irq_KPN\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/GIT/irq_KPN/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/machine_fkpn.d" -MT"Src/machine_fkpn.o" -o "Src/machine_fkpn.o" "../Src/machine_fkpn.c"
+Invoking: MCU GCC Compiler
+Invoking: MCU GCC Compiler
+D:\GIT\irq_KPN\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/GIT/irq_KPN/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/pid_vt1.d" -MT"Src/pid_vt1.o" -o "Src/pid_vt1.o" "../Src/pid_vt1.c"
+D:\GIT\irq_KPN\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/GIT/irq_KPN/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/spi.d" -MT"Src/spi.o" -o "Src/spi.o" "../Src/spi.c"
+Building file: ../Src/stm32l4xx_hal_msp.c
+Invoking: MCU GCC Compiler
+Building file: ../Src/stm32l4xx_it.c
+Building file: ../Src/syscalls.c
+D:\GIT\irq_KPN\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/GIT/irq_KPN/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32l4xx_hal_msp.d" -MT"Src/stm32l4xx_hal_msp.o" -o "Src/stm32l4xx_hal_msp.o" "../Src/stm32l4xx_hal_msp.c"
+Invoking: MCU GCC Compiler
+Invoking: MCU GCC Compiler
+D:\GIT\irq_KPN\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/GIT/irq_KPN/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32l4xx_it.d" -MT"Src/stm32l4xx_it.o" -o "Src/stm32l4xx_it.o" "../Src/stm32l4xx_it.c"
+D:\GIT\irq_KPN\Debug
+In file included from ../Src/machine_fkpn.c:1:0:
+D:/GIT/irq_KPN/Inc/machine_fkpn.h:5:10: fatal error: option.h: No such file or directory
+ #include "option.h"
+          ^~~~~~~~~~
+compilation terminated.
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/GIT/irq_KPN/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" -o "Src/syscalls.o" "../Src/syscalls.c"
+Building file: ../Src/system_stm32l4xx.c
+Src/subdir.mk:87: recipe for target 'Src/machine_fkpn.o' failed
+make: *** [Src/machine_fkpn.o] Error 1
+make: *** Waiting for unfinished jobs....
+Invoking: MCU GCC Compiler
+D:\GIT\irq_KPN\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/GIT/irq_KPN/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/GIT/irq_KPN/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/GIT/irq_KPN/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/system_stm32l4xx.d" -MT"Src/system_stm32l4xx.o" -o "Src/system_stm32l4xx.o" "../Src/system_stm32l4xx.c"
+../Src/stm32l4xx_it.c: In function 'TIM1_UP_TIM16_IRQHandler':
+../Src/stm32l4xx_it.c:276:12: warning: unused variable 'cr1its' [-Wunused-variable]
+   uint32_t cr1its = USART3->CR1;
+            ^~~~~~
+../Src/stm32l4xx_it.c:235:18: warning: variable 'val' set but not used [-Wunused-but-set-variable]
+  static uint32_t val;
+                  ^~~
+Finished building: ../Src/syscalls.c
+ 
+Finished building: ../Src/spi.c
+Finished building: ../Src/pid_vt1.c
+ 
+ 
+Finished building: ../Src/stm32l4xx_hal_msp.c
+ 
+Finished building: ../Src/system_stm32l4xx.c
+ 
+C:\Users\E393~1\AppData\Local\Temp\ccY16auD.s: Assembler messages:
+C:\Users\E393~1\AppData\Local\Temp\ccY16auD.s:238: Error: ARM register expected -- `subs val,val,#1'
+make: *** [Src/stm32l4xx_it.o] Error 1
+Src/subdir.mk:87: recipe for target 'Src/stm32l4xx_it.o' failed
+
+17:41:49 Build Finished (took 3s.69ms)
+
