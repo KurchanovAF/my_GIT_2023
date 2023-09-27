@@ -2,7 +2,7 @@
 #include "var.h"
 #include "interface_ADT7410.h"
 
-// РќР°СЃС‚СЂР°РёРІР°РµРј РґР°С‚С‡РёРє С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё РїРѕ I2C
+// Настраиваем датчик температуры ячейки по I2C
 //*
 void InitTEMP(void){
 	//=======================================================
@@ -10,7 +10,7 @@ void InitTEMP(void){
 	I2C3_TxBuffer[0]	= ADT7410_REG_CONF;
 	I2C3_TxBuffer[1]	= ADT7410_RES_16 | ADT7410_CONV_SPS;
 	if (HAL_I2C_Master_Transmit(&hi2c3, addressI2C3<<1, &I2C3_TxBuffer[0], 2, 200) != HAL_OK){}
-	// Р—Р°Р±РёСЂР°РµРј РґР°РЅРЅС‹Рµ
+	// Забираем данные
 	if (HAL_I2C_Master_Receive(&hi2c3, addressI2C3<<1, &I2C3_RxBuffer[0], 2, 200) == HAL_OK){
 		value_Temp_D_Cell = ((int)(I2C3_RxBuffer[0] << 8 | I2C3_RxBuffer[1]))/128.0f;
 		TempCellIsCorrect = true;
@@ -18,7 +18,7 @@ void InitTEMP(void){
 }
 //*/
 
-// РўСЂРµР±СѓРµС‚СЃСЏ РёРЅС‚РµСЂРІР°Р» РѕС‚ РїРѕСЃР»РµРґРЅРµРіРѕ СЃС‡РёС‚С‹РІР°РЅРёСЏ РїСЂРёРјРµСЂРЅРѕ 1 СЃРµРєСѓРЅРґР°
+// Требуется интервал от последнего считывания примерно 1 секунда
 void GetTEMP(void){
 	//=======================================================
 	uint8_t addressI2C3 = ADT7410_ADDRESS;

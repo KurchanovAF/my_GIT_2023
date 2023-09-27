@@ -3,35 +3,35 @@
 #define LMX_nCS_Pin GPIO_PIN_4
 #define LMX_nCS_GPIO_Port GPIOA
 
-// –ó–∞–ø–∏—Å—å –¥–∞–Ω–Ω—ã—Ö –≤ LMX2486 –ø–æ SPI2
+// «‡ÔËÒ¸ ‰‡ÌÌ˚ı ‚ LMX2486 ÔÓ SPI2
 void LMX2486_SendData(uint32_t sendData){
 	volatile uint8_t rx = 0;
-	// –ù–∞—Å—Ç—Ä–∞–∏–≤–∞–µ–º SPI2 –¥–ª—è —Ä–∞–±–æ—Ç—ã —Å —Å–∏–Ω—Ç–µ–∑–∞—Ç–æ—Ä–æ–º
+	// Õ‡ÒÚ‡Ë‚‡ÂÏ SPI2 ‰Îˇ ‡·ÓÚ˚ Ò ÒËÌÚÂÁ‡ÚÓÓÏ
 	// Disable SPI peripheral
 	SPI3->CR1 &= ~SPI_CR1_SPE;
-	// –ù–∞—Å—Ç—Ä–∞–∏–≤–∞–µ–º SPI2 –¥–ª—è —Ä–∞–±–æ—Ç—ã —Å –¶–ê–ü–æ–º
+	// Õ‡ÒÚ‡Ë‚‡ÂÏ SPI2 ‰Îˇ ‡·ÓÚ˚ Ò ÷¿œÓÏ
 	// CPOL = 0
 	SPI3->CR1 &= ~SPI_CR1_CPOL;
 	// CPHA = 0
 	SPI3->CR1 &= ~SPI_CR1_CPHA;
 	// Enable SPI peripheral
 	SPI3->CR1 |= SPI_CR1_SPE;
-	// –í—ã–±–æ—Ä –º–∏–∫—Ä–æ—Å—Ö–µ–º—ã —Å–∏–Ω—Ç–µ–∑–∞—Ç–æ—Ä–∞
-	HAL_GPIO_WritePin(LMX_nCS_GPIO_Port, LMX_nCS_Pin, GPIO_PIN_RESET);		// —Å–∏–≥–Ω–∞–ª LE, –ü–ï–†–ï–î–ê–ß–ê –°–õ–û–í–ê –î–õ–ò–ù–û–ô 24 –ë–ò–¢
-	// –ñ–¥–µ–º –∫–æ–≥–¥–∞ DR –æ—Å–æ–≤–æ–±–æ–¥–∏—Ç—Å—è –Ω–∞ –∑–∞–ø–∏—Å—å
-  while (((SPI3->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-  *((__IO uint8_t *)&SPI3->DR) = ((sendData >> 16) & 0xFF);					// –º–ª–∞–¥—â–∏–π –±–∞–π—Ç —Å—Ç–∞—Ä—à–µ–≥–æ –ø–æ–ª—É—Å–ª–æ–≤–∞
+	// ¬˚·Ó ÏËÍÓÒıÂÏ˚ ÒËÌÚÂÁ‡ÚÓ‡
+	HAL_GPIO_WritePin(LMX_nCS_GPIO_Port, LMX_nCS_Pin, GPIO_PIN_RESET);		// ÒË„Ì‡Î LE, œ≈–≈ƒ¿◊¿ —ÀŒ¬¿ ƒÀ»ÕŒ… 24 ¡»“
+	// ∆‰ÂÏ ÍÓ„‰‡ DR ÓÒÓ‚Ó·Ó‰ËÚÒˇ Ì‡ Á‡ÔËÒ¸
 	while (((SPI3->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-	*((__IO uint8_t *)&SPI3->DR) = ((sendData >> 8) & 0xFF);				// —Å—Ç–∞—Ä—à–∏–π –±–∞–π—Ç –º–ª–∞–¥—à–µ–≥–æ –ø–æ–ª—É—Å–ª–æ–≤–∞
+	*((__IO uint8_t *)&SPI3->DR) = ((sendData >> 16) & 0xFF);					// ÏÎ‡‰˘ËÈ ·‡ÈÚ ÒÚ‡¯Â„Ó ÔÓÎÛÒÎÓ‚‡
 	while (((SPI3->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-	*((__IO uint8_t *)&SPI3->DR) = ((sendData >> 0) & 0xFF);				// –º–ª–∞–¥—à–∏–π –±–∞–π—Ç –º–ª–∞–¥—à–µ–≥–æ –ø–æ–ª—É—Å–ª–æ–≤–∞
-	// –û–∂–∏–¥–∞–µ–º –∑–∞–≤–µ—Ä—à–µ–Ω–∏–µ –ø–µ—Ä–µ–¥–∞—á–∏ –¥–∞–Ω–Ω—ã—Ö
+	*((__IO uint8_t *)&SPI3->DR) = ((sendData >> 8) & 0xFF);				// ÒÚ‡¯ËÈ ·‡ÈÚ ÏÎ‡‰¯Â„Ó ÔÓÎÛÒÎÓ‚‡
 	while (((SPI3->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-	// –û–∂–∏–¥–∞–Ω–∏–µ –æ–ø—É—Å—Ç–æ—à–µ–Ω–∏—è FIFO
+	*((__IO uint8_t *)&SPI3->DR) = ((sendData >> 0) & 0xFF);				// ÏÎ‡‰¯ËÈ ·‡ÈÚ ÏÎ‡‰¯Â„Ó ÔÓÎÛÒÎÓ‚‡
+	// ŒÊË‰‡ÂÏ Á‡‚Â¯ÂÌËÂ ÔÂÂ‰‡˜Ë ‰‡ÌÌ˚ı
+	while (((SPI3->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
+	// ŒÊË‰‡ÌËÂ ÓÔÛÒÚÓ¯ÂÌËˇ FIFO
 	while (((SPI3->SR) & (SPI_SR_FTLVL)) != 0){};
 	while (((SPI3->SR) & (SPI_SR_BSY)) == (SPI_SR_BSY)){};
-	// –§–∏–∫—Å–∏—Ä—É–µ–º –¥–∞–Ω–Ω—ã–µ
-	HAL_GPIO_WritePin(LMX_nCS_GPIO_Port, LMX_nCS_Pin, GPIO_PIN_SET);		// –¥–∞–Ω–Ω—ã–µ –∏–∑ —Å–¥–≤–∏–≥–æ–≤–æ–≥–æ —Ä–µ–≥–∏—Å—Ç—Ä–∞ —Å–æ—Ö—Ä–∞–Ω–µ–Ω—ã –≤ –Ω—É–∂–Ω–æ–º —Ä–µ–≥–∏—Å—Ç—Ä–µ
+	// ‘ËÍÒËÛÂÏ ‰‡ÌÌ˚Â
+	HAL_GPIO_WritePin(LMX_nCS_GPIO_Port, LMX_nCS_Pin, GPIO_PIN_SET);		// ‰‡ÌÌ˚Â ËÁ Ò‰‚Ë„Ó‚Ó„Ó Â„ËÒÚ‡ ÒÓı‡ÌÂÌ˚ ‚ ÌÛÊÌÓÏ Â„ËÒÚÂ
 	SPI3->CR1 &= ~SPI_CR1_SPE;	
 	while (((SPI3->SR) & (SPI_SR_FRLVL)) != 0){
 		rx = *((__IO uint8_t *)&SPI3->DR);
@@ -40,9 +40,9 @@ void LMX2486_SendData(uint32_t sendData){
 
 
 
-// –ò–Ω–∏—Ü–∏–∞–ª–∏–∑–∞—Ü–∏—è –º–∏–∫—Ä–æ—Å—Ö–µ–º—ã —Å–∏–Ω—Ç–µ–∑–∞—Ç–æ—Ä–∞
+// »ÌËˆË‡ÎËÁ‡ˆËˇ ÏËÍÓÒıÂÏ˚ ÒËÌÚÂÁ‡ÚÓ‡
 void LMX2486_Init(void){
-		// –¶–µ–ª–æ–µ
+		// ÷ÂÎÓÂ
 	int valueC = (int)(LMX_ValueN / 32);							// 459/32 = 14
 	int valueB = (int)((LMX_ValueN - valueC * 32) / 4);				// 11/4 = 2
 	int valueA = (int)(LMX_ValueN - valueC * 32 - valueB * 4);		// = 3
@@ -51,18 +51,18 @@ void LMX2486_Init(void){
 							LMX2486_R0_RF_B(valueB) |
 							LMX2486_R0_RF_A(valueA);
 	// RF_N(1708) C(53) B(3) A(0)	
-	// –ß–∏—Å–ª–∏—Ç–µ–ª—å
+	// ◊ËÒÎËÚÂÎ¸
 	uint32_t RF_FN =  LMX_ValueFN;									// 2064823
 	uint32_t RF_FN_Reg5 = (((RF_FN >> 12) & 0x03FF) << 4);			// 1008 << 4
 	uint32_t RF_FN_Reg0 = ((RF_FN & 0x0FFF) << 1);					//  439 << 1
-	// –ó–Ω–∞–º–µ–Ω–∞—Ç–µ–ª—å
+	// «Ì‡ÏÂÌ‡ÚÂÎ¸
 	uint32_t RF_FD = LMX_ValueFD;									// 3261007
 	uint32_t RF_FD_Reg5 = (((RF_FD >> 12) & 0x03FF) << 14);
 	uint32_t RF_FD_Reg1 = ((RF_FD & 0xFFF) << 4); 					// 0xE00
 	//=======================================================
 	// REG 5
 	//=======================================================
-	uint32_t lmx2486Reg5 = 	LMX2486_REG_R5 | 						// 0x0B - –í–ï–†–ù–û
+	uint32_t lmx2486Reg5 = 	LMX2486_REG_R5 | 						// 0x0B - ¬≈–ÕŒ
 								RF_FN_Reg5 | 						//
 								RF_FD_Reg5;							//
 	//=======================================================
@@ -70,22 +70,22 @@ void LMX2486_Init(void){
 	//=======================================================
 	// RF_R(5) RF_P(32)
 	uint32_t lmx2486Reg1 = LMX2486_REG_R1 | 						// 0x03
-					   LMX2486_R1_RF_R(1) | 						// 0x3F << 16, RF_R = 1 (–ó–ù–ê–ß–ï–ù–ò–ï –î–ï–õ–ò–¢–ï–õ–Ø)
-						  LMX2486_R1_RF_P | 						// 0x400000 = 0x1 << 22 = RF_P –±–∏—Ç 22 —É—Å—Ç–∞–Ω–æ–≤–ª–µ–Ω (32/33/36/37 Prescaler –¥–ª—è —Ä–∞–±–æ—Ç—ã –¥–æ 6 –ì–ì—Ü), –±–∏—Ç 23 (RF_PD -- RF Power Down Control Bit) –Ω–µ –æ–ø—Ä–µ–¥–µ–ª–µ–Ω !!
-						       RF_FD_Reg1;							// —É—Å—Ç–∞–Ω–æ–≤–∫–∞ –±–∏—Ç–∞ 23 –≤ 1 –ø–µ—Ä–µ–≤–æ–¥–∏—Ç –≤ 3-–µ —Å–æ—Å—Ç–æ—è–Ω–∏–µ –≤—ã—Ö–æ–¥ Charge Pump (–í–ê–ñ–ù–û !!)
+					   LMX2486_R1_RF_R(1) | 						// 0x3F << 16, RF_R = 1 («Õ¿◊≈Õ»≈ ƒ≈À»“≈Àﬂ)
+						  LMX2486_R1_RF_P | 						// 0x400000 = 0x1 << 22 = RF_P ·ËÚ 22 ÛÒÚ‡ÌÓ‚ÎÂÌ (32/33/36/37 Prescaler ‰Îˇ ‡·ÓÚ˚ ‰Ó 6 √√ˆ), ·ËÚ 23 (RF_PD -- RF Power Down Control Bit) ÌÂ ÓÔÂ‰ÂÎÂÌ !!
+						       RF_FD_Reg1;							// ÛÒÚ‡ÌÓ‚Í‡ ·ËÚ‡ 23 ‚ 1 ÔÂÂ‚Ó‰ËÚ ‚ 3-Â ÒÓÒÚÓˇÌËÂ ‚˚ıÓ‰ Charge Pump (¬¿∆ÕŒ !!)
 	//=======================================================
 	// REG 2
 	//=======================================================
-	// –û—Ç–∫–ª—é—á–∞–µ–º IF PLL
-	uint32_t lmx2486Reg2 = LMX2486_REG_R2 | 						// 0x05 - –í–ï–†–ù–û						IF_N - –Ω–µ –∑–∞–¥–∞–Ω
-						 LMX2486_R2_IF_PD;							// 0x800000 = 0x1 << 23, IF_PD —É—Å—Ç–∞–Ω–æ–≤–ª–µ–Ω ( IF_PD -- IF Power Down Bit)
+	// ŒÚÍÎ˛˜‡ÂÏ IF PLL
+	uint32_t lmx2486Reg2 = LMX2486_REG_R2 | 						// 0x05 - ¬≈–ÕŒ						IF_N - ÌÂ Á‡‰‡Ì
+						 LMX2486_R2_IF_PD;							// 0x800000 = 0x1 << 23, IF_PD ÛÒÚ‡ÌÓ‚ÎÂÌ ( IF_PD -- IF Power Down Bit)
 	//=======================================================
 	// REG 3
 	//=======================================================
 	// 9  	10X 	950 	uA
-	uint32_t lmx2486Reg3 = LMX2486_REG_R3 | 						// 0x07								IF_R - –Ω–µ –∑–∞–¥–∞–Ω
+	uint32_t lmx2486Reg3 = LMX2486_REG_R3 | 						// 0x07								IF_R - ÌÂ Á‡‰‡Ì
 				  LMX2486_R3_ACCESS_0_SET |							// 0x100000 = 0x1 << 20
-			 	  LMX2486_R3_ACCESS_1_SET | 						// 0x200000 = 0x1 << 21 ==> 0x03 –≤–∫–ª—é—á–µ–Ω –¥–æ—Å—Ç—É–ø –∫ —Ä–µ–≥–∏—Å—Ç—Ä—É R5 ==> –†–ê–°–®–ò–†–ï–ù–ò–ï —Ä–µ–∂–∏–º–∞ 12 –±–∏—Ç –¥–æ —Ä–µ–∂–∏–º–∞ 22 –±–∏—Ç													   !!!! XXXX
+			 	  LMX2486_R3_ACCESS_1_SET | 						// 0x200000 = 0x1 << 21 ==> 0x03 ‚ÍÎ˛˜ÂÌ ‰ÓÒÚÛÔ Í Â„ËÒÚÛ R5 ==> –¿—ÿ»–≈Õ»≈ ÂÊËÏ‡ 12 ·ËÚ ‰Ó ÂÊËÏ‡ 22 ·ËÚ													   !!!! XXXX
 												 //LMX2486_R3_RF_CPG(9);				// Kurchanov 9 ==> 950 mkA	// OLD
 					// LMX2486_R3_RF_CPG(5);				// Kurchanov 5 ==> 570 mkA	// Rb
 												 //LMX2486_R3_RF_CPG(4);				// Kurchanov 4 ==> 475 mkA
@@ -96,12 +96,12 @@ void LMX2486_Init(void){
 	//=======================================================
 	// REG 4
 	//=======================================================	
-	uint32_t lmx2486Reg4 = 	LMX2486_REG_R4 | LMX2486_R4_R4 |		// 0x09 | 0x200000 –±–∏—Ç 21
-							  	 LMX2486_R4_RF_CP_POSITIVE |		// 0x000200 –±–∏—Ç  9
-									 LMX2486_R4_OSC_OUT_ON |		// 0x000800 –±–∏—Ç 11			–±–∏—Ç 23 –Ω–µ —É—Å—Ç–∞–Ω–æ–≤–ª–µ–Ω (Oscillator Doubler) (–í–ê–ñ–ù–û !! –ø–æ–ø—Ä–æ–±–æ–≤–∞—Ç—å –≤–∫–ª—é—á–∏—Ç—å)
-									 LMX2486_R4_FM_MODE_2X |		// 0x008000	–±–∏—Ç 15			–±–∏—Ç—ã 4 - 7 MUX –Ω–µ —É—Å—Ç–∞–Ω–æ–≤–ª–µ–Ω—ã ==>  Disabled
-									   LMX2486_R4_DITH_OFF |		// 0x0						–±–∏—Ç—ã 16 –∏ 17 –Ω–µ —É—Å—Ç–∞–Ω–æ–≤–ª–µ–Ω—ã Dithering Mode Used ==>  Disabled																	   !!!! XXXX
-										LMX2486_R4_MUX_OFF;			// 0x0						IF_CPP = –±–∏—Ç 10?,  IF_P = –±–∏—Ç 8?, FM(–±–∏—Ç—ã 14 –∏ 15) = –±–∏—Ç 14? 0x02 ==>   Fractional PLL mode with a 2nd order delta-sigma modulator !!!! XXXX
+	uint32_t lmx2486Reg4 = 	LMX2486_REG_R4 | LMX2486_R4_R4 |		// 0x09 | 0x200000 ·ËÚ 21
+							  	 LMX2486_R4_RF_CP_POSITIVE |		// 0x000200 ·ËÚ  9
+									 LMX2486_R4_OSC_OUT_ON |		// 0x000800 ·ËÚ 11			·ËÚ 23 ÌÂ ÛÒÚ‡ÌÓ‚ÎÂÌ (Oscillator Doubler) (¬¿∆ÕŒ !! ÔÓÔÓ·Ó‚‡Ú¸ ‚ÍÎ˛˜ËÚ¸)
+									 LMX2486_R4_FM_MODE_2X |		// 0x008000	·ËÚ 15			·ËÚ˚ 4 - 7 MUX ÌÂ ÛÒÚ‡ÌÓ‚ÎÂÌ˚ ==>  Disabled
+									   LMX2486_R4_DITH_OFF |		// 0x0						·ËÚ˚ 16 Ë 17 ÌÂ ÛÒÚ‡ÌÓ‚ÎÂÌ˚ Dithering Mode Used ==>  Disabled																	   !!!! XXXX
+										LMX2486_R4_MUX_OFF;			// 0x0						IF_CPP = ·ËÚ 10?,  IF_P = ·ËÚ 8?, FM(·ËÚ˚ 14 Ë 15) = ·ËÚ 14? 0x02 ==>   Fractional PLL mode with a 2nd order delta-sigma modulator !!!! XXXX
 	//=======================================================
 	// REG 6
 	//=======================================================
@@ -111,7 +111,7 @@ void LMX2486_Init(void){
 	//=======================================================
 	// REG 7
 	//=======================================================
-	// RF Digital Lock Detect Divide By 4,  IF PLL Counter Reset (–í–ê–ñ–ù–û !!), RF PLL Counter Reset,  RF Charge Pump Tri-State (–í–ê–ñ–ù–û !!),  IF Charge Pump Tri-State (–í–ê–ñ–ù–û !!)
+	// RF Digital Lock Detect Divide By 4,  IF PLL Counter Reset (¬¿∆ÕŒ !!), RF PLL Counter Reset,  RF Charge Pump Tri-State (¬¿∆ÕŒ !!),  IF Charge Pump Tri-State (¬¿∆ÕŒ !!)
 
 
 
@@ -121,7 +121,7 @@ void LMX2486_Init(void){
 	uint32_t lmx2486Reg0 = 	LMX2486_REG_R0 | 						// 0x00
 								 RF_N_Reg0 |
 								RF_FN_Reg0;
-	// –ü–µ—Ä–µ–¥–∞–µ–º –¥–∞–Ω–Ω—ã–µ –≤ –º–∏–∫—Ä–æ—Å—Ö–µ–º—É R0 —Ä–µ–≥–∏—Å—Ç—Ä –∑–∞–ø–æ–ª–Ω—è–µ–º –ø–æ—Å–ª–µ–¥–Ω–∏–º								–†–µ–≥–∏—Å—Ç—Ä—ã 6 –∏ 7 - –ø–æ—á–µ–º—É –Ω–µ –∏—Å–ø–æ–ª—å–∑—É—é—Ç—Å—è ???
+	// œÂÂ‰‡ÂÏ ‰‡ÌÌ˚Â ‚ ÏËÍÓÒıÂÏÛ R0 Â„ËÒÚ Á‡ÔÓÎÌˇÂÏ ÔÓÒÎÂ‰ÌËÏ								–Â„ËÒÚ˚ 6 Ë 7 - ÔÓ˜ÂÏÛ ÌÂ ËÒÔÓÎ¸ÁÛ˛ÚÒˇ ???
 	LMX2486_SendData(lmx2486Reg3);
 	LMX2486_SendData(lmx2486Reg5);
 	LMX2486_SendData(lmx2486Reg1);
@@ -131,7 +131,7 @@ void LMX2486_Init(void){
 }
 
 void LMX2486_SetFreq(uint32_t valueN, uint32_t valueFN, uint32_t valueFD){
-	// –¶–µ–ª–æ–µ
+	// ÷ÂÎÓÂ
 	int valueC = (int)(valueN / 32);
 	int valueB = (int)((valueN - valueC * 32) / 4);
 	int valueA = (int)(valueN - valueC * 32 - valueB * 4);
@@ -139,11 +139,11 @@ void LMX2486_SetFreq(uint32_t valueN, uint32_t valueFN, uint32_t valueFD){
 	uint32_t RF_N_Reg0 =	LMX2486_R0_RF_C(valueC) |
 												LMX2486_R0_RF_B(valueB) |
 												LMX2486_R0_RF_A(valueA);
-	// –ß–∏—Å–ª–∏—Ç–µ–ª—å
+	// ◊ËÒÎËÚÂÎ¸
 	uint32_t RF_FN = valueFN;
 	uint32_t RF_FN_Reg5 = (((RF_FN >> 12) & 0x03FF) << 4);
 	uint32_t RF_FN_Reg0 = ((RF_FN & 0x0FFF) << 1);
-	// –ó–Ω–∞–º–µ–Ω–∞—Ç–µ–ª—å
+	// «Ì‡ÏÂÌ‡ÚÂÎ¸
 	uint32_t RF_FD = valueFD;
 	uint32_t RF_FD_Reg5 = (((RF_FD >> 12) & 0x03FF) << 14);
 	uint32_t RF_FD_Reg1 = ((RF_FD & 0xFFF) << 4); // 0xE00

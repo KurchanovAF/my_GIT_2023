@@ -3,7 +3,7 @@
 extern uint8_t LSM303_BufferTx[16];
 extern uint8_t LSM303_BufferRx[16];
 
-// РќР°СЃС‚СЂРѕР№РєР° РґР°С‚С‡РёРєР° LSM303D
+// Настройка датчика LSM303D
 void LSM303D_Initialize(I2C_HandleTypeDef *hi2c){
 	
 	// LSM303D_REG_CTRL0
@@ -12,7 +12,7 @@ void LSM303D_Initialize(I2C_HandleTypeDef *hi2c){
 												I2C_MEMADD_SIZE_8BIT, &LSM303_BufferTx[0], 1, 500) == HAL_OK){};
 
 	// LSM303D_REG_CTRL1
-	// РћР±РЅРѕРІР»СЏРµРј РґР°РЅРЅС‹Рµ РїСЂРё С‡С‚РµРЅРёРё 
+	// Обновляем данные при чтении 
   LSM303_BufferTx[0] = 	LSM303D_READ_UPDATE | 
 												LSM303D_ACC_AXIS_ALL_ENABLE |
 												LSM303D_ACC_ODR3_125;
@@ -27,7 +27,7 @@ void LSM303D_Initialize(I2C_HandleTypeDef *hi2c){
 												I2C_MEMADD_SIZE_8BIT, &LSM303_BufferTx[0], 1, 500) == HAL_OK){};														
 		
 	// LSM303D_REG_CTRL6
-	// Р Р°Р±РѕС‡РёР№ РґРёР°РїР°Р·РѕРЅ РјР°РіРЅРёС‚РѕРјРµС‚СЂР°										
+	// Рабочий диапазон магнитометра										
   LSM303_BufferTx[0] = 	LSM303D_MAG_FS_2G;
   if (HAL_I2C_Mem_Write(hi2c, LSM303D_ADDRESS<<1, LSM303D_REG_CTRL6, 
 												I2C_MEMADD_SIZE_8BIT, &LSM303_BufferTx[0], 1, 500) == HAL_OK){};															
@@ -39,7 +39,7 @@ void LSM303D_Initialize(I2C_HandleTypeDef *hi2c){
 													
 
 }
-// РЎС‡РёС‚С‹РІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРёР№ С‚РµСЂРјРѕРјРµС‚СЂР°
+// Считывание показаний термометра
 uint16_t LSM303D_GetTemperature(I2C_HandleTypeDef *hi2c){
 	uint8_t memoryAddress = LSM303D_REG_TEMP_OUT_L | LSM303D_ADDR_AUTO_INCREMENT;
 	if (HAL_I2C_Mem_Read(hi2c, LSM303D_ADDRESS<<1, memoryAddress, 
@@ -48,26 +48,26 @@ uint16_t LSM303D_GetTemperature(I2C_HandleTypeDef *hi2c){
   result |=LSM303_BufferRx[0];
   return result;
 }
-// РЎС‡РёС‚С‹РІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРёР№ Р°РєСЃРµР»РµСЂРѕmeС‚СЂР°
+// Считывание показаний акселероmeтра
 void LSM303D_GetValueAcc(I2C_HandleTypeDef *hi2c, int *X, int *Y, int *Z){
 
 	uint8_t memoryAddress = LSM303D_REG_OUT_X_L_A | LSM303D_ADDR_AUTO_INCREMENT;
 	if (HAL_I2C_Mem_Read(hi2c, LSM303D_ADDRESS<<1, memoryAddress, 
 												I2C_MEMADD_SIZE_8BIT, &LSM303_BufferRx[0], 6, 500) == HAL_OK){};
   
-  // РЎРѕР±РёСЂР°РµРј РґР°РЅРЅС‹Рµ РїРѕ РҐ
+  // Собираем данные по Х
   (*X) = (LSM303_BufferRx[1] << 8);
   (*X) |= (LSM303_BufferRx[0]);
   if ((*X) > 32767){
     (*X) -= 65535;
   }
-  // РЎРѕР±РёСЂР°РµРј РґР°РЅРЅС‹Рµ РїРѕ Y
+  // Собираем данные по Y
   (*Y) = (int)(LSM303_BufferRx[3] << 8);
   (*Y) |= (int)(LSM303_BufferRx[2]);
   if ((*Y) > 32767){
     (*Y) -= 65535;
   }
-  // РЎРѕР±РёСЂР°РµРј РґР°РЅРЅС‹Рµ РїРѕ Z
+  // Собираем данные по Z
   (*Z) = (int)(LSM303_BufferRx[5] << 8);
   (*Z) |= (int)(LSM303_BufferRx[4]);
   if ((*Z) > 32767){
@@ -75,24 +75,24 @@ void LSM303D_GetValueAcc(I2C_HandleTypeDef *hi2c, int *X, int *Y, int *Z){
   }
 
 }
-// РЎС‡РёС‚С‹РІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРёР№ РјР°РіРЅРµС‚РѕРјРµС‚СЂР°
+// Считывание показаний магнетометра
 void LSM303D_GetValueMag(I2C_HandleTypeDef *hi2c, int *X, int *Y, int *Z){
 	uint8_t memoryAddress = LSM303D_REG_OUT_X_L_M | LSM303D_ADDR_AUTO_INCREMENT;
 	if (HAL_I2C_Mem_Read(hi2c, LSM303D_ADDRESS<<1, memoryAddress, 
 												I2C_MEMADD_SIZE_8BIT, &LSM303_BufferRx[0], 6, 500) == HAL_OK){};
-  // РЎРѕР±РёСЂР°РµРј РґР°РЅРЅС‹Рµ РїРѕ РҐ
+  // Собираем данные по Х
   (*X) = (LSM303_BufferRx[1] << 8);
   (*X) |= (LSM303_BufferRx[0]);
   if ((*X) > 32767){
     (*X) -= 65535;
   }
-  // РЎРѕР±РёСЂР°РµРј РґР°РЅРЅС‹Рµ РїРѕ Y
+  // Собираем данные по Y
   (*Y) = (int)(LSM303_BufferRx[3] << 8);
   (*Y) |= (int)(LSM303_BufferRx[2]);
   if ((*Y) > 32767){
     (*Y) -= 65535;
   }
-  // РЎРѕР±РёСЂР°РµРј РґР°РЅРЅС‹Рµ РїРѕ Z
+  // Собираем данные по Z
   (*Z) = (int)(LSM303_BufferRx[5] << 8);
   (*Z) |= (int)(LSM303_BufferRx[4]);
   if ((*Z) > 32767){

@@ -7914,7 +7914,7 @@ LOAD c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17
                 0x00000be7       0x22 c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
 OUTPUT(cpt_m__ac6.elf elf32-littlearm)
 
-.debug_info     0x00000000    0x39a90
+.debug_info     0x00000000    0x39a88
  .debug_info    0x00000000      0xca2 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_info    0x00000ca2     0x2b66 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o
  .debug_info    0x00003808     0x253b Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.o
@@ -7960,10 +7960,10 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_info    0x000322fe     0x1988 Src/tim.o
  .debug_info    0x00033c86      0xe9b Src/usart.o
  .debug_info    0x00034b21     0x2528 Src/usart_protocol.o
- .debug_info    0x00037049     0x2a25 Src/var.o
- .debug_info    0x00039a6e       0x22 startup/startup_stm32l476xx.o
+ .debug_info    0x00037049     0x2a1d Src/var.o
+ .debug_info    0x00039a66       0x22 startup/startup_stm32l476xx.o
 
-.debug_abbrev   0x00000000     0x4fe2
+.debug_abbrev   0x00000000     0x4fed
  .debug_abbrev  0x00000000      0x209 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_abbrev  0x00000209      0x294 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o
  .debug_abbrev  0x0000049d      0x310 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.o
@@ -8009,8 +8009,8 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_abbrev  0x0000488d      0x21f Src/tim.o
  .debug_abbrev  0x00004aac      0x1d2 Src/usart.o
  .debug_abbrev  0x00004c7e      0x22f Src/usart_protocol.o
- .debug_abbrev  0x00004ead      0x123 Src/var.o
- .debug_abbrev  0x00004fd0       0x12 startup/startup_stm32l476xx.o
+ .debug_abbrev  0x00004ead      0x12e Src/var.o
+ .debug_abbrev  0x00004fdb       0x12 startup/startup_stm32l476xx.o
 
 .debug_loc      0x00000000    0x16e04
  .debug_loc     0x00000000      0x1f1 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
