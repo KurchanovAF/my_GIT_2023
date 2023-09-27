@@ -1577,7 +1577,7 @@ static inline void UpdateDataADC2(void){
 	
 
 	/*
-	// РђРїРїР°СЂР°С‚РЅС‹Р№ СЃРёРЅС…СЂРѕРЅРЅС‹Р№ РґРµС‚РµРєС‚РѕСЂ 1
+	// Аппаратный синхронный детектор 1
 	if (index_SD2 >= count_SD2){
 		index_SD2 = 0;
 #ifdef my_ASM_fun
@@ -1605,7 +1605,7 @@ static inline void UpdateDataADC2(void){
 #endif
 	//*/
 	
-	//if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
+	//if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// Один раз за 16 мс
 	if(my_ms_num == 16){
 		index_OUT2_CPT_CRNT = 0;
 		// Один раз за 16 мс
@@ -1614,9 +1614,9 @@ static inline void UpdateDataADC2(void){
 		result_OUT2_CPT_FREQ_CPT -= result_OUT2_CPT_CRNT_DOPLER*value_mult_To_FREQ;			// !!!!!!!
 		result_OUT2_CPT_CRNT_DOPLER_tmp = result_OUT2_CPT_CRNT_DOPLER;
 
-		flag_SCAN_CRNT = true;									// Р·РЅР°С‡РµРЅРёРµ РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РЅР°РєРѕРїР»РµРЅРёСЏ Рё РґР°Р»СЊРЅРµР№С€РµРіРѕ РІС‹РІРѕРґР°
+		flag_SCAN_CRNT = true;									// значение можно использовать для накопления и дальнейшего вывода
 		flagUpdateCompute_OUT2_DOPLER_CRNT = true;				// ??
-		// РџСЂРёРІСЏР·РєР° С‚РµРјРїРµСЂР°С‚СѓСЂРѕР№
+		// Привязка температурой
 		result_OUT2_DOPLER_TEC = result_OUT2_CPT_CRNT_DOPLER;	// ??
 		flagUpdateCompute_OUT2_DOPLER_TEC = true;
 
@@ -1692,7 +1692,7 @@ static inline void UpdateDataADC2(void){
 			num_corr_TEST_ADC_2 = 0;
 		}
 		//*/
-		//my_ms_num = 1;	// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј С„Р»Р°Рі Р°РєС‚РёРІРЅРѕСЃС‚Рё 1-Р№ РјРёР»Р»РёСЃРµРєСѓРЅРґС‹
+		//my_ms_num = 1;	// Устанавливаем флаг активности 1-й миллисекунды
 	}
 
 	/*
@@ -1731,7 +1731,7 @@ static inline void UpdateDataADC2(void){
 	tickDelayUpdateTempCell += 1;
 	if (tickDelayUpdateTempCell == 1000){
 		tickDelayUpdateTempCell = 0;
-		// Р—Р°РїСЂР°С€РёРІР°РµРј С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё
+		// Запрашиваем температуры ячейки
 		if (flagConnectedTempSensor == true){
 			uint8_t addressI2C3 = ADT7410_ADDRESS;
 			I2C3_RxBuffer[0] = 0;
@@ -1748,21 +1748,21 @@ static inline void UpdateDataADC2(void){
 }
 
 // Kurchanov 2020_10_23
-static inline void funWork_VOID_TEST(){	// РІС‹Р·С‹РІР°РµС‚СЃСЏ 1000 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ, РєР°Р¶РґСѓСЋ РјРёР»Р»РёСЃРµРєСѓРЅРґСѓ
+static inline void funWork_VOID_TEST(){	// вызывается 1000 раз в секунду, каждую миллисекунду
 	static int i_Num = 0;
 	static int delaySend = 0;
 	static bool b_Start = false;
 	static uint32_t dataSend[9];
 	if ((statusLoopPID & PID_FLAG_LOOP_VOID_TEST ) == PID_FLAG_LOOP_VOID_TEST ){
-		if(!b_Start) b_Start = true; // РџРѕС‚РѕРє РЅР°С‡Р°Р»СЃСЏ
-		// РЈСЃС‚Р°РЅРѕРІР»РµРЅ СЂРµР¶РёРј VOID_TEST, РґСЂСѓРіРёРµ РїРѕС‚РѕРєРё РІС‹РІРѕРґР° РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚
-		// РїРѕС‚РѕРјСѓ С‡С‚Рѕ itemWork == WORK_NONE
+		if(!b_Start) b_Start = true; // Поток начался
+		// Установлен режим VOID_TEST, другие потоки вывода отсутствуют
+		// потому что itemWork == WORK_NONE
 		delaySend++;
 		if (delaySend % 100 == 0){
 			delaySend = 0;
-			// РІС‹Р·С‹РІР°РµС‚СЃСЏ 10 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ, РІС‹РІРѕРґРёРј 9 РѕС‚Р»Р°РґРѕС‡РЅС‹С… Р·РЅР°С‡РµРЅРёР№ РїРѕ 4 Р±Р°Р№С‚Р°
+			// вызывается 10 раз в секунду, выводим 9 отладочных значений по 4 байта
 			i_Num++;
-			dataSend[0] = i_Num;	// РќРѕРјРµСЂ РѕС‚СЃС‡РµС‚Р° РїРѕСЃР»Рµ РІРєР»СЋС‡РµРЅРёРµ СЂРµР¶РёРјР° РєРѕРЅС‚СЂРѕР»СЏ
+			dataSend[0] = i_Num;	// Номер отсчета после включение режима контроля
 			dataSend[1] = (int)(avrResult_OUT_3R*1000.0f);
 			dataSend[2] = (int)(avrResult_CONTR*1000.0f);
 			dataSend[3] = (int)(avrResult_OUT_DC*1000.0f);
@@ -1770,13 +1770,13 @@ static inline void funWork_VOID_TEST(){	// РІС‹Р·С‹РІР°РµС‚СЃСЏ 1000 СЂР°Р· РІ С
 			dataSend[5] = value_UT1A*1000;
 			dataSend[6] = value_DTX*1000;
 			dataSend[7] = value_T5*1000;
-			dataSend[8] = 0;	// РќР°СЃС‚РѕСЏС‰Р°СЏ С‡Р°СЃС‚РѕС‚Р° СЃ РїСЂРёР±РѕСЂР° !!
-												// РћСЂРіР°РЅРёР·РѕРІР°С‚СЊ РІРІРѕРґ С‡Р°СЃС‚РѕС‚С‹ СЃ РёР·РјРµСЂРёС‚РµР»СЏ С„Р°Р·РѕРІС‹С… С€СѓРјРѕРІ
+			dataSend[8] = 0;	// Настоящая частота с прибора !!
+								// Организовать ввод частоты с измерителя фазовых шумов
 			SendPkgData(STREAM_DATA, ((uint8_t*)&dataSend), 9*4);
 			}
 		}
 	else{
-		if(b_Start)	// РџРѕС‚РѕРє РѕСЃС‚Р°РЅРѕРІР»РµРЅ
+		if(b_Start)	// Поток остановлен
 		{
 			b_Start = false;
 			i_Num = 0;
@@ -1785,8 +1785,8 @@ static inline void funWork_VOID_TEST(){	// РІС‹Р·С‹РІР°РµС‚СЃСЏ 1000 СЂР°Р· РІ С
 	}
 }
 
-static inline void funWork_SCAN_CRNT(){	// РІС‹Р·С‹РІР°РµС‚СЃСЏ 1000 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ, РєР°Р¶РґСѓСЋ РјРёР»Р»РёСЃРµРєСѓРЅРґСѓ
-	// РџРѕСЃР»Рµ РІС‹РїРѕР»РЅРµРЅРёСЏ UpdateDataADC2()
+static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в секунду, каждую миллисекунду
+	// После выполнения UpdateDataADC2()
 	//my_TST++;
 	static int delaySend = 0;
 	static int delaySend_2 = 0;
@@ -1800,7 +1800,7 @@ static inline void funWork_SCAN_CRNT(){	// РІС‹Р·С‹РІР°РµС‚СЃСЏ 1000 СЂР°Р· РІ С
 	static int dS_8 = 0;
 	static uint32_t dataSend[9];
 
-	if(flag_SCAN_CRNT)	// 1 СЂР°Р· РІ 16 РјСЃ, 62,5 СЂР°Р·Р° РІ СЃРµРєСѓРЅРґСѓ
+	if(flag_SCAN_CRNT)	// 1 раз в 16 мс, 62,5 раза в секунду
 	{
 		//my_TST++;
 
@@ -1882,7 +1882,7 @@ static inline void funWork_SCAN_CRNT(){	// РІС‹Р·С‹РІР°РµС‚СЃСЏ 1000 СЂР°Р· РІ С
 
 		delaySend++;
 
-		if (delaySend % 6 == 0){			// Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ 10,42 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ
+		if (delaySend % 6 == 0){			// Выполняется 10,42 раз в секунду
 			delaySend_2++;					// Kurchanov
 
 			if(delaySend_2  >= value_N_STEP_L){
@@ -1915,7 +1915,7 @@ static inline void funWork_SCAN_CRNT(){	// РІС‹Р·С‹РІР°РµС‚СЃСЏ 1000 СЂР°Р· РІ С
 	/*
 	delaySend++;
 
-	if (delaySend % 6 == 0){			// Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ 8 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ, 125=2*62,5=2/0,016; 125 СЂР°Р· = 2 СЃРµРєСѓРЅРґС‹
+	if (delaySend % 6 == 0){			// Выполняется 8 раз в секунду, 125=2*62,5=2/0,016; 125 раз = 2 секунды
 		delaySend_2++;					// Kurchanov
 
 		if(delaySend_2  >= value_N_STEP_L){
@@ -1943,29 +1943,29 @@ static inline void funWork_SCAN_CRNT(){	// РІС‹Р·С‹РІР°РµС‚СЃСЏ 1000 СЂР°Р· РІ С
 }
 
 // 
-// РќСѓР¶РЅРѕ РїСЂРёРјРµСЂРЅРѕ РєР°Рє funWork_TEST_ADC()
-// РІС‹РІРѕРґРёС‚СЊ dataSend[0] - dataSend[8]
-// РїСЂРёС‡РµРј РІ РЅРѕРІС‹С… СЃС‚СЂРѕРєР°С… - РЅРѕРІС‹Рµ СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР°
-// РґРѕ С‚РµС… РїРѕСЂ, РїРѕРєР° РЅРµ РІС‹РІРµРґРµРј РІРµСЃСЊ С‚РµСЃС‚РѕРІС‹Р№ РјР°СЃСЃРёРІ
+// Нужно примерно как funWork_TEST_ADC()
+// выводить dataSend[0] - dataSend[8]
+// причем в новых строках - новые элементы массива
+// до тех пор, пока не выведем весь тестовый массив
 // 
-// РјР°СЃСЃРёРІ РјРіРЅРѕРІРµРЅРЅРѕ Р·Р°РїРѕРјРёРЅР°РµРј, РїРѕС‚РѕРј РїРµСЂРµРґР°РµРј РЅРµ СЃРїРµС€Р°
-// Рё Р°РЅР°Р»РёР·РёСЂСѓРµРј РµРіРѕ
+// массив мгновенно запоминаем, потом передаем не спеша
+// и анализируем его
 //
-// РґРѕР±Р°РІР»СЏРµРј СЂРµР¶РёРј СЂР°Р±РѕС‚С‹ TEST
+// добавляем режим работы TEST
 //
-// РџСЂРѕР±СѓСЋ РїРѕР»РѕР¶РёС‚СЊ РїСЂРѕРµРєС‚ РІ SourceTree 21.08.2020
+// Пробую положить проект в SourceTree 21.08.2020
 //
 
 	
 static inline void funWork_TEST_ADC(){
 	static int delaySend = 0;
 	delaySend++;
-	if (delaySend % 100 == 0){		// 10 СЂР°Р· РІ 1СЃРµРєСѓРЅРґСѓ СЂРѕРІРЅРѕ
+	if (delaySend % 100 == 0){		// 10 раз в 1секунду ровно
 		static uint32_t dataSend[6];
 		dataSend[0] = delaySend / 100;
 		dataSend[1] = (int)(avrResult_OUT_DC*1000);
 		dataSend[2] = (int)(result_OUT2_CPT_CRNT_DOPLER*1000);
-		// avrResult_SD1 - С‚РµРјРїРµСЂР°С‚СѓСЂР° РєРѕРЅС‚СЂРѕР»Р»РµСЂР°
+		// avrResult_SD1 - температура контроллера
 		avrResult_SD1_ /= 1000;
 		dataSend[3] = (int)(avrResult_SD1_*1000);
 		avrResult_SD1_ = 0;
@@ -2029,7 +2029,7 @@ static inline void funWork_TEST_ADC_3(){
 			SendPkgData(STREAM_DATA, ((uint8_t*)&dataSend), 9*4);
 
 			if(numPos == 2400){
-				// РљРѕРЅРµС† РїРµСЂРµРґР°С‡Рё
+				// Конец передачи
 				pkgPos = 0;
 				numPos = 0;
 				b_buf_TEST_ADC_3 = false;
@@ -2052,14 +2052,13 @@ static inline void funWork_SCAN_FREQ(){
 	static int dS_8 = 0;
 	static uint32_t dataSend[9];
 
-	if(flag_SCAN_CRNT)	// 1 СЂР°Р· РІ 16 РјСЃ
+	if(flag_SCAN_CRNT)	// 1 раз в 16 мс
 	{
-		/*
-		// my_alarm |= 0x80; 	- СЃРІРѕР±РѕРґРЅС‹Р№ РїСЂРёР·РЅР°Рє
-		// my_alarm &= ~(0x80);	- СЃРІРѕР±РѕРґРЅС‹Р№ РїСЂРёР·РЅР°Рє
+		// my_alarm |= 0x80; 	- свободный признак
+		// my_alarm &= ~(0x80);	- свободный признак
 		if(b_OUT_DC)
 		{
-			my_alarm |= 0xF0;	// СЂР°Р±РѕС‚Р°РµС‚
+			my_alarm |= 0xF0;	// работает
 			b_OUT_DC = false;
 		}
 		else
@@ -2070,12 +2069,12 @@ static inline void funWork_SCAN_FREQ(){
 		i_MESSAGE_3 = index_OUT_DC;
 		if(index_OUT_DC != 0)
 		{
-			my_alarm |= 0x80;	// СЂР°Р±РѕС‚Р°РµС‚
+			my_alarm |= 0x80;	// работает
 			//i_MESSAGE_3 = index_OUT_DC;
 		}
 		else
 		{
-			//my_alarm &= ~(0x80);	// СЂР°Р±РѕС‚Р°РµС‚
+			//my_alarm &= ~(0x80);	// работает
 			//i_MESSAGE_3 = index_OUT_DC;
 		}
 		//*/
