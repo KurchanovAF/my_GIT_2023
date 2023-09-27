@@ -2134,7 +2134,7 @@ static inline void funWork_SCAN_FREQ(){
 
 	delaySend++;
 
-	if (delaySend % 6 == 0){			// Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ 10 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ
+	if (delaySend % 6 == 0){			// Выполняется 10 раз в секунду
 		delaySend_2++;					// Kurchanov
 
 		if(delaySend_2  >= value_N_STEP_L){
@@ -2161,30 +2161,31 @@ static inline void funWork_SCAN_FREQ(){
 	}
 }
 
-static inline void Difference(){           // С„СѓРЅРєС†РёСЏ РїРѕРёСЃРєР°  СЂР°Р·РЅРёС†С‹ С‡Р°СЃС‚РѕС‚ РІ 1 РјСЃ
+static inline void Difference(){           // функция поиска  разницы частот в 1 мс
 
   maxfreq = 0;
   minfreq = 65535;
   for(int i = 0; i < 120; i++){
-	  tmp = my_DMA2_Data_F1_F2[i];             // РїРѕРёСЃРє РјРёРЅ Рё РјР°РєСЃ С‡Р°СЃС‚РѕС‚С‹
+	  tmp = my_DMA2_Data_F1_F2[i];             // поиск мин и макс частоты
 	  if(minfreq > tmp)
 	  minfreq = tmp;
 	  if(maxfreq < tmp)
 	  maxfreq = tmp;
   }
 
-  diff[no] = maxfreq - minfreq;      // С„РѕСЂРјРёСЂСѓРµРј m-СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР° СЂР°Р·РЅРёС† С‡Р°СЃС‚РѕС‚
+  diff[no] = maxfreq - minfreq;      // формируем m-элементов массива разниц частот
   no++;
 
-  if( no == 1000) flagHist=true;     // РїСЂРё Р·Р°РїРѕР»РЅРµРЅРёРё 1000 СЌР»РµРјРµРЅС‚РѕРІ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃС‚СЂРѕРµРЅРёРµ РіРёСЃС‚РѕРіСЂР°РјРјС‹ (С„Р»Р°Рі РЅР° РїРѕСЃС‚СЂРѕРµРЅРёРµ = true)
-  if( no == 2000)                    // РїСЂРё Р·Р°РїРѕР»РЅРµРЅРёРё 2000 СЌР»РµРјРµРЅС‚РѕРІ С„Р»Р°Рі РЅР° РїРѕСЃС‚СЂРѕРµРЅРёРµ = true, С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ diff[] РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ РЅР°С‡Р°Р»Р°
+  if( no == 1000) flagHist=true;     // при заполнении 1000 элементов начинается строение гистограммы (флаг на построение = true)
+  if( no == 2000)                    // при заполнении 2000 элементов флаг на построение = true, формирование diff[] начинается с начала
   {
 	  flagHist = true;
 	  no = 0;
   }
 }
 
-static inline void funWork_HIST(void){     // С„СѓРЅРєС†РёСЏ РїРµСЂРµРґР°С‡Рё РіРёСЃС‚РѕРіСЂР°РјРјС‹ РЅР° РєРѕРјРїСЊСЋС‚РµСЂ
+static inline void funWork_HIST(void){     // функция передачи гистограммы на компьютер
+  	static uint32_t dataSend[9];
 	static uint32_t dataSend[9];
 	static int delaySend = 0;
 	if(b_buf_HIST){
@@ -2195,12 +2196,12 @@ static inline void funWork_HIST(void){     // С„СѓРЅРєС†РёСЏ РїРµСЂРµРґР°С‡Рё Рі
 			{
 				dataSend[i] = rez_cell[numPosHist + i];
 			}
-			numPosHist += 8;  // РЅРѕРјРµСЂ РїРѕСЂС†РёРё
+			numPosHist += 8;  			// номер порции
 			SendPkgData(STREAM_DATA, ((uint8_t*)&dataSend), 9*4);
 
 			if(numPosHist >= num_cell) {
-				numPosHist = 0; // СЃР±СЂР°СЃС‹РІР°РµРј РЅРѕРјРµСЂ РїРѕСЂС†РёРё
-				b_buf_HIST = false; //СЃР±СЂРѕСЃ С„Р»Р°РіР° РЅР° РїРµСЂРµРґР°С‡Сѓ РґР°РЅРЅС‹С… РЅР° РєРѕРјРїСЊСЋС‚РµСЂ
+				numPosHist = 0; 		// сбрасываем номер порции
+				b_buf_HIST = false; 	//сброс флага на передачу данных на компьютер
 				}
 		}
 	}
@@ -2230,61 +2231,60 @@ static inline void funWork_TEST_FACTOR_OUT(){
 	
 }
 
-// РћР±СЂР°Р±Р°С‚С‹РІР°РµРј Р·Р°РїСЂРѕСЃ USART
+// Обрабатываем запрос USART
 static inline void UpdateRS232(void){
-		// Р—Р°Р±РёСЂР°РµРј РґР°РЅРЅС‹Рµ СЃ UART
+  // Забираем данные с UART
   uint32_t isrflags = USART3->ISR;
   uint32_t cr1its = USART3->CR1;
   uint32_t cr3its = USART3->CR3;
-  // Р•СЃС‚СЊ Р±Р°Р№С‚ РЅР° РїСЂРёРµРј
+  // Есть байт на прием
   if(((isrflags & USART_ISR_RXNE) == USART_ISR_RXNE)){
-  // Р—Р°Р±РёСЂР°РµРј Р±Р°Р№С‚ СЃ USART
-		USART_rx_buffer[USART_rx_wr_index]= (uint8_t)USART3->RDR;
-		// РћС‡РёСЃС‚РёР»Рё С„Р»Р°Рі РїСЂРёС‘РјР° Р±Р°Р№С‚Р°
-		USART3->ICR = USART_ISR_RXNE;
-		// РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРёРЅСЏС‚С‹С… Р±Р°Р№С‚
-    USART_rx_count++;
-    USART_rx_wr_index++;
-    // Р‘СѓС„РµСЂ С†РёРєР»РёС‡РЅС‹Р№
-    if (USART_rx_wr_index == 255) {
-      USART_rx_wr_index=0;
-    } 
-    if (USART_rx_count == 255){
-			USART_rx_count = 0; 
-      USART_rx_buffer_overflow = 1;  
-    }  
+  // Забираем байт с USART
+	  USART_rx_buffer[USART_rx_wr_index]= (uint8_t)USART3->RDR;
+	  // Очистили флаг приёма байта
+	  USART3->ICR = USART_ISR_RXNE;
+	  // Количество принятых байт
+  USART_rx_count++;
+  USART_rx_wr_index++;
+  // Буфер цикличный
+  if (USART_rx_wr_index == 255) {
+	  USART_rx_wr_index=0;
+      }
+  if (USART_rx_count == 255){
+	  USART_rx_count = 0;
+	  USART_rx_buffer_overflow = 1;
+      }
   }
   
-	// РџРµСЂРµРґР°С‚С‡РёРє РіРѕС‚РѕРІ РїРµСЂРµРґР°РІР°С‚СЊ РґР°РЅРЅС‹Рµ
-	if ((isrflags & UART_FLAG_TXE) == UART_FLAG_TXE){
-		if ( USART_tx_buffer_overflow == true ){
-			// РєРѕР»РёС‡РµСЃС‚РІРѕ Р±Р°Р№С‚ РЅР° РїРµСЂРµРґР°С‡Сѓ РїСЂРё РїРµСЂРµРїРѕР»РЅРµРЅРёРё
-			USART_tx_count = USART_tx_wr_index + (255 - USART_tx_rd_index);
-		} else {
-			// РєРѕР»РёС‡РµСЃС‚РІРѕ Р±Р°Р№С‚ РЅР° РїРµСЂРµРґР°С‡Сѓ РїСЂРё РЅРѕСЂРјР°Р»СЊРЅРѕР№ СЂР°Р±РѕС‚Рµ
-			USART_tx_count = USART_tx_wr_index - USART_tx_rd_index;
-		}
-		// Р•СЃС‚СЊ Р±Р°Р№С‚ РЅР° РїРµСЂРµРґР°С‡Сѓ
-		if (USART_tx_count > 0){
-			// РћС‚РїСЂР°РІР»СЏРµРј Р±Р°Р№t
-			USART3->TDR = (uint16_t)USART_tx_buffer[USART_tx_rd_index];
-			// РћС‡РёСЃС‚РёР»Рё С„Р»Р°Рі РїРµСЂРµРґР°С‡Рё Р±Р°Р№С‚Р°
-			USART3->ICR = UART_FLAG_TXE;
-			USART_tx_rd_index++;
-			if (USART_tx_rd_index == 255) {
-				USART_tx_rd_index = 0;
-				USART_tx_buffer_overflow = false;
-			}
-			USART_tx_count--;		
-			if (USART_tx_count == 0){
-				// РћС‚РєР»СЋС‡Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ РїРѕ РѕРєРѕРЅС‡Р°РЅРёСЋ РїРµСЂРµРґР°С‡Рё
-				USART3->CR1 &= ~USART_CR1_TCIE;
-			}
-		}
-	}
-	// РћС‡РёС‰Р°РµРј С„Р»Р°Рі РѕС€РёР±РєРё, РµСЃР»Рё РЅРµ СѓСЃРїРµР»Рё РїСЂРёРЅСЏС‚СЊ Р±Р°Р№С‚
-	USART3->ICR = UART_CLEAR_OREF;
-	
+  // Передатчик готов передавать данные
+  if ((isrflags & UART_FLAG_TXE) == UART_FLAG_TXE){
+	  if ( USART_tx_buffer_overflow == true ){
+		  // количество байт на передачу при переполнении
+		  USART_tx_count = USART_tx_wr_index + (255 - USART_tx_rd_index);
+	  } else {
+		  // количество байт на передачу при нормальной работе
+		  USART_tx_count = USART_tx_wr_index - USART_tx_rd_index;
+	  }
+	  // Есть байт на передачу
+	  if (USART_tx_count > 0){
+		  // Отправляем байt
+		  USART3->TDR = (uint16_t)USART_tx_buffer[USART_tx_rd_index];
+		  // Очистили флаг передачи байта
+		  USART3->ICR = UART_FLAG_TXE;
+		  USART_tx_rd_index++;
+		  if (USART_tx_rd_index == 255) {
+			  USART_tx_rd_index = 0;
+			  USART_tx_buffer_overflow = false;
+		  }
+		  USART_tx_count--;
+		  if (USART_tx_count == 0){
+			  // Отключаем прерывание по окончанию передачи
+			  USART3->CR1 &= ~USART_CR1_TCIE;
+		  }
+	  }
+  }
+  // Очищаем флаг ошибки, если не успели принять байт
+  USART3->ICR = UART_CLEAR_OREF;
 }
 
 
