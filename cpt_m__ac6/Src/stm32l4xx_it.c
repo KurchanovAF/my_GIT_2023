@@ -2054,6 +2054,7 @@ static inline void funWork_SCAN_FREQ(){
 
 	if(flag_SCAN_CRNT)	// 1 раз в 16 мс
 	{
+		/*
 		// my_alarm |= 0x80; 	- свободный признак
 		// my_alarm &= ~(0x80);	- свободный признак
 		if(b_OUT_DC)
@@ -2186,7 +2187,6 @@ static inline void Difference(){           // функция поиска  разницы частот в 1
 
 static inline void funWork_HIST(void){     // функция передачи гистограммы на компьютер
   	static uint32_t dataSend[9];
-	static uint32_t dataSend[9];
 	static int delaySend = 0;
 	if(b_buf_HIST){
 		delaySend++;

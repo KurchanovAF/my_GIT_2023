@@ -116,13 +116,13 @@
 #define LMX2486_R4_OSC_1X               (0x000000)        
 #define LMX2486_R4_OSC_2X               (0x001000)
                                            
-// РџРѕСЂСЏРґРѕРє СЃРёРіРјР°-РґРµР»СЊС‚Р° РјРѕРґСѓР»СЏС‚РѕСЂР°         
+// Порядок сигма-дельта модулятора
 #define LMX2486_R4_FM_MODE_4X           (0x000000)
 #define LMX2486_R4_FM_MODE_3X           (0x00C000)
 #define LMX2486_R4_FM_MODE_2X           (0x008000)
 #define LMX2486_R4_FM_OFF               (0x004000)
                                            
-// РЎРіР»Р°Р¶РёРІР°РЅРёРµ                             
+// Сглаживание
 #define LMX2486_R4_DITH_OFF             (0x000000)         
 #define LMX2486_R4_DITH_WEAK            (0x010000)
 #define LMX2486_R4_DITH_STRONG          (0x020000)

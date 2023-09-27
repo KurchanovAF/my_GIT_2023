@@ -23,21 +23,19 @@
 
 #include "hist.h"
 
-	
-// Р Р€Р С—РЎР‚Р В°Р Р†Р В»Р ВµР Р…Р С‘Р Вµ Р Р†Р В°РЎР‚Р С‘Р В°Р Р…РЎвЂљР В°Р СР С‘ Р Р†РЎвЂ№РЎвЂЎР С‘РЎРѓР В»Р ВµР Р…Р С‘Р в„–
 #define my_ASM_fun
 #define my_C_fun
 //#define my_EQ_test
 extern int my_TST;
 extern uint32_t  my_TST_U32;
 
-extern bool bCompFreqTK;			// РљРѕРјРїРµРЅСЃР°С†РёСЏ С‡Р°СЃС‚РѕС‚С‹ РїРѕ С‚РµРјРїРµСЂР°С‚СѓСЂРµ РєРѕРЅС‚СЂРѕР»Р»РµСЂР°
-extern bool bCompFreqTK_1;			// РЎС‚Р°СЂС‚ РїСЂРѕС†РµСЃСЃР° РєРѕРјРїРµРЅСЃР°С†РёРё, Р·Р°РїРѕРјРёРЅР°РЅРёРµ РЅР°С‡Р°Р»СЊРЅРѕРіРѕ РєРѕРґР°
-extern float avrResult_SD1_start;	// РќР°С‡Р°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РєРѕРґР° РґР°С‚С‡РёРєР° С‚РµРјРїРµСЂР°С‚СѓСЂС‹ РјРёРєСЂРѕРєРѕРЅС‚СЂРѕР»Р»РµСЂР°
+extern bool bCompFreqTK;			// Компенсация частоты по температуре контроллера
+extern bool bCompFreqTK_1;			// Старт процесса компенсации, запоминание начального кода
+extern float avrResult_SD1_start;	// Начальное значение кода датчика температуры микроконтроллера
 extern float SD1_d;
 
 extern int var_my_ADC2;
-extern bool b_my_ms_num;	// РїСЂРёР·РЅР°Рє РїСЂРѕС…РѕР¶РґРµРЅРёСЏ РїРµСЂРІРѕРіРѕ С†РёРєР»Р° РёР· 16 РјСЃ
+extern bool b_my_ms_num;			// признак прохождения первого цикла из 16 мсРёР· 16 РјСЃ
 extern int my_ms_num;
 extern int my_alarm;
 extern int my_Tick;
@@ -57,16 +55,16 @@ extern uint16_t my_LSM303D_Temperature;
 // Kurchanov 05.03.2021
 extern float F2F1_rezult_X;
 extern float F2F1_rezult_A;
-extern float F2F1_rezult_A_30;		//   3 СЃРµРєСѓРЅРґС‹
-extern float F2F1_rezult_A_900;		//  90 СЃРµРєСѓРЅРґ
+extern float F2F1_rezult_A_30;		//   3 секунды
+extern float F2F1_rezult_A_900;		//  90 секунд
 extern int   F2F1_rezult_N_30;
 extern int   F2F1_rezult_N_900;
 
 // Kurchanov 09.03.2021
 extern float F1F2_rezult_X;
 extern float F1F2_rezult_A;
-extern float F1F2_rezult_A_30;		//   3 СЃРµРєСѓРЅРґС‹
-extern float F1F2_rezult_A_900;		//  90 СЃРµРєСѓРЅРґ
+extern float F1F2_rezult_A_30;		//   3 секунды
+extern float F1F2_rezult_A_900;		//  90 секунд
 extern int   F1F2_rezult_N_30;
 extern int   F1F2_rezult_N_900;
 
@@ -154,21 +152,21 @@ extern int itemOptionLMX;
 #define PID_FLAG_LOOP_DOPLER_CRNT (0x02)
 #define PID_FLAG_LOOP_FREQ (0x04)
 
-// РђРЅР°Р»РѕРіРѕРІС‹Р№ Р·Р°С…РІР°С‚ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё
+// Аналоговый захват температуры ячейки
 #define PID_FLAG_LOOP_CELL (0x08)
-extern bool b_PID_FLAG_LOOP_CELL;	// false - РїРµСЂРІС‹Р№ РІС‹Р·РѕРІ, true - СѓР¶Рµ СЂР°Р±РѕС‚Р°РµС‚
+extern bool b_PID_FLAG_LOOP_CELL;	// false - первый вызов, true - уже работает
 
-// Р—Р°С…РІР°С‚ РґРѕРїР»РµСЂР° С‚РµРјРїРµСЂР°С‚СѓСЂРѕР№ Р»Р°Р·РµСЂР°
+// Захват доплера температурой лазера
 #define PID_FLAG_LOOP_DOPLER_TEC (0x10)
 
-// Р—Р°С…РІР°С‚ СЃРёРіРЅР°Р»Р° DC С„РѕС‚РѕРїСЂРёРµРјРЅРёРєР°
+// Захват сигнала DC фотоприемника
 #define PID_FLAG_LOOP_OPTICS_PWR (0x20)
 
-// Р¦РёС„СЂРѕРІРѕР№ Р·Р°С…РІР°С‚ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРј
+// Цифровой захват температуры ячейкм
 #define PID_FLAG_LOOP_SENSOR_TEMP_CELL (0x40)
-extern bool b_PID_FLAG_LOOP_SENSOR_TEMP_CELL;	// false - РїРµСЂРІС‹Р№ РІС‹Р·РѕРІ, true - СѓР¶Рµ СЂР°Р±РѕС‚Р°РµС‚
+extern bool b_PID_FLAG_LOOP_SENSOR_TEMP_CELL;	// false - первый вызов, true - уже работает
 
-// РџСЂРёРІСЏР·РєР° РїРѕ Р“Р›РћРќРђРЎРЎ
+// Привязка по ГЛОНАСС
 #define PID_FLAG_LOOP_FREQ_GNSS (0x80)
 #define PID_FLAG_LOOP_VOID_TEST (0x100)
 #define PID_FLAG_LOOP_MICROWAVE (0x200)
@@ -198,7 +196,7 @@ extern float delta_DOPLER_DC;
 extern int fixValue_OUT2_DOPLER_CRNT;
 extern int fixValue_OUT2_DOPLER_TEC;
 
-extern float resultTec;						// Р С™РЎС“РЎР‚РЎвЂЎР В°Р Р…Р С•Р Р†
+extern float resultTec;						// Курчанов
 extern float resultMICROWAVE;
 extern float resultDOPLER_FREQ;
 extern float resultTemp_CELL;
@@ -206,7 +204,7 @@ extern float resultTemp_D_CELL;
 extern float levelTemp_CELL;
 extern float levelTemp_D_CELL;
 extern float level_CONTR;
-// Р СњР ВµР С•Р В±РЎвЂ¦Р С•Р Т‘Р С‘Р СР В°РЎРЏ РЎвЂљР ВµР СР С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚Р В° РЎРЏРЎвЂЎР ВµР в„–Р С”Р С‘
+// Необходииая температура ячейки
 extern float levelValueSensor_TempCell;
 
 extern int value_TC;
@@ -235,7 +233,7 @@ extern int iT__n;
 extern uint32_t my_dat_1;
 extern uint32_t my_dat_2;
 
-// Р вЂќР ВµРЎвЂљР ВµР С”РЎвЂљР С•РЎР‚ Р В·Р В°РЎвЂ¦Р Р†Р В°РЎвЂљР В°
+// Детектор захвата
 extern float sigmaPID_CTRL;
 extern int countLoopPID_TEC_CTRL;
 extern int timeLoopPID_TEC_CTRL;
@@ -266,7 +264,7 @@ extern volatile uint16_t* volatile pDataDMA2;
 
 // Kurchanov 23.11.2020
 //=========================================================
-// Р вЂќР В°РЎвЂљРЎвЂЎР С‘Р С” РЎвЂљР ВµР СР С—Р ВµРЎР‚Р В°РЎвЂљРЎС“РЎР‚РЎвЂ№
+// Датчик температуры
 //=========================================================
 extern float value_TempCell;
 extern float value_Temp_D_Cell;
@@ -275,7 +273,7 @@ extern int tickDelayUpdateTempCell;
 extern float resultAverage_SENSOR_TempCell;
 
 // Kurchanov 16.04.2021
-// РЎСЋРґР° РїРѕРјРµС‰Р°РµРј РјРѕРґРµР»СЊРЅС‹Р№ С‚РµСЃС‚РѕРІС‹Р№ Р±СѓС„РµСЂ
+// Сюда помещаем модельный тестовый буфер
 extern uint16_t  my_DMA2_tst_Data[ADC_ARRAY_DMA2_HALF_SIZE]   __attribute__((aligned));
 
 // Kurchanov 10.08.2020
@@ -326,8 +324,8 @@ extern float corr_2_TEST_ADC_2;
 extern float corr_12_TEST_ADC_2;
 extern float corr_TEST_ADC_2;
 extern int num_corr_TEST_ADC_2;
-extern int pkgPos;		// РќРѕРјРµСЂ РїРѕСЃС‹Р»РєРё РёР· 16 Р·РЅР°С‡РµРЅРёР№
-extern int numPos;		// РќРѕРјРµСЂ РїРѕР·РёС†РёРё РІ РґР»РёРЅРЅРѕРј Р±СѓС„РµСЂРµ
+extern int pkgPos;		// Номер посылки из 16 значений
+extern int numPos;		// Номер позиции в длинном буфере
 extern float result_OUT2_CPT_FREQ_CPT_tmp;
 extern float result_OUT2_CPT_CRNT_DOPLER_tmp;
 
@@ -497,7 +495,7 @@ extern int sum_OUT1_CRNT_2[5];
 extern int sum_OUT2_CRNT_2[5];
 extern int index_OUT1_CPT_CRNT;
 extern int index_OUT2_CPT_CRNT;
-extern int count_OUT1_CPT_CRNT;	// РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ
+extern int count_OUT1_CPT_CRNT;	// не используется
 extern int count_OUT2_CPT_CRNT;
 extern bool flagUpdateCompute_OUT2_CPT_CRNT;
 extern float result_OUT1_CPT_CRNT[5];
@@ -546,23 +544,23 @@ extern int DEBUG_item_DTX;
 extern int DEBUG_item_RFI;
 extern int DEBUG_item_VT1;
 //=========================================================
-// Р вЂРЎС“РЎвЂћР ВµРЎР‚РЎвЂ№ Р Т‘Р В»РЎРЏ РЎР‚Р В°Р В±Р С•РЎвЂљРЎвЂ№ РЎРѓ UART
+// UART
 //=========================================================
 #define UART_COUNT_TX (255)
-// Р РЋРЎвЂљРЎР‚Р С•Р С”Р В° Р Т‘Р В»РЎРЏ Р С•РЎвЂљР С—РЎР‚Р В°Р Р†Р С”Р С‘
+// Строка для отправки
 extern uint8_t 							UART_TxBuffer[255];
 extern volatile uint8_t   	USART_tx_buffer[255];
-extern volatile uint16_t   	USART_tx_count; // Р С™Р С•Р В»Р С‘РЎвЂЎР ВµРЎРѓРЎвЂљР Р†Р С• Р Т‘Р В°Р Р…Р Р…РЎвЂ№РЎвЂ¦ Р Р…Р В° Р С•РЎвЂљР С—РЎР‚Р В°Р Р†Р С”РЎС“
-extern volatile uint16_t   	USART_tx_wr_index; // Р пїЅР Р…Р Т‘Р ВµР С”РЎРѓ РЎвЂ¦Р Р†Р С•РЎРѓРЎвЂљР В° Р В±РЎС“РЎвЂћР ВµРЎР‚Р В° (Р С”РЎС“Р Т‘Р В° Р С—Р С‘РЎРѓР В°РЎвЂљРЎРЉ Р Т‘Р В°Р Р…Р Р…РЎвЂ№Р Вµ )
-extern volatile uint16_t   	USART_tx_rd_index; // Р пїЅР Р…Р Т‘Р ВµР С”РЎРѓ Р Р…Р В°РЎвЂЎР В°Р В»Р В° Р В±РЎС“РЎвЂћР ВµРЎР‚Р В° (Р С•РЎвЂљР С”РЎС“Р Т‘Р В° РЎвЂЎР С‘РЎвЂљР В°РЎвЂљРЎРЉ Р Т‘Р В°Р Р…Р Р…РЎвЂ№Р Вµ)
-extern volatile bool				USART_tx_buffer_overflow; // Р В¤Р В»Р В°Р С– Р С—Р ВµРЎР‚Р ВµР С—Р С•Р В»Р Р…Р ВµР Р…Р С‘РЎРЏ Р В±РЎС“РЎвЂћР ВµРЎР‚Р В°
-// Р СџРЎР‚Р С‘Р Р…РЎРЏРЎвЂљР В°РЎРЏ РЎРѓРЎвЂљРЎР‚Р С•Р С”Р В° РЎРѓ Р С”Р С•Р СР В°Р Р…Р Т‘Р С•Р в„–
+extern volatile uint16_t   	USART_tx_count; // Количество данных на отправку
+extern volatile uint16_t   	USART_tx_wr_index; //
+extern volatile uint16_t   	USART_tx_rd_index; //
+extern volatile bool				USART_tx_buffer_overflow; // Флаг переполнения буфера
+// Принятая строка с командой
 extern char  								UART_RxBuffer[255];
 extern volatile uint8_t   	USART_rx_buffer[255];
-extern volatile uint16_t   	USART_rx_count; // Р С™Р С•Р В»Р С‘РЎвЂЎР ВµРЎРѓРЎвЂљР Р†Р С• Р Т‘Р В°Р Р…Р Р…РЎвЂ№РЎвЂ¦ Р Р† Р С—РЎР‚Р С‘Р Р…РЎРЏРЎвЂљР С•Р С Р В±РЎС“РЎвЂћР ВµРЎР‚Р Вµ
-extern volatile uint16_t   	USART_rx_wr_index; // Р пїЅР Р…Р Т‘Р ВµР С”РЎРѓ РЎвЂ¦Р Р†Р С•РЎРѓРЎвЂљР В° Р В±РЎС“РЎвЂћР ВµРЎР‚Р В° (Р С”РЎС“Р Т‘Р В° Р С—Р С‘РЎРѓР В°РЎвЂљРЎРЉ Р Т‘Р В°Р Р…Р Р…РЎвЂ№Р Вµ )
-extern volatile uint16_t   	USART_rx_rd_index; // Р пїЅР Р…Р Т‘Р ВµР С”РЎРѓ Р Р…Р В°РЎвЂЎР В°Р В»Р В° Р В±РЎС“РЎвЂћР ВµРЎР‚Р В° (Р С•РЎвЂљР С”РЎС“Р Т‘Р В° РЎвЂЎР С‘РЎвЂљР В°РЎвЂљРЎРЉ Р Т‘Р В°Р Р…Р Р…РЎвЂ№Р Вµ)
-extern volatile bool    		USART_rx_buffer_overflow; // Р В¤Р В»Р В°Р С– Р С—Р ВµРЎР‚Р ВµР С—Р С•Р В»Р Р…Р ВµР Р…Р С‘РЎРЏ Р В±РЎС“РЎвЂћР ВµРЎР‚Р В°
+extern volatile uint16_t   	USART_rx_count; // Количество данных в принятом буфере
+extern volatile uint16_t   	USART_rx_wr_index; // Индекс хвоста буфера (куда писать данные )
+extern volatile uint16_t   	USART_rx_rd_index; // Индекс начала буфера (откуда читать данные)
+extern volatile bool    	USART_rx_buffer_overflow; // Флаг переполнения буфера
 
 extern uint8_t BufferMsg[256];
 extern uint16_t lengthBufferCmd;

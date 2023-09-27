@@ -13,7 +13,7 @@
 //=========================================================
 // CONSTANTS
 //=========================================================
-#define LSM303D_WHO_AM_I                (0x49) /* ?onstant 0x49 */
+#define LSM303D_WHO_AM_I                (0x49) /* constant 0x49 */
 #define LSM303D_ADDRESS                 (0x1E) /* Address device */
 
 
