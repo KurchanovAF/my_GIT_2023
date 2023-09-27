@@ -972,7 +972,7 @@ static inline void my_ADC2_0(void){
 		my_F1F2_P_sum[i] += my_F1F2_P_rez[i];
 	}
 
-	if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
+	if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// Один раз за 16 мс
 		// Один раз за 16 мс
 		count_OUT2_CPT_CRNT = index_OUT2_CPT_CRNT;
 		for (int i = 0; i < 5; i++){

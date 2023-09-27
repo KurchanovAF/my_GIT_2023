@@ -6,21 +6,21 @@
 
 
 void AD5668_Init(void){
-	// РЎР±СЂРѕСЃ
+	// Сброс
 	AD5668_Reset();
-	
+
 	volatile uint8_t rx = 0;
-	// РќР°СЃС‚СЂР°РёРІР°РµРј SPI2 РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ Р¦РђРџРѕРј
+	// Настраиваем SPI2 для работы с ЦАПом
 	// Disable SPI peripheral
 	SPI2->CR1 &= ~SPI_CR1_SPE;
-	// РќР°СЃС‚СЂР°РёРІР°РµРј SPI2 РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ Р¦РђРџРѕРј
+	// Настраиваем SPI2 для работы с ЦАПом
 	// CPOL = 1
 	SPI2->CR1 |= SPI_CR1_CPOL;
 	// CPHA = 0
 	SPI2->CR1 &= ~SPI_CR1_CPHA;	
 	// Enable SPI peripheral
 	SPI2->CR1 |= SPI_CR1_SPE;
-	// РЎР±СЂРѕСЃ РЅР° Р·РЅР°С‡РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+	// Сброс на значения по умолчанию
 		
 	uint32_t sendData = AD5668_REF | AD5668_REF_OFF;
 	static uint8_t data[4];
@@ -28,23 +28,23 @@ void AD5668_Init(void){
 	data[1] = ((sendData >> 16) & 0xFF);
 	data[2] = ((sendData >> 8) & 0xFF);
 	data[3] = ((sendData >> 0) & 0xFF);
-	// Р’С‹Р±РѕСЂ РјРёРєСЂРѕСЃС…РµРјС‹ Р¦РђРџР°
+	// Выбор микросхемы ЦАПа
 	HAL_GPIO_WritePin(DAC_nCS_GPIO_Port, DAC_nCS_Pin, GPIO_PIN_RESET);
-	// Р–РґРµРј РєРѕРіРґР° DR РѕСЃРѕРІРѕР±РѕРґРёС‚СЃСЏ РЅР° Р·Р°РїРёСЃСЊ
-  while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-  *((__IO uint8_t *)&SPI2->DR) = data[0];
+	// Ждем когда DR осовободится на запись
+	 while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
+	 *((__IO uint8_t *)&SPI2->DR) = data[0];
 	while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
 	*((__IO uint8_t *)&SPI2->DR) = data[1];
 	while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-  *((__IO uint8_t *)&SPI2->DR) = data[2];
+	 *((__IO uint8_t *)&SPI2->DR) = data[2];
 	while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
 	*((__IO uint8_t *)&SPI2->DR) = data[3];
-	// РћР¶РёРґР°РµРј Р·Р°РІРµСЂС€РµРЅРёРµ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С…
+	// Ожидаем завершение передачи данных
 	while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-	// РћР¶РёРґР°РЅРёРµ РѕРїСѓСЃС‚РѕС€РµРЅРёСЏ FIFO
+	// Ожидание опустошения FIFO
 	while (((SPI2->SR) & (SPI_SR_FTLVL)) != 0){};
 	while (((SPI2->SR) & (SPI_SR_BSY)) == (SPI_SR_BSY)){}; 
-	// Р¤РёРєСЃРёСЂСѓРµРј РґР°РЅРЅС‹Рµ
+	// Фиксируем данные
 	HAL_GPIO_WritePin(DAC_nCS_GPIO_Port, DAC_nCS_Pin, GPIO_PIN_SET);
 	SPI2->CR1 &= ~SPI_CR1_SPE;	
 	while (((SPI2->SR) & (SPI_SR_FRLVL)) != 0){
@@ -52,7 +52,7 @@ void AD5668_Init(void){
 	};	
 	
 }
-// Р Р°Р±РѕС‚Р°РµРј СЃ РІРЅРµС€РЅРёРј Р¦РђРџРѕРј РїРѕ SPI2
+// Работаем с внешним ЦАПом по SPI2
 void AD5668_SetValue(uint32_t chanel, int value){
 	volatile uint8_t rx = 0;
 	if (value <= 0){value = 0;}
@@ -60,7 +60,7 @@ void AD5668_SetValue(uint32_t chanel, int value){
 	
 	// Disable SPI peripheral
 	SPI2->CR1 &= ~SPI_CR1_SPE;
-	// РќР°СЃС‚СЂР°РёРІР°РµРј SPI2 РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ Р¦РђРџРѕРј
+	// Настраиваем SPI2 для работы с ЦАПом
 	// CPOL = 1
 	SPI2->CR1 |= SPI_CR1_CPOL;
 	// CPHA = 0
@@ -74,23 +74,23 @@ void AD5668_SetValue(uint32_t chanel, int value){
 	data[1] = ((sendData >> 16) & 0xFF);
 	data[2] = ((sendData >> 8) & 0xFF);
 	data[3] = ((sendData >> 0) & 0xFF);	
-	// Р’С‹Р±РѕСЂ РјРёРєСЂРѕСЃС…РµРјС‹ Р¦РђРџР°
+	// Выбор микросхемы ЦАПа
 	HAL_GPIO_WritePin(DAC_nCS_GPIO_Port, DAC_nCS_Pin, GPIO_PIN_RESET);
-	// Р–РґРµРј РєРѕРіРґР° DR РѕСЃРѕРІРѕР±РѕРґРёС‚СЃСЏ РЅР° Р·Р°РїРёСЃСЊ
-  while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-  *((__IO uint8_t *)&SPI2->DR) = data[0];
+	// Ждем когда DR осовободится на запись
+	while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
+	*((__IO uint8_t *)&SPI2->DR) = data[0];
 	while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
 	*((__IO uint8_t *)&SPI2->DR) = data[1];
 	while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-  *((__IO uint8_t *)&SPI2->DR) = data[2];
+	*((__IO uint8_t *)&SPI2->DR) = data[2];
 	while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
 	*((__IO uint8_t *)&SPI2->DR) = data[3];
-	// РћР¶РёРґР°РµРј Р·Р°РІРµСЂС€РµРЅРёРµ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С…
+	// Ожидаем завершение передачи данных
 	while (((SPI2->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-	// РћР¶РёРґР°РЅРёРµ РѕРїСѓСЃС‚РѕС€РµРЅРёСЏ FIFO
+	// Ожидание опустошения FIFO
 	while (((SPI2->SR) & (SPI_SR_FTLVL)) != 0){};
 	while (((SPI2->SR) & (SPI_SR_BSY)) == (SPI_SR_BSY)){}; 
-	// Р¤РёРєСЃРёСЂСѓРµРј РґР°РЅРЅС‹Рµ
+	// Фиксируем данные
 	HAL_GPIO_WritePin(DAC_nCS_GPIO_Port, DAC_nCS_Pin, GPIO_PIN_SET);	
 	SPI2->CR1 &= ~SPI_CR1_SPE;	
 	while (((SPI2->SR) & (SPI_SR_FRLVL)) != 0){
