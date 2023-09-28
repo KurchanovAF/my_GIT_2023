@@ -356,8 +356,11 @@ int main(void)
 
   int my_I = 0;
 
+  my_N_1 = 1;
+
   while (1){
 	  my_I++;
+	  my_N_2++;
 		
 	    // Захват длины волны частотой макета
 	    ProgressPID_DOPLER_FREQ();

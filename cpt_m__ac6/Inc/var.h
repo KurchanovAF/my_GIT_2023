@@ -29,6 +29,11 @@
 extern int my_TST;
 extern uint32_t  my_TST_U32;
 
+extern int my_N_1;
+extern int my_N_2;
+extern int my_N_3;
+extern int my_N_4;
+
 extern bool bCompFreqTK;			// Компенсация частоты по температуре контроллера
 extern bool bCompFreqTK_1;			// Старт процесса компенсации, запоминание начального кода
 extern float avrResult_SD1_start;	// Начальное значение кода датчика температуры микроконтроллера
