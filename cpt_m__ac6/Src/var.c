@@ -410,11 +410,11 @@ int MOD_CRNT_width = 200;
 int sum_OUT_DC = 0;
 int sum_CONTR = 0;
 int sum_SD1 = 0;
-int sum_OUT_3R = 0;
+int sum_OUT_DC_2 = 0;
 
 #ifdef my_ASM_fun
 int sum_OUT_2R = 0;
-int sum_OUT_0R = 0;
+int sum_OUT_1N = 0;
 int sum_SD2 = 0;
 #endif
 
@@ -441,10 +441,10 @@ float avrResult_OUT_1R = 0.0f;
 float avrResult_CONTR = 0.0f;
 float avrResult_SD1 = 0.0f;
 float avrResult_SD1_ = 0.0f;
-float avrResult_OUT_3R = 0.0f;
-float startResult_OUT_3R = 0.0f;
+float avrResult_OUT_DC_2 = 0.0f;
+float startResult_OUT_DC_2 = 0.0f;
 float avrResult_OUT_2R = 0.0f;
-float avrResult_OUT_0R  = 0.0f;
+float avrResult_OUT_1N  = 0.0f;
 float avrResult_OUT_0R_ = 0.0f;
 float avrResult_SD2 = 0.0f;
 
@@ -454,24 +454,24 @@ float avrResult_OUT_0RN = 0.0f;
 // Задаем минимальный период усреднения 16 миллисекунд
 // для того, чтобы правильно работала очередь из 11 позиций
 // 16*120 = 1920, 15 мс ==> 62,5 Гц
-int count_OUT_DC = 1920;		// ??
-int count_OUT_1R = 1920;		// OUT1
-int count_CONTR  = 1920;		//
-int count_SD1 	 = 1920;		//
-int count_OUT_3R = 1920;		//
-int count_OUT_2R = 1920;		// OUT2
-int count_OUT_0R = 1920;		//
-int count_SD2 	 = 1920;		//
+int count_OUT_DC   = 1920;		// ??
+int count_OUT_1R   = 1920;		// OUT1
+int count_CONTR    = 1920;		//
+int count_SD1 	   = 1920;		//
+int count_OUT_DC_2 = 1920;		//
+int count_OUT_2R   = 1920;		// OUT2
+int count_OUT_1N   = 1920;		//
+int count_SD2 	   = 1920;		//
 
 int index_OUT_DC = 0;
 //bool b_OUT_DC = false;
 //int index_OUT_1R = 0;
 int index_CONTR = 0;
 int index_SD1 = 0;
-int index_OUT_3R = 0;
+int index_OUT_DC_2 = 0;
 int index_OUT_2R = 0;
 //int index_OUT_2RN = 0;
-int index_OUT_0R = 0;
+int index_OUT_1N = 0;
 int index_SD2 = 0;
 
 //float result_OUT2_CPT[2] = {0.0, 0.0f};

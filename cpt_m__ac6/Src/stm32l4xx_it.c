@@ -315,7 +315,7 @@ void TIM4_IRQHandler(void)
   // HAL_TIM_IRQHandler(&htim4);
   // НУЖНО ЗАКОММЕНТИРОВАТЬ !!
   /* USER CODE END TIM4_IRQn 0 */
-  //HAL_TIM_IRQHandler(&htim4);			// закомментировал
+  HAL_TIM_IRQHandler(&htim4);
   /* USER CODE BEGIN TIM4_IRQn 1 */
 
   /* USER CODE END TIM4_IRQn 1 */
@@ -757,12 +757,12 @@ static inline void UpdateDataADC1(void){
 		case 1:
 			for (int i = 0, j = 0; i < ADC_ARRAY_DMA1_HALF_SIZE-3; i+=4, j++){
 				sum_OUT_DC += DMA1_Data[i];
-				sum_CONTR += DMA1_Data[i + 1];
+				sum_CONTR += DMA1_Data[i + 3];	// поменяли позицию
 				sum_SD1 += DMA1_Data[i + 2];
-				sum_OUT_3R += DMA1_Data[i + 3];
+				sum_OUT_DC_2 += DMA1_Data[i + 3]; // пока не трогаем
 				
 				index_CONTR++;
-				index_OUT_3R++;
+				index_OUT_DC_2++;
 				index_OUT_DC++;
 				index_SD1++;
 			}			
@@ -772,12 +772,12 @@ static inline void UpdateDataADC1(void){
 		case 2:
 			for (int i = 0, j = 0; i < ADC_ARRAY_DMA1_HALF_SIZE-3; i+=4, j++){
 				sum_OUT_DC += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i];
-				sum_CONTR += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 1];
+				sum_CONTR += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];	// поменяли позицию
 				sum_SD1 += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 2];
-				sum_OUT_3R += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];
+				sum_OUT_DC_2 += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];	// пока не трогаем
 				
 				index_CONTR++;
-				index_OUT_3R++;				
+				index_OUT_DC_2++;
 				index_OUT_DC++;
 				index_SD1++;
 			}
@@ -865,11 +865,11 @@ static inline void UpdateDataADC1(void){
 		sum_CONTR = 0;
 	}
 	// Среднее значение СВЧ мощности
-	if (index_OUT_3R >= count_OUT_3R){	// count_OUT_3R = 6000 (6 секунд)
-		avrResult_OUT_3R = (float)sum_OUT_3R / (float)index_OUT_3R;
+	if (index_OUT_DC_2 >= count_OUT_DC_2){	// count_OUT_3R = 6000 (6 секунд)
+		avrResult_OUT_DC_2 = (float)sum_OUT_DC_2 / (float)index_OUT_DC_2;
 		flagUpdateCompute_MICROWAVE = true;
-		index_OUT_3R = 0;
-		sum_OUT_3R = 0;
+		index_OUT_DC_2 = 0;
+		sum_OUT_DC_2 = 0;
 	}
 	//*
 	// Аппаратный синхронный детектор 1 (был)
@@ -923,9 +923,9 @@ static inline void my_ADC2_0(void){
 			}
 			break;
 		}
-	if (index_OUT_0R >= count_OUT_0R){
-		avrResult_OUT2_DC = (float)sum_OUT_2RN / (float)index_OUT_0R;
-		avrResult_OUT_0RN = (float)sum_OUT_0RN / (float)index_OUT_0R;
+	if (index_OUT_1N >= count_OUT_1N){
+		avrResult_OUT2_DC = (float)sum_OUT_2RN / (float)index_OUT_1N;
+		avrResult_OUT_0RN = (float)sum_OUT_0RN / (float)index_OUT_1N;
 		resultTemp_CELL = avrResult_OUT_0RN;
 		resultTemp_CELL = resultTemp_CELL - levelTemp_CELL;
 		flagUpdateCompute_CELL = true;
@@ -1172,7 +1172,7 @@ static inline void my_ADC1_1(void){
 }
 
 static inline void my_ADC2_1(void){
-	// РњРѕРё С„СѓРЅРєС†РёРё ASM
+	// Мои функции ASM
 	my_DataADC2_0();		// Время выполнения my_DataADC2_0() 818 тактов
 	my_DataADC2_2();		// Время выполнения my_DataADC2_0()+my_DataADC2_2() 3404 тактов
 	my_F1();				//  513 тактов
@@ -1187,14 +1187,15 @@ static inline void my_ADC2_1(void){
 
 	//if (index_OUT_0R >= count_OUT_0R){		// 1920/120 = 16
 
-	// Аналоговый датчик температуры, усреднение закончено
+	// Аналоговый датчик температуры (было), усреднение закончено
+	// Теперь это уровень DC фотоприемника №2
 	if(my_ms_num >= 16){
-		avrResult_OUT_0R = (float)sum_OUT_0R / (float)index_OUT_0R;
+		avrResult_OUT_1N = (float)sum_OUT_1N / (float)index_OUT_1N;
 		//resultTemp_CELL = avrResult_OUT_0RN;
-		resultTemp_CELL = avrResult_OUT_0R;
+		//resultTemp_CELL = avrResult_OUT_0R;
 		resultTemp_CELL = resultTemp_CELL - levelTemp_CELL;
 		flagUpdateCompute_CELL = true;
-		sum_OUT_0R = 0;
+		sum_OUT_1N = 0;
 		}
 
 	//=====================================================================================================
@@ -1351,9 +1352,9 @@ static inline void my_ADC2_2(void){
 	my_F2F1_();
 	my_F1_F2_();
 
-	if (index_OUT_0R >= count_OUT_0R){
-		avrResult_OUT_0R_ = (float)sum_OUT_0R_ / (float)index_OUT_0R;
-		avrResult_OUT_2R = (float)sum_OUT_2R_ / (float)index_OUT_0R;
+	if (index_OUT_1N >= count_OUT_1N){
+		avrResult_OUT_0R_ = (float)sum_OUT_0R_ / (float)index_OUT_1N;
+		avrResult_OUT_2R = (float)sum_OUT_2R_ / (float)index_OUT_1N;
 		//resultTemp_CELL = avrResult_OUT_0RN;
 		resultTemp_CELL = avrResult_OUT_0R_;
 		resultTemp_CELL = resultTemp_CELL - levelTemp_CELL;
@@ -1414,7 +1415,7 @@ static inline void UpdateDataADC2(void){
 	//pDataDMA2 = (volatile uint16_t*)&my_DMA2_tst_Data[0];
 
 	index_SD2 		+= 120;
-	index_OUT_0R	+= 120;
+	index_OUT_1N	+= 120;
 	index_OUT2_CPT_FREQ += 10;
 	index_OUT2_CPT_CRNT += 12;
 
@@ -1440,8 +1441,8 @@ static inline void UpdateDataADC2(void){
 	}
 	//*/
 
-	if (index_OUT_0R >= count_OUT_0R){
-		index_OUT_0R = 0;
+	if (index_OUT_1N >= count_OUT_1N){
+		index_OUT_1N = 0;
 	}
 
 
@@ -1763,7 +1764,7 @@ static inline void funWork_VOID_TEST(){	// вызывается 1000 раз в секунду, каждую
 			// вызывается 10 раз в секунду, выводим 9 отладочных значений по 4 байта
 			i_Num++;
 			dataSend[0] = i_Num;	// Номер отсчета после включение режима контроля
-			dataSend[1] = (int)(avrResult_OUT_3R*1000.0f);
+			dataSend[1] = (int)(avrResult_OUT_DC_2*1000.0f);
 			dataSend[2] = (int)(avrResult_CONTR*1000.0f);
 			dataSend[3] = (int)(avrResult_OUT_DC*1000.0f);
 			dataSend[4] = (int)(resultTemp_CELL*1000.0f);

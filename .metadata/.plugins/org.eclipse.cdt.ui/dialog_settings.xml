@@ -6,6 +6,17 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="count_OUT_"/>
+			<item value="index_OUT_0R"/>
+			<item value="p_sum_OUT_0R"/>
+			<item value="sum_OUT_0RN"/>
+			<item value="sum_OUT_0R"/>
+			<item value="count_OUT_3R"/>
+			<item value="index_OUT_3R"/>
+			<item value="avrResult_OUT_DC_2"/>
+			<item value="startResult_OUT_3R"/>
+			<item value="avrResult_OUT_3R"/>
+			<item value="sum_OUT_3R"/>
 			<item value="my_N_1"/>
 			<item value="HAL_NVIC_SetPriority"/>
 		</list>

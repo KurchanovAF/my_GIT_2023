@@ -105,7 +105,7 @@ int main(void)
 	p_my_F2F1_sum						= &my_F2F1_sum[0];
 
 	p_sum_OUT_2R						= &sum_OUT_2R;
-	p_sum_OUT_0R						= &sum_OUT_0R;
+	p_sum_OUT_1N						= &sum_OUT_1N;
 	p_sum_SD2							= &sum_SD2;
 #endif
 	
@@ -379,7 +379,10 @@ int main(void)
 		// Цифровой захват температуры ячейки
 		ProgressPID_SENSOR_CELL();
 		// Захват мощности СВЧ на входе лазера
-		ProgressPID_MICROWAVE();
+		//ProgressPID_MICROWAVE();
+		// Функцию ProgressPID_MICROWAVE(void) отключаем,
+		// так как теперь вместо sum_OUT_3R (уровень СВЧ на ножке лазера)
+		// у нас работает фотоприемник №2.
 		
 		Progress_MESSAGE();
 		if(itemWork == WORK_HIST){
@@ -486,7 +489,7 @@ static inline void ProgressPID_MICROWAVE(void){
 		{
 			// Начало процесса регулирования
 			// Запоминаем начальное значение мощности
-			startResult_OUT_3R = avrResult_OUT_3R;
+			startResult_OUT_DC_2 = avrResult_OUT_DC_2;
 			fixValue_MICROWAVE = value_RFI;
 			flagProcess_MICROWAVE = true;	// Процесс регулирования начат
 			//my_alarm |= 0x10;
@@ -500,7 +503,7 @@ static inline void ProgressPID_MICROWAVE(void){
 		// Есть новые данные
 		if (flagUpdateCompute_MICROWAVE == true){
 			flagUpdateCompute_MICROWAVE = false;
-			delta = avrResult_OUT_3R - startResult_OUT_3R;
+			delta = avrResult_OUT_DC_2 - startResult_OUT_DC_2;
 			resultMICROWAVE =	delta;
 			//my_alarm |= 0x40;
 

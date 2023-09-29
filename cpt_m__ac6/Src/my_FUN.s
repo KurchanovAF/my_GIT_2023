@@ -69,8 +69,8 @@ p_sum_OUT_2R:
 //p_sum_OUT_2R_:
 //.word	0x0000FFFF
 
-.global p_sum_OUT_0R
-p_sum_OUT_0R:
+.global p_sum_OUT_1N
+p_sum_OUT_1N:
 .word	0x00000000
 
 //.global p_sum_OUT_0R_

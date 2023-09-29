@@ -402,11 +402,11 @@ extern int MOD_CRNT_width;
 extern int sum_OUT_DC;
 extern int sum_CONTR;
 extern int sum_SD1;
-extern int sum_OUT_3R;
+extern int sum_OUT_DC_2;
 
 #ifdef my_ASM_fun
 extern int sum_OUT_2R;
-extern int sum_OUT_0R;
+extern int sum_OUT_1N;
 extern int sum_SD2;
 #endif
 
@@ -428,7 +428,7 @@ extern int * p_sum_SD1;
 extern int * p_sum_OUT_3R;
 #ifdef my_ASM_fun
 extern int * p_sum_OUT_2R;
-extern int * p_sum_OUT_0R;
+extern int * p_sum_OUT_1N;
 extern int * p_sum_SD2;
 #endif
 
@@ -440,10 +440,10 @@ extern float avrResult_OUT_1R;
 extern float avrResult_CONTR;
 extern float avrResult_SD1;
 extern float avrResult_SD1_;
-extern float avrResult_OUT_3R;
-extern float startResult_OUT_3R;
+extern float avrResult_OUT_DC_2;
+extern float startResult_OUT_DC_2;
 extern float avrResult_OUT_2R;
-extern float avrResult_OUT_0R;
+extern float avrResult_OUT_1N;
 extern float avrResult_OUT_0R_;
 extern float avrResult_SD2;
 
@@ -454,9 +454,9 @@ extern int count_OUT_DC;
 extern int count_OUT_1R;
 extern int count_CONTR;
 extern int count_SD1;
-extern int count_OUT_3R;
+extern int count_OUT_DC_2;
 extern int count_OUT_2R;
-extern int count_OUT_0R;
+extern int count_OUT_1N;
 extern int count_SD2;
 
 extern int index_OUT_DC;
@@ -464,10 +464,10 @@ extern int index_OUT_DC;
 //extern int index_OUT_1R;
 extern int index_CONTR;
 extern int index_SD1;
-extern int index_OUT_3R;
+extern int index_OUT_DC_2;
 extern int index_OUT_2R;
 //extern int index_OUT_2RN;
-extern int index_OUT_0R;
+extern int index_OUT_1N;
 extern int index_SD2;
 
 //extern float result_OUT2_CPT[2];
