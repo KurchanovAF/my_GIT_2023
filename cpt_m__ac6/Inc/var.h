@@ -284,10 +284,17 @@ extern uint16_t  my_DMA2_tst_Data[ADC_ARRAY_DMA2_HALF_SIZE]   __attribute__((ali
 // Kurchanov 10.08.2020
 #ifdef my_ASM_fun
 extern uint16_t my_DMA2_Data[ADC_ARRAY_DMA2_HALF_SIZE];
+//===============================================================
 extern uint16_t my_DMA2_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + 56];
 extern uint16_t my_DMA2_Data_F1[ADC_ARRAY_DMA12_HALF_SIZE];
 extern uint16_t my_DMA2_Data_F2[ADC_ARRAY_DMA12_HALF_SIZE + 30];
 extern uint16_t my_DMA2_Data_F1_F2[ADC_ARRAY_DMA12_HALF_SIZE];
+//===============================================================
+extern uint16_t my_DMA1_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + 56];
+extern uint16_t my_DMA1_Data_F1[ADC_ARRAY_DMA12_HALF_SIZE];
+extern uint16_t my_DMA1_Data_F2[ADC_ARRAY_DMA12_HALF_SIZE + 30];
+extern uint16_t my_DMA1_Data_F1_F2[ADC_ARRAY_DMA12_HALF_SIZE];
+//===============================================================
 extern int32_t my_F2F1_rez[6];
 extern int32_t my_F2F1_P_rez[6];
 extern int32_t my_F1F2_rez[5];

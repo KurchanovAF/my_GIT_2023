@@ -292,10 +292,17 @@ uint16_t  my_DMA2_tst_Data[ADC_ARRAY_DMA2_HALF_SIZE]   __attribute__((aligned))	
 
 #ifdef my_ASM_fun
 uint16_t  my_DMA2_Data[ADC_ARRAY_DMA2_HALF_SIZE]   __attribute__((aligned));
+//===================================================================================
 uint16_t  my_DMA2_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + 56] __attribute__((aligned));		// Ѕуфер увеличенной длины сигнала OUT2 дл€ последующей режекции частот модул€ции
 uint16_t  my_DMA2_Data_F1[ADC_ARRAY_DMA12_HALF_SIZE] __attribute__((aligned));			// Ѕуфер нормальной длины сигнала OUT2 после режекции частоты F1 дл€ детектировани€ частоты F2
 uint16_t  my_DMA2_Data_F2[ADC_ARRAY_DMA12_HALF_SIZE + 30] __attribute__((aligned));		// Ѕуфер увеличенной длины сигнала OUT2 после режекции частоты F2 дл€ детектировани€ частоты F1
 uint16_t  my_DMA2_Data_F1_F2[ADC_ARRAY_DMA12_HALF_SIZE] __attribute__((aligned));		// Ѕуфер нормальной длины сигнала OUT2 после режекции частот F1 и F2 дл€ анализа шумов лазера
+//===================================================================================
+uint16_t  my_DMA1_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + 56] __attribute__((aligned));		// Ѕуфер увеличенной длины сигнала OUT2 дл€ последующей режекции частот модул€ции
+uint16_t  my_DMA1_Data_F1[ADC_ARRAY_DMA12_HALF_SIZE] __attribute__((aligned));			// Ѕуфер нормальной длины сигнала OUT2 после режекции частоты F1 дл€ детектировани€ частоты F2
+uint16_t  my_DMA1_Data_F2[ADC_ARRAY_DMA12_HALF_SIZE + 30] __attribute__((aligned));		// Ѕуфер увеличенной длины сигнала OUT2 после режекции частоты F2 дл€ детектировани€ частоты F1
+uint16_t  my_DMA1_Data_F1_F2[ADC_ARRAY_DMA12_HALF_SIZE] __attribute__((aligned));		// Ѕуфер нормальной длины сигнала OUT2 после режекции частот F1 и F2 дл€ анализа шумов лазера
+//===================================================================================
 int32_t  my_F2F1_rez[6];
 int32_t  my_F2F1_P_rez[6];
 int32_t  my_F1F2_rez[5];

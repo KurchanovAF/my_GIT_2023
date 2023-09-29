@@ -752,6 +752,36 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 // Разбираем данные с ADC1
 static inline void UpdateDataADC1(void){
 // Обрабатываем результирующий буфер DMA1
+	int i, j;
+	for(j = 0; j < 56; j++)
+	{
+		//
+		my_DMA1_Data_F0[j] = my_DMA1_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + j];
+	}
+	switch(itemPartResultDMA1_ADC1){
+	case 1:
+		i = 0;
+		pDataDMA1 = &DMA1_Data[0];
+		break;
+	case 2:
+		i = ADC_ARRAY_DMA1_HALF_SIZE;
+		pDataDMA1 = &DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE];
+		break;
+	}
+	for(; j < ADC_ARRAY_DMA12_HALF_SIZE + 56; i+=4, j++){
+		//
+		sum_OUT_DC		   += pDataDMA1[i];
+		my_DMA1_Data_F0[j] 	= pDataDMA1[i + 1];
+		sum_SD1 		   += pDataDMA1[i + 2];	// температура контроллера
+		sum_CONTR 		   += pDataDMA1[i + 3];
+		//sum_OUT_3R += pDataDMA1[i + 3]; // СВЧ мощность больше не измеряем
+
+		index_CONTR++;
+		index_OUT_3R++;		// не мспользуем
+		index_OUT_DC++;
+		index_SD1++;
+	}
+	/*
 	switch(itemPartResultDMA1_ADC1){
 		// Первая часть буфера
 		case 1:
@@ -784,6 +814,7 @@ static inline void UpdateDataADC1(void){
 			pDataDMA1 = &DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE];
 			break;
 	}
+	//*/
 	
 	/*
 	// Синхронный детектор длины волны Kurchanov 08.07.2020

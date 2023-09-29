@@ -21,6 +21,14 @@ void my_F2(void);			// режекция частоты F2 (период 25 = 5*5
 void my_F2F1(void);			// синхронный детектор частоты F1 (10 кГц) после режектирования F2 (12 кГц) детектируем ЧАСТОТУ
 void my_F2F1_P(void);		// находим суммы для частоты F1 (10 кГц) для вычисления производной дискриминатора ЧАСТОТЫ
 void my_F1_F2(void);		// режекция частоты F2 после режекции частоты F1
+
+void my_N_F1(void);			// работа со вторым фотодиодом
+void my_N_F1F2(void);
+void my_N_F1F2_P(void);
+void my_N_F2(void);
+void my_N_F2F1(void);
+void my_N_F2F1_P(void);
+void my_N_F1_F2(void);
  #endif
 
 //extern int32_t my_F2F1_rez[6];
