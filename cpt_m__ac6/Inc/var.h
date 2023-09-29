@@ -407,6 +407,7 @@ extern int sum_OUT_3R;
 #ifdef my_ASM_fun
 extern int sum_OUT_2R;
 extern int sum_OUT_0R;
+extern int sum_OUT_1N;
 extern int sum_SD2;
 #endif
 

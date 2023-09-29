@@ -104,6 +104,7 @@ my_0x0000FFFF:
 .global	my_F1_F2
 
 .extern sum_OUT_0R
+.extern sum_OUT_1N
 
 .extern	my_F0_sum          [DATA, SIZE = 4]
 .extern	my_DMA2_Data       [DATA, SIZE = 4]
@@ -187,10 +188,12 @@ my_DataADC2_0_L1:
 
 
 // Данные в DMA1_Data идут в следующем порядке: OUT_1R, CONTR, SD1, OUT_3R
-// Данные в DMA2_Data идут в следующем порядке: OUT_2R, OUT_0R, SD2
+// Данные в DMA2_Data идут в следующем порядке: OUT_2R, OUT_0R, SD2 	(ТАК БЫЛО)
+// Данные в DMA2_Data идут в следующем порядке: OUT_2R, OUT_1N, OUT_0R 	(ТАК СТАЛО)
 // OUT_0R - выход аппаратного синхронного детектора 1
 // SD1    - опорный уровень для аппаратных синхронных детекторов 1 и 2
 // SD2    - выход аппаратного синхронного детектора 2
+// OUT_1N - выход сигнала DC второго фотоприемника
 // OUT_3R - выход детектора мощности СВЧ, подаваемой на лазер (без усиления)
 // CONTR  - выход усилителя моста датчика температуры лазера
 .func
@@ -238,10 +241,10 @@ my_DataADC2_2_L2:
 	ADD R2, R2, #2				// сумматор для sum_OUT_2R
 	
 	MOVS R4, R5, LSR #16
-	ADD R11, R11, R4			// сумматор для sum_OUT_0R
+	ADD R11, R11, R4			// сумматор для (sum_OUT_0R) sum_OUT_1N
 	
 	AND R4, R6, R3
-	ADD R12, R12, R4			// сумматор для sum_SD2
+	ADD R12, R12, R4			// сумматор для (sum_SD2) sum_OUT_0R
 	
 	MOVS R4, R6, LSR #16
     STRH R4, [R2]				// полуслово для my_DMA2_Data_F0
@@ -272,14 +275,16 @@ my_DataADC2_2_L2:
 
 	//LDR R1, p_sum_OUT_0R_
 	//STR R11, [R1]
-	LDR R1, =sum_OUT_0R			// адрес объекта sum_OUT_0R
+	//LDR R1, =sum_OUT_0R			// адрес объекта sum_OUT_0R		ТАК БЫЛО
+	LDR R1, =sum_OUT_1N			// адрес объекта sum_OUT_1N
 	LDR R2, [R1]				// значение величины sum_OUT_0R
 	ADD R2, R2, R11
 	STR R2, [R1]
 	//
 	//LDR R1, p_sum_SD2_
 	//STR R12, [R1]
-	LDR R1, =p_sum_SD2
+	//LDR R1, =p_sum_SD2	ТАК БЫЛО
+	LDR R1, =sum_OUT_0R
 	LDR R2, [R1]
 	ADD R2, R2, R12
 	STR R2, [R1]

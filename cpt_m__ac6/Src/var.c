@@ -415,6 +415,7 @@ int sum_OUT_3R = 0;
 #ifdef my_ASM_fun
 int sum_OUT_2R = 0;
 int sum_OUT_0R = 0;
+int sum_OUT_1N = 0;
 int sum_SD2 = 0;
 #endif
 
