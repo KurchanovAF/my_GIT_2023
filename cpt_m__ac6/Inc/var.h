@@ -444,6 +444,7 @@ extern int * p_rez_OUT_2R;
 
 extern float fix_avrResult_OUT_DC;
 extern float avrResult_OUT_DC;
+extern float avrResult_OUT_1N;
 extern float avrResult_OUT_1R;
 extern float avrResult_CONTR;
 extern float avrResult_SD1;
@@ -468,6 +469,7 @@ extern int count_OUT_0R;
 extern int count_SD2;
 
 extern int index_OUT_DC;
+extern int index_OUT_1N;
 //extern bool b_OUT_DC;
 //extern int index_OUT_1R;
 extern int index_CONTR;

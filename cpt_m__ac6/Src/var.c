@@ -445,6 +445,7 @@ int * p_sum_OUT_3R = 0;
 
 float fix_avrResult_OUT_DC = 0.0f;
 float avrResult_OUT_DC = 0.0f;
+float avrResult_OUT_1N = 0.0f;
 float avrResult_OUT_1R = 0.0f;
 float avrResult_CONTR = 0.0f;
 float avrResult_SD1 = 0.0f;
@@ -472,6 +473,7 @@ int count_OUT_0R = 1920;		//
 int count_SD2 	 = 1920;		//
 
 int index_OUT_DC = 0;
+int index_OUT_1N = 0;
 //bool b_OUT_DC = false;
 //int index_OUT_1R = 0;
 int index_CONTR = 0;

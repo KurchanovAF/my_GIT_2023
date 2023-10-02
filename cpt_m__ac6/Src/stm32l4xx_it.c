@@ -770,8 +770,8 @@ static inline void UpdateDataADC1(void){
 	}
 	for(; j < ADC_ARRAY_DMA12_HALF_SIZE + 56; i+=4, j++){
 		//
-		sum_OUT_DC		   += pDataDMA1[i];
-		my_DMA1_Data_F0[j] 	= pDataDMA1[i + 1];
+		my_DMA1_Data_F0[j] 	= pDataDMA1[i];
+		sum_OUT_DC		   += pDataDMA1[i + 1];
 		sum_SD1 		   += pDataDMA1[i + 2];	// температура контроллера
 		sum_CONTR 		   += pDataDMA1[i + 3];
 		//sum_OUT_3R += pDataDMA1[i + 3]; // СВЧ мощность больше не измеряем
@@ -1203,9 +1203,17 @@ static inline void my_ADC1_1(void){
 }
 
 static inline void my_ADC2_1(void){
-	// РњРѕРё С„СѓРЅРєС†РёРё ASM
+	// Мои функции ASM
 	my_DataADC2_0();		// Время выполнения my_DataADC2_0() 818 тактов
 	my_DataADC2_2();		// Время выполнения my_DataADC2_0()+my_DataADC2_2() 3404 тактов
+	index_OUT_1N++;
+	// Среднее значение постоянной составляющей
+	if (index_OUT_1N >= count_OUT_DC){
+		avrResult_OUT_1N = (float)(sum_OUT_1N) / (float)index_OUT_1N;
+		//flagUpdateCompute_OUT1N_OPTICS_PWR = true;
+		index_OUT_1N = 0;
+		sum_OUT_1N = 0;
+	}
 	my_F1();				//  513 тактов
 	my_F2();				// 1203 тактов
 	my_F1F2();				//  707 тактов
@@ -1841,6 +1849,7 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в секунду, каждую
 		//dS_3 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
 		// value_UT1A
 		dS_3 += (int)(value_UT1A*10);
+		dS_4 += (int)(avrResult_OUT_1N*100);
 
 
 		switch(var_my_ADC2){
@@ -1886,7 +1895,7 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в секунду, каждую
 				//*/
 
 				//*
-				dS_4 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
+				//dS_4 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
 				//dS_4 += (int)(F1F2_rezult[0]*1000);
 				dS_5 += (int)(F1F2_rezult[1]*1000);
 				dS_6 += (int)(F1F2_rezult[2]*1000);

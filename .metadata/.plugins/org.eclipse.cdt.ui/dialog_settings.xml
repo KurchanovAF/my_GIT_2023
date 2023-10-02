@@ -6,6 +6,9 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="index_OUT_DC"/>
+			<item value="sum_OUT_DC"/>
+			<item value="avrResult_OUT_DC"/>
 			<item value="UpdateDataADC1"/>
 			<item value="index_OUT_3R"/>
 			<item value="sum_OUT_3R"/>
