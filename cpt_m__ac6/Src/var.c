@@ -423,6 +423,8 @@ int sum_OUT_3R = 0;
 int sum_OUT_2R = 0;
 int sum_OUT_0R = 0;
 int sum_OUT_1N = 0;
+int sum_OUT_1A = 0;
+
 int sum_SD2 = 0;
 #endif
 
@@ -446,6 +448,8 @@ int * p_sum_OUT_3R = 0;
 float fix_avrResult_OUT_DC = 0.0f;
 float avrResult_OUT_DC = 0.0f;
 float avrResult_OUT_1N = 0.0f;
+float avrResult_OUT_1A = 0.0f;
+
 float avrResult_OUT_1R = 0.0f;
 float avrResult_CONTR = 0.0f;
 float avrResult_SD1 = 0.0f;

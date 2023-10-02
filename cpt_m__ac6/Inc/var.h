@@ -415,6 +415,8 @@ extern int sum_OUT_3R;
 extern int sum_OUT_2R;
 extern int sum_OUT_0R;
 extern int sum_OUT_1N;
+extern int sum_OUT_1A;
+
 extern int sum_SD2;
 #endif
 
@@ -445,6 +447,8 @@ extern int * p_rez_OUT_2R;
 extern float fix_avrResult_OUT_DC;
 extern float avrResult_OUT_DC;
 extern float avrResult_OUT_1N;
+extern float avrResult_OUT_1A;
+
 extern float avrResult_OUT_1R;
 extern float avrResult_CONTR;
 extern float avrResult_SD1;

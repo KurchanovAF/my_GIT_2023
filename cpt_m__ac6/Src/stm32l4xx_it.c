@@ -758,6 +758,7 @@ static inline void UpdateDataADC1(void){
 		//
 		my_DMA1_Data_F0[j] = my_DMA1_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + j];
 	}
+	/*
 	switch(itemPartResultDMA1_ADC1){
 	case 1:
 		i = 0;
@@ -781,15 +782,19 @@ static inline void UpdateDataADC1(void){
 		index_OUT_DC++;
 		index_SD1++;
 	}
-	/*
+	//*/
+	//*
 	switch(itemPartResultDMA1_ADC1){
 		// ѕерва€ часть буфера
 		case 1:
 			for (int i = 0, j = 0; i < ADC_ARRAY_DMA1_HALF_SIZE-3; i+=4, j++){
-				sum_OUT_DC += DMA1_Data[i];
-				sum_CONTR += DMA1_Data[i + 1];
+				my_DMA1_Data_F0[j + 56] = DMA1_Data[i];
+				//sum_OUT_DC += DMA1_Data[i];
+				sum_OUT_DC += DMA1_Data[i + 1];
+				//sum_CONTR += DMA1_Data[i + 1];
+				sum_CONTR += DMA1_Data[i + 3];
 				sum_SD1 += DMA1_Data[i + 2];
-				sum_OUT_3R += DMA1_Data[i + 3];
+				//sum_OUT_3R += DMA1_Data[i + 3];
 				
 				index_CONTR++;
 				index_OUT_3R++;
@@ -801,10 +806,13 @@ static inline void UpdateDataADC1(void){
 		// ¬тора€ часть буфера
 		case 2:
 			for (int i = 0, j = 0; i < ADC_ARRAY_DMA1_HALF_SIZE-3; i+=4, j++){
-				sum_OUT_DC += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i];
-				sum_CONTR += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 1];
+				my_DMA1_Data_F0[j + 56] = DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i];
+				//sum_OUT_DC += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i];
+				sum_OUT_DC += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i +1];
+				//sum_CONTR += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 1];
+				sum_CONTR += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];
 				sum_SD1 += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 2];
-				sum_OUT_3R += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];
+				//sum_OUT_3R += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];
 				
 				index_CONTR++;
 				index_OUT_3R++;				
@@ -813,6 +821,11 @@ static inline void UpdateDataADC1(void){
 			}
 			pDataDMA1 = &DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE];
 			break;
+	}
+	for(int i = 56; i < ADC_ARRAY_DMA12_HALF_SIZE + 56; i++)
+	{
+		//sum_OUT_1A
+		sum_OUT_1A += my_DMA1_Data_F0[i];
 	}
 	//*/
 	
@@ -884,9 +897,11 @@ static inline void UpdateDataADC1(void){
 	// —реднее значение посто€нной составл€ющей
 	if (index_OUT_DC >= count_OUT_DC){
 		avrResult_OUT_DC = (float)(sum_OUT_DC) / (float)index_OUT_DC;
+		avrResult_OUT_1A = (float)(sum_OUT_1A) / (float)index_OUT_DC;		// !!!
 		flagUpdateCompute_OUT1_OPTICS_PWR = true;
 		index_OUT_DC = 0;
 		sum_OUT_DC = 0;
+		sum_OUT_1A = 0;
 	}
 	// —реднее значение сигнала нев€зки с терморезистора лазера
 	if (index_CONTR >= count_CONTR){
@@ -1209,7 +1224,7 @@ static inline void my_ADC2_1(void){
 	index_OUT_1N++;
 	// —реднее значение посто€нной составл€ющей
 	if (index_OUT_1N >= count_OUT_DC){
-		avrResult_OUT_1N = (float)(sum_OUT_1N) / (float)index_OUT_1N;
+		avrResult_OUT_1N = ((float)(sum_OUT_1N)) / (float)index_OUT_1N;
 		//flagUpdateCompute_OUT1N_OPTICS_PWR = true;
 		index_OUT_1N = 0;
 		sum_OUT_1N = 0;
@@ -1849,7 +1864,8 @@ static inline void funWork_SCAN_CRNT(){	// вызываетс€ 1000 раз в секунду, каждую
 		//dS_3 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
 		// value_UT1A
 		dS_3 += (int)(value_UT1A*10);
-		dS_4 += (int)(avrResult_OUT_1N*100);
+		dS_4 += (int)(avrResult_OUT_1N*10);
+		dS_5 += (int)(avrResult_OUT_1A*1000);
 
 
 		switch(var_my_ADC2){
@@ -1897,7 +1913,7 @@ static inline void funWork_SCAN_CRNT(){	// вызываетс€ 1000 раз в секунду, каждую
 				//*
 				//dS_4 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
 				//dS_4 += (int)(F1F2_rezult[0]*1000);
-				dS_5 += (int)(F1F2_rezult[1]*1000);
+				//dS_5 += (int)(F1F2_rezult[1]*1000);
 				dS_6 += (int)(F1F2_rezult[2]*1000);
 				dS_7 += (int)(F1F2_rezult[3]*1000);
 				dS_8 += (int)(F1F2_rezult[4]*1000);
