@@ -260,7 +260,7 @@ void DMA1_Channel1_IRQHandler(void)
 	// Вся партия данных получена
 	if ( itemPartResultDMA1_ADC1 != 0 && 
 		 itemPartResultDMA2_ADC2 != 0){
-		if(1) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		//  Прерывание вызывать НЕЛЬЗЯ
+		if(0) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		//  Прерывание вызывать НЕЛЬЗЯ
 		{
 			// Вызов программного прерывания
 			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
@@ -825,7 +825,8 @@ static inline void UpdateDataADC1(void){
 	for(int i = 56; i < ADC_ARRAY_DMA12_HALF_SIZE + 56; i++)
 	{
 		//sum_OUT_1A
-		sum_OUT_1A += my_DMA1_Data_F0[i];
+		//sum_OUT_1A += my_DMA1_Data_F0[i];
+		sum_OUT_1A += my_DMA2_Data_F0[i];
 	}
 	//*/
 	

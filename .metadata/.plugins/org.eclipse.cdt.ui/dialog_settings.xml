@@ -6,6 +6,11 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="iT1__"/>
+			<item value="i_MESSAGE_1"/>
+			<item value="itemPartResultDMA2_ADC2"/>
+			<item value="sum_OUT_1A"/>
+			<item value="avrResult_OUT_1A"/>
 			<item value="avrResult_OUT_1N"/>
 			<item value="*VT1*"/>
 			<item value="level_CONTR"/>
