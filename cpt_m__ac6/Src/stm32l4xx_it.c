@@ -795,11 +795,6 @@ static inline void UpdateDataADC1(void){
 				sum_CONTR += DMA1_Data[i + 3];
 				sum_SD1 += DMA1_Data[i + 2];
 				//sum_OUT_3R += DMA1_Data[i + 3];
-				
-				index_CONTR++;
-				index_OUT_3R++;
-				index_OUT_DC++;
-				index_SD1++;
 			}			
 			pDataDMA1 = &DMA1_Data[0];
 			break;
@@ -813,15 +808,19 @@ static inline void UpdateDataADC1(void){
 				sum_CONTR += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];
 				sum_SD1 += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 2];
 				//sum_OUT_3R += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];
-				
-				index_CONTR++;
-				index_OUT_3R++;				
-				index_OUT_DC++;
-				index_SD1++;
 			}
 			pDataDMA1 = &DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE];
 			break;
 	}
+	//index_CONTR++;
+	//index_OUT_3R++;
+	//index_OUT_DC++;
+	//index_SD1++;
+
+	index_CONTR += 120;
+	index_OUT_3R += 120;
+	index_OUT_DC += 120;
+	index_SD1 += 120;
 	for(int i = 56; i < ADC_ARRAY_DMA12_HALF_SIZE + 56; i++)
 	{
 		//sum_OUT_1A
