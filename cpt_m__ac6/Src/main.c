@@ -276,7 +276,7 @@ int main(void)
 	HAL_ADC_Start_DMA(&hadc2, (uint32_t*)&DMA2_Data, 2*ADC_ARRAY_DMA2_HALF_SIZE);
 	
 	//Включаем ЦАП
-	HAL_DAC_Start(&hdac1,DAC_CHANNEL_2);
+	HAL_DAC_Start(&hdac1,DAC_CHANNEL_2);		// ???
 	// Устанавливаем значение
 	//HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, (uint32_t)value_RFI);
 	

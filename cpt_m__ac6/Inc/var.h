@@ -29,6 +29,10 @@
 extern int my_TST;
 extern uint32_t  my_TST_U32;
 
+extern int my_N_DMA1_1;
+extern int my_N_DMA1_2;
+extern int my_N_EXTI;
+
 extern int my_N_1;
 extern int my_N_2;
 extern int my_N_3;
@@ -391,7 +395,7 @@ extern int32_t* p_my_F1F2_sum_;
 #endif
 
 extern uint8_t itemPartResultDMA1_ADC1;
-extern uint8_t itemPartResultDMA2_ADC2;
+extern uint8_t itemPartResultDMA1_ADC2;
 
 extern int resultData_OUT_1R[2*COUNT_DATA_HALF_SIZE_OUT_1R];
 extern int resultData_CONTR[2*COUNT_DATA_HALF_SIZE_CONTR];

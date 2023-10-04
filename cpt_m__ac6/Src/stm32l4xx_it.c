@@ -231,7 +231,8 @@ void SysTick_Handler(void)
 void DMA1_Channel1_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
-	// ADC1 Priority Very High
+	// ADC1 Priority High
+	my_N_DMA1_1++;
 	uint32_t flag_it = DMA1->ISR;
 	// Первая половина буфера заполнена
 	if ( (flag_it & DMA_FLAG_HT1) == DMA_FLAG_HT1){
@@ -251,25 +252,20 @@ void DMA1_Channel1_IRQHandler(void)
 	DMA1->IFCR |= DMA_IFCR_CTCIF1;
 	DMA1->IFCR |= DMA_IFCR_CHTIF1;
 	DMA1->IFCR |= DMA_IFCR_CTEIF1;
-	
-
-	//=================================
-	//iT1__ = DWT->CYCCNT;	// ПЕРИОД = 60000 - 60003
-	//DWT->CYCCNT = 0;
 
 	// Вся партия данных получена
 	if ( itemPartResultDMA1_ADC1 != 0 && 
-		 itemPartResultDMA2_ADC2 != 0){
-		if(0) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		//  Прерывание вызывать НЕЛЬЗЯ
+		 itemPartResultDMA1_ADC2 != 0){
+		if((EXTI->PR1 & EXTI_PR1_PIF0) != EXTI_PR1_PIF0)		//  Прерывание вызывать МОЖНО
 		{
 			// Вызов программного прерывания
 			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
 			my_alarm |= 0x01;							// ВЫПОЛНЯЕТСЯ
 			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Проявляется при сканировании длины волны
 		}
-		else										// Прерывание вызывать МОЖНО
+		else										// Прерывание вызывать НЕЛЬЗЯ
 		{
-			//my_alarm |= 0x02;	// НЕ ВЫПОЛНЯЕТСЯ // Приоритет Very High
+			my_alarm |= 0x02;	// НЕ ВЫПОЛНЯЕТСЯ // Приоритет Very High
 			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Не проявляется
 		}
 	}
@@ -279,6 +275,57 @@ void DMA1_Channel1_IRQHandler(void)
   /* USER CODE BEGIN DMA1_Channel1_IRQn 1 */
 	#endif
   /* USER CODE END DMA1_Channel1_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA1 channel2 global interrupt.
+  */
+void DMA1_Channel2_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Channel2_IRQn 0 */
+	// ADC2 Priority Very High
+	my_N_DMA1_2++;
+	uint32_t flag_it = DMA1->ISR;
+	// Первая половина буфера заполнена
+	if ( (flag_it & DMA_FLAG_HT2) == DMA_FLAG_HT2){
+		// Отключаем прерывание по заполнению первой половины
+		DMA1_Channel1->CCR &= ~DMA_IT_HT;
+		// Номер заполненной части буфера = 1
+		itemPartResultDMA1_ADC2 = 1;
+		// Часть 1 буфера уже заполнена
+		}
+	else if ((flag_it & DMA_ISR_TCIF2) == DMA_ISR_TCIF2){
+		// Включаем прерывание по заполнению первой половины
+		DMA1_Channel1->CCR |= DMA_IT_HT;
+		// Номер заполненной части буфера = 2
+		itemPartResultDMA1_ADC2 = 2;
+	}
+	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
+	DMA1->IFCR |= DMA_IFCR_CTCIF2;
+	DMA1->IFCR |= DMA_IFCR_CHTIF2;
+	DMA1->IFCR |= DMA_IFCR_CTEIF2;
+
+	// Вся партия данных получена
+	if ( itemPartResultDMA1_ADC1 != 0 &&
+		 itemPartResultDMA1_ADC2 != 0){
+		if((EXTI->PR1 & EXTI_PR1_PIF0) != EXTI_PR1_PIF0)		//  Прерывание вызывать МОЖНО
+		{
+			// Вызов программного прерывания
+			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
+			my_alarm |= 0x04;							// НЕ ВЫПОЛНЯЕТСЯ
+			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Проявляется при сканировании длины волны
+			}
+		else										// Прерывание вызывать НЕЛЬЗЯ
+		{
+			my_alarm |= 0x08;	// НЕ ВЫПОЛНЯЕТСЯ // Приоритет Very High
+			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Не проявляется
+			}
+	}
+  /* USER CODE END DMA1_Channel2_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_adc2);
+  /* USER CODE BEGIN DMA1_Channel2_IRQn 1 */
+
+  /* USER CODE END DMA1_Channel2_IRQn 1 */
 }
 
 /**
@@ -336,64 +383,6 @@ void USART3_IRQHandler(void)
   /* USER CODE END USART3_IRQn 1 */
 }
 
-/**
-  * @brief This function handles DMA2 channel4 global interrupt.
-  */
-void DMA2_Channel4_IRQHandler(void)
-{
-  /* USER CODE BEGIN DMA2_Channel4_IRQn 0 */
-	// ADC2 Priority High
-	uint32_t flag_it = DMA2->ISR;
-	// Первая половина буфера заполнена
-	if ( (flag_it & DMA_FLAG_HT4) == DMA_FLAG_HT4){
-		// Отключаем прерывание по заполнению первой половины
-    DMA2_Channel4->CCR &= ~DMA_IT_HT;
-		// Номер части буфера, заполнена 1
-		itemPartResultDMA2_ADC2 = 1;	
-	// Буфер был заполнен
-  } else if ((flag_it & DMA_ISR_TCIF4) == DMA_ISR_TCIF4){ 
-		// Включаем прерывание по заполнению первой половины
-    DMA2_Channel4->CCR |= DMA_IT_HT;
-		// Номер части буфера, заполнена 2
-		itemPartResultDMA2_ADC2 = 2;			
-  }
-	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
-	DMA2->IFCR |= DMA_IFCR_CTCIF4;
-	DMA2->IFCR |= DMA_IFCR_CHTIF4;
-	DMA2->IFCR |= DMA_IFCR_CTEIF4;
-	
-	//=================================
-	//iT1__ = DWT->CYCCNT;	// ПЕРИОД = 60121 - 60125
-	//DWT->CYCCNT = 0;
-
-	// Вся партия данных получена
-	if ( itemPartResultDMA1_ADC1 != 0 && 
-		 itemPartResultDMA2_ADC2 != 0){
-		if(1) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		// Прерывание вызывать НЕЛЬЗЯ
-		{
-			// Вызов программного прерывания
-			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// Всегда выполняется именно здесь
-			my_alarm |= 0x04;							// НЕ ВЫПОЛНЯЕТСЯ
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x20;
-			//EXTI->PR1 |= EXTI_PR1_PIF0;
-		}
-		else										// Прерывание вызывать МОЖНО
-		{
-			// Вызов программного прерывания
-			//EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
-			//EXTI->SWIER1 |= EXTI_SWIER1_SWI0;
-			//my_alarm |= 0x08;							// ВЫПОЛНЯЕТСЯ		// Приоритет High
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x20;	// Проявляется при сканировании длины волны
-		}
-	}
-	#if defined(AUTODMA2)
-  /* USER CODE END DMA2_Channel4_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_adc2);
-  /* USER CODE BEGIN DMA2_Channel4_IRQn 1 */
-	#endif
-  /* USER CODE END DMA2_Channel4_IRQn 1 */
-}
-
 /* USER CODE BEGIN 1 */
 // Обработчик программного прерывания
 void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
@@ -407,6 +396,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 										//  UART3 - наивысший приоритет (зачем?)
 	// Очистили флаг прерывания
 	EXTI->PR1 |= EXTI_PR1_PIF0;
+	my_N_EXTI++;
 
 	//=================================
 	iT1__ = DWT->CYCCNT;	// ПЕРИОД = 119992 - 119995 // 119985 - 119990
@@ -429,8 +419,8 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	iT__n++;
 
 	// Забираем все данные из буфера
-	if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;
-	if(itemPartResultDMA1_ADC1 == itemPartResultDMA2_ADC2) my_alarm |= 0x20;
+	if(itemPartResultDMA1_ADC1 != itemPartResultDMA1_ADC2) my_alarm |= 0x10;	// ВЫПОЛНЯЕТСЯ
+	if(itemPartResultDMA1_ADC1 == itemPartResultDMA1_ADC2) my_alarm |= 0x20;	// НЕ ВЫПОЛНЯЕТСЯ
 
 	my_ms_num++;
 	if(!b_my_ms_num)
@@ -442,7 +432,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	UpdateDataADC2();
 	
 	itemPartResultDMA1_ADC1 = 0;
-	itemPartResultDMA2_ADC2 = 0;
+	itemPartResultDMA1_ADC2 = 0;
 
 	//my_alarm = 1;
 	// Установка управляющих параметров,
@@ -955,7 +945,7 @@ static inline void UpdateDataADC1(void){
 
 static inline void my_ADC2_0(void){
 	// Вариант Парехина
-	switch(itemPartResultDMA2_ADC2){
+	switch(itemPartResultDMA1_ADC2){
 		case 1:
 			for (int i = 0; i < ADC_ARRAY_DMA2_HALF_SIZE-3; i+=3){
 				sum_OUT_2RN += DMA2_Data[i];
@@ -1221,7 +1211,7 @@ static inline void my_ADC2_1(void){
 	// Мои функции ASM
 	my_DataADC2_0();		// Время выполнения my_DataADC2_0() 818 тактов
 	my_DataADC2_2();		// Время выполнения my_DataADC2_0()+my_DataADC2_2() 3404 тактов
-	index_OUT_1N++;
+	index_OUT_1N += 120;
 	// Среднее значение постоянной составляющей
 	if (index_OUT_1N >= count_OUT_DC){
 		avrResult_OUT_1N = ((float)(sum_OUT_1N)) / (float)index_OUT_1N;
@@ -1457,7 +1447,7 @@ static inline void UpdateDataADC2(void){
 	static int iT2 = 0;
 	static int idT = 0;
 	
-	switch(itemPartResultDMA2_ADC2){
+	switch(itemPartResultDMA1_ADC2){
 		case 1:
 			pDataDMA2 = (volatile uint16_t*)&DMA2_Data[0];
 			break;
@@ -1864,7 +1854,7 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в секунду, каждую
 		//dS_3 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
 		// value_UT1A
 		dS_3 += (int)(value_UT1A*10);
-		dS_4 += (int)(avrResult_OUT_1N*10);
+		dS_4 += (int)(avrResult_OUT_1N*1000);
 		dS_5 += (int)(avrResult_OUT_1A*1000);
 
 
