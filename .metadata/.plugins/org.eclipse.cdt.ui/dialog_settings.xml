@@ -6,6 +6,7 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="itemPartResultDMA1_ADC1"/>
 			<item value="*20*"/>
 			<item value="my_alarm"/>
 			<item value="EXTIPR1"/>

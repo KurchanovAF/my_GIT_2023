@@ -232,8 +232,11 @@ void DMA1_Channel1_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
 	// ADC1 Priority High
+	//__disable_irq ();						// запретить любые прерывания
+	//NVIC_DisableIRQ(DMA1_Channel2_IRQn);
 	my_N_DMA1_1++;
 	uint32_t flag_it = DMA1->ISR;
+	if(my_N_DMA1_1 == 1) my_Flag_DMA1_1 = flag_it;
 	// Первая половина буфера заполнена
 	if ( (flag_it & DMA_FLAG_HT1) == DMA_FLAG_HT1){
 		// Отключаем прерывание по заполнению первой половины
@@ -249,26 +252,39 @@ void DMA1_Channel1_IRQHandler(void)
 		itemPartResultDMA1_ADC1 = 2;
 	}
 	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
-	DMA1->IFCR |= DMA_IFCR_CTCIF1;
-	DMA1->IFCR |= DMA_IFCR_CHTIF1;
-	DMA1->IFCR |= DMA_IFCR_CTEIF1;
+	DMA1->IFCR |= DMA_IFCR_CTCIF1;		// Channel 1 Transfer Complete clear
+	DMA1->IFCR |= DMA_IFCR_CHTIF1;		// Channel 1 Half Transfer clear
+	DMA1->IFCR |= DMA_IFCR_CTEIF1;		// Channel 1 Transfer Error clear
 
 	// Вся партия данных получена
 	if ( itemPartResultDMA1_ADC1 != 0 && 
 		 itemPartResultDMA1_ADC2 != 0){
-		if((EXTI->PR1 & EXTI_PR1_PIF0) != EXTI_PR1_PIF0)		//  Прерывание вызывать МОЖНО
-		{
-			// Вызов программного прерывания
-			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
-			my_alarm |= 0x01;							// ВЫПОЛНЯЕТСЯ
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Проявляется при сканировании длины волны
+		if(itemPartResultDMA1_ADC1 == itemPartResultDMA1_ADC2){
+			//if((EXTI->PR1 & EXTI_PR1_PIF0) != EXTI_PR1_PIF0)		//  Прерывание вызывать МОЖНО
+			if(1)//b_itemPartResultDMA1_ADC2)
+			{
+				// Вызов программного прерывания
+				EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
+				my_alarm |= 0x01;							// ВЫПОЛНЯЕТСЯ
+				//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Проявляется при сканировании длины волны
+				}
+			else										// Прерывание вызывать НЕЛЬЗЯ
+			{
+				b_itemPartResultDMA1_ADC1 = true;
+				my_alarm |= 0x02;	// НЕ ВЫПОЛНЯЕТСЯ // Приоритет Very High
+				//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Не проявляется
+				}
 		}
-		else										// Прерывание вызывать НЕЛЬЗЯ
+		else
 		{
-			my_alarm |= 0x02;	// НЕ ВЫПОЛНЯЕТСЯ // Приоритет Very High
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Не проявляется
+			//
+			b_itemPartResultDMA1_ADC1 = false;
+			b_itemPartResultDMA1_ADC2 = false;
 		}
 	}
+	//__enable_irq ();						// разрешить любые прерывания
+
+	//NVIC_EnableIRQ(DMA1_Channel2_IRQn);
 	#if defined(AUTODMA1)
   /* USER CODE END DMA1_Channel1_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_adc1);
@@ -284,19 +300,22 @@ void DMA1_Channel2_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Channel2_IRQn 0 */
 	// ADC2 Priority Very High
+	//__disable_irq ();						// запретить любые прерывания
+	//NVIC_DisableIRQ(DMA1_Channel1_IRQn);
 	my_N_DMA1_2++;
 	uint32_t flag_it = DMA1->ISR;
+	if(my_N_DMA1_2 == 1) my_Flag_DMA1_2 = flag_it;
 	// Первая половина буфера заполнена
 	if ( (flag_it & DMA_FLAG_HT2) == DMA_FLAG_HT2){
 		// Отключаем прерывание по заполнению первой половины
-		DMA1_Channel1->CCR &= ~DMA_IT_HT;
+		DMA1_Channel2->CCR &= ~DMA_IT_HT;
 		// Номер заполненной части буфера = 1
 		itemPartResultDMA1_ADC2 = 1;
 		// Часть 1 буфера уже заполнена
 		}
 	else if ((flag_it & DMA_ISR_TCIF2) == DMA_ISR_TCIF2){
 		// Включаем прерывание по заполнению первой половины
-		DMA1_Channel1->CCR |= DMA_IT_HT;
+		DMA1_Channel2->CCR |= DMA_IT_HT;
 		// Номер заполненной части буфера = 2
 		itemPartResultDMA1_ADC2 = 2;
 	}
@@ -308,19 +327,33 @@ void DMA1_Channel2_IRQHandler(void)
 	// Вся партия данных получена
 	if ( itemPartResultDMA1_ADC1 != 0 &&
 		 itemPartResultDMA1_ADC2 != 0){
-		if((EXTI->PR1 & EXTI_PR1_PIF0) != EXTI_PR1_PIF0)		//  Прерывание вызывать МОЖНО
+		if(itemPartResultDMA1_ADC1 == itemPartResultDMA1_ADC2){
+			//if((EXTI->PR1 & EXTI_PR1_PIF0) != EXTI_PR1_PIF0)		//  Прерывание вызывать МОЖНО
+			if(1)//b_itemPartResultDMA1_ADC1)
+			{
+				// Вызов программного прерывания
+				EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
+				my_alarm |= 0x04;							// НЕ ВЫПОЛНЯЕТСЯ
+				//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Проявляется при сканировании длины волны
+				}
+			else										// Прерывание вызывать НЕЛЬЗЯ
+			{
+				b_itemPartResultDMA1_ADC2 = true;
+				my_alarm |= 0x08;	// НЕ ВЫПОЛНЯЕТСЯ // Приоритет Very High
+				//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Не проявляется
+				}
+		}
+		else
 		{
-			// Вызов программного прерывания
-			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
-			my_alarm |= 0x04;							// НЕ ВЫПОЛНЯЕТСЯ
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Проявляется при сканировании длины волны
-			}
-		else										// Прерывание вызывать НЕЛЬЗЯ
-		{
-			my_alarm |= 0x08;	// НЕ ВЫПОЛНЯЕТСЯ // Приоритет Very High
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Не проявляется
-			}
+			//
+			b_itemPartResultDMA1_ADC1 = false;
+			b_itemPartResultDMA1_ADC2 = false;
+		}
 	}
+
+	//_enable_irq ();						// разрешить любые прерывания
+
+	//NVIC_EnableIRQ(DMA1_Channel1_IRQn);
   /* USER CODE END DMA1_Channel2_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_adc2);
   /* USER CODE BEGIN DMA1_Channel2_IRQn 1 */
@@ -397,6 +430,8 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	// Очистили флаг прерывания
 	EXTI->PR1 |= EXTI_PR1_PIF0;
 	my_N_EXTI++;
+	b_itemPartResultDMA1_ADC1 = false;
+	b_itemPartResultDMA1_ADC2 = false;
 
 	//=================================
 	iT1__ = DWT->CYCCNT;	// ПЕРИОД = 119992 - 119995 // 119985 - 119990

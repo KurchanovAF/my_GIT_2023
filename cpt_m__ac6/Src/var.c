@@ -10,6 +10,8 @@ uint32_t  my_TST_U32;
 int my_N_DMA1_1 = 0;
 int my_N_DMA1_2 = 0;
 int my_N_EXTI   = 0;
+int my_Flag_DMA1_1 = 0;
+int my_Flag_DMA1_2 = 0;
 
 int my_N_1 = 0;
 int my_N_2 = 0;
@@ -403,6 +405,8 @@ int32_t* p_my_F1F2_sum_;
 
 uint8_t itemPartResultDMA1_ADC1 = 0;
 uint8_t itemPartResultDMA1_ADC2 = 0;
+bool b_itemPartResultDMA1_ADC1 = false;
+bool b_itemPartResultDMA1_ADC2 = false;
 
 int resultData_OUT_1R[2*COUNT_DATA_HALF_SIZE_OUT_1R];
 int resultData_CONTR[2*COUNT_DATA_HALF_SIZE_CONTR];
