@@ -301,6 +301,13 @@ extern uint16_t my_DMA1_Data_F1[ADC_ARRAY_DMA12_HALF_SIZE];
 extern uint16_t my_DMA1_Data_F2[ADC_ARRAY_DMA12_HALF_SIZE + 30];
 extern uint16_t my_DMA1_Data_F1_F2[ADC_ARRAY_DMA12_HALF_SIZE];
 //===============================================================
+extern uint16_t * my_Data_F0;
+extern uint16_t * my_Data_F1;
+extern uint16_t * my_Data_F2;
+extern uint16_t * my_Data_F1_F2;
+//===============================================================
+
+//===============================================================
 extern int32_t my_F2F1_rez[6];
 extern int32_t my_F2F1_P_rez[6];
 extern int32_t my_F1F2_rez[5];
@@ -398,8 +405,6 @@ extern int32_t* p_my_F1F2_sum_;
 
 extern uint8_t itemPartResultDMA1_ADC1;
 extern uint8_t itemPartResultDMA1_ADC2;
-extern bool b_itemPartResultDMA1_ADC1;
-extern bool b_itemPartResultDMA1_ADC2;
 
 extern int resultData_OUT_1R[2*COUNT_DATA_HALF_SIZE_OUT_1R];
 extern int resultData_CONTR[2*COUNT_DATA_HALF_SIZE_CONTR];

@@ -308,6 +308,11 @@ uint16_t  my_DMA1_Data_F1[ADC_ARRAY_DMA12_HALF_SIZE] __attribute__((aligned));		
 uint16_t  my_DMA1_Data_F2[ADC_ARRAY_DMA12_HALF_SIZE + 30] __attribute__((aligned));		// Буфер увеличенной длины сигнала OUT2 после режекции частоты F2 для детектирования частоты F1
 uint16_t  my_DMA1_Data_F1_F2[ADC_ARRAY_DMA12_HALF_SIZE] __attribute__((aligned));		// Буфер нормальной длины сигнала OUT2 после режекции частот F1 и F2 для анализа шумов лазера
 //===================================================================================
+uint16_t * my_Data_F0 = NULL;
+uint16_t * my_Data_F1 = NULL;
+uint16_t * my_Data_F2 = NULL;
+uint16_t * my_Data_F1_F2 = NULL;
+//===================================================================================
 int32_t  my_F2F1_rez[6];
 int32_t  my_F2F1_P_rez[6];
 int32_t  my_F1F2_rez[5];
@@ -405,8 +410,6 @@ int32_t* p_my_F1F2_sum_;
 
 uint8_t itemPartResultDMA1_ADC1 = 0;
 uint8_t itemPartResultDMA1_ADC2 = 0;
-bool b_itemPartResultDMA1_ADC1 = false;
-bool b_itemPartResultDMA1_ADC2 = false;
 
 int resultData_OUT_1R[2*COUNT_DATA_HALF_SIZE_OUT_1R];
 int resultData_CONTR[2*COUNT_DATA_HALF_SIZE_CONTR];
