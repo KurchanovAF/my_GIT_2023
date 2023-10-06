@@ -314,8 +314,12 @@ uint16_t * my_Data_F2 = NULL;
 uint16_t * my_Data_F1_F2 = NULL;
 //===================================================================================
 int32_t  my_F2F1_rez[6];
+int32_t my_F2F1_rez_2[6];
+int32_t * my_F2F1_rez_A = NULL;
 int32_t  my_F2F1_P_rez[6];
 int32_t  my_F1F2_rez[5];
+int32_t my_F1F2_rez_2[5];
+int32_t * my_F1F2_rez_A = NULL;
 int32_t  my_F1F2_P_rez[5];
 float F1F2_rezult[5];
 float F1F2_OUT1_rezult[5];

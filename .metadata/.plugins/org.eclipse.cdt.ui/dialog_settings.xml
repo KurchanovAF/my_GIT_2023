@@ -10,6 +10,9 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="my_Data_F1_F2"/>
+			<item value="my_F1F2_rez_A"/>
+			<item value="my_F1F2_rez"/>
 			<item value="b_itemPartResultDMA1_ADC1"/>
 			<item value="itemPartResultDMA1_ADC1"/>
 			<item value="*20*"/>

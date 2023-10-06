@@ -1221,15 +1221,36 @@ static inline void my_ADC2_1(void){
 		index_OUT_1N = 0;
 		sum_OUT_1N = 0;
 	}
+	// Обрабатываем сигналы основного фотоприемника
 	my_Data_F0 = &my_DMA2_Data_F0[0];
 	my_Data_F1 = &my_DMA2_Data_F1[0];
 	my_F1();				//  513 тактов
 	my_Data_F2 = &my_DMA2_Data_F2[0];
 	my_F2();				// 1203 тактов
+	my_F1F2_rez_A = &my_F1F2_rez[0];
 	my_F1F2();				//  707 тактов
 	my_F1F2_P();
+	my_F2F1_rez_A = &my_F2F1_rez[0];
 	my_F2F1();		//  694 такта, измеренная сумма = 3054
+	my_Data_F1_F2 = &my_DMA2_Data_F1_F2[0];
 	my_F1_F2();		//  520 тактов, измеренная сумма =
+
+	// Обрабатываем сигналы дополнительного фотоприемника
+	/*
+	my_Data_F0 = &my_DMA1_Data_F0[0];
+	my_Data_F1 = &my_DMA1_Data_F1[0];
+	my_F1();				//  513 тактов
+	my_Data_F2 = &my_DMA1_Data_F2[0];
+	my_F2();				// 1203 тактов
+	my_F1F2_rez_A = &my_F1F2_rez_2[0];
+	my_F1F2();				//  707 тактов
+	my_F1F2_P();
+	my_F2F1_rez_A = &my_F2F1_rez_2[0];
+	my_F2F1();		//  694 такта, измеренная сумма = 3054
+	my_Data_F1_F2 = &my_DMA1_Data_F1_F2[0];
+	my_F1_F2();		//  520 тактов, измеренная сумма =
+	//*/
+
 	if(itemWork == WORK_HIST){
 		Difference();
 	}

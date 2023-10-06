@@ -309,8 +309,12 @@ extern uint16_t * my_Data_F1_F2;
 
 //===============================================================
 extern int32_t my_F2F1_rez[6];
+extern int32_t my_F2F1_rez_2[6];
+extern int32_t * my_F2F1_rez_A;
 extern int32_t my_F2F1_P_rez[6];
 extern int32_t my_F1F2_rez[5];
+extern int32_t my_F1F2_rez_2[5];
+extern int32_t * my_F1F2_rez_A;
 extern int32_t my_F1F2_P_rez[5];
 extern float F1F2_rezult[5];
 extern float F1F2_OUT1_rezult[5];
