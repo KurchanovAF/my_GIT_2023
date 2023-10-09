@@ -346,6 +346,7 @@ int main(void)
 	  my_F2F1_sum[i] = 0;
 	  my_F2F1_P_sum[i] = 0;
 	  F2F1_rezult_D[i] = 0;
+	  my_F2F1_sum_2[i] = 0;
   }
 
   flagConnectedTempSensor = true;

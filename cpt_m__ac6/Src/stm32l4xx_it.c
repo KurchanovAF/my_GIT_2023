@@ -1251,7 +1251,7 @@ static inline void my_ADC2_1(void){
 	my_F2F1();		//  694 такта, измеренная сумма = 3054
 	my_Data_F1_F2 = &my_DMA1_Data_F1_F2[0];
 	my_F1_F2();		//  520 тактов, измеренная сумма =
-	iT1__ = DWT->CYCCNT;	// от точки START, без режима отладки 6745 тактов, с отладкой - 8062, но запускается не с 1-го раза
+	iT1__ = DWT->CYCCNT;	// от точки START, без режима отладки 6745 тактов, с отладкой - 8265, но запускается не с 1-го раза
 	//*/
 
 	if(itemWork == WORK_HIST){
@@ -1275,6 +1275,7 @@ static inline void my_ADC2_1(void){
 	{
 		my_F2F1_sum[i] += my_F2F1_rez[i];
 		//my_F2F1_P_sum[i] += my_F2F1_P_rez[i];
+		my_F2F1_sum_2[i] += my_F2F1_rez_2[i];
 	}
 	for(int i = 0; i < 5; i++)
 	{
@@ -1294,6 +1295,8 @@ static inline void my_ADC2_1(void){
 			for (int i = 0; i < 6; i++){
 				F2F1_rezult[i] = F2F1_rezult_1[i] = -(float)my_F2F1_sum[i] / (float)count_OUT2_CPT_FREQ;
 				my_F2F1_sum[i] = 0;
+				F2F1_rezult_2[i] = -(float)my_F2F1_sum_2[i] / (float)count_OUT2_CPT_FREQ;
+				my_F2F1_sum_2[i] = 0;
 			}
 			// Установить новую длину волны и флаг обновления длины волны
 			value_U2R = value_U2R - value_U2R_D; // +/- 10000 тонкой настройки = +/- 271 грубой настройки
@@ -1307,6 +1310,8 @@ static inline void my_ADC2_1(void){
 				F2F1_rezult[i] = F2F1_rezult_2[i] = -(float)my_F2F1_sum[i] / (float)count_OUT2_CPT_FREQ;
 				my_F2F1_sum[i] = 0;
 				F2F1_rezult_D[i] = F2F1_rezult_2[i] - F2F1_rezult_1[i];
+				F2F1_rezult_2[i] = -(float)my_F2F1_sum_2[i] / (float)count_OUT2_CPT_FREQ;
+				my_F2F1_sum_2[i] = 0;
 			}
 			// Установить новую длину волны и флаг обновления длины волны
 			value_U2R = value_U2R + value_U2R_D;
