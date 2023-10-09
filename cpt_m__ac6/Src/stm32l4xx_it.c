@@ -401,8 +401,8 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	my_N_EXTI++;
 
 	//=================================
-	iT1__ = DWT->CYCCNT;	// ПЕРИОД = 119992 - 119995 // 119985 - 119990
-	DWT->CYCCNT = 0;
+	//iT1__ = DWT->CYCCNT;	// ПЕРИОД = 119992 - 119995 // 119985 - 119990
+	//DWT->CYCCNT = 0;
 
 	/*
 	if (DWT->CYCCNT > DEBUG_maxDWT3){
@@ -1222,6 +1222,8 @@ static inline void my_ADC2_1(void){
 		sum_OUT_1N = 0;
 	}
 	// Обрабатываем сигналы основного фотоприемника
+	// START
+	DWT->CYCCNT = 0;
 	my_Data_F0 = &my_DMA2_Data_F0[0];
 	my_Data_F1 = &my_DMA2_Data_F1[0];
 	my_F1();				//  513 тактов
@@ -1234,9 +1236,10 @@ static inline void my_ADC2_1(void){
 	my_F2F1();		//  694 такта, измеренная сумма = 3054
 	my_Data_F1_F2 = &my_DMA2_Data_F1_F2[0];
 	my_F1_F2();		//  520 тактов, измеренная сумма =
+	iT1__ = DWT->CYCCNT;	// от точки START, без режима отладки 3779 тактов, с отладкой - 4443, но запускается не с 1-го раза
 
 	// Обрабатываем сигналы дополнительного фотоприемника
-	/*
+	//*
 	my_Data_F0 = &my_DMA1_Data_F0[0];
 	my_Data_F1 = &my_DMA1_Data_F1[0];
 	my_F1();				//  513 тактов
@@ -1244,11 +1247,11 @@ static inline void my_ADC2_1(void){
 	my_F2();				// 1203 тактов
 	my_F1F2_rez_A = &my_F1F2_rez_2[0];
 	my_F1F2();				//  707 тактов
-	my_F1F2_P();
 	my_F2F1_rez_A = &my_F2F1_rez_2[0];
 	my_F2F1();		//  694 такта, измеренная сумма = 3054
 	my_Data_F1_F2 = &my_DMA1_Data_F1_F2[0];
 	my_F1_F2();		//  520 тактов, измеренная сумма =
+	iT1__ = DWT->CYCCNT;	// от точки START, без режима отладки 6745 тактов, с отладкой - 8062, но запускается не с 1-го раза
 	//*/
 
 	if(itemWork == WORK_HIST){
@@ -1277,6 +1280,7 @@ static inline void my_ADC2_1(void){
 	{
 		my_F1F2_sum[i] += my_F1F2_rez[i];
 		my_F1F2_P_sum[i] += my_F1F2_P_rez[i];
+		my_F1F2_sum_2[i] += my_F1F2_rez_2[i];
 	}
 
 	// Каждые 16 мс, частота 62,5 Гц
@@ -1364,8 +1368,10 @@ static inline void my_ADC2_1(void){
 		for (int i = 0; i < 5; i++){
 			F1F2_rezult[i] = -(float)my_F1F2_sum[i] / (float)count_OUT2_CPT_CRNT;
 			F1F2_P_rezult[i] = (float)my_F1F2_P_sum[i] / (float)count_OUT2_CPT_CRNT;
+			F1F2_rezult_2[i] = -(float)my_F1F2_sum[i] / (float)count_OUT2_CPT_CRNT;
 			my_F1F2_sum[i] = 0;
 			my_F1F2_P_sum[i] = 0;
+			my_F1F2_sum_2[i] = 0;
 		}
 		F1F2_P_S = 0;
 		for (int i = 0; i < 5; i++)
@@ -1881,7 +1887,8 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в секунду, каждую
 		// value_UT1A
 		dS_3 += (int)(value_UT1A*10);
 		dS_4 += (int)(avrResult_OUT_1N*1000);
-		dS_5 += (int)(avrResult_OUT_1A*1000);
+		//dS_5 += (int)(avrResult_OUT_1A*1000);
+		dS_5 += (int)((F1F2_rezult_2[1] + F1F2_rezult_2[2])/2.0f*1000);
 
 
 		switch(var_my_ADC2){

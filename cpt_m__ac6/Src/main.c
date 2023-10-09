@@ -340,6 +340,7 @@ int main(void)
 	  my_F1F2_sum[i] = 0;
 	  my_F1F2_OUT1_sum[i] = 0;
 	  my_F1F2_P_sum[i] = 0;
+	  my_F1F2_sum_2[i] = 0;
   }
   for (int i = 0; i < 6; i++){
 	  my_F2F1_sum[i] = 0;

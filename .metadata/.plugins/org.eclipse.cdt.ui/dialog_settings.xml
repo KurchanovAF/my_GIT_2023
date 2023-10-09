@@ -10,6 +10,9 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="result_OUT2_CPT_CRNT_DOPLER"/>
+			<item value="F1F2_rezult"/>
+			<item value="my_F1F2_sum"/>
 			<item value="my_Data_F1_F2"/>
 			<item value="my_F1F2_rez_A"/>
 			<item value="my_F1F2_rez"/>
