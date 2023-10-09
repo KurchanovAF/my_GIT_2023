@@ -1241,6 +1241,7 @@ static inline void my_ADC2_1(void){
 	// ќбрабатываем сигналы дополнительного фотоприемника
 	//*
 	my_Data_F0 = &my_DMA1_Data_F0[0];
+	//my_Data_F0 = &my_DMA2_Data_F0[0];
 	my_Data_F1 = &my_DMA1_Data_F1[0];
 	my_F1();				//  513 тактов
 	my_Data_F2 = &my_DMA1_Data_F2[0];
@@ -1373,7 +1374,7 @@ static inline void my_ADC2_1(void){
 		for (int i = 0; i < 5; i++){
 			F1F2_rezult[i] = -(float)my_F1F2_sum[i] / (float)count_OUT2_CPT_CRNT;
 			F1F2_P_rezult[i] = (float)my_F1F2_P_sum[i] / (float)count_OUT2_CPT_CRNT;
-			F1F2_rezult_2[i] = -(float)my_F1F2_sum[i] / (float)count_OUT2_CPT_CRNT;
+			F1F2_rezult_2[i] = -(float)my_F1F2_sum_2[i] / (float)count_OUT2_CPT_CRNT;
 			my_F1F2_sum[i] = 0;
 			my_F1F2_P_sum[i] = 0;
 			my_F1F2_sum_2[i] = 0;
@@ -1952,7 +1953,7 @@ static inline void funWork_SCAN_CRNT(){	// вызываетс€ 1000 раз в секунду, каждую
 				dS_8 += (int)(F1F2_rezult_[1]*1000);
 				dS_3 += (int)(F1F2_rezult_[2]*1000);
 				dS_4 += (int)(F1F2_rezult_[3]*1000);
-				dS_5 += (int)(F1F2_rezult_[4]*1000);
+				//dS_5 += (int)(F1F2_rezult_[4]*1000);
 				/*
 				dS_4 += (int)(F1F2_rezult_[0]*1000);
 				dS_5 += (int)(F1F2_rezult_[1]*1000);
