@@ -1240,8 +1240,8 @@ static inline void my_ADC2_1(void){
 
 	// Обрабатываем сигналы дополнительного фотоприемника
 	//*
-	my_Data_F0 = &my_DMA1_Data_F0[0];
-	//my_Data_F0 = &my_DMA2_Data_F0[0];
+	//my_Data_F0 = &my_DMA1_Data_F0[0];
+	my_Data_F0 = &my_DMA2_Data_F0[0];
 	my_Data_F1 = &my_DMA1_Data_F1[0];
 	my_F1();				//  513 тактов
 	my_Data_F2 = &my_DMA1_Data_F2[0];
