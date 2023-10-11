@@ -167,7 +167,7 @@ int fixValue_UT1A = 32768;
 //float my_FLT_ = 0;
 
 int scanStep_VY = 25; // Курчанов
-int scanMin_VY = 40000; //20000;	// 45000 Курчанов
+int scanMin_VY = 30000; //20000;	// 45000 Курчанов
 int scanMax_VY = 50000; //55000;
 
 int scanStep_UT2A = 50;//5;//50;
