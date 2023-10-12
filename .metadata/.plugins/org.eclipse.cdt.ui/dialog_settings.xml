@@ -10,6 +10,11 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="my_N_3"/>
+			<item value="my_N_4"/>
+			<item value="pDataDMA1"/>
+			<item value="avrResult_OUT_0R"/>
+			<item value="resultTemp_CELL"/>
 			<item value="F1F2_rezult_2"/>
 			<item value="my_DMA1_Data_F0"/>
 			<item value="my_DMA2_Data_F1_F2"/>

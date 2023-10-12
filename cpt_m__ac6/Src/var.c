@@ -261,11 +261,10 @@ int iT__n = 0;
 uint32_t my_dat_1 = 0x0000f00f;
 uint32_t my_dat_2 = 0x00001111;
 
-uint16_t DMA1_Data[2*ADC_ARRAY_DMA1_HALF_SIZE];
-uint16_t DMA2_Data[2*ADC_ARRAY_DMA2_HALF_SIZE];
+uint16_t DMA1_Data[2*ADC_ARRAY_DMA1_HALF_SIZE] __attribute__((aligned));
+uint16_t DMA2_Data[2*ADC_ARRAY_DMA2_HALF_SIZE] __attribute__((aligned));
 
-uint16_t* pDataDMA1;
-//uint16_t* pDataDMA2;
+volatile uint16_t* volatile pDataDMA1;
 volatile uint16_t* volatile pDataDMA2;
 
 // Kurchanov 23.11.2020
@@ -302,6 +301,8 @@ uint16_t  my_DMA2_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + 56] __attribute__((aligned
 uint16_t  my_DMA2_Data_F1[ADC_ARRAY_DMA12_HALF_SIZE] __attribute__((aligned));			// Буфер нормальной длины сигнала OUT2 после режекции частоты F1 для детектирования частоты F2
 uint16_t  my_DMA2_Data_F2[ADC_ARRAY_DMA12_HALF_SIZE + 30] __attribute__((aligned));		// Буфер увеличенной длины сигнала OUT2 после режекции частоты F2 для детектирования частоты F1
 uint16_t  my_DMA2_Data_F1_F2[ADC_ARRAY_DMA12_HALF_SIZE] __attribute__((aligned));		// Буфер нормальной длины сигнала OUT2 после режекции частот F1 и F2 для анализа шумов лазера
+//===================================================================================
+uint16_t  my_DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE]   __attribute__((aligned));
 //===================================================================================
 uint16_t  my_DMA1_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + 56] __attribute__((aligned));		// Буфер увеличенной длины сигнала OUT2 для последующей режекции частот модуляции
 uint16_t  my_DMA1_Data_F1[ADC_ARRAY_DMA12_HALF_SIZE] __attribute__((aligned));			// Буфер нормальной длины сигнала OUT2 после режекции частоты F1 для детектирования частоты F2

@@ -255,7 +255,7 @@ extern bool isLoopPID_MICROWAVE;
 
 #define ADC_ARRAY_DMA12_HALF_SIZE 120
 #define ADC_ARRAY_DMA1_HALF_SIZE 480
-#define ADC_ARRAY_DMA2_HALF_SIZE 360
+#define ADC_ARRAY_DMA2_HALF_SIZE 480
 
 #define COUNT_DATA_HALF_SIZE_OUT_1R 120
 #define COUNT_DATA_HALF_SIZE_CONTR 120
@@ -269,7 +269,7 @@ extern bool isLoopPID_MICROWAVE;
 extern uint16_t DMA1_Data[2*ADC_ARRAY_DMA1_HALF_SIZE];
 extern uint16_t DMA2_Data[2*ADC_ARRAY_DMA2_HALF_SIZE];
 
-extern uint16_t* pDataDMA1;
+extern volatile uint16_t* volatile pDataDMA1;
 extern volatile uint16_t* volatile pDataDMA2;
 //extern volatile uint16_t* pDataDMA2;
 
@@ -295,6 +295,8 @@ extern uint16_t my_DMA2_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + 56];
 extern uint16_t my_DMA2_Data_F1[ADC_ARRAY_DMA12_HALF_SIZE];
 extern uint16_t my_DMA2_Data_F2[ADC_ARRAY_DMA12_HALF_SIZE + 30];
 extern uint16_t my_DMA2_Data_F1_F2[ADC_ARRAY_DMA12_HALF_SIZE];
+//===============================================================
+extern uint16_t my_DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE];
 //===============================================================
 extern uint16_t my_DMA1_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + 56];
 extern uint16_t my_DMA1_Data_F1[ADC_ARRAY_DMA12_HALF_SIZE];

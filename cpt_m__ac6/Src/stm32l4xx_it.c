@@ -430,8 +430,26 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 		if(my_ms_num == 16) b_my_ms_num = true;
 	}
 
+	//*
+	switch(itemPartResultDMA1_ADC2){
+	case 1:
+		pDataDMA1 = (volatile uint16_t*)&DMA1_Data[0];
+		pDataDMA2 = (volatile uint16_t*)&DMA2_Data[0];
+		break;
+	case 2:
+		pDataDMA1 = (volatile uint16_t*)&DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE];
+		pDataDMA2 = (volatile uint16_t*)&DMA2_Data[ADC_ARRAY_DMA2_HALF_SIZE];
+		break;
+		}
+	my_DataADC1_0();	// программа зависает после вызова функции
+	my_DataADC2_0();	// после вызова функции программа работает нормально
+	//*/
+
+
 	UpdateDataADC1();
+	my_N_3++;
 	UpdateDataADC2();
+	my_N_4++;
 	
 	itemPartResultDMA1_ADC1 = 0;
 	itemPartResultDMA1_ADC2 = 0;
@@ -750,31 +768,19 @@ static inline void UpdateDataADC1(void){
 		//
 		my_DMA1_Data_F0[j] = my_DMA1_Data_F0[ADC_ARRAY_DMA12_HALF_SIZE + j];
 	}
-	/*
-	switch(itemPartResultDMA1_ADC1){
-	case 1:
-		i = 0;
-		pDataDMA1 = &DMA1_Data[0];
-		break;
-	case 2:
-		i = ADC_ARRAY_DMA1_HALF_SIZE;
-		pDataDMA1 = &DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE];
-		break;
-	}
-	for(; j < ADC_ARRAY_DMA12_HALF_SIZE + 56; i+=4, j++){
-		//
-		my_DMA1_Data_F0[j] 	= pDataDMA1[i];
-		sum_OUT_DC		   += pDataDMA1[i + 1];
-		sum_SD1 		   += pDataDMA1[i + 2];	// температура контроллера
-		sum_CONTR 		   += pDataDMA1[i + 3];
-		//sum_OUT_3R += pDataDMA1[i + 3]; // СВЧ мощность больше не измеряем
 
-		index_CONTR++;
-		index_OUT_3R++;		// не мспользуем
-		index_OUT_DC++;
-		index_SD1++;
-	}
+
+	// my_DataADC2_0();my_DMA1_Data
+	/*
+
+	for (int i = 0, j = 0; i < ADC_ARRAY_DMA1_HALF_SIZE-3; i+=4, j++){
+		my_DMA1_Data_F0[j + 56] = my_DMA1_Data[i];
+		sum_OUT_DC += my_DMA1_Data[i + 1];
+		sum_CONTR += my_DMA1_Data[i + 3];
+		sum_SD1 += my_DMA1_Data[i + 2];
+		}
 	//*/
+
 	//*
 	switch(itemPartResultDMA1_ADC1){
 		// Первая часть буфера
@@ -804,6 +810,7 @@ static inline void UpdateDataADC1(void){
 			pDataDMA1 = &DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE];
 			break;
 	}
+	//*/
 	//index_CONTR++;
 	//index_OUT_3R++;
 	//index_OUT_DC++;
@@ -1211,8 +1218,9 @@ static inline void my_ADC1_1(void){
 
 static inline void my_ADC2_1(void){
 	// Мои функции ASM
-	my_DataADC2_0();		// Время выполнения my_DataADC2_0() 818 тактов
-	my_DataADC2_2();		// Время выполнения my_DataADC2_0()+my_DataADC2_2() 3404 тактов
+	//my_DataADC2_0();		// Время выполнения my_DataADC2_0() 818 тактов
+	//my_DataADC2_2();		// Время выполнения my_DataADC2_0()+my_DataADC2_2() 3404 тактов
+	my_DataADC2_3();
 	index_OUT_1N += 120;
 	// Среднее значение постоянной составляющей
 	if (index_OUT_1N >= count_OUT_DC){
@@ -1485,14 +1493,7 @@ static inline void UpdateDataADC2(void){
 	static int iT2 = 0;
 	static int idT = 0;
 	
-	switch(itemPartResultDMA1_ADC2){
-		case 1:
-			pDataDMA2 = (volatile uint16_t*)&DMA2_Data[0];
-			break;
-		case 2:
-			pDataDMA2 = (volatile uint16_t*)&DMA2_Data[ADC_ARRAY_DMA2_HALF_SIZE];
-			break;
-	}
+
 	//pDataDMA2 = (volatile uint16_t*)&my_DMA2_tst_Data[0];
 
 	index_SD2 		+= 120;

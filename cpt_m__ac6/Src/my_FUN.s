@@ -31,6 +31,7 @@
 //.global pDataDMA2
 //pDataDMA2:
 //.word	0x00000000
+.extern pDataDMA1
 .extern pDataDMA2
 
 .global p_my_DMA2_Data
@@ -93,8 +94,10 @@ p_sum_SD2:
 my_0x0000FFFF:
 .word	0x0000FFFF
 
+.global	my_DataADC1_0
 .global	my_DataADC2_0
 .global	my_DataADC2_2	// Ok!
+.global	my_DataADC2_3
 .global	my_F1
 .global	my_F1F2
 .global	my_F1F2_P
@@ -107,6 +110,7 @@ my_0x0000FFFF:
 .extern sum_OUT_1N
 
 .extern	my_F0_sum          [DATA, SIZE = 4]
+.extern	my_DMA1_Data       [DATA, SIZE = 4]
 .extern	my_DMA2_Data       [DATA, SIZE = 4]
 .extern	my_DMA2_Data_F0    [DATA, SIZE = 4]
 .extern	my_DMA2_Data_F1    [DATA, SIZE = 4]
@@ -157,32 +161,47 @@ my_0x0000FFFF:
 //	 ADC_ARRAY_DMA2_HALF_SIZE  = 360 отсчетов, а не байт !
 //	 ADC_ARRAY_DMA12_HALF_SIZE = 120
 
+.func	my_DataADC1_0
+my_DataADC1_0:
+//	; Пересылка буфера DMA2
+
+	STMFD  SP!, {R0 - R11}
+//	; =========================
+	LDR R1, =my_DMA1_Data	// адрес принимающего буфера
+	LDR R2, =pDataDMA1		// указатель на полученный буфер
+	LDR R2, [R2]			// Без этого зависает, с этим - работает
+	MOV R0, #30				// 480 = 120*4 = 16*30 = 8*2*30
+my_DataADC1_0_L1:
+    LDMIA R2!, {R4-R11}		//  8 слов = 16 полуслов = 4 отсчета
+	STMIA R1!, {R4-R11}
+	SUB R0, R0, #1
+	CMP R0, #0
+	BNE my_DataADC1_0_L1
+//	Пересылка буфера DMA2 завершена
+//	===========================
+    LDMIA  SP!, {R0 - R11}
+	BX  LR
+.endfunc
+
 .func	my_DataADC2_0
 my_DataADC2_0:
-//	; Пересылка буфера DMA
+//	; Пересылка буфера DMA2
 
-	STMFD  SP!, {R0 - R9}
+	STMFD  SP!, {R0 - R11}
 //	; =========================
-	LDR R1, =my_DMA2_Data	// ??? ????????
-	LDR R2, =pDataDMA2		// ????? ?????? 120*3*(16 ???)
+	LDR R1, =my_DMA2_Data	// адрес принимающего буфера
+	LDR R2, =pDataDMA2		// указатель на полученный буфер
 	LDR R2, [R2]			// Без этого зависает, с этим - работает
-	MOV R0, #30				// 360 = 120*3 = 12*30
+	MOV R0, #30				// 480 = 120*4 = 16*30 = 8*2*30
 my_DataADC2_0_L1:
-    LDMIA R2!, {R4-R9}		//  6 слов = 12 полуслов
-    // Тест записи в my_DMA2_Data проходит верно
-    //MOV	R4, 0x000000FF
-    //MOV	R5, 0x0000AEAE
-    //MOV	R6, 0x000000FF
-    //MOV	R7, 0x0000AEAE
-    //MOV	R8, 0x000000FF
-    //MOV	R9, 0x0000AEAE
-	STMIA R1!, {R4-R9}
+    LDMIA R2!, {R4 - R11}	//  8 слов = 16 полуслов = 4 отсчета
+	STMIA R1!, {R4 - R11}
 	SUB R0, R0, #1
 	CMP R0, #0
 	BNE my_DataADC2_0_L1
-//	Пересылка буфера DMA завершена
+//	Пересылка буфера DMA2 завершена
 //	===========================
-    LDMIA  SP!, {R0-R9}
+    LDMIA  SP!, {R0 - R11}
 	BX  LR
 .endfunc
 
@@ -292,6 +311,95 @@ my_DataADC2_2_L2:
     LDMIA  SP!, {R0-R12, LR}		// 1+13=14
 	BX  LR						// 1
 .endfunc
+
+// Данные в DMA1_Data идут в следующем порядке: OUT_1R, CONTR, SD1, OUT_3R
+// Данные в DMA2_Data идут в следующем порядке: OUT_2R, OUT_0R, SD2 	(ТАК БЫЛО)
+// Данные в DMA2_Data идут в следующем порядке: OUT_2R, OUT_1N, OUT_0R	(ТАК СТАЛО вначале)
+// Данные в DMA2_Data идут в следующем порядке: OUT_2R, OUT_1N, OUT_0R, OUT1N 	(ТАК СТАЛО теперь, 4-й канал не обрабатываем)
+// OUT_0R - выход аппаратного синхронного детектора 1
+// SD1    - опорный уровень для аппаратных синхронных детекторов 1 и 2
+// SD2    - выход аппаратного синхронного детектора 2
+// OUT_1N - выход сигнала DC второго фотоприемника
+// OUT_3R - выход детектора мощности СВЧ, подаваемой на лазер (без усиления)
+// CONTR  - выход усилителя моста датчика температуры лазера
+.func
+my_DataADC2_3:
+	// Разбор сигналов на 4 разные части
+	// Сохранение части №1 (выход OUT2)в массив my_DMA2_Data_F0
+	// Суммирование для частей №2 (sum_OUT_1N) и №3 (sum_OUT_0R) по отдельности
+	// часть №4 остается без обработки
+	STMDB  SP!, {R0-R12, LR}
+	// Вначале сохраняем 56 старых отсчетов в массиве my_DMA2_Data_F0
+	LDR R2, =my_DMA2_Data_F0
+	ADD R1, R2, #240		//  120*2 = 240
+	MOV R0, #4				//  14*4 = 56 полуслов
+
+my_DataADC2_3_L1:
+	LDMIA R1!, {R4-R10}		//  7 слов = 14 полуслов
+	STMIA R2!, {R4-R10}
+	// ==========================
+	SUB R0, R0, #1
+    CMP R0, #0
+	BNE my_DataADC2_3_L1
+
+	// ==========================
+	// LR  - сумматор для sum_OUT_2R	(ТАК БЫЛО)
+	// R11 - сумматор для sum_OUT_0R	(ТАК БЫЛО)
+	// R12 - сумматор для sum_SD2		(ТАК БЫЛО)
+	// =========================
+
+	// R2  - адрес для записи my_DMA2_Data_F0
+	// R12 - сумматор для sum_OUT_1N
+	// R11 - сумматор для sum_OUT_0R
+
+	LDR R1, =my_DMA2_Data
+	MOV R11, #0
+	MOV R12, #0
+	LDR R3, my_0x0000FFFF		// константа
+	// R4 - вспомогательный
+	LDMIA R1!, {R4-R7}			// 4 слова это 2 отсчета по 4 полуслова
+	MOV R0, #60					// это 120 отсчетов
+
+my_DataADC2_3_L2:
+    // обработаем 2 прочитанных слова
+    STRH R4, [R2], #2			// запись полуслова для my_DMA2_Data_F0 и увеличение индекса
+    LSR R8, R4, #16				// старшее полуслово стает на место младшего
+    AND R9, R5, R3				// выделили младшее полуслово, а старшее нам не понадобится
+    LDMIA R1!, {R4}				// не тормозим
+    ADD R12, R12, R8			// sum_OUT_1N
+    LDMIA R1!, {R5}				// не тормозим
+    ADD R11, R11, R9			// sum_OUT_0R
+
+    // обработаем еще 2 прочитанных слова
+    STRH R6, [R2], #2			// запись полуслова для my_DMA2_Data_F0 и увеличение индекса
+    LSR R8, R6, #16				// старшее полуслово стает на место младшего
+    AND R9, R7, R3				// выделили младшее полуслово, а старшее нам не понадобится
+    LDMIA R1!, {R6}				// не тормозим
+    ADD R12, R12, R8			// sum_OUT_1N
+    LDMIA R1!, {R7}				// не тормозим
+    ADD R11, R11, R9			// sum_OUT_0R
+
+    // проверяем условие цикла
+    SUB R0, R0, #1
+    CMP R0, #0
+	BNE my_DataADC2_3_L2
+
+	// цикл окончен
+    LDR R1, =sum_OUT_1N			// адрес объекта sum_OUT_1N
+	LDR R2, [R1]				// значение величины sum_OUT_1N
+	ADD R2, R2, R12				// добавили полученную сумму
+	STR R2, [R1]
+
+	LDR R1, =sum_OUT_0R			// адрес объекта sum_OUT_0R
+	LDR R2, [R1]				// значение величины sum_OUT_0R
+	ADD R2, R2, R11				// добавили полученную сумму
+	STR R2, [R1]
+
+	// =========================
+    LDMIA  SP!, {R0-R12, LR}
+	BX  LR
+.endfunc
+
 
 .func
 my_F1:
