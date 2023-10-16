@@ -106,18 +106,31 @@ my_0x0000FFFF:
 .global	my_F2F1_P
 .global	my_F1_F2
 
+.global	my_N_F1
+.global	my_N_F1F2
+.global	my_N_F1F2_P
+.global	my_N_F2
+.global	my_N_F2F1
+.global	my_N_F2F1_P
+.global	my_N_F1_F2
+
 .extern sum_OUT_0R
 .extern sum_OUT_1N
 
 .extern	my_F0_sum          [DATA, SIZE = 4]
-.extern	my_DMA1_Data       [DATA, SIZE = 4]
+
 .extern	my_DMA2_Data       [DATA, SIZE = 4]
 .extern	my_DMA2_Data_F0    [DATA, SIZE = 4]
 .extern	my_DMA2_Data_F1    [DATA, SIZE = 4]
 .extern	my_DMA2_Data_F2    [DATA, SIZE = 4]
 .extern	my_DMA2_Data_F1_F2 [DATA, SIZE = 4]
 
-.extern my_DMA2_Data
+.extern	my_DMA1_Data       [DATA, SIZE = 4]
+.extern	my_DMA1_Data_F0    [DATA, SIZE = 4]
+.extern	my_DMA1_Data_F1    [DATA, SIZE = 4]
+.extern	my_DMA1_Data_F2    [DATA, SIZE = 4]
+.extern	my_DMA1_Data_F1_F2 [DATA, SIZE = 4]
+
 	   
 .extern	my_DMA2_Data_       [DATA, SIZE = 4]
 .extern	my_DMA2_Data_F0_    [DATA, SIZE = 4]

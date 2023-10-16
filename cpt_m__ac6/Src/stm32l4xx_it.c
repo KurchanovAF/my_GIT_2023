@@ -441,7 +441,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 		pDataDMA2 = (volatile uint16_t*)&DMA2_Data[ADC_ARRAY_DMA2_HALF_SIZE];
 		break;
 		}
-	my_DataADC1_0();	// программа зависает после вызова функции
+	my_DataADC1_0();	// после вызова функции программа работает нормально
 	my_DataADC2_0();	// после вызова функции программа работает нормально
 	//*/
 
@@ -771,7 +771,7 @@ static inline void UpdateDataADC1(void){
 
 
 	// my_DataADC2_0();my_DMA1_Data
-	/*
+	//*
 
 	for (int i = 0, j = 0; i < ADC_ARRAY_DMA1_HALF_SIZE-3; i+=4, j++){
 		my_DMA1_Data_F0[j + 56] = my_DMA1_Data[i];
@@ -781,7 +781,7 @@ static inline void UpdateDataADC1(void){
 		}
 	//*/
 
-	//*
+	/*
 	switch(itemPartResultDMA1_ADC1){
 		// Первая часть буфера
 		case 1:
