@@ -34,9 +34,14 @@
 .extern pDataDMA1
 .extern pDataDMA2
 
+.data
+.balign	4
 .global p_my_DMA2_Data
 p_my_DMA2_Data:
 .word	0x00000000
+
+.section	my_section_2, "awx"
+.balign	4
 
 .global	p_my_DMA2_Data_F0
 p_my_DMA2_Data_F0:
@@ -89,10 +94,13 @@ p_sum_SD2:
 //.global p_sum_SD2_
 //p_sum_SD2_:
 //.word	0x0000FFFF
-		
+
+.text
+.balign	4
 .global	my_0x0000FFFF
 my_0x0000FFFF:
 .word	0x0000FFFF
+
 
 .global	my_DataADC1_0
 .global	my_DataADC2_0

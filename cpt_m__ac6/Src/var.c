@@ -293,7 +293,7 @@ uint16_t  my_DMA2_tst_Data[ADC_ARRAY_DMA2_HALF_SIZE]   __attribute__((aligned))	
 		// —юда помещаем модельный тестовый буфер длиной 360 полуслов
 };
 //*/
-
+//uint16_t* p_my_DMA2_Data;
 #ifdef my_ASM_fun
 uint16_t  my_DMA2_Data[ADC_ARRAY_DMA2_HALF_SIZE]   __attribute__((aligned));
 //===================================================================================

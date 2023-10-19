@@ -93,6 +93,7 @@ int main(void)
 
 #ifdef my_ASM_fun
 	p_my_DMA2_Data 					= &my_DMA2_Data[0];
+	//p_my_DMA2_Data = 376;
 	p_my_DMA2_Data_F0				= &my_DMA2_Data_F0[0];
 	p_my_DMA2_Data_F1				= &my_DMA2_Data_F1[0];
 	p_my_DMA2_Data_F2				= &my_DMA2_Data_F2[0];
