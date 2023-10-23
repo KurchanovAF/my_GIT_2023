@@ -9,9 +9,11 @@ int my_TST = 0;
 uint32_t  my_TST_U32;
 int my_N_DMA1_1 = 0;
 int my_N_DMA1_2 = 0;
+int my_N_DMA1_3 = 0;
 int my_N_EXTI   = 0;
 int my_Flag_DMA1_1 = 0;
 int my_Flag_DMA1_2 = 0;
+int my_Flag_DMA1_3 = 0;
 
 int my_N_1 = 0;
 int my_N_2 = 0;
@@ -261,11 +263,29 @@ int iT__n = 0;
 uint32_t my_dat_1 = 0x0000f00f;
 uint32_t my_dat_2 = 0x00001111;
 
+//==================================
+uint16_t DMA1_1_Data[2*ADC1_SH_HALF_SIZE] __attribute__((aligned));
+uint16_t DMA1_2_Data[2*ADC2_SH_HALF_SIZE] __attribute__((aligned));
+uint16_t DMA1_3_Data[2*ADC3_SH_HALF_SIZE] __attribute__((aligned));
+
+uint16_t my_ADC1_Data[ADC1_SH_HALF_SIZE] __attribute__((aligned));
+uint16_t my_ADC2_Data[ADC2_SH_HALF_SIZE] __attribute__((aligned));
+uint16_t my_ADC3_Data[ADC3_SH_HALF_SIZE] __attribute__((aligned));
+
+uint16_t my_F0[ADC2_SH_HALF_SIZE + 56] __attribute__((aligned));
+uint16_t my_F0N[ADC2_SH_HALF_SIZE + 56] __attribute__((aligned));
+//==================================
+
 uint16_t DMA1_Data[2*ADC_ARRAY_DMA1_HALF_SIZE] __attribute__((aligned));
 uint16_t DMA2_Data[2*ADC_ARRAY_DMA2_HALF_SIZE] __attribute__((aligned));
 
 volatile uint16_t* volatile pDataDMA1;
 volatile uint16_t* volatile pDataDMA2;
+volatile uint16_t* volatile pDataDMA1_1;
+volatile uint16_t* volatile pDataDMA1_2;
+volatile uint16_t* volatile pDataDMA1_3;
+volatile uint16_t* volatile pDataDMA;
+volatile uint16_t* volatile pDataADC;
 
 // Kurchanov 23.11.2020
 //=========================================================
@@ -419,6 +439,7 @@ int32_t* p_my_F1F2_sum_;
 
 uint8_t itemPartResultDMA1_ADC1 = 0;
 uint8_t itemPartResultDMA1_ADC2 = 0;
+uint8_t itemPartResultDMA1_ADC3 = 0;
 
 int resultData_OUT_1R[2*COUNT_DATA_HALF_SIZE_OUT_1R];
 int resultData_CONTR[2*COUNT_DATA_HALF_SIZE_CONTR];
@@ -432,6 +453,11 @@ int resultData_SD2[2*COUNT_DATA_HALF_SIZE_SD2];
 int itemMOD_CRNT = 0;
 int itemMOD_FREQ = 0;
 int MOD_CRNT_width = 200;
+
+int sum_CONT1 = 0;
+int sum_CONT2 = 0;
+int sum_CONT = 0;
+int abs_diff_CONT = 0;
 
 int sum_OUT_DC = 0;
 int sum_CONTR = 0;

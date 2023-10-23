@@ -62,14 +62,12 @@ void Error_Handler(void);
 #define OUT2N_GPIO_Port GPIOC
 #define OUT1N_Pin GPIO_PIN_3
 #define OUT1N_GPIO_Port GPIOC
-#define ADC1_OUT1R_Pin GPIO_PIN_0
-#define ADC1_OUT1R_GPIO_Port GPIOA
+#define ADC2_OUT1R_Pin GPIO_PIN_0
+#define ADC2_OUT1R_GPIO_Port GPIOA
 #define ADC2_OUT2R_Pin GPIO_PIN_1
 #define ADC2_OUT2R_GPIO_Port GPIOA
 #define ADC1_CONTR_Pin GPIO_PIN_2
 #define ADC1_CONTR_GPIO_Port GPIOA
-#define ADC2_SD2_Pin GPIO_PIN_3
-#define ADC2_SD2_GPIO_Port GPIOA
 #define LMX_nCS_Pin GPIO_PIN_4
 #define LMX_nCS_GPIO_Port GPIOA
 #define DAC1_RFI_Pin GPIO_PIN_5
@@ -78,8 +76,6 @@ void Error_Handler(void);
 #define RFM_GPIO_Port GPIOA
 #define ADC1_SD1_Pin GPIO_PIN_7
 #define ADC1_SD1_GPIO_Port GPIOA
-#define ADC2_OUT0R_Pin GPIO_PIN_4
-#define ADC2_OUT0R_GPIO_Port GPIOC
 #define RES_Pin GPIO_PIN_5
 #define RES_GPIO_Port GPIOC
 #define DAC_CLR_Pin GPIO_PIN_0

@@ -164,6 +164,7 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_TIM17_Init();
+  MX_ADC3_Init();
   /* USER CODE BEGIN 2 */
 	HAL_Delay(2000);
 
@@ -265,16 +266,23 @@ int main(void)
 	HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 	uint32_t calibrationFactorADC2  = HAL_ADCEx_Calibration_GetValue(&hadc2, ADC_SINGLE_ENDED);
 	HAL_ADCEx_Calibration_SetValue(&hadc2, ADC_SINGLE_ENDED, calibrationFactorADC2);
-	
+	// Производим калибровку АЦП 3
+	HAL_ADCEx_Calibration_Start(&hadc3, ADC_SINGLE_ENDED);
+	uint32_t calibrationFactorADC3  = HAL_ADCEx_Calibration_GetValue(&hadc3, ADC_SINGLE_ENDED);
+	HAL_ADCEx_Calibration_SetValue(&hadc3, ADC_SINGLE_ENDED, calibrationFactorADC3);
 	
 	// Включаем ADC
 	ADC_Enable(&hadc1);
 	ADC_Enable(&hadc2);
+	ADC_Enable(&hadc3);
 	//Настраиваем буферы DMA для ADC
 	// ADC1 
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&DMA1_Data, 2*ADC_ARRAY_DMA1_HALF_SIZE);
+	//HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&DMA1_Data, 2*ADC_ARRAY_DMA1_HALF_SIZE);	// ТАК БЫЛО
+	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&DMA1_1_Data, 2*ADC1_SH_HALF_SIZE);
 	// ADC2
-	HAL_ADC_Start_DMA(&hadc2, (uint32_t*)&DMA2_Data, 2*ADC_ARRAY_DMA2_HALF_SIZE);
+	HAL_ADC_Start_DMA(&hadc2, (uint32_t*)&DMA1_2_Data, 2*ADC2_SH_HALF_SIZE);
+	// ADC3
+	HAL_ADC_Start_DMA(&hadc3, (uint32_t*)&DMA1_3_Data, 2*ADC3_SH_HALF_SIZE);
 	
 	//Включаем ЦАП
 	HAL_DAC_Start(&hdac1,DAC_CHANNEL_2);		// ???

@@ -33,6 +33,12 @@
 //.word	0x00000000
 .extern pDataDMA1
 .extern pDataDMA2
+.extern pDataDMA3
+
+.extern sum_CONT1
+.extern sum_CONT2
+.extern sum_CONT
+.extern sabs_diff_CONT
 
 .data
 .balign	4
@@ -101,6 +107,11 @@ p_sum_SD2:
 my_0x0000FFFF:
 .word	0x0000FFFF
 
+
+.global	my_DataADC__0
+.global	my_DataADC1__1
+.global	my_DataADC2__1
+.global	my_DataADC3__1
 
 .global	my_DataADC1_0
 .global	my_DataADC2_0
@@ -181,6 +192,128 @@ my_0x0000FFFF:
 //my_F0_sum	DCD	0x00000000
 //	 ADC_ARRAY_DMA2_HALF_SIZE  = 360 отсчетов, а не байт !
 //	 ADC_ARRAY_DMA12_HALF_SIZE = 120
+
+.func	my_DataADC__0
+my_DataADC__0:
+//	; пересылка из буфера pDataDMA в буфер pDataADC
+
+	STMFD  SP!, {R0 - R11}
+//	; =========================
+	LDR R1, =pDataADC		// адрес принимающего буфера
+	LDR R1, [R1]
+	LDR R2, =pDataDMA		// указатель на полученный буфер
+	LDR R2, [R2]			// Без этого зависает, с этим - работает
+	MOV R0, #30				// 480 = 120*4 = 16*30 = 8*2*30
+my_DataADC__0_L1:
+    LDMIA R2!, {R4-R11}		//  8 слов = 16 полуслов = 4 отсчета
+	STMIA R1!, {R4-R11}
+	SUB R0, R0, #1
+	CMP R0, #0
+	BNE my_DataADC__0_L1
+//	Пересылка буфера DMA2 завершена
+//	===========================
+    LDMIA  SP!, {R0 - R11}
+	BX  LR
+.endfunc
+
+.func	my_DataADC1__1
+my_DataADC1__1:
+// разбор данных буфера my_ADC1_Data для ADC1
+// вычисление сумм sum_CONT1, sum_CONT2, sum_CONT и abs_diff_CONT
+
+	STMFD  SP!, {R0 - R7}
+//	; =========================
+	LDR R1, =my_ADC1_Data	// адрес начала буфера для ADC1
+	MOV R2, #0				// sum_CONT1
+	MOV R3, #0				// sum_CONT2
+	MOV R0, #60				// 480 = 120*4 = 8*60 = 4*2*60
+my_DataADC1__1_L1:
+    LDMIA R1!, {R4-R7}		//  4 слова = 8 полуслов = 2 отсчета
+	// проводим суммирование
+	LSR R4, R4, #16			// оставили старшее полуслово на месте младшего
+	LSR R5, R5, #16			// оставили старшее полуслово на месте младшего
+	LSR R6, R6, #16			// оставили старшее полуслово на месте младшего
+	LSR R7, R7, #16			// оставили старшее полуслово на месте младшего
+	ADD R2, R2, R4
+	ADD R3, R3, R5
+	ADD R2, R2, R4
+	ADD R3, R3, R5
+	SUB R0, R0, #1
+	CMP R0, #0
+	BNE my_DataADC1__1_L1
+//	разбор буфера DMA1_1 завершен
+    LDR R1, =sum_CONT1
+    LDR R4, [R1]
+    ADD R4, R4, R2
+    STR R4, [R1]			// обновили сумму sum_CONT1
+    LDR R1, =sum_CONT2
+    LDR R5, [R1]
+    ADD R5, R5, R2
+    STR R5, [R1]			// обновили сумму sum_CONT2
+    LDR R1, =sum_CONT
+    ADD R6, R4, R5
+    STR R6, [R1]			// обновили сумму sum_CONT
+    LDR R1, =abs_diff_CONT
+    SUBS R7, R4, R5
+    BPL my_DataADC1__1_L2	// больше или равно нулю
+    SUB R7, R5, R4			// изменили знак
+my_DataADC1__1_L2:
+    STR R7, [R1]			// сохранили модуль abs_diff_CONT
+//	===========================
+    LDMIA  SP!, {R0 - R7}
+	BX  LR
+.endfunc
+
+.func	my_DataADC2__1
+my_DataADC2__1:
+// разбор данных буфера my_ADC2_Data для ADC2
+// вычисление суммы sum_OUT1, запись буфера OUT2
+
+	STMFD  SP!, {R0 - R12, LR}
+// сохраняеим 56 старых значений
+    LDR R2, =my_F0
+	ADD R1, R2, #240		//  120*2 = 240
+	MOV R0, #4				//  14*4 = 56 полуслов
+my_DataADC2__1_L0:
+	LDMIA R1!, {R4-R10}		//  7 слов = 14 полуслов
+	STMIA R2!, {R4-R10}
+	SUB R0, R0, #1
+    CMP R0, #0
+	BNE my_DataADC2__1_L0
+// 56 старых значений сохранили
+// работаем со свежими значениями, R2 - адрес в буфере my_F0 для OUT2
+	LDR R1, =my_ADC2_Data	// адрес начала буфера для ADC1
+	MOV R3, #0				// sum_OUT1
+	MOV R0, #60				// 480 = 120*4 = 8*60 = 4*2*60
+my_DataADC2__1_L1:
+    LDMIA R1!, {R4-R7}		//  4 слова = 8 полуслов = 2 отсчета
+
+	LSR R4, R4, #16			// оставили старшее полуслово на месте младшего OUT2
+	LSR R5, R5, #16			// оставили старшее полуслово на месте младшего OUT1
+	LSR R6, R6, #16			// оставили старшее полуслово на месте младшего OUT2
+	LSR R7, R7, #16			// оставили старшее полуслово на месте младшего OUT1
+	STRH R4, [R2], #2
+	ADD R3, R3, R5
+	STRH R6, [R2], #2
+	ADD R3, R3, R7
+
+	SUB R0, R0, #1
+	CMP R0, #0
+	BNE my_DataADC2__1_L1
+//	разбор буфера DMA1_2 завершен
+    LDR R1, =sum_OUT1
+    LDR R4, [R1]			// загрузили сумму sum_OUT1
+    ADD R4, R4, R3
+    STR R4, [R1]			// обновили  сумму sum_OUT1
+//	===========================
+    LDMIA  SP!, {R0 - R12, LR}
+.endfunc
+
+.func	my_DataADC3__1
+my_DataADC3__1:
+// пока пустая заготовка
+    BX  LR
+.endfunc
 
 .func	my_DataADC1_0
 my_DataADC1_0:

@@ -12,6 +12,10 @@
  #ifdef my_ASM_fun
 void my_tst_1(void);
 void my_F0_S(void);
+void my_DataADC__0(void);	// пересылка из буфера pDataDMA в буфер pDataADC
+void my_DataADC1__1();		// разбор данных ADC1
+void my_DataADC2__1();		// разбор данных ADC2
+void my_DataADC3__1();		// разбор данных ADC3
 void my_DataADC1_0(void);	// пересылка из буфера DMA1
 void my_DataADC2_0(void);	// пересылка из буфера DMA2
 void my_DataADC2_2(void);	// разбор буфера на 3 части

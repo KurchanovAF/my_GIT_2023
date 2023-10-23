@@ -31,9 +31,11 @@ extern uint32_t  my_TST_U32;
 
 extern int my_N_DMA1_1;
 extern int my_N_DMA1_2;
+extern int my_N_DMA1_3;
 extern int my_N_EXTI;
 extern int my_Flag_DMA1_1;
 extern int my_Flag_DMA1_2;
+extern int my_Flag_DMA1_3;
 
 extern int my_N_1;
 extern int my_N_2;
@@ -253,6 +255,33 @@ extern bool isLoopPID_TEC_CTRL;
 extern int timeLoopPID_MICROWAVE;
 extern bool isLoopPID_MICROWAVE;
 
+// 120 отсчетов в каждом канале измерений за период 1 мс
+#define ADC_SAMPLES_HALF_SIZE 120
+// количество 16-битных полуслов uint16_t, канал DMA1_1, Medium
+// Vref (24.5 cycles), ch7 (24.5 cycles), Vref (24.5 cycles), ch7 (24.5 cycles)
+// ch7 = CONT отклонение температуры лазера от заданной сигналом ÷јѕ дл€ моста
+#define ADC1_SH_HALF_SIZE 480
+// количество 16-битных полуслов uint16_t, канал DMA1_2, Very High
+// ch13 (24.5 cycles), ch6 (24.5 cycles), ch13 (24.5 cycles), ch5 (24.5 cycles)
+// ch13 = OUT0 (заземлен), ch6 = OUT2, ch5 = OUT1
+#define ADC2_SH_HALF_SIZE 480
+// количество 16-битных полуслов uint16_t, канал DMA1_3, High
+// TS (24.5 cycles), ch3 (24.5 cycles), TS (24.5 cycles), ch4 (24.5 cycles)
+// ch3 = OUT2N, ch4 = OUT1N, TS = датчик температуры контроллера
+#define ADC3_SH_HALF_SIZE 480
+
+extern uint16_t DMA1_1_Data[2*ADC1_SH_HALF_SIZE];
+extern uint16_t DMA1_2_Data[2*ADC2_SH_HALF_SIZE];
+extern uint16_t DMA1_3_Data[2*ADC3_SH_HALF_SIZE];
+
+extern uint16_t my_ADC1_Data[ADC1_SH_HALF_SIZE] __attribute__((aligned));
+extern uint16_t my_ADC2_Data[ADC2_SH_HALF_SIZE] __attribute__((aligned));
+extern uint16_t my_ADC3_Data[ADC3_SH_HALF_SIZE] __attribute__((aligned));
+
+extern uint16_t my_F0[ADC2_SH_HALF_SIZE + 56] __attribute__((aligned));
+extern uint16_t my_F0N[ADC2_SH_HALF_SIZE + 56] __attribute__((aligned));
+//==========================================
+
 #define ADC_ARRAY_DMA12_HALF_SIZE 120
 #define ADC_ARRAY_DMA1_HALF_SIZE 480
 #define ADC_ARRAY_DMA2_HALF_SIZE 480
@@ -271,6 +300,11 @@ extern uint16_t DMA2_Data[2*ADC_ARRAY_DMA2_HALF_SIZE];
 
 extern volatile uint16_t* volatile pDataDMA1;
 extern volatile uint16_t* volatile pDataDMA2;
+extern volatile uint16_t* volatile pDataDMA1_1;
+extern volatile uint16_t* volatile pDataDMA1_2;
+extern volatile uint16_t* volatile pDataDMA1_3;
+extern volatile uint16_t* volatile pDataDMA;
+extern volatile uint16_t* volatile pDataADC;
 //extern volatile uint16_t* pDataDMA2;
 
 // Kurchanov 23.11.2020
@@ -415,6 +449,7 @@ extern int32_t* p_my_F1F2_sum_;
 
 extern uint8_t itemPartResultDMA1_ADC1;
 extern uint8_t itemPartResultDMA1_ADC2;
+extern uint8_t itemPartResultDMA1_ADC3;
 
 extern int resultData_OUT_1R[2*COUNT_DATA_HALF_SIZE_OUT_1R];
 extern int resultData_CONTR[2*COUNT_DATA_HALF_SIZE_CONTR];
@@ -428,6 +463,11 @@ extern int resultData_SD2[2*COUNT_DATA_HALF_SIZE_SD2];
 extern int itemMOD_CRNT;
 extern int itemMOD_FREQ;
 extern int MOD_CRNT_width;
+
+extern int sum_CONT1;
+extern int sum_CONT2;
+extern int sum_CONT;
+extern int abs_diff_CONT;
 
 extern int sum_OUT_DC;
 extern int sum_CONTR;

@@ -82,6 +82,7 @@ extern DAC_HandleTypeDef hdac1;
 /* External variables --------------------------------------------------------*/
 extern DMA_HandleTypeDef hdma_adc1;
 extern DMA_HandleTypeDef hdma_adc2;
+extern DMA_HandleTypeDef hdma_adc3;
 extern TIM_HandleTypeDef htim4;
 extern UART_HandleTypeDef huart3;
 /* USER CODE BEGIN EV */
@@ -231,9 +232,7 @@ void SysTick_Handler(void)
 void DMA1_Channel1_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
-	// ADC1 Priority High
-	//__disable_irq ();						// запретить любые прерывани€
-	//NVIC_DisableIRQ(DMA1_Channel2_IRQn);
+	// ADC1 Priority Medium
 	my_N_DMA1_1++;
 	uint32_t flag_it = DMA1->ISR;
 	if(my_N_DMA1_1 == 1) my_Flag_DMA1_1 = flag_it;
@@ -257,17 +256,10 @@ void DMA1_Channel1_IRQHandler(void)
 	DMA1->IFCR |= DMA_IFCR_CTEIF1;		// Channel 1 Transfer Error clear
 
 	// ¬с€ парти€ данных получена
-	if ( itemPartResultDMA1_ADC1 != 0 && 
-		 itemPartResultDMA1_ADC2 != 0){
-		if(itemPartResultDMA1_ADC1 == itemPartResultDMA1_ADC2){
-			// ¬ызов программного прерывани€
-			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ѕ≈–»ќƒ = 60000
-			my_alarm |= 0x01;							// ¬џѕќЋЌя≈“—я
-		}
-		else
-		{
-			my_alarm |= 0x01;							// Ќ≈ ¬џѕќЋЌя≈“—я
-		}
+	if ( itemPartResultDMA1_ADC1 != 0 &&
+		 itemPartResultDMA1_ADC2 != 0 &&
+		 itemPartResultDMA1_ADC3 != 0){
+			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;
 	}
 
 	#if defined(AUTODMA1)
@@ -285,8 +277,6 @@ void DMA1_Channel2_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Channel2_IRQn 0 */
 	// ADC2 Priority Very High
-	//__disable_irq ();						// запретить любые прерывани€
-	//NVIC_DisableIRQ(DMA1_Channel1_IRQn);
 	my_N_DMA1_2++;
 	uint32_t flag_it = DMA1->ISR;
 	if(my_N_DMA1_2 == 1) my_Flag_DMA1_2 = flag_it;
@@ -311,16 +301,9 @@ void DMA1_Channel2_IRQHandler(void)
 
 	// ¬с€ парти€ данных получена
 	if ( itemPartResultDMA1_ADC1 != 0 &&
-		 itemPartResultDMA1_ADC2 != 0){
-		if(itemPartResultDMA1_ADC1 == itemPartResultDMA1_ADC2){
-			// ¬ызов программного прерывани€
-			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ѕ≈–»ќƒ = 60000
-			my_alarm |= 0x04;							// Ќ≈ ¬џѕќЋЌя≈“—я
-		}
-		else
-		{
-			my_alarm |= 0x08;							// Ќ≈ ¬џѕќЋЌя≈“—я
-		}
+		 itemPartResultDMA1_ADC2 != 0 &&
+		 itemPartResultDMA1_ADC3 != 0){
+			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;
 	}
 
   /* USER CODE END DMA1_Channel2_IRQn 0 */
@@ -328,6 +311,49 @@ void DMA1_Channel2_IRQHandler(void)
   /* USER CODE BEGIN DMA1_Channel2_IRQn 1 */
 
   /* USER CODE END DMA1_Channel2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA1 channel3 global interrupt.
+  */
+void DMA1_Channel3_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Channel3_IRQn 0 */
+	// ADC3 Priority High
+	my_N_DMA1_3++;
+	uint32_t flag_it = DMA1->ISR;
+	if(my_N_DMA1_3 == 1) my_Flag_DMA1_3 = flag_it;
+	// ѕерва€ половина буфера заполнена
+	if ( (flag_it & DMA_FLAG_HT3) == DMA_FLAG_HT3){
+		// ќтключаем прерывание по заполнению первой половины
+		DMA1_Channel3->CCR &= ~DMA_IT_HT;
+		// Ќомер заполненной части буфера = 1
+		itemPartResultDMA1_ADC3 = 1;
+		// „асть 1 буфера уже заполнена
+		}
+	else if ((flag_it & DMA_ISR_TCIF3) == DMA_ISR_TCIF3){
+		// ¬ключаем прерывание по заполнению первой половины
+		DMA1_Channel3->CCR |= DMA_IT_HT;
+		// Ќомер заполненной части буфера = 2
+		itemPartResultDMA1_ADC3 = 2;
+		}
+	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
+	DMA1->IFCR |= DMA_IFCR_CTCIF2;
+	DMA1->IFCR |= DMA_IFCR_CHTIF2;
+	DMA1->IFCR |= DMA_IFCR_CTEIF2;
+
+	// ¬с€ парти€ данных получена
+	if ( itemPartResultDMA1_ADC1 != 0 &&
+		 itemPartResultDMA1_ADC2 != 0 &&
+		 itemPartResultDMA1_ADC3 != 0){
+			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;
+	}
+
+  /* USER CODE END DMA1_Channel3_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_adc3);
+  /* USER CODE BEGIN DMA1_Channel3_IRQn 1 */
+
+  /* USER CODE END DMA1_Channel3_IRQn 1 */
 }
 
 /**
@@ -421,8 +447,11 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	iT__n++;
 
 	// «абираем все данные из буфера
-	if(itemPartResultDMA1_ADC1 != itemPartResultDMA1_ADC2) my_alarm |= 0x10;	// ¬џѕќЋЌя≈“—я
-	if(itemPartResultDMA1_ADC1 == itemPartResultDMA1_ADC2) my_alarm |= 0x20;	// Ќ≈ ¬џѕќЋЌя≈“—я
+	if(itemPartResultDMA1_ADC1 != itemPartResultDMA1_ADC2) my_alarm |= 0x10;	// Ќ≈ ¬џѕќЋЌя≈“—я
+	if(itemPartResultDMA1_ADC1 != itemPartResultDMA1_ADC3) my_alarm |= 0x10;	// Ќ≈ ¬џѕќЋЌя≈“—я
+	if(itemPartResultDMA1_ADC2 != itemPartResultDMA1_ADC3) my_alarm |= 0x10;	// Ќ≈ ¬џѕќЋЌя≈“—я
+
+	if(itemPartResultDMA1_ADC2 == itemPartResultDMA1_ADC3) my_alarm |= 0x20;	// ¬џѕќЋЌя≈“—я
 
 	my_ms_num++;
 	if(!b_my_ms_num)
@@ -430,20 +459,41 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 		if(my_ms_num == 16) b_my_ms_num = true;
 	}
 
-	//*
+    // установка указателей на уже заполненные части буферов DMA
 	switch(itemPartResultDMA1_ADC2){
 	case 1:
-		pDataDMA1 = (volatile uint16_t*)&DMA1_Data[0];
-		pDataDMA2 = (volatile uint16_t*)&DMA2_Data[0];
+		//pDataDMA1 = (volatile uint16_t*)&DMA1_Data[0];	// “ак ЅџЋќ
+		pDataDMA1_1 = (volatile uint16_t*)&DMA1_1_Data[0];
+		pDataDMA1_2 = (volatile uint16_t*)&DMA1_2_Data[0];
+		pDataDMA1_3 = (volatile uint16_t*)&DMA1_3_Data[0];
 		break;
 	case 2:
-		pDataDMA1 = (volatile uint16_t*)&DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE];
-		pDataDMA2 = (volatile uint16_t*)&DMA2_Data[ADC_ARRAY_DMA2_HALF_SIZE];
+		pDataDMA1_1 = (volatile uint16_t*)&DMA1_1_Data[ADC1_SH_HALF_SIZE];
+		pDataDMA1_2 = (volatile uint16_t*)&DMA1_2_Data[ADC2_SH_HALF_SIZE];
+		pDataDMA1_3 = (volatile uint16_t*)&DMA1_3_Data[ADC3_SH_HALF_SIZE];
 		break;
 		}
-	my_DataADC1_0();	// после вызова функции программа работает нормально
-	my_DataADC2_0();	// после вызова функции программа работает нормально
-	//*/
+
+	// копирование заполненных частей буферов DMA в буфера дл€ разбопа и обработки
+	pDataDMA = pDataDMA1_1;
+	pDataADC = &my_ADC1_Data[0];
+	my_DataADC__0();
+
+	pDataDMA = pDataDMA1_2;
+	pDataADC = &my_ADC2_Data[0];
+	my_DataADC__0();
+
+	pDataDMA = pDataDMA1_3;
+	pDataADC = &my_ADC3_Data[0];
+	my_DataADC__0();
+
+	// обработка буфера ADC1, сигналы Vref и CONT, сигнал Vref отбрасываем
+	my_DataADC1__1();	// суммы sum_CONT1, sum_CONT2, sum_CONT и abs_diff_CONT
+	// обработка буфера ADC2, сигналы Out0, OUT2 и OUT1, сигнал OUT0 отбрасываем
+	my_DataADC2__1();	// сумма sum_OUT1, запись буфера my_F0
+	// обработка буфера ADC3, сигналы TS, OUT2N и OUT1N, все сигналы используем
+	my_DataADC3__1();	// сумма sum_OUT1N, запись буфера my_F0N, сумма sum_TS
+
 
 
 	UpdateDataADC1();
@@ -453,6 +503,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	
 	itemPartResultDMA1_ADC1 = 0;
 	itemPartResultDMA1_ADC2 = 0;
+	itemPartResultDMA1_ADC3 = 0;
 
 	//my_alarm = 1;
 	// ”становка управл€ющих параметров,
