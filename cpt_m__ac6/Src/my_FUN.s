@@ -40,6 +40,11 @@
 .extern sum_CONT
 .extern sabs_diff_CONT
 
+.extern sum_OUT_1
+.extern sum_OUT_1N
+
+.extern sum_TS
+
 .data
 .balign	4
 .global p_my_DMA2_Data
@@ -134,7 +139,6 @@ my_0x0000FFFF:
 .global	my_N_F1_F2
 
 .extern sum_OUT_0R
-.extern sum_OUT_1N
 
 .extern	my_F0_sum          [DATA, SIZE = 4]
 
@@ -267,9 +271,9 @@ my_DataADC1__1_L2:
 .func	my_DataADC2__1
 my_DataADC2__1:
 // разбор данных буфера my_ADC2_Data для ADC2
-// вычисление суммы sum_OUT1, запись буфера OUT2
+// вычисление суммы sum_OUT_1, запись буфера OUT2
 
-	STMFD  SP!, {R0 - R12, LR}
+	STMFD  SP!, {R0 - R10}
 // сохраняеим 56 старых значений
     LDR R2, =my_F0
 	ADD R1, R2, #240		//  120*2 = 240
@@ -282,18 +286,18 @@ my_DataADC2__1_L0:
 	BNE my_DataADC2__1_L0
 // 56 старых значений сохранили
 // работаем со свежими значениями, R2 - адрес в буфере my_F0 для OUT2
-	LDR R1, =my_ADC2_Data	// адрес начала буфера для ADC1
-	MOV R3, #0				// sum_OUT1
+	LDR R1, =my_ADC2_Data	// адрес начала буфера для ADC2
+	MOV R3, #0				// слагаемое для sum_OUT_1
 	MOV R0, #60				// 480 = 120*4 = 8*60 = 4*2*60
 my_DataADC2__1_L1:
     LDMIA R1!, {R4-R7}		//  4 слова = 8 полуслов = 2 отсчета
 
-	LSR R4, R4, #16			// оставили старшее полуслово на месте младшего OUT2
-	LSR R5, R5, #16			// оставили старшее полуслово на месте младшего OUT1
-	LSR R6, R6, #16			// оставили старшее полуслово на месте младшего OUT2
-	LSR R7, R7, #16			// оставили старшее полуслово на месте младшего OUT1
-	STRH R4, [R2], #2
-	ADD R3, R3, R5
+	LSR R4, R4, #16			// переместили старшее полуслово на место младшего OUT2
+	LSR R5, R5, #16			// переместили старшее полуслово на место младшего OUT1
+	LSR R6, R6, #16			// переместили старшее полуслово на место младшего OUT2
+	LSR R7, R7, #16			// переместили старшее полуслово на место младшего OUT1
+	STRH R4, [R2], #2		// записали младшее полуслово и увеличили индекс для my_F0
+	ADD R3, R3, R5			// суммируем слагаемое для sum_OUT1
 	STRH R6, [R2], #2
 	ADD R3, R3, R7
 
@@ -301,17 +305,75 @@ my_DataADC2__1_L1:
 	CMP R0, #0
 	BNE my_DataADC2__1_L1
 //	разбор буфера DMA1_2 завершен
-    LDR R1, =sum_OUT1
-    LDR R4, [R1]			// загрузили сумму sum_OUT1
+    LDR R1, =sum_OUT_1
+    LDR R4, [R1]			// загрузили прежнюю сумму sum_OUT_1
     ADD R4, R4, R3
-    STR R4, [R1]			// обновили  сумму sum_OUT1
+    STR R4, [R1]			// сохранили обновленную сумму sum_OUT_1
 //	===========================
-    LDMIA  SP!, {R0 - R12, LR}
+    LDMIA  SP!, {R0 - R10}
+    BX  LR
 .endfunc
 
 .func	my_DataADC3__1
 my_DataADC3__1:
-// пока пустая заготовка
+// разбор данных буфера my_ADC3_Data для ADC3
+// вычисление сумм sum_OUT_1N и sum_TS, запись буфера my_F0N
+
+	STMFD  SP!, {R0 - R10}
+// сохраняеим 56 старых значений
+    LDR R2, =my_F0N
+	ADD R1, R2, #240		//  120*2 = 240
+	MOV R0, #4				//  14*4 = 56 полуслов
+my_DataADC3__1_L0:
+	LDMIA R1!, {R4-R10}		//  7 слов = 14 полуслов
+	STMIA R2!, {R4-R10}
+	SUB R0, R0, #1
+    CMP R0, #0
+	BNE my_DataADC3__1_L0
+// 56 старых значений сохранили
+// работаем со свежими значениями, R2 - адрес в буфере my_F0N для OUT2N
+	LDR R1, =my_ADC3_Data	// адрес начала буфера для ADC3
+	MOV R3, #0				// слагаемое для sum_OUT_1N
+	MOV R8, #0				// слагаемое для sum_TS
+	LDR R9, my_0x0000FFFF	// константа
+	MOV R0, #60				// 480 = 120*4 = 8*60 = 4*2*60
+my_DataADC3__1_L1:
+    LDMIA R1!, {R4-R7}		//  4 слова = 8 полуслов = 2 отсчета
+
+    AND R10, R4, R9
+    AND R11, R5, R9
+    LSR R4, R4, #16			// переместили старшее полуслово на место младшего OUT2N
+    LSR R5, R5, #16			// переместили старшее полуслово на место младшего OUT1N
+    ADD R8, R8, R10
+    STRH R4, [R2], #2		// запись в my_F0N
+    ADD R3, R3, R5
+    ADD R8, R8, R11
+
+    AND R10, R6, R9
+    AND R11, R7, R9
+    LSR R6, R6, #16			// переместили старшее полуслово на место младшего OUT2N
+    LSR R7, R7, #16			// переместили старшее полуслово на место младшего OUT1N
+    ADD R8, R8, R10
+    STRH R6, [R2], #2		// запись в my_F0N
+    ADD R3, R3, R7
+    ADD R8, R8, R11
+
+	SUB R0, R0, #1
+	CMP R0, #0
+	BNE my_DataADC3__1_L1
+//	разбор буфера DMA1_3 завершен
+
+    LDR R1, =sum_OUT_1N
+    LDR R4, [R1]			// загрузили прежнюю сумму sum_OUT_1N
+    ADD R4, R4, R3
+    STR R4, [R1]			// сохранили обновленную сумму sum_OUT_1N
+
+    LDR R1, =sum_TS
+    LDR R4, [R1]			// загрузили прежнюю сумму sum_TS
+    ADD R4, R4, R8
+    STR R4, [R1]			// сохранили обновленную сумму sum_TS
+//	===========================
+    LDMIA  SP!, {R0 - R10}
     BX  LR
 .endfunc
 

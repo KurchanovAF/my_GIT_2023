@@ -474,10 +474,14 @@ extern int sum_CONTR;
 extern int sum_SD1;
 extern int sum_OUT_3R;
 
+extern int sum_OUT_1;
+extern int sum_OUT_1N;
+
+extern int sum_TS;
+
 #ifdef my_ASM_fun
 extern int sum_OUT_2R;
 extern int sum_OUT_0R;
-extern int sum_OUT_1N;
 extern int sum_OUT_1A;
 
 extern int sum_SD2;

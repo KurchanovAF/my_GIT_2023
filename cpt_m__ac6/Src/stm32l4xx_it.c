@@ -76,6 +76,8 @@ static inline void funWork_VOID_TEST(void);
 static inline void Difference(void);
 static inline void funWork_HIST(void);
 
+static inline void my_ADC2_1(void);
+
 extern DAC_HandleTypeDef hdac1;
 /* USER CODE END 0 */
 
@@ -258,7 +260,8 @@ void DMA1_Channel1_IRQHandler(void)
 	// Вся партия данных получена
 	if ( itemPartResultDMA1_ADC1 != 0 &&
 		 itemPartResultDMA1_ADC2 != 0 &&
-		 itemPartResultDMA1_ADC3 != 0){
+		 itemPartResultDMA1_ADC3 != 0 &&
+		((EXTI->PR1 & EXTI_PR1_PIF0) != EXTI_PR1_PIF0)){
 			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;
 	}
 
@@ -302,7 +305,8 @@ void DMA1_Channel2_IRQHandler(void)
 	// Вся партия данных получена
 	if ( itemPartResultDMA1_ADC1 != 0 &&
 		 itemPartResultDMA1_ADC2 != 0 &&
-		 itemPartResultDMA1_ADC3 != 0){
+		 itemPartResultDMA1_ADC3 != 0 &&
+		((EXTI->PR1 & EXTI_PR1_PIF0) != EXTI_PR1_PIF0)){
 			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;
 	}
 
@@ -338,14 +342,15 @@ void DMA1_Channel3_IRQHandler(void)
 		itemPartResultDMA1_ADC3 = 2;
 		}
 	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
-	DMA1->IFCR |= DMA_IFCR_CTCIF2;
-	DMA1->IFCR |= DMA_IFCR_CHTIF2;
-	DMA1->IFCR |= DMA_IFCR_CTEIF2;
+	DMA1->IFCR |= DMA_IFCR_CTCIF3;
+	DMA1->IFCR |= DMA_IFCR_CHTIF3;
+	DMA1->IFCR |= DMA_IFCR_CTEIF3;
 
 	// Вся партия данных получена
 	if ( itemPartResultDMA1_ADC1 != 0 &&
 		 itemPartResultDMA1_ADC2 != 0 &&
-		 itemPartResultDMA1_ADC3 != 0){
+		 itemPartResultDMA1_ADC3 != 0 &&
+		((EXTI->PR1 & EXTI_PR1_PIF0) != EXTI_PR1_PIF0)){
 			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;
 	}
 
@@ -473,6 +478,9 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 		pDataDMA1_3 = (volatile uint16_t*)&DMA1_3_Data[ADC3_SH_HALF_SIZE];
 		break;
 		}
+	itemPartResultDMA1_ADC1 = 0;
+	itemPartResultDMA1_ADC2 = 0;
+	itemPartResultDMA1_ADC3 = 0;
 
 	// копирование заполненных частей буферов DMA в буфера для разбопа и обработки
 	pDataDMA = pDataDMA1_1;
@@ -495,15 +503,72 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	my_DataADC3__1();	// сумма sum_OUT1N, запись буфера my_F0N, сумма sum_TS
 
 
+	//UpdateDataADC1(); // ==>
+	// my_DMA1_Data_F0[j] =
+	// sum_OUT_DC +=
+	// sum_CONTR +=
+	// sum_SD1 +=
+	index_CONTR += 240; // index_CONTR += 120;
+	index_OUT_3R += 120;
+	index_OUT_DC += 120;
+	index_SD1 += 120;
 
-	UpdateDataADC1();
-	my_N_3++;
-	UpdateDataADC2();
-	my_N_4++;
+	// Среднее значение постоянной составляющей sum_OUT1
+	if (index_OUT_DC >= count_OUT_DC){
+		avrResult_OUT_DC = (float)(sum_OUT_1) / (float)index_OUT_DC;	// было sum_OUT_DC
+		flagUpdateCompute_OUT1_OPTICS_PWR = true;
+		index_OUT_DC = 0;
+		sum_OUT_1 = 0;
+		sum_OUT_1A = 0;
+	}
+	// Среднее значение сигнала невязки с терморезистора лазера
+	if (index_CONTR >= count_CONTR){
+		avrResult_CONTR = (float)sum_CONT / (float)index_CONTR;	// было sum_CONTR
+		flagUpdateCompute_TEC_CTRL = true;
+		index_CONTR = 0;
+		sum_CONT = 0;
+	}
+
+	//=============================================
+
+	//UpdateDataADC2();
+	index_SD2 		+= 120;
+	index_OUT_0R	+= 120;
+	index_OUT2_CPT_FREQ += 10;
+	index_OUT2_CPT_CRNT += 12;
+
+	//my_ADC2_1();
+
+	if (index_OUT_0R >= count_OUT_0R){
+		index_OUT_0R = 0;
+	}
+
+	// Конец блока ГННС
+	if (index_OUT2_CPT_FREQ >= count_OUT2_CPT_FREQ){
+		index_OUT2_CPT_FREQ = 0;
+		result_OUT2_CPT_FREQ_CPT += shift_OUT2_FREQ;
+		result_OUT2_CPT_FREQ_CPT += shift_Freq_GNSS;
+		result_OUT2_CPT_FREQ_CPT_tmp = result_OUT2_CPT_FREQ_CPT;
+		flagUpdateCompute_OUT2_CPT_FREQ = true;
+	}
+
+	if(my_ms_num == 16){
+		index_OUT2_CPT_CRNT = 0;
+		// Один раз за 16 мс
+		result_OUT2_CPT_CRNT_DOPLER += shift_OUT2_DOPLER_CRNT;								// ??
+		result_OUT2_CPT_CRNT_DOPLER += delta_DOPLER_DC;										// ??
+		result_OUT2_CPT_FREQ_CPT -= result_OUT2_CPT_CRNT_DOPLER*value_mult_To_FREQ;			// !!!!!!!
+		result_OUT2_CPT_CRNT_DOPLER_tmp = result_OUT2_CPT_CRNT_DOPLER;
+
+		flag_SCAN_CRNT = true;									// значение можно использовать для накопления и дальнейшего вывода
+		flagUpdateCompute_OUT2_DOPLER_CRNT = true;				// ??
+		// Привязка температурой
+		result_OUT2_DOPLER_TEC = result_OUT2_CPT_CRNT_DOPLER;	// ??
+		flagUpdateCompute_OUT2_DOPLER_TEC = true;
+	}
+	//==============================
 	
-	itemPartResultDMA1_ADC1 = 0;
-	itemPartResultDMA1_ADC2 = 0;
-	itemPartResultDMA1_ADC3 = 0;
+
 
 	//my_alarm = 1;
 	// Установка управляющих параметров,
@@ -1283,7 +1348,8 @@ static inline void my_ADC2_1(void){
 	// Обрабатываем сигналы основного фотоприемника
 	// START
 	DWT->CYCCNT = 0;
-	my_Data_F0 = &my_DMA2_Data_F0[0];
+	//my_Data_F0 = &my_DMA2_Data_F0[0];
+	my_Data_F0 = &my_F0[0];
 	my_Data_F1 = &my_DMA2_Data_F1[0];
 	my_F1();				//  513 тактов
 	my_Data_F2 = &my_DMA2_Data_F2[0];
@@ -1300,7 +1366,8 @@ static inline void my_ADC2_1(void){
 	// Обрабатываем сигналы дополнительного фотоприемника
 	//*
 	//my_Data_F0 = &my_DMA1_Data_F0[0];
-	my_Data_F0 = &my_DMA2_Data_F0[0];
+	//my_Data_F0 = &my_DMA2_Data_F0[0];
+	my_Data_F0 = &my_F0N[0];
 	my_Data_F1 = &my_DMA1_Data_F1[0];
 	my_F1();				//  513 тактов
 	my_Data_F2 = &my_DMA1_Data_F2[0];

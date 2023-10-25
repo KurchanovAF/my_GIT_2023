@@ -459,6 +459,11 @@ int sum_CONT2 = 0;
 int sum_CONT = 0;
 int abs_diff_CONT = 0;
 
+int sum_OUT_1 = 0;
+int sum_OUT_1N = 0;
+
+int sum_TS = 0;
+
 int sum_OUT_DC = 0;
 int sum_CONTR = 0;
 int sum_SD1 = 0;
@@ -467,7 +472,7 @@ int sum_OUT_3R = 0;
 #ifdef my_ASM_fun
 int sum_OUT_2R = 0;
 int sum_OUT_0R = 0;
-int sum_OUT_1N = 0;
+
 int sum_OUT_1A = 0;
 
 int sum_SD2 = 0;

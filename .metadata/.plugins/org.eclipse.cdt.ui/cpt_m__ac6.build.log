@@ -1,23 +1,6 @@
-16:53:24 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+09:19:51 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
 make -j16 all 
-Building file: ../Src/my_FUN.s
-Invoking: MCU GCC Assembler
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
-Finished building: ../Src/my_FUN.s
- 
-Building target: cpt_m__ac6.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
-Finished building target: cpt_m__ac6.elf
- 
-make --no-print-directory post-build
-Generating hex and Printing size information:
-arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
-arm-none-eabi-size "cpt_m__ac6.elf"
-   text	   data	    bss	    dec	    hex	filename
-  47008	    384	  48360	  95752	  17608	cpt_m__ac6.elf
- 
+make: Nothing to be done for 'all'.
 
-16:53:26 Build Finished (took 1s.967ms)
+09:19:51 Build Finished (took 499ms)
 
