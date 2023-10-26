@@ -29,13 +29,26 @@
 extern int my_TST;
 extern uint32_t  my_TST_U32;
 
+extern uint32_t my_TEST;
 extern int my_N_DMA1_1;
 extern int my_N_DMA1_2;
 extern int my_N_DMA1_3;
 extern int my_N_EXTI;
+
 extern int my_Flag_DMA1_1;
+extern int my_Flag_DMA1_1_1;
+extern int my_Flag_DMA1_1_2;
+extern int my_Flag_DMA1_1_3;
+
 extern int my_Flag_DMA1_2;
+extern int my_Flag_DMA1_2_1;
+extern int my_Flag_DMA1_2_2;
+extern int my_Flag_DMA1_2_3;
+
 extern int my_Flag_DMA1_3;
+extern int my_Flag_DMA1_3_1;
+extern int my_Flag_DMA1_3_2;
+extern int my_Flag_DMA1_3_3;
 
 extern int my_N_1;
 extern int my_N_2;

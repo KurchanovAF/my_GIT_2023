@@ -237,7 +237,9 @@ void DMA1_Channel1_IRQHandler(void)
 	// ADC1 Priority Medium
 	my_N_DMA1_1++;
 	uint32_t flag_it = DMA1->ISR;
-	if(my_N_DMA1_1 == 1) my_Flag_DMA1_1 = flag_it;
+	if(my_N_DMA1_1 == 1) my_Flag_DMA1_1_1 = flag_it;
+	if(my_N_DMA1_1 == 2) my_Flag_DMA1_1_2 = flag_it;
+	if(my_N_DMA1_1 == 3) my_Flag_DMA1_1_3 = flag_it;
 	// Первая половина буфера заполнена
 	if ( (flag_it & DMA_FLAG_HT1) == DMA_FLAG_HT1){
 		// Отключаем прерывание по заполнению первой половины
@@ -253,6 +255,7 @@ void DMA1_Channel1_IRQHandler(void)
 		itemPartResultDMA1_ADC1 = 2;
 	}
 	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
+	//DMA1->IFCR |= DMA_IFCR_CGIF1;
 	DMA1->IFCR |= DMA_IFCR_CTCIF1;		// Channel 1 Transfer Complete clear
 	DMA1->IFCR |= DMA_IFCR_CHTIF1;		// Channel 1 Half Transfer clear
 	DMA1->IFCR |= DMA_IFCR_CTEIF1;		// Channel 1 Transfer Error clear
@@ -282,7 +285,9 @@ void DMA1_Channel2_IRQHandler(void)
 	// ADC2 Priority Very High
 	my_N_DMA1_2++;
 	uint32_t flag_it = DMA1->ISR;
-	if(my_N_DMA1_2 == 1) my_Flag_DMA1_2 = flag_it;
+	if(my_N_DMA1_2 == 1) my_Flag_DMA1_2_1 = flag_it;
+	if(my_N_DMA1_2 == 2) my_Flag_DMA1_2_2 = flag_it;
+	if(my_N_DMA1_2 == 3) my_Flag_DMA1_2_3 = flag_it;
 	// Первая половина буфера заполнена
 	if ( (flag_it & DMA_FLAG_HT2) == DMA_FLAG_HT2){
 		// Отключаем прерывание по заполнению первой половины
@@ -298,6 +303,7 @@ void DMA1_Channel2_IRQHandler(void)
 		itemPartResultDMA1_ADC2 = 2;
 	}
 	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
+	//DMA1->IFCR |= DMA_IFCR_CGIF2;
 	DMA1->IFCR |= DMA_IFCR_CTCIF2;
 	DMA1->IFCR |= DMA_IFCR_CHTIF2;
 	DMA1->IFCR |= DMA_IFCR_CTEIF2;
@@ -326,7 +332,9 @@ void DMA1_Channel3_IRQHandler(void)
 	// ADC3 Priority High
 	my_N_DMA1_3++;
 	uint32_t flag_it = DMA1->ISR;
-	if(my_N_DMA1_3 == 1) my_Flag_DMA1_3 = flag_it;
+	if(my_N_DMA1_3 == 1) my_Flag_DMA1_3_1 = flag_it;
+	if(my_N_DMA1_3 == 2) my_Flag_DMA1_3_2 = flag_it;
+	if(my_N_DMA1_3 == 3) my_Flag_DMA1_3_3 = flag_it;
 	// Первая половина буфера заполнена
 	if ( (flag_it & DMA_FLAG_HT3) == DMA_FLAG_HT3){
 		// Отключаем прерывание по заполнению первой половины
@@ -342,6 +350,7 @@ void DMA1_Channel3_IRQHandler(void)
 		itemPartResultDMA1_ADC3 = 2;
 		}
 	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
+	//DMA1->IFCR |= DMA_IFCR_CGIF3;
 	DMA1->IFCR |= DMA_IFCR_CTCIF3;
 	DMA1->IFCR |= DMA_IFCR_CHTIF3;
 	DMA1->IFCR |= DMA_IFCR_CTEIF3;
@@ -427,8 +436,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 										//	Прерывания от таймеров раньше были не установлены (а теперь TIM4)
 										//  HAL_NVIC_SetPriority(TIM4_IRQn, 0, 0);
 										//  UART3 - наивысший приоритет (зачем?)
-	// Очистили флаг прерывания
-	EXTI->PR1 |= EXTI_PR1_PIF0;
+
 	my_N_EXTI++;
 
 	//=================================
@@ -481,6 +489,8 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	itemPartResultDMA1_ADC1 = 0;
 	itemPartResultDMA1_ADC2 = 0;
 	itemPartResultDMA1_ADC3 = 0;
+	// Очистили флаг прерывания
+	EXTI->PR1 |= EXTI_PR1_PIF0;
 
 	// копирование заполненных частей буферов DMA в буфера для разбопа и обработки
 	pDataDMA = pDataDMA1_1;
@@ -496,6 +506,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	my_DataADC__0();
 
 	// обработка буфера ADC1, сигналы Vref и CONT, сигнал Vref отбрасываем
+	pDataADC = &my_ADC1_Data[0];
 	my_DataADC1__1();	// суммы sum_CONT1, sum_CONT2, sum_CONT и abs_diff_CONT
 	// обработка буфера ADC2, сигналы Out0, OUT2 и OUT1, сигнал OUT0 отбрасываем
 	my_DataADC2__1();	// сумма sum_OUT1, запись буфера my_F0
@@ -527,6 +538,8 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 		flagUpdateCompute_TEC_CTRL = true;
 		index_CONTR = 0;
 		sum_CONT = 0;
+		sum_CONT1 = 0;
+		sum_CONT2 = 0;
 	}
 
 	//=============================================
@@ -537,7 +550,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	index_OUT2_CPT_FREQ += 10;
 	index_OUT2_CPT_CRNT += 12;
 
-	//my_ADC2_1();
+	my_ADC2_1();
 
 	if (index_OUT_0R >= count_OUT_0R){
 		index_OUT_0R = 0;

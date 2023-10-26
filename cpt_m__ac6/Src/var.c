@@ -11,9 +11,22 @@ int my_N_DMA1_1 = 0;
 int my_N_DMA1_2 = 0;
 int my_N_DMA1_3 = 0;
 int my_N_EXTI   = 0;
+
 int my_Flag_DMA1_1 = 0;
+int my_Flag_DMA1_1_1 = 0;
+int my_Flag_DMA1_1_2 = 0;
+int my_Flag_DMA1_1_3 = 0;
+
 int my_Flag_DMA1_2 = 0;
+int my_Flag_DMA1_2_1 = 0;
+int my_Flag_DMA1_2_2 = 0;
+int my_Flag_DMA1_2_3 = 0;
+
 int my_Flag_DMA1_3 = 0;
+int my_Flag_DMA1_3_1 = 0;
+int my_Flag_DMA1_3_2 = 0;
+int my_Flag_DMA1_3_3 = 0;
+
 
 int my_N_1 = 0;
 int my_N_2 = 0;
@@ -264,6 +277,7 @@ uint32_t my_dat_1 = 0x0000f00f;
 uint32_t my_dat_2 = 0x00001111;
 
 //==================================
+uint32_t my_TEST = 0;
 uint16_t DMA1_1_Data[2*ADC1_SH_HALF_SIZE] __attribute__((aligned));
 uint16_t DMA1_2_Data[2*ADC2_SH_HALF_SIZE] __attribute__((aligned));
 uint16_t DMA1_3_Data[2*ADC3_SH_HALF_SIZE] __attribute__((aligned));

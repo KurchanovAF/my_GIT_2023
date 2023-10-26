@@ -31,9 +31,16 @@
 //.global pDataDMA2
 //pDataDMA2:
 //.word	0x00000000
+.extern pDataADC
+.extern pDataDMA
+
 .extern pDataDMA1
 .extern pDataDMA2
 .extern pDataDMA3
+
+.extern my_TEST
+
+.extern my_ADC1_Data
 
 .extern sum_CONT1
 .extern sum_CONT2
@@ -111,6 +118,9 @@ p_sum_SD2:
 .global	my_0x0000FFFF
 my_0x0000FFFF:
 .word	0x0000FFFF
+.global	my_0x0FFF0000
+my_0x0FFF0000:
+.word	0x0FFF0000
 
 
 .global	my_DataADC__0
@@ -225,37 +235,57 @@ my_DataADC1__1:
 // разбор данных буфера my_ADC1_Data для ADC1
 // вычисление сумм sum_CONT1, sum_CONT2, sum_CONT и abs_diff_CONT
 
-	STMFD  SP!, {R0 - R7}
+	STMFD  SP!, {R0 - R8}
 //	; =========================
-	LDR R1, =my_ADC1_Data	// адрес начала буфера для ADC1
+	//LDR R1, =my_ADC1_Data	// адрес начала буфера для ADC1
+	LDR R1, =pDataADC	// адрес начала буфера для ADC1
+	LDR R1, [R1]
 	MOV R2, #0				// sum_CONT1
 	MOV R3, #0				// sum_CONT2
 	MOV R0, #60				// 480 = 120*4 = 8*60 = 4*2*60
+
+	LDR R8, =my_TEST
 my_DataADC1__1_L1:
     LDMIA R1!, {R4-R7}		//  4 слова = 8 полуслов = 2 отсчета
 	// проводим суммирование
-	LSR R4, R4, #16			// оставили старшее полуслово на месте младшего
-	LSR R5, R5, #16			// оставили старшее полуслово на месте младшего
-	LSR R6, R6, #16			// оставили старшее полуслово на месте младшего
-	LSR R7, R7, #16			// оставили старшее полуслово на месте младшего
+	//LDR R4, my_0x0FFF0000
+	//LDR R5, my_0x0FFF0000
+	//LDR R6, my_0x0FFF0000
+	//LDR R7, my_0x0FFF0000
+	//STR R4, [R8]			// ТАК РАБОТАЕТ
+
+	ASR R4, R4, #16			// оставили старшее полуслово на месте младшего
+	ASR R5, R5, #16			// оставили старшее полуслово на месте младшего
+	ASR R6, R6, #16			// оставили старшее полуслово на месте младшего
+	ASR R7, R7, #16			// оставили старшее полуслово на месте младшего
+	//STR R4, [R8]			// = 0
 	ADD R2, R2, R4
+	//STR R2, [R8]			// = 0
 	ADD R3, R3, R5
-	ADD R2, R2, R4
-	ADD R3, R3, R5
+	ADD R2, R2, R6
+	//STR R2, [R8]			// = 0
+	ADD R3, R3, R7
 	SUB R0, R0, #1
 	CMP R0, #0
 	BNE my_DataADC1__1_L1
 //	разбор буфера DMA1_1 завершен
+    //STR R2, [R8]			// = 0
+    //MOV R2, #0xFF
+    //STR R2, [R8]			// = 255
     LDR R1, =sum_CONT1
     LDR R4, [R1]
+    //STR R4, [R8]
     ADD R4, R4, R2
+    //MOV R4, #0xFFF
     STR R4, [R1]			// обновили сумму sum_CONT1
     LDR R1, =sum_CONT2
     LDR R5, [R1]
-    ADD R5, R5, R2
+    ADD R5, R5, R3
+    //MOV R5, #0xFFF
     STR R5, [R1]			// обновили сумму sum_CONT2
     LDR R1, =sum_CONT
     ADD R6, R4, R5
+
     STR R6, [R1]			// обновили сумму sum_CONT
     LDR R1, =abs_diff_CONT
     SUBS R7, R4, R5
@@ -264,7 +294,7 @@ my_DataADC1__1_L1:
 my_DataADC1__1_L2:
     STR R7, [R1]			// сохранили модуль abs_diff_CONT
 //	===========================
-    LDMIA  SP!, {R0 - R7}
+    LDMIA  SP!, {R0 - R8}
 	BX  LR
 .endfunc
 
@@ -952,7 +982,7 @@ my_F2F1_L1:
 	STMDB  SP!, {R0}		// освободили для вычислений
 	//
 	//
-	// НАЧАЛО ВЫЧ??СЛЕН??Я 6 ПРЯМЫХ ФАЗ, половина периода
+	// НАЧАЛО ВЫЧИСЛЕНИЯ 6 ПРЯМЫХ ФАЗ, половина периода
 	AND R0, R6, R7
 	AND R2, R3, R7
 	SUB R2, R0, R2
