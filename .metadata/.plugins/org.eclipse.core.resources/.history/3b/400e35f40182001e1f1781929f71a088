@@ -102,7 +102,7 @@ void LMX2486_Init(void){
 									 LMX2486_R4_FM_MODE_2X |		// 0x008000	бит 15			биты 4 - 7 MUX не установлены ==>  Disabled
 									   LMX2486_R4_DITH_OFF |		// 0x0						биты 16 и 17 не установлены Dithering Mode Used ==>  Disabled																	   !!!! XXXX
 									   //LMX2486_R4_MUX_LVDD;
-									   LMX2486_R4_MUX_RF_R_DIV2;	// Я вернул все назад
+									   LMX2486_R4_MUX_RF_R_DIV2;
 										//LMX2486_R4_MUX_OFF;			// 0x0						IF_CPP = бит 10?,  IF_P = бит 8?, FM(биты 14 и 15) = бит 14? 0x02 ==>   Fractional PLL mode with a 2nd order delta-sigma modulator !!!! XXXX
 	//=======================================================
 	// REG 6
