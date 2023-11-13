@@ -1,4 +1,4 @@
-12:42:27 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+12:44:26 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
 make -j16 all 
 Building file: ../Src/interface_LMX2486.c
 Invoking: MCU GCC Compiler
@@ -23,5 +23,5 @@ arm-none-eabi-size "cpt_m__ac6.elf"
   43872	    384	  48296	  92552	  16988	cpt_m__ac6.elf
  
 
-12:42:30 Build Finished (took 2s.71ms)
+12:44:28 Build Finished (took 2s.72ms)
 
