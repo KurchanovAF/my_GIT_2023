@@ -98,8 +98,6 @@ void Error_Handler(void);
 #define SY_GPIO_Port GPIOB
 #define EN_Pin GPIO_PIN_7
 #define EN_GPIO_Port GPIOB
-#define MOD_CRNT_Pin GPIO_PIN_8
-#define MOD_CRNT_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

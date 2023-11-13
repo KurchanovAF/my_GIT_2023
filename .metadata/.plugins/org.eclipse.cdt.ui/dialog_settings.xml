@@ -10,6 +10,11 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="my_ms_num"/>
+			<item value="pkgPos"/>
+			<item value="funWork_TEST_ADC_3"/>
+			<item value="buf_TEST_ADC_3"/>
+			<item value="b_buf_TEST_ADC_3"/>
 			<item value="sum_CONT"/>
 			<item value="my_Flag_DMA1_3"/>
 			<item value="my_ADC1_Data"/>

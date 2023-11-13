@@ -492,7 +492,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	// Очистили флаг прерывания
 	EXTI->PR1 |= EXTI_PR1_PIF0;
 
-	// копирование заполненных частей буферов DMA в буфера для разбопа и обработки
+	// копирование заполненных частей буферов DMA в буфера для разбора и обработки
 	pDataDMA = pDataDMA1_1;
 	pDataADC = &my_ADC1_Data[0];
 	my_DataADC__0();
@@ -1349,7 +1349,7 @@ static inline void my_ADC2_1(void){
 	// Мои функции ASM
 	//my_DataADC2_0();		// Время выполнения my_DataADC2_0() 818 тактов
 	//my_DataADC2_2();		// Время выполнения my_DataADC2_0()+my_DataADC2_2() 3404 тактов
-	my_DataADC2_3();
+	//my_DataADC2_3();		// НЕ НУЖНО ВЫЗЫВАТЬ !!
 	index_OUT_1N += 120;
 	// Среднее значение постоянной составляющей
 	if (index_OUT_1N >= count_OUT_DC){
@@ -1393,6 +1393,28 @@ static inline void my_ADC2_1(void){
 	my_F1_F2();		//  520 тактов, измеренная сумма =
 	iT1__ = DWT->CYCCNT;	// от точки START, без режима отладки 6745 тактов, с отладкой - 8265, но запускается не с 1-го раза
 	//*/
+
+	// Если нужно - накапливаем длинный буфер 2400 отсчетов для my_F0 или для my_F0N
+	// После установки режима itemWork == WORK_TEST_ADC_3
+	// начинается накопление буфера, а после завершения накопления
+	// начинается передача на компьютер порциями по 8 отсчетов,
+	// всего 300 строк
+	// после чего процесс повторяется
+	//
+	if((itemWork == WORK_TEST_ADC_3) && (!b_buf_TEST_ADC_3))
+	{
+		for(int i = 0; i < 120; i++)
+		{
+			buf_TEST_ADC_3[numPos + i] = my_F0[i + 56];
+			//buf_TEST_ADC_3[numPos + i] = my_F0N[i + 56];
+		}
+		numPos += 120;
+		if(numPos == 2400)
+		{
+			numPos = 0;
+			b_buf_TEST_ADC_3 = true;
+		}
+	}
 
 	if(itemWork == WORK_HIST){
 		Difference();
@@ -1439,7 +1461,7 @@ static inline void my_ADC2_1(void){
 				my_F2F1_sum_2[i] = 0;
 			}
 			// Установить новую длину волны и флаг обновления длины волны
-			value_U2R = value_U2R - value_U2R_D; // +/- 10000 тонкой настройки = +/- 271 грубой настройки
+//			value_U2R = value_U2R - value_U2R_D; // +/- 10000 тонкой настройки = +/- 271 грубой настройки
 			// нужно +/- 100 грубых кодов = +/- 3690 тонких кодов
 			flagUpdate_U2R = true;
 		}
@@ -1454,7 +1476,7 @@ static inline void my_ADC2_1(void){
 				my_F2F1_sum_2[i] = 0;
 			}
 			// Установить новую длину волны и флаг обновления длины волны
-			value_U2R = value_U2R + value_U2R_D;
+//			value_U2R = value_U2R + value_U2R_D;
 			//resultDOPLER_FREQ = F2F1_rezult_D[0] - F2F1_rezult_D[5];
 			//resultDOPLER_FREQ = F2F1_rezult_D[1];
 			//resultDOPLER_FREQ = -F2F1_rezult_D[5];
