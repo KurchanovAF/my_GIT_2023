@@ -358,12 +358,14 @@ int main(void)
 	  my_F2F1_sum_2[i] = 0;
   }
 
+  /*
   flagConnectedTempSensor = true;
 
   if(flagConnectedTempSensor == true){
-	  InitTEMP();
+	  InitTEMP();						// € перенес это действие в обработчик процесса
 	  f_MESSAGE_3 = value_TempCell;
   }
+  //*/
 
   int my_I = 0;
 
@@ -873,6 +875,7 @@ static inline void ProgressPID_SENSOR_CELL(void){
 	if ((statusLoopPID & PID_FLAG_LOOP_SENSOR_TEMP_CELL) == PID_FLAG_LOOP_SENSOR_TEMP_CELL){
 		if(!b_PID_FLAG_LOOP_SENSOR_TEMP_CELL)
 		{
+			InitTEMP();								// 2023.12.25
 			Reset_CELL_PID();						// —брос PID регул€тора температуры €чейки
 			b_PID_FLAG_LOOP_SENSOR_TEMP_CELL = true;
 		}

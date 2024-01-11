@@ -1,14 +1,72 @@
-12:54:28 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+12:00:48 **** Build of configuration Debug for project cpt_m__ac6 ****
 make -j16 all 
-Building file: ../Src/interface_LMX2486.c
+Building file: ../Src/my_FUN.s
+Building file: ../Src/stm32l4xx_it.c
+Invoking: MCU GCC Assembler
 Invoking: MCU GCC Compiler
 D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/interface_LMX2486.d" -MT"Src/interface_LMX2486.o" -o "Src/interface_LMX2486.o" "../Src/interface_LMX2486.c"
-../Src/interface_LMX2486.c: In function 'LMX2486_SendData':
-../Src/interface_LMX2486.c:8:19: warning: variable 'rx' set but not used [-Wunused-but-set-variable]
-  volatile uint8_t rx = 0;
-                   ^~
-Finished building: ../Src/interface_LMX2486.c
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32l4xx_it.d" -MT"Src/stm32l4xx_it.o" -o "Src/stm32l4xx_it.o" "../Src/stm32l4xx_it.c"
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC1':
+../Src/stm32l4xx_it.c:893:6: warning: unused variable 'i' [-Wunused-variable]
+  int i, j;
+      ^
+../Src/stm32l4xx_it.c: In function 'my_ADC1_1':
+../Src/stm32l4xx_it.c:1178:2: warning: implicit declaration of function 'my_DataADC1_2'; did you mean 'my_DataADC2_2'? [-Wimplicit-function-declaration]
+  my_DataADC1_2();  // Время выполнения my_DataADC1_0()+my_DataADC1_2() ____ тактов
+  ^~~~~~~~~~~~~
+  my_DataADC2_2
+../Src/stm32l4xx_it.c:1179:2: warning: implicit declaration of function 'my_OUT1_F1'; did you mean 'my_ADC1_1'? [-Wimplicit-function-declaration]
+  my_OUT1_F1();   // ___ тактов
+  ^~~~~~~~~~
+  my_ADC1_1
+../Src/stm32l4xx_it.c:1180:2: warning: implicit declaration of function 'my_OUT1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F2();   // ___ тактов
+  ^~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1181:2: warning: implicit declaration of function 'my_OUT1_F1F2'; did you mean 'my_N_F1F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1F2();   //  ___ тактов
+  ^~~~~~~~~~~~
+  my_N_F1F2
+../Src/stm32l4xx_it.c:1183:2: warning: implicit declaration of function 'my_OUT1_F2F1'; did you mean 'my_N_F2F1'? [-Wimplicit-function-declaration]
+  my_OUT1_F2F1();   //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~
+  my_N_F2F1
+../Src/stm32l4xx_it.c:1184:2: warning: implicit declaration of function 'my_OUT1_F1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1_F2();  //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1217:4: warning: "/*" within comment [-Wcomment]
+   //*
+     
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC2':
+../Src/stm32l4xx_it.c:1694:13: warning: unused variable 'i_NN' [-Wunused-variable]
+  static int i_NN = 0;
+             ^~~~
+../Src/stm32l4xx_it.c:1624:13: warning: unused variable 'idT' [-Wunused-variable]
+  static int idT = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1623:13: warning: unused variable 'iT2' [-Wunused-variable]
+  static int iT2 = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1622:13: warning: unused variable 'iT1' [-Wunused-variable]
+  static int iT1 = 0;
+             ^~~
+../Src/stm32l4xx_it.c: In function 'funWork_SCAN_CRNT':
+../Src/stm32l4xx_it.c:2065:5: warning: "/*" within comment [-Wcomment]
+     /*
+      
+../Src/stm32l4xx_it.c: In function 'UpdateRS232':
+../Src/stm32l4xx_it.c:2455:12: warning: unused variable 'cr3its' [-Wunused-variable]
+   uint32_t cr3its = USART3->CR3;
+            ^~~~~~
+../Src/stm32l4xx_it.c:2454:12: warning: unused variable 'cr1its' [-Wunused-variable]
+   uint32_t cr1its = USART3->CR1;
+            ^~~~~~
+Finished building: ../Src/my_FUN.s
+ 
+Finished building: ../Src/stm32l4xx_it.c
  
 Building target: cpt_m__ac6.elf
 Invoking: MCU GCC Linker
@@ -20,8 +78,8 @@ Generating hex and Printing size information:
 arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
 arm-none-eabi-size "cpt_m__ac6.elf"
    text	   data	    bss	    dec	    hex	filename
-  43872	    384	  48296	  92552	  16988	cpt_m__ac6.elf
+  43888	    384	  48296	  92568	  16998	cpt_m__ac6.elf
  
 
-12:54:30 Build Finished (took 2s.123ms)
+12:00:54 Build Finished (took 6s.17ms)
 

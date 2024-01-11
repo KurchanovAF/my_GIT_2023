@@ -492,7 +492,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	// Очистили флаг прерывания
 	EXTI->PR1 |= EXTI_PR1_PIF0;
 
-	// копирование заполненных частей буферов DMA в буфера для разбопа и обработки
+	// копирование заполненных частей буферов DMA в буфера для разбора и обработки
 	pDataDMA = pDataDMA1_1;
 	pDataADC = &my_ADC1_Data[0];
 	my_DataADC__0();
@@ -506,7 +506,6 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	my_DataADC__0();
 
 	// обработка буфера ADC1, сигналы Vref и CONT, сигнал Vref отбрасываем
-	pDataADC = &my_ADC1_Data[0];
 	my_DataADC1__1();	// суммы sum_CONT1, sum_CONT2, sum_CONT и abs_diff_CONT
 	// обработка буфера ADC2, сигналы Out0, OUT2 и OUT1, сигнал OUT0 отбрасываем
 	my_DataADC2__1();	// сумма sum_OUT1, запись буфера my_F0
@@ -1834,7 +1833,7 @@ static inline void UpdateDataADC2(void){
 		result_OUT2_DOPLER_TEC = result_OUT2_CPT_CRNT_DOPLER;	// ??
 		flagUpdateCompute_OUT2_DOPLER_TEC = true;
 
-		/*
+		//*
 		// TOLIK
 				if((itemWork == WORK_TEST_ADC_3) && (!b_buf_TEST_ADC_3))
 				{
