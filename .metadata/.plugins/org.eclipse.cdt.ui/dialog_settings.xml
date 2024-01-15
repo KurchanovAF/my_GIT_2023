@@ -10,6 +10,8 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="funWork_SCAN_FREQ"/>
+			<item value="flagUpdateCompute_OUT2_DOPLER_CRNT"/>
 			<item value="buf_TEST_ADC_3"/>
 			<item value="b_buf_TEST_ADC_3"/>
 			<item value="PID_FLAG_LOOP_SENSOR_TEMP_CELL"/>
