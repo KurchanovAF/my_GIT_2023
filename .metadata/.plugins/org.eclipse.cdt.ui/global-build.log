@@ -29664,3 +29664,646 @@ arm-none-eabi-size "cpt_m__ac6.elf"
    text	   data	    bss	    dec	    hex	filename
   43888	    384	  48296	  92568	  16998	cpt_m__ac6.elf
  
+15:30:22 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/my_FUN.s
+Building file: ../Src/stm32l4xx_it.c
+Invoking: MCU GCC Assembler
+Invoking: MCU GCC Compiler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32l4xx_it.d" -MT"Src/stm32l4xx_it.o" -o "Src/stm32l4xx_it.o" "../Src/stm32l4xx_it.c"
+Finished building: ../Src/my_FUN.s
+ 
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC1':
+../Src/stm32l4xx_it.c:898:6: warning: unused variable 'i' [-Wunused-variable]
+  int i, j;
+      ^
+../Src/stm32l4xx_it.c: In function 'my_ADC1_1':
+../Src/stm32l4xx_it.c:1183:2: warning: implicit declaration of function 'my_DataADC1_2'; did you mean 'my_DataADC2_2'? [-Wimplicit-function-declaration]
+  my_DataADC1_2();  // Время выполнения my_DataADC1_0()+my_DataADC1_2() ____ тактов
+  ^~~~~~~~~~~~~
+  my_DataADC2_2
+../Src/stm32l4xx_it.c:1184:2: warning: implicit declaration of function 'my_OUT1_F1'; did you mean 'my_ADC1_1'? [-Wimplicit-function-declaration]
+  my_OUT1_F1();   // ___ тактов
+  ^~~~~~~~~~
+  my_ADC1_1
+../Src/stm32l4xx_it.c:1185:2: warning: implicit declaration of function 'my_OUT1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F2();   // ___ тактов
+  ^~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1186:2: warning: implicit declaration of function 'my_OUT1_F1F2'; did you mean 'my_N_F1F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1F2();   //  ___ тактов
+  ^~~~~~~~~~~~
+  my_N_F1F2
+../Src/stm32l4xx_it.c:1188:2: warning: implicit declaration of function 'my_OUT1_F2F1'; did you mean 'my_N_F2F1'? [-Wimplicit-function-declaration]
+  my_OUT1_F2F1();   //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~
+  my_N_F2F1
+../Src/stm32l4xx_it.c:1189:2: warning: implicit declaration of function 'my_OUT1_F1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1_F2();  //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1222:4: warning: "/*" within comment [-Wcomment]
+   //*
+     
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC2':
+../Src/stm32l4xx_it.c:1699:13: warning: unused variable 'i_NN' [-Wunused-variable]
+  static int i_NN = 0;
+             ^~~~
+../Src/stm32l4xx_it.c:1629:13: warning: unused variable 'idT' [-Wunused-variable]
+  static int idT = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1628:13: warning: unused variable 'iT2' [-Wunused-variable]
+  static int iT2 = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1627:13: warning: unused variable 'iT1' [-Wunused-variable]
+  static int iT1 = 0;
+             ^~~
+../Src/stm32l4xx_it.c: In function 'funWork_SCAN_CRNT':
+../Src/stm32l4xx_it.c:2070:5: warning: "/*" within comment [-Wcomment]
+     /*
+      
+../Src/stm32l4xx_it.c: In function 'UpdateRS232':
+../Src/stm32l4xx_it.c:2460:12: warning: unused variable 'cr3its' [-Wunused-variable]
+   uint32_t cr3its = USART3->CR3;
+            ^~~~~~
+../Src/stm32l4xx_it.c:2459:12: warning: unused variable 'cr1its' [-Wunused-variable]
+   uint32_t cr1its = USART3->CR1;
+            ^~~~~~
+Finished building: ../Src/stm32l4xx_it.c
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43880	    384	  48296	  92560	  16990	cpt_m__ac6.elf
+ 
+15:32:09 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+15:37:26 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/my_FUN.s
+Building file: ../Src/stm32l4xx_it.c
+Invoking: MCU GCC Assembler
+Invoking: MCU GCC Compiler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32l4xx_it.d" -MT"Src/stm32l4xx_it.o" -o "Src/stm32l4xx_it.o" "../Src/stm32l4xx_it.c"
+Finished building: ../Src/my_FUN.s
+ 
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC1':
+../Src/stm32l4xx_it.c:898:6: warning: unused variable 'i' [-Wunused-variable]
+  int i, j;
+      ^
+../Src/stm32l4xx_it.c: In function 'my_ADC1_1':
+../Src/stm32l4xx_it.c:1183:2: warning: implicit declaration of function 'my_DataADC1_2'; did you mean 'my_DataADC2_2'? [-Wimplicit-function-declaration]
+  my_DataADC1_2();  // Время выполнения my_DataADC1_0()+my_DataADC1_2() ____ тактов
+  ^~~~~~~~~~~~~
+  my_DataADC2_2
+../Src/stm32l4xx_it.c:1184:2: warning: implicit declaration of function 'my_OUT1_F1'; did you mean 'my_ADC1_1'? [-Wimplicit-function-declaration]
+  my_OUT1_F1();   // ___ тактов
+  ^~~~~~~~~~
+  my_ADC1_1
+../Src/stm32l4xx_it.c:1185:2: warning: implicit declaration of function 'my_OUT1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F2();   // ___ тактов
+  ^~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1186:2: warning: implicit declaration of function 'my_OUT1_F1F2'; did you mean 'my_N_F1F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1F2();   //  ___ тактов
+  ^~~~~~~~~~~~
+  my_N_F1F2
+../Src/stm32l4xx_it.c:1188:2: warning: implicit declaration of function 'my_OUT1_F2F1'; did you mean 'my_N_F2F1'? [-Wimplicit-function-declaration]
+  my_OUT1_F2F1();   //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~
+  my_N_F2F1
+../Src/stm32l4xx_it.c:1189:2: warning: implicit declaration of function 'my_OUT1_F1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1_F2();  //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1222:4: warning: "/*" within comment [-Wcomment]
+   //*
+     
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC2':
+../Src/stm32l4xx_it.c:1699:13: warning: unused variable 'i_NN' [-Wunused-variable]
+  static int i_NN = 0;
+             ^~~~
+../Src/stm32l4xx_it.c:1629:13: warning: unused variable 'idT' [-Wunused-variable]
+  static int idT = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1628:13: warning: unused variable 'iT2' [-Wunused-variable]
+  static int iT2 = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1627:13: warning: unused variable 'iT1' [-Wunused-variable]
+  static int iT1 = 0;
+             ^~~
+../Src/stm32l4xx_it.c: In function 'funWork_SCAN_CRNT':
+../Src/stm32l4xx_it.c:2070:5: warning: "/*" within comment [-Wcomment]
+     /*
+      
+../Src/stm32l4xx_it.c: In function 'UpdateRS232':
+../Src/stm32l4xx_it.c:2460:12: warning: unused variable 'cr3its' [-Wunused-variable]
+   uint32_t cr3its = USART3->CR3;
+            ^~~~~~
+../Src/stm32l4xx_it.c:2459:12: warning: unused variable 'cr1its' [-Wunused-variable]
+   uint32_t cr1its = USART3->CR1;
+            ^~~~~~
+Finished building: ../Src/stm32l4xx_it.c
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43848	    384	  48296	  92528	  16970	cpt_m__ac6.elf
+ 
+15:37:39 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+15:56:03 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/my_FUN.s
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+Invoking: MCU GCC Assembler
+Building file: ../Src/var.c
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+D:\my_GIT_2023\cpt_m__ac6\Debug
+Invoking: MCU GCC Compiler
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/var.d" -MT"Src/var.o" -o "Src/var.o" "../Src/var.c"
+Finished building: ../Src/my_FUN.s
+ 
+../Src/main.c: In function 'main':
+../Src/main.c:193:3: warning: implicit declaration of function 'InitTEMP' [-Wimplicit-function-declaration]
+   InitTEMP();
+   ^~~~~~~~
+../Src/main.c: In function 'ProgressPID_SENSOR_CELL':
+../Src/main.c:885:4: warning: implicit declaration of function 'GetTEMP' [-Wimplicit-function-declaration]
+    GetTEMP(); // value_TempCell - это температура
+    ^~~~~~~
+Finished building: ../Src/var.c
+Finished building: ../Src/main.c
+ 
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43864	    384	  48296	  92544	  16980	cpt_m__ac6.elf
+ 
+15:56:15 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+15:59:43 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+Building file: ../Src/var.c
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+Invoking: MCU GCC Compiler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/var.d" -MT"Src/var.o" -o "Src/var.o" "../Src/var.c"
+../Src/main.c: In function 'ProgressPID_SENSOR_CELL':
+../Src/main.c:878:4: warning: implicit declaration of function 'InitTEMP' [-Wimplicit-function-declaration]
+    InitTEMP();        // 2023.12.25
+    ^~~~~~~~
+../Src/main.c:885:4: warning: implicit declaration of function 'GetTEMP' [-Wimplicit-function-declaration]
+    GetTEMP(); // value_TempCell - это температура
+    ^~~~~~~
+Finished building: ../Src/var.c
+ 
+Finished building: ../Src/main.c
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43848	    384	  48296	  92528	  16970	cpt_m__ac6.elf
+ 
+15:59:55 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:00:17 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:00:23 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:00:46 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:00:51 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:02:52 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/my_FUN.s
+Building file: ../Src/stm32l4xx_it.c
+Invoking: MCU GCC Assembler
+Invoking: MCU GCC Compiler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32l4xx_it.d" -MT"Src/stm32l4xx_it.o" -o "Src/stm32l4xx_it.o" "../Src/stm32l4xx_it.c"
+Finished building: ../Src/my_FUN.s
+ 
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC1':
+../Src/stm32l4xx_it.c:898:6: warning: unused variable 'i' [-Wunused-variable]
+  int i, j;
+      ^
+../Src/stm32l4xx_it.c: In function 'my_ADC1_1':
+../Src/stm32l4xx_it.c:1183:2: warning: implicit declaration of function 'my_DataADC1_2'; did you mean 'my_DataADC2_2'? [-Wimplicit-function-declaration]
+  my_DataADC1_2();  // Время выполнения my_DataADC1_0()+my_DataADC1_2() ____ тактов
+  ^~~~~~~~~~~~~
+  my_DataADC2_2
+../Src/stm32l4xx_it.c:1184:2: warning: implicit declaration of function 'my_OUT1_F1'; did you mean 'my_ADC1_1'? [-Wimplicit-function-declaration]
+  my_OUT1_F1();   // ___ тактов
+  ^~~~~~~~~~
+  my_ADC1_1
+../Src/stm32l4xx_it.c:1185:2: warning: implicit declaration of function 'my_OUT1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F2();   // ___ тактов
+  ^~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1186:2: warning: implicit declaration of function 'my_OUT1_F1F2'; did you mean 'my_N_F1F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1F2();   //  ___ тактов
+  ^~~~~~~~~~~~
+  my_N_F1F2
+../Src/stm32l4xx_it.c:1188:2: warning: implicit declaration of function 'my_OUT1_F2F1'; did you mean 'my_N_F2F1'? [-Wimplicit-function-declaration]
+  my_OUT1_F2F1();   //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~
+  my_N_F2F1
+../Src/stm32l4xx_it.c:1189:2: warning: implicit declaration of function 'my_OUT1_F1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1_F2();  //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1222:4: warning: "/*" within comment [-Wcomment]
+   //*
+     
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC2':
+../Src/stm32l4xx_it.c:1699:13: warning: unused variable 'i_NN' [-Wunused-variable]
+  static int i_NN = 0;
+             ^~~~
+../Src/stm32l4xx_it.c:1629:13: warning: unused variable 'idT' [-Wunused-variable]
+  static int idT = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1628:13: warning: unused variable 'iT2' [-Wunused-variable]
+  static int iT2 = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1627:13: warning: unused variable 'iT1' [-Wunused-variable]
+  static int iT1 = 0;
+             ^~~
+../Src/stm32l4xx_it.c: In function 'funWork_SCAN_CRNT':
+../Src/stm32l4xx_it.c:2070:5: warning: "/*" within comment [-Wcomment]
+     /*
+      
+../Src/stm32l4xx_it.c: In function 'UpdateRS232':
+../Src/stm32l4xx_it.c:2460:12: warning: unused variable 'cr3its' [-Wunused-variable]
+   uint32_t cr3its = USART3->CR3;
+            ^~~~~~
+../Src/stm32l4xx_it.c:2459:12: warning: unused variable 'cr1its' [-Wunused-variable]
+   uint32_t cr1its = USART3->CR1;
+            ^~~~~~
+Finished building: ../Src/stm32l4xx_it.c
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43856	    384	  48296	  92536	  16978	cpt_m__ac6.elf
+ 
+16:03:00 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:03:17 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:04:08 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/stm32l4xx_it.c
+Invoking: MCU GCC Compiler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32l4xx_it.d" -MT"Src/stm32l4xx_it.o" -o "Src/stm32l4xx_it.o" "../Src/stm32l4xx_it.c"
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC1':
+../Src/stm32l4xx_it.c:898:6: warning: unused variable 'i' [-Wunused-variable]
+  int i, j;
+      ^
+../Src/stm32l4xx_it.c: In function 'my_ADC1_1':
+../Src/stm32l4xx_it.c:1183:2: warning: implicit declaration of function 'my_DataADC1_2'; did you mean 'my_DataADC2_2'? [-Wimplicit-function-declaration]
+  my_DataADC1_2();  // Время выполнения my_DataADC1_0()+my_DataADC1_2() ____ тактов
+  ^~~~~~~~~~~~~
+  my_DataADC2_2
+../Src/stm32l4xx_it.c:1184:2: warning: implicit declaration of function 'my_OUT1_F1'; did you mean 'my_ADC1_1'? [-Wimplicit-function-declaration]
+  my_OUT1_F1();   // ___ тактов
+  ^~~~~~~~~~
+  my_ADC1_1
+../Src/stm32l4xx_it.c:1185:2: warning: implicit declaration of function 'my_OUT1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F2();   // ___ тактов
+  ^~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1186:2: warning: implicit declaration of function 'my_OUT1_F1F2'; did you mean 'my_N_F1F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1F2();   //  ___ тактов
+  ^~~~~~~~~~~~
+  my_N_F1F2
+../Src/stm32l4xx_it.c:1188:2: warning: implicit declaration of function 'my_OUT1_F2F1'; did you mean 'my_N_F2F1'? [-Wimplicit-function-declaration]
+  my_OUT1_F2F1();   //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~
+  my_N_F2F1
+../Src/stm32l4xx_it.c:1189:2: warning: implicit declaration of function 'my_OUT1_F1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1_F2();  //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1222:4: warning: "/*" within comment [-Wcomment]
+   //*
+     
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC2':
+../Src/stm32l4xx_it.c:1699:13: warning: unused variable 'i_NN' [-Wunused-variable]
+  static int i_NN = 0;
+             ^~~~
+../Src/stm32l4xx_it.c:1629:13: warning: unused variable 'idT' [-Wunused-variable]
+  static int idT = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1628:13: warning: unused variable 'iT2' [-Wunused-variable]
+  static int iT2 = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1627:13: warning: unused variable 'iT1' [-Wunused-variable]
+  static int iT1 = 0;
+             ^~~
+../Src/stm32l4xx_it.c: In function 'funWork_SCAN_CRNT':
+../Src/stm32l4xx_it.c:2070:5: warning: "/*" within comment [-Wcomment]
+     /*
+      
+../Src/stm32l4xx_it.c: In function 'UpdateRS232':
+../Src/stm32l4xx_it.c:2460:12: warning: unused variable 'cr3its' [-Wunused-variable]
+   uint32_t cr3its = USART3->CR3;
+            ^~~~~~
+../Src/stm32l4xx_it.c:2459:12: warning: unused variable 'cr1its' [-Wunused-variable]
+   uint32_t cr1its = USART3->CR1;
+            ^~~~~~
+Finished building: ../Src/stm32l4xx_it.c
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43856	    384	  48296	  92536	  16978	cpt_m__ac6.elf
+ 
+16:04:16 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:05:07 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/my_FUN.s
+Invoking: MCU GCC Assembler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+Finished building: ../Src/my_FUN.s
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43848	    384	  48296	  92528	  16970	cpt_m__ac6.elf
+ 
+16:05:15 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:14:46 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/my_FUN.s
+Invoking: MCU GCC Assembler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+Finished building: ../Src/my_FUN.s
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43848	    384	  48296	  92528	  16970	cpt_m__ac6.elf
+ 
+16:16:22 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/my_FUN.s
+Invoking: MCU GCC Assembler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+Finished building: ../Src/my_FUN.s
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43848	    384	  48296	  92528	  16970	cpt_m__ac6.elf
+ 
+16:16:44 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:19:15 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/my_FUN.s
+Building file: ../Src/stm32l4xx_it.c
+Invoking: MCU GCC Assembler
+Invoking: MCU GCC Compiler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32l4xx_it.d" -MT"Src/stm32l4xx_it.o" -o "Src/stm32l4xx_it.o" "../Src/stm32l4xx_it.c"
+Finished building: ../Src/my_FUN.s
+ 
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC1':
+../Src/stm32l4xx_it.c:893:6: warning: unused variable 'i' [-Wunused-variable]
+  int i, j;
+      ^
+../Src/stm32l4xx_it.c: In function 'my_ADC1_1':
+../Src/stm32l4xx_it.c:1178:2: warning: implicit declaration of function 'my_DataADC1_2'; did you mean 'my_DataADC2_2'? [-Wimplicit-function-declaration]
+  my_DataADC1_2();  // Время выполнения my_DataADC1_0()+my_DataADC1_2() ____ тактов
+  ^~~~~~~~~~~~~
+  my_DataADC2_2
+../Src/stm32l4xx_it.c:1179:2: warning: implicit declaration of function 'my_OUT1_F1'; did you mean 'my_ADC1_1'? [-Wimplicit-function-declaration]
+  my_OUT1_F1();   // ___ тактов
+  ^~~~~~~~~~
+  my_ADC1_1
+../Src/stm32l4xx_it.c:1180:2: warning: implicit declaration of function 'my_OUT1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F2();   // ___ тактов
+  ^~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1181:2: warning: implicit declaration of function 'my_OUT1_F1F2'; did you mean 'my_N_F1F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1F2();   //  ___ тактов
+  ^~~~~~~~~~~~
+  my_N_F1F2
+../Src/stm32l4xx_it.c:1183:2: warning: implicit declaration of function 'my_OUT1_F2F1'; did you mean 'my_N_F2F1'? [-Wimplicit-function-declaration]
+  my_OUT1_F2F1();   //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~
+  my_N_F2F1
+../Src/stm32l4xx_it.c:1184:2: warning: implicit declaration of function 'my_OUT1_F1_F2'; did you mean 'my_N_F1_F2'? [-Wimplicit-function-declaration]
+  my_OUT1_F1_F2();  //  ___ такта, измеренная сумма = ___
+  ^~~~~~~~~~~~~
+  my_N_F1_F2
+../Src/stm32l4xx_it.c:1217:4: warning: "/*" within comment [-Wcomment]
+   //*
+     
+../Src/stm32l4xx_it.c: In function 'UpdateDataADC2':
+../Src/stm32l4xx_it.c:1694:13: warning: unused variable 'i_NN' [-Wunused-variable]
+  static int i_NN = 0;
+             ^~~~
+../Src/stm32l4xx_it.c:1624:13: warning: unused variable 'idT' [-Wunused-variable]
+  static int idT = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1623:13: warning: unused variable 'iT2' [-Wunused-variable]
+  static int iT2 = 0;
+             ^~~
+../Src/stm32l4xx_it.c:1622:13: warning: unused variable 'iT1' [-Wunused-variable]
+  static int iT1 = 0;
+             ^~~
+../Src/stm32l4xx_it.c: In function 'funWork_SCAN_CRNT':
+../Src/stm32l4xx_it.c:2065:5: warning: "/*" within comment [-Wcomment]
+     /*
+      
+../Src/stm32l4xx_it.c: In function 'UpdateRS232':
+../Src/stm32l4xx_it.c:2455:12: warning: unused variable 'cr3its' [-Wunused-variable]
+   uint32_t cr3its = USART3->CR3;
+            ^~~~~~
+../Src/stm32l4xx_it.c:2454:12: warning: unused variable 'cr1its' [-Wunused-variable]
+   uint32_t cr1its = USART3->CR1;
+            ^~~~~~
+Finished building: ../Src/stm32l4xx_it.c
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43848	    384	  48296	  92528	  16970	cpt_m__ac6.elf
+ 
+16:19:23 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:19:48 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:19:53 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:20:15 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:20:20 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:20:45 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:21:22 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:21:28 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+16:25:15 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/my_FUN.s
+Invoking: MCU GCC Assembler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+Finished building: ../Src/my_FUN.s
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43896	    384	  48296	  92576	  169a0	cpt_m__ac6.elf
+ 
+16:25:33 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+10:14:55 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+Building file: ../Src/my_FUN.s
+Invoking: MCU GCC Assembler
+D:\my_GIT_2023\cpt_m__ac6\Debug
+arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -o "Src/my_FUN.o" "../Src/my_FUN.s"
+Finished building: ../Src/my_FUN.s
+ 
+Building target: cpt_m__ac6.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32L476RCTx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "cpt_m__ac6.elf" @"objects.list"   -lm
+Finished building target: cpt_m__ac6.elf
+ 
+make --no-print-directory post-build
+Generating hex and Printing size information:
+arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
+arm-none-eabi-size "cpt_m__ac6.elf"
+   text	   data	    bss	    dec	    hex	filename
+  43896	    384	  48296	  92576	  169a0	cpt_m__ac6.elf
+ 
