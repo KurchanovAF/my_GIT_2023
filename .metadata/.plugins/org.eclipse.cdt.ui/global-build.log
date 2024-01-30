@@ -30307,3 +30307,12 @@ arm-none-eabi-size "cpt_m__ac6.elf"
    text	   data	    bss	    dec	    hex	filename
   43896	    384	  48296	  92576	  169a0	cpt_m__ac6.elf
  
+11:18:34 **** Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+11:18:47 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
+11:19:00 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+make -j16 all 
+make: Nothing to be done for 'all'.
