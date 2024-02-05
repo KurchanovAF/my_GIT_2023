@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "var.h"
 #include "my_FUN.h"
 
@@ -96,6 +97,58 @@ void my_EQ_test_7()
 #endif
 
 #ifdef my_C_fun
+
+void my_DataADC__0_()
+{
+	for(int i = 0; i < ADC_ARRAY_DMA2_HALF_SIZE; i++)
+	{
+		pDataADC[i] = pDataDMA[i];
+	}
+}
+
+void my_DataADC1__1_()
+{
+	// суммы sum_CONT1, sum_CONT2, sum_CONT и abs_diff_CONT
+	for(int i = 0; i < 120; i++)
+	{
+		sum_CONT1 += my_ADC1_Data[4*i + 1];
+		sum_CONT2 += my_ADC1_Data[4*i + 3];
+	}
+	sum_CONT = sum_CONT1 + sum_CONT2;
+	abs_diff_CONT = abs(sum_CONT1 - sum_CONT2);
+}
+
+void my_DataADC2__1_()
+{
+	// сумма sum_OUT1, запись буфера my_F0
+	// сдвиг и сохранение
+	for(int i = 0; i < 56; i++)
+	{
+		my_F0[i] = my_F0[i + 120];
+		}
+	for(int i = 0; i < 120; i++)
+	{
+		sum_OUT_0R += my_ADC2_Data[4*i] + my_ADC2_Data[4*i + 2];
+		sum_OUT_1  += my_ADC2_Data[4*i + 3];
+		my_F0[i + 56] = my_ADC2_Data[4*i + 1];
+	}
+}
+
+void my_DataADC3__1_()
+{
+	// сумма sum_OUT1N, запись буфера my_F0N, сумма sum_TS
+	// сдвиг и сохранение
+	for(int i = 0; i < 56; i++)
+	{
+		my_F0N[i] = my_F0N[i + 120];
+		}
+	for(int i = 0; i < 120; i++)
+	{
+		sum_TS += my_ADC3_Data[4*i] + my_ADC3_Data[4*i + 2];
+		sum_OUT_1N  += my_ADC3_Data[4*i + 3];
+		my_F0N[i + 56] = my_ADC3_Data[4*i + 1];
+	}
+}
 
 void my_DataADC2_1_()
 {

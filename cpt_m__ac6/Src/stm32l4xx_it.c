@@ -495,22 +495,28 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	// копирование заполненных частей буферов DMA в буфера для разбора и обработки
 	pDataDMA = pDataDMA1_1;
 	pDataADC = &my_ADC1_Data[0];
-	my_DataADC__0();
+	//my_DataADC__0();
+	my_DataADC__0_();
 
 	pDataDMA = pDataDMA1_2;
 	pDataADC = &my_ADC2_Data[0];
-	my_DataADC__0();
+	//my_DataADC__0();
+	my_DataADC__0_();
 
 	pDataDMA = pDataDMA1_3;
 	pDataADC = &my_ADC3_Data[0];
-	my_DataADC__0();
+	//my_DataADC__0();
+	my_DataADC__0_();
 
 	// обработка буфера ADC1, сигналы Vref и CONT, сигнал Vref отбрасываем
-	my_DataADC1__1();	// суммы sum_CONT1, sum_CONT2, sum_CONT и abs_diff_CONT
-	// обработка буфера ADC2, сигналы Out0, OUT2 и OUT1, сигнал OUT0 отбрасываем
-	my_DataADC2__1();	// сумма sum_OUT1, запись буфера my_F0
+	//my_DataADC1__1();	// суммы sum_CONT1, sum_CONT2, sum_CONT и abs_diff_CONT
+	my_DataADC1__1_();
+	// обработка буфера ADC2, сигналы Out0, OUT2 и OUT1, сигнал OUT0 не отбрасываем
+	//my_DataADC2__1();	// сумма sum_OUT1, запись буфера my_F0
+	my_DataADC2__1_();
 	// обработка буфера ADC3, сигналы TS, OUT2N и OUT1N, все сигналы используем
-	my_DataADC3__1();	// сумма sum_OUT1N, запись буфера my_F0N, сумма sum_TS
+	//my_DataADC3__1();	// сумма sum_OUT1N, запись буфера my_F0N, сумма sum_TS
+	my_DataADC3__1_();
 
 
 	//UpdateDataADC1(); // ==>
@@ -1361,6 +1367,7 @@ static inline void my_ADC2_1(void){
 	// START
 	DWT->CYCCNT = 0;
 	//my_Data_F0 = &my_DMA2_Data_F0[0];
+	/*
 	my_Data_F0 = &my_F0[0];
 	my_Data_F1 = &my_DMA2_Data_F1[0];
 	my_F1();				//  513 тактов
@@ -1373,12 +1380,35 @@ static inline void my_ADC2_1(void){
 	my_F2F1();		//  694 такта, измеренная сумма = 3054
 	my_Data_F1_F2 = &my_DMA2_Data_F1_F2[0];
 	my_F1_F2();		//  520 тактов, измеренная сумма =
+	//*/
+	my_F1F2_rez_A = &my_F1F2_rez[0];
+	for(int i = 0; i < 12; i++)
+	{
+		//
+		my_F1F2_rez_A[0] += my_F0[10*i + 56 + 0] - my_F0[10*i + 56 + 5];
+		my_F1F2_rez_A[1] += my_F0[10*i + 56 + 1] - my_F0[10*i + 56 + 6];
+		my_F1F2_rez_A[2] += my_F0[10*i + 56 + 2] - my_F0[10*i + 56 + 7];
+		my_F1F2_rez_A[3] += my_F0[10*i + 56 + 3] - my_F0[10*i + 56 + 8];
+		my_F1F2_rez_A[4] += my_F0[10*i + 56 + 4] - my_F0[10*i + 56 + 9];
+	};
+	my_F2F1_rez_A = &my_F2F1_rez[0];
+	for(int i = 0; i < 10; i++)
+	{
+		//
+		my_F2F1_rez_A[0] += my_F0[12*i + 56 + 0] - my_F0[12*i + 56 + 6];
+		my_F2F1_rez_A[1] += my_F0[12*i + 56 + 1] - my_F0[12*i + 56 + 7];
+		my_F2F1_rez_A[2] += my_F0[12*i + 56 + 2] - my_F0[12*i + 56 + 8];
+		my_F2F1_rez_A[3] += my_F0[12*i + 56 + 3] - my_F0[12*i + 56 + 9];
+		my_F2F1_rez_A[4] += my_F0[12*i + 56 + 4] - my_F0[12*i + 56 + 10];
+		my_F2F1_rez_A[5] += my_F0[12*i + 56 + 5] - my_F0[12*i + 56 + 11];
+	};
 	iT1__ = DWT->CYCCNT;	// от точки START, без режима отладки 3779 тактов, с отладкой - 4443, но запускается не с 1-го раза
 
 	// Обрабатываем сигналы дополнительного фотоприемника
 	//*
 	//my_Data_F0 = &my_DMA1_Data_F0[0];
 	//my_Data_F0 = &my_DMA2_Data_F0[0];
+	/*
 	my_Data_F0 = &my_F0N[0];
 	my_Data_F1 = &my_DMA1_Data_F1[0];
 	my_F1();				//  513 тактов
@@ -1390,6 +1420,28 @@ static inline void my_ADC2_1(void){
 	my_F2F1();		//  694 такта, измеренная сумма = 3054
 	my_Data_F1_F2 = &my_DMA1_Data_F1_F2[0];
 	my_F1_F2();		//  520 тактов, измеренная сумма =
+	//*/
+	my_F1F2_rez_A = &my_F1F2_rez_2[0];
+	for(int i = 0; i < 12; i++)
+	{
+		//
+		my_F1F2_rez_A[0] += my_F0[10*i + 56 + 0] - my_F0[10*i + 56 + 5];
+		my_F1F2_rez_A[1] += my_F0[10*i + 56 + 1] - my_F0[10*i + 56 + 6];
+		my_F1F2_rez_A[2] += my_F0[10*i + 56 + 2] - my_F0[10*i + 56 + 7];
+		my_F1F2_rez_A[3] += my_F0[10*i + 56 + 3] - my_F0[10*i + 56 + 8];
+		my_F1F2_rez_A[4] += my_F0[10*i + 56 + 4] - my_F0[10*i + 56 + 9];
+	};
+	my_F2F1_rez_A = &my_F2F1_rez_2[0];
+	for(int i = 0; i < 10; i++)
+	{
+		//
+		my_F2F1_rez_A[0] += my_F0[12*i + 56 + 0] - my_F0[12*i + 56 + 6];
+		my_F2F1_rez_A[1] += my_F0[12*i + 56 + 1] - my_F0[12*i + 56 + 7];
+		my_F2F1_rez_A[2] += my_F0[12*i + 56 + 2] - my_F0[12*i + 56 + 8];
+		my_F2F1_rez_A[3] += my_F0[12*i + 56 + 3] - my_F0[12*i + 56 + 9];
+		my_F2F1_rez_A[4] += my_F0[12*i + 56 + 4] - my_F0[12*i + 56 + 10];
+		my_F2F1_rez_A[5] += my_F0[12*i + 56 + 5] - my_F0[12*i + 56 + 11];
+	};
 	iT1__ = DWT->CYCCNT;	// от точки START, без режима отладки 6745 тактов, с отладкой - 8265, но запускается не с 1-го раза
 	//*/
 
