@@ -84,7 +84,7 @@
 // WARNING
 #define LMX2486_R4_R4                   (0x200000)
 
-// Р’С‹С…РѕРґ MUX
+// Выход MUX
 #define LMX2486_R4_MUX_OFF              (0x000000)
 #define LMX2486_R4_MUX_LVDD             (0x000010)
 #define LMX2486_R4_MUX_LGND             (0x000020)
