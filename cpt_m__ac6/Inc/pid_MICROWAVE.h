@@ -1,8 +1,8 @@
 /*
  * pid_MICROWAVE.h
  *
- *  Created on: 11 февр. 2021 г.
- *      Author: Анатолий
+ *  Created on: 11 С„РµРІСЂ. 2021 Рі.
+ *      Author: РђРЅР°С‚РѕР»РёР№
  */
 
 #ifndef APPLICATION_INC_PID_MICROWAVE_H_

@@ -4,39 +4,39 @@
 #define AD8400_nCS_Pin GPIO_PIN_2
 #define AD8400_nCS_GPIO_Port GPIOD
 
-// Работаем с внешним ЦАПом по SPI2
+// Р Р°Р±РѕС‚Р°РµРј СЃ РІРЅРµС€РЅРёРј Р¦РђРџРѕРј РїРѕ SPI2
 void AD8400_SetValue(int value){
 	volatile uint8_t rx = 0;
 	if (value <= 0){value = 0;}
 	if (value >= 255){value = 255;}		
 	//value = ((value << 6) & (0xFFC0));
-	// Настраиваем SPI1 для работ
+	// РќР°СЃС‚СЂР°РёРІР°РµРј SPI1 РґР»СЏ СЂР°Р±РѕС‚
 	// Disable SPI peripheral
 	SPI1->CR1 &= ~SPI_CR1_SPE;
-	// Настраиваем SPI1 для работ
+	// РќР°СЃС‚СЂР°РёРІР°РµРј SPI1 РґР»СЏ СЂР°Р±РѕС‚
 	// CPOL = 0
 	SPI1->CR1 &= ~SPI_CR1_CPOL;
 	// CPHA = 0
 	SPI1->CR1 &= ~SPI_CR1_CPHA;	
 	// Enable SPI peripheral
 	SPI1->CR1 |= SPI_CR1_SPE;
-	// Сброс на значения по умолчанию
+	// РЎР±СЂРѕСЃ РЅР° Р·РЅР°С‡РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	static uint8_t data[2];
 	data[0] = ((value >> 8) & 0xFF);
 	data[1] = ((value >> 0) & 0xFF);
-	// Выбор микросхемы ЦАПа
+	// Р’С‹Р±РѕСЂ РјРёРєСЂРѕСЃС…РµРјС‹ Р¦РђРџР°
 	HAL_GPIO_WritePin(AD8400_nCS_GPIO_Port, AD8400_nCS_Pin, GPIO_PIN_RESET);
-	// Ждем когда DR осовободится на запись
+	// Р–РґРµРј РєРѕРіРґР° DR РѕСЃРѕРІРѕР±РѕРґРёС‚СЃСЏ РЅР° Р·Р°РїРёСЃСЊ
 	while (((SPI1->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
 	*((__IO uint16_t *)&SPI1->DR) = value;
 	//while (((SPI1->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
 	//*((__IO uint8_t *)&SPI1->DR) = data[1];
-	// Ожидаем завершение передачи данных
+	// РћР¶РёРґР°РµРј Р·Р°РІРµСЂС€РµРЅРёРµ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С…
 	while (((SPI1->SR) & (SPI_SR_TXE)) != (SPI_SR_TXE)){};
-	// Ожидание опустошения FIFO
+	// РћР¶РёРґР°РЅРёРµ РѕРїСѓСЃС‚РѕС€РµРЅРёСЏ FIFO
 	while (((SPI1->SR) & (SPI_SR_FTLVL)) != 0){};
 	while (((SPI1->SR) & (SPI_SR_BSY)) == (SPI_SR_BSY)){}; 
-	// Фиксируем данные
+	// Р¤РёРєСЃРёСЂСѓРµРј РґР°РЅРЅС‹Рµ
 	HAL_GPIO_WritePin(AD8400_nCS_GPIO_Port, AD8400_nCS_Pin, GPIO_PIN_SET);
 	SPI1->CR1 &= ~SPI_CR1_SPE;	
 	while (((SPI1->SR) & (SPI_SR_FRLVL)) != 0){

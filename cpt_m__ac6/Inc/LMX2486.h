@@ -84,7 +84,7 @@
 // WARNING
 #define LMX2486_R4_R4                   (0x200000)
 
-// Р’С‹С…РѕРґ MUX
+// Р вЂ™РЎвЂ№РЎвЂ¦Р С•Р Т‘ MUX
 #define LMX2486_R4_MUX_OFF              (0x000000)
 #define LMX2486_R4_MUX_LVDD             (0x000010)
 #define LMX2486_R4_MUX_LGND             (0x000020)
@@ -116,13 +116,13 @@
 #define LMX2486_R4_OSC_1X               (0x000000)        
 #define LMX2486_R4_OSC_2X               (0x001000)
                                            
-// Порядок сигма-дельта модулятора
+// РџРѕСЂСЏРґРѕРє СЃРёРіРјР°-РґРµР»СЊС‚Р° РјРѕРґСѓР»СЏС‚РѕСЂР°
 #define LMX2486_R4_FM_MODE_4X           (0x000000)
 #define LMX2486_R4_FM_MODE_3X           (0x00C000)
 #define LMX2486_R4_FM_MODE_2X           (0x008000)
 #define LMX2486_R4_FM_OFF               (0x004000)
                                            
-// Сглаживание
+// РЎРіР»Р°Р¶РёРІР°РЅРёРµ
 #define LMX2486_R4_DITH_OFF             (0x000000)         
 #define LMX2486_R4_DITH_WEAK            (0x010000)
 #define LMX2486_R4_DITH_STRONG          (0x020000)

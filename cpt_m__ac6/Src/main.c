@@ -173,40 +173,40 @@ int main(void)
 	HAL_GPIO_WritePin(EN_GPIO_Port, EN_Pin, GPIO_PIN_SET);
 	
 	//=======================================================
-	// Настройка ядра
+	// РќР°СЃС‚СЂРѕР№РєР° СЏРґСЂР°
 	//=======================================================
-	// Разрешаем использовать DWT (Подсчет тактов)
+	// Р Р°Р·СЂРµС€Р°РµРј РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ DWT (РџРѕРґСЃС‡РµС‚ С‚Р°РєС‚РѕРІ)
 	CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-	// Сбрасываем счетчик
+	// РЎР±СЂР°СЃС‹РІР°РµРј СЃС‡РµС‚С‡РёРє
 	DWT->CYCCNT = 0;
-	// Включаем счетчик
+	// Р’РєР»СЋС‡Р°РµРј СЃС‡РµС‚С‡РёРє
 	DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;	
 	
-	// Настройка внешнего ЦАПа
+	// РќР°СЃС‚СЂРѕР№РєР° РІРЅРµС€РЅРµРіРѕ Р¦РђРџР°
 	AD5668_Init();
-	// Настройка синтезатора
+	// РќР°СЃС‚СЂРѕР№РєР° СЃРёРЅС‚РµР·Р°С‚РѕСЂР°
 	LMX2486_Init();
-	// Настройка цифрового термометра
+	// РќР°СЃС‚СЂРѕР№РєР° С†РёС„СЂРѕРІРѕРіРѕ С‚РµСЂРјРѕРјРµС‚СЂР°
 	//if (flagConnectedTempSensor == true){
 	//	InitTEMP();
 	//}
-	// Настройка датчика LSM303D
+	// РќР°СЃС‚СЂРѕР№РєР° РґР°С‚С‡РёРєР° LSM303D
 	//I2C_HandleTypeDef *hi2c; // PC0 (I2C3-CK), PC1 (I2C3-D)
 	LSM303D_Initialize(&hi2c3);
-	// Считывание показаний термометра
+	// РЎС‡РёС‚С‹РІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРёР№ С‚РµСЂРјРѕРјРµС‚СЂР°
 	//uint16_t LSM303D_GetTemperature(I2C_HandleTypeDef *hi2c)
-	// Считывание показаний акселероmeтра
+	// РЎС‡РёС‚С‹РІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРёР№ Р°РєСЃРµР»РµСЂРѕmeС‚СЂР°
 	// void LSM303D_GetValueAcc(I2C_HandleTypeDef *hi2c, int *X, int *Y, int *Z)
-	// Считывание показаний магнетометра
+	// РЎС‡РёС‚С‹РІР°РЅРёРµ РїРѕРєР°Р·Р°РЅРёР№ РјР°РіРЅРµС‚РѕРјРµС‚СЂР°
 	// void LSM303D_GetValueMag(I2C_HandleTypeDef *hi2c, int *X, int *Y, int *Z)
 
 	HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
 	//=======================================================
-	// Разрешаем прерывание UART3
+	// Р Р°Р·СЂРµС€Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ UART3
 	//=======================================================
 	NVIC_EnableIRQ (USART3_IRQn);          
-	USART3->CR1 |= USART_CR1_RXNEIE; // Прерывание по приему данных
+	USART3->CR1 |= USART_CR1_RXNEIE; // РџСЂРµСЂС‹РІР°РЅРёРµ РїРѕ РїСЂРёРµРјСѓ РґР°РЅРЅС‹С…
 	HAL_NVIC_SetPriority(USART3_IRQn, 1, 0);
 	
 	AD5668_SetValue(AD5668_DAC_ALL, 0); 
@@ -222,15 +222,15 @@ int main(void)
 	
 	AD8400_SetValue(value_OutFactor);
 	//=======================================================
-	// Первоначальная установка каналов ЦАПа
+	// РџРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅР°СЏ СѓСЃС‚Р°РЅРѕРІРєР° РєР°РЅР°Р»РѕРІ Р¦РђРџР°
 	//=======================================================
-	// Установка выходов ЦАПа
+	// РЈСЃС‚Р°РЅРѕРІРєР° РІС‹С…РѕРґРѕРІ Р¦РђРџР°
 	//AD5668_SetValue(AD5668_DAC_UT1A, value_UT1A); 	
 	//// UT2A	
 	//AD5668_SetValue(AD5668_DAC_UT2A, value_UT2A);
 	//// VY
 	//AD5668_SetValue(AD5668_DAC_VY, value_VY);
-	//// U2R Модуляция
+	//// U2R РњРѕРґСѓР»СЏС†РёСЏ
 	//AD5668_SetValue(AD5668_DAC_U2R, value_U2R);
 	//// VT1
 	//AD5668_SetValue(AD5668_DAC_VT1, value_VT1);
@@ -243,45 +243,45 @@ int main(void)
 	
 	
 	//=======================================================
-	// Настраиваем программное прерывание
+	// РќР°СЃС‚СЂР°РёРІР°РµРј РїСЂРѕРіСЂР°РјРјРЅРѕРµ РїСЂРµСЂС‹РІР°РЅРёРµ
 	//=======================================================
-	// Программное прерывание EXTI0
+	// РџСЂРѕРіСЂР°РјРјРЅРѕРµ РїСЂРµСЂС‹РІР°РЅРёРµ EXTI0
 	EXTI->IMR1 |= EXTI_IMR1_IM0;
 	EXTI->RTSR1 = EXTI_RTSR1_RT0;
-	// Сбрасываем флаги
+	// РЎР±СЂР°СЃС‹РІР°РµРј С„Р»Р°РіРё
 	EXTI->PR1 |= EXTI_PR1_PIF0;
 	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	
 	//=======================================================
-	// Настройка АЦП
+	// РќР°СЃС‚СЂРѕР№РєР° РђР¦Рџ
 	//=======================================================
-	// Производим калибровку АЦП 1
+	// РџСЂРѕРёР·РІРѕРґРёРј РєР°Р»РёР±СЂРѕРІРєСѓ РђР¦Рџ 1
 	HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
 	uint32_t calibrationFactorADC1  = HAL_ADCEx_Calibration_GetValue(&hadc1, ADC_SINGLE_ENDED);
 	HAL_ADCEx_Calibration_SetValue(&hadc1, ADC_SINGLE_ENDED, calibrationFactorADC1);
-	// Производим калибровку АЦП 2
+	// РџСЂРѕРёР·РІРѕРґРёРј РєР°Р»РёР±СЂРѕРІРєСѓ РђР¦Рџ 2
 	HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
 	uint32_t calibrationFactorADC2  = HAL_ADCEx_Calibration_GetValue(&hadc2, ADC_SINGLE_ENDED);
 	HAL_ADCEx_Calibration_SetValue(&hadc2, ADC_SINGLE_ENDED, calibrationFactorADC2);
 	
 	
-	// Включаем ADC
+	// Р’РєР»СЋС‡Р°РµРј ADC
 	ADC_Enable(&hadc1);
 	ADC_Enable(&hadc2);
-	//Настраиваем буферы DMA для ADC
+	//РќР°СЃС‚СЂР°РёРІР°РµРј Р±СѓС„РµСЂС‹ DMA РґР»СЏ ADC
 	// ADC1 
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&DMA1_Data, 2*ADC_ARRAY_DMA1_HALF_SIZE);
 	// ADC2
 	HAL_ADC_Start_DMA(&hadc2, (uint32_t*)&DMA2_Data, 2*ADC_ARRAY_DMA2_HALF_SIZE);
 	
-	//Включаем ЦАП
+	//Р’РєР»СЋС‡Р°РµРј Р¦РђРџ
 	HAL_DAC_Start(&hdac1,DAC_CHANNEL_2);
-	// Устанавливаем значение
+	// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р·РЅР°С‡РµРЅРёРµ
 	//HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, (uint32_t)value_RFI);
 	
-	// Выключаем прерывание системного таймера
-	// НУЖНО РАЗОБРАТЬСЯ !
+	// Р’С‹РєР»СЋС‡Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ СЃРёСЃС‚РµРјРЅРѕРіРѕ С‚Р°Р№РјРµСЂР°
+	// РќРЈР–РќРћ Р РђР—РћР‘Р РђРўР¬РЎРЇ !
 	//SysTick->CTRL &=~(SysTick_CTRL_TICKINT_Msk);
 	//HAL_NVIC_DisableIRQ(SysTick_IRQn);
 	
@@ -292,15 +292,15 @@ int main(void)
 	TIM_CCxChannelCmd(TIM3, TIM_CHANNEL_1, TIM_CCx_ENABLE);
 	TIM3->BDTR|=(TIM_BDTR_MOE);
 	// MOD CRNT 12KHz
-	// гибрид частот 480 кГц и 12 кГц
+	// РіРёР±СЂРёРґ С‡Р°СЃС‚РѕС‚ 480 РєР“С† Рё 12 РєР“С†
 	TIM4->CNT = 0;
 	TIM_CCxChannelCmd(TIM4, TIM_CHANNEL_3, TIM_CCx_ENABLE);
 	TIM4->BDTR|=(TIM_BDTR_MOE);
 
 	my_TST_U32 = TIM4->DIER;
-	TIM4->DIER = TIM_IT_UPDATE;					// разрешаем прерывание по переполнению
+	TIM4->DIER = TIM_IT_UPDATE;					// СЂР°Р·СЂРµС€Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ РїРѕ РїРµСЂРµРїРѕР»РЅРµРЅРёСЋ
 	HAL_NVIC_SetPriority(TIM4_IRQn, 0, 0);
-	NVIC_EnableIRQ(TIM4_IRQn);                  // глобально разрешаем прерывание
+	NVIC_EnableIRQ(TIM4_IRQn);                  // РіР»РѕР±Р°Р»СЊРЅРѕ СЂР°Р·СЂРµС€Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ
 
 
 	// SX 100KHz
@@ -313,17 +313,17 @@ int main(void)
 	//TIM17->BDTR|=(TIM_BDTR_MOE);	
 	HAL_TIM_IC_Start(&htim17,TIM_CHANNEL_1);
 	
-	// сброс в начальное состояние D-триггеров
-	// аппаратного синхронного детектора
-	// детектор не используется из-за ошибки в разводке
+	// СЃР±СЂРѕСЃ РІ РЅР°С‡Р°Р»СЊРЅРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ D-С‚СЂРёРіРіРµСЂРѕРІ
+	// Р°РїРїР°СЂР°С‚РЅРѕРіРѕ СЃРёРЅС…СЂРѕРЅРЅРѕРіРѕ РґРµС‚РµРєС‚РѕСЂР°
+	// РґРµС‚РµРєС‚РѕСЂ РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РёР·-Р·Р° РѕС€РёР±РєРё РІ СЂР°Р·РІРѕРґРєРµ
 	HAL_GPIO_WritePin(RES_GPIO_Port, RES_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(RES_GPIO_Port, RES_Pin, GPIO_PIN_SET);
-	// выходная ножка PPS
+	// РІС‹С…РѕРґРЅР°СЏ РЅРѕР¶РєР° PPS
 	HAL_GPIO_WritePin(RES_GPIO_Port, PPS1_Pin, GPIO_PIN_RESET);
 
-	// Синхронный запуск таймеров
+	// РЎРёРЅС…СЂРѕРЅРЅС‹Р№ Р·Р°РїСѓСЃРє С‚Р°Р№РјРµСЂРѕРІ
 	HAL_TIM_Base_Start(&htim1);
-	// Синхронизация DAC
+	// РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ DAC
 	TIM_CCxChannelCmd(TIM1, TIM_CHANNEL_4, TIM_CCx_ENABLE);
 	TIM1->BDTR|=(TIM_BDTR_MOE);
   /* USER CODE END 2 */
@@ -331,7 +331,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  // Гистограмма Кислова
+  // Р“РёСЃС‚РѕРіСЂР°РјРјР° РљРёСЃР»РѕРІР°
   step_diff = max_diff/num_cell;
   for(int i = 0; i < num_cell; i++) cell[i] = 0;
   no = 0;
@@ -362,27 +362,27 @@ int main(void)
 	  my_I++;
 	  my_N_2++;
 		
-	    // Захват длины волны частотой макета
+	    // Р—Р°С…РІР°С‚ РґР»РёРЅС‹ РІРѕР»РЅС‹ С‡Р°СЃС‚РѕС‚РѕР№ РјР°РєРµС‚Р°
 	    ProgressPID_DOPLER_FREQ();
-		// Захват температуры лазера
+		// Р—Р°С…РІР°С‚ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ Р»Р°Р·РµСЂР°
 		ProgressPID_TEC_CTRL();
-		// Захват доплера током лазера
+		// Р—Р°С…РІР°С‚ РґРѕРїР»РµСЂР° С‚РѕРєРѕРј Р»Р°Р·РµСЂР°
 		ProgressPID_DOPLER_CTRL();
-		// Захват доплера температурой лазера
+		// Р—Р°С…РІР°С‚ РґРѕРїР»РµСЂР° С‚РµРјРїРµСЂР°С‚СѓСЂРѕР№ Р»Р°Р·РµСЂР°
 		ProgressPID_DOPLER_TEC();
-		// Захват сигнала DC фотоприемника
+		// Р—Р°С…РІР°С‚ СЃРёРіРЅР°Р»Р° DC С„РѕС‚РѕРїСЂРёРµРјРЅРёРєР°
 		ProgressPID_OPTICS_PWR();
-		// Захват частоты
+		// Р—Р°С…РІР°С‚ С‡Р°СЃС‚РѕС‚С‹
 		ProgressPID_FREQ();
-		// Аналоговый захват температуры ячейки
+		// РђРЅР°Р»РѕРіРѕРІС‹Р№ Р·Р°С…РІР°С‚ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё
 		ProgressPID_CELL();
-		// Цифровой захват температуры ячейки
+		// Р¦РёС„СЂРѕРІРѕР№ Р·Р°С…РІР°С‚ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё
 		ProgressPID_SENSOR_CELL();
-		// Захват мощности СВЧ на входе лазера
+		// Р—Р°С…РІР°С‚ РјРѕС‰РЅРѕСЃС‚Рё РЎР’Р§ РЅР° РІС…РѕРґРµ Р»Р°Р·РµСЂР°
 		//ProgressPID_MICROWAVE();
-		// Функцию ProgressPID_MICROWAVE(void) отключаем,
-		// так как теперь вместо sum_OUT_3R (уровень СВЧ на ножке лазера)
-		// у нас работает фотоприемник №2.
+		// Р¤СѓРЅРєС†РёСЋ ProgressPID_MICROWAVE(void) РѕС‚РєР»СЋС‡Р°РµРј,
+		// С‚Р°Рє РєР°Рє С‚РµРїРµСЂСЊ РІРјРµСЃС‚Рѕ sum_OUT_3R (СѓСЂРѕРІРµРЅСЊ РЎР’Р§ РЅР° РЅРѕР¶РєРµ Р»Р°Р·РµСЂР°)
+		// Сѓ РЅР°СЃ СЂР°Р±РѕС‚Р°РµС‚ С„РѕС‚РѕРїСЂРёРµРјРЅРёРє в„–2.
 		
 		Progress_MESSAGE();
 		if(itemWork == WORK_HIST){
@@ -390,7 +390,7 @@ int main(void)
 		}
 		
 
-		// Разбор команд
+		// Р Р°Р·Р±РѕСЂ РєРѕРјР°РЅРґ
 		byteUSART = USART_GetByte();
 		if ( byteUSART != -1){
 			BufferMsg[lengthBufferCmd] = (uint8_t)byteUSART;
@@ -399,11 +399,11 @@ int main(void)
 				lengthBufferCmd = 0;
 			}
 			//===================================================
-			// Обрабатываем сообщение и удаляем его из очереди
+			// РћР±СЂР°Р±Р°С‚С‹РІР°РµРј СЃРѕРѕР±С‰РµРЅРёРµ Рё СѓРґР°Р»СЏРµРј РµРіРѕ РёР· РѕС‡РµСЂРµРґРё
 			//===================================================
 			cmdID = GetCmdID(BufferMsg, &lengthBufferCmd);
 			if (cmdID != 0){
-				// Реагируем на команду
+				// Р РµР°РіРёСЂСѓРµРј РЅР° РєРѕРјР°РЅРґСѓ
 				ComputeCmd(cmdID);
 			}
 		}   
@@ -477,37 +477,37 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
-//Работа с петлей регулировки мощности СВЧ на ножке лазера
+//Р Р°Р±РѕС‚Р° СЃ РїРµС‚Р»РµР№ СЂРµРіСѓР»РёСЂРѕРІРєРё РјРѕС‰РЅРѕСЃС‚Рё РЎР’Р§ РЅР° РЅРѕР¶РєРµ Р»Р°Р·РµСЂР°
 // bool flagUpdateCompute_MICROWAVE = false;
 static inline void ProgressPID_MICROWAVE(void){
 	static float delta;
 	static float deltaPID;
-	// Захват включен
+	// Р—Р°С…РІР°С‚ РІРєР»СЋС‡РµРЅ
 	// PID_FLAG_LOOP_MICROWAVE_CTRL
 	if ((statusLoopPID & PID_FLAG_LOOP_MICROWAVE) == PID_FLAG_LOOP_MICROWAVE){
 		if(!flagProcess_MICROWAVE)
 		{
-			// Начало процесса регулирования
-			// Запоминаем начальное значение мощности
+			// РќР°С‡Р°Р»Рѕ РїСЂРѕС†РµСЃСЃР° СЂРµРіСѓР»РёСЂРѕРІР°РЅРёСЏ
+			// Р—Р°РїРѕРјРёРЅР°РµРј РЅР°С‡Р°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РјРѕС‰РЅРѕСЃС‚Рё
 			startResult_OUT_DC_2 = avrResult_OUT_DC_2;
 			fixValue_MICROWAVE = value_RFI;
-			flagProcess_MICROWAVE = true;	// Процесс регулирования начат
+			flagProcess_MICROWAVE = true;	// РџСЂРѕС†РµСЃСЃ СЂРµРіСѓР»РёСЂРѕРІР°РЅРёСЏ РЅР°С‡Р°С‚
 			//my_alarm |= 0x10;
 		}
 		else
 		{
 			//my_alarm |= 0x20;
 		}
-		// Расчет воздействия PID регулятора
-		// для регулировки мощности СВЧ на ножке лазера
-		// Есть новые данные
+		// Р Р°СЃС‡РµС‚ РІРѕР·РґРµР№СЃС‚РІРёСЏ PID СЂРµРіСѓР»СЏС‚РѕСЂР°
+		// РґР»СЏ СЂРµРіСѓР»РёСЂРѕРІРєРё РјРѕС‰РЅРѕСЃС‚Рё РЎР’Р§ РЅР° РЅРѕР¶РєРµ Р»Р°Р·РµСЂР°
+		// Р•СЃС‚СЊ РЅРѕРІС‹Рµ РґР°РЅРЅС‹Рµ
 		if (flagUpdateCompute_MICROWAVE == true){
 			flagUpdateCompute_MICROWAVE = false;
 			delta = avrResult_OUT_DC_2 - startResult_OUT_DC_2;
 			resultMICROWAVE =	delta;
 			//my_alarm |= 0x40;
 
-			// Определяем выполнен ли захват
+			// РћРїСЂРµРґРµР»СЏРµРј РІС‹РїРѕР»РЅРµРЅ Р»Рё Р·Р°С…РІР°С‚
 			/*
 			float absDelta = delta;
 			if (absDelta < 0){
@@ -545,8 +545,8 @@ static inline void ProgressPID_MICROWAVE(void){
 	{
 		if(flagProcess_MICROWAVE)
 		{
-			// Конец процесса регулирования
-			flagProcess_MICROWAVE = false; // Процесс регулирования окончен
+			// РљРѕРЅРµС† РїСЂРѕС†РµСЃСЃР° СЂРµРіСѓР»РёСЂРѕРІР°РЅРёСЏ
+			flagProcess_MICROWAVE = false; // РџСЂРѕС†РµСЃСЃ СЂРµРіСѓР»РёСЂРѕРІР°РЅРёСЏ РѕРєРѕРЅС‡РµРЅ
 			Reset_MICROWAVE_PID();
 			//my_alarm &= ~(0x10);
 			//my_alarm &= ~(0x20);
@@ -555,7 +555,7 @@ static inline void ProgressPID_MICROWAVE(void){
 	}
 }
 
-// Работа с петлей регулировки длины волны лазера экстремумом частоты
+// Р Р°Р±РѕС‚Р° СЃ РїРµС‚Р»РµР№ СЂРµРіСѓР»РёСЂРѕРІРєРё РґР»РёРЅС‹ РІРѕР»РЅС‹ Р»Р°Р·РµСЂР° СЌРєСЃС‚СЂРµРјСѓРјРѕРј С‡Р°СЃС‚РѕС‚С‹
 // bool flagUpdateCompute_DOPLER_FREQ = false;
 static inline void ProgressPID_DOPLER_FREQ(void){
 	static float delta;
@@ -564,15 +564,15 @@ static inline void ProgressPID_DOPLER_FREQ(void){
 
 	// delta_DOPLER_DC = ???
 
-	// Захват включен
+	// Р—Р°С…РІР°С‚ РІРєР»СЋС‡РµРЅ
 	// PID_FLAG_LOOP_DOPLER_FREQ_CTRL
 	if ((statusLoopPID & PID_FLAG_LOOP_DOPLER_FREQ) == PID_FLAG_LOOP_DOPLER_FREQ){
 		if(!flagProcess_DOPLER_FREQ)
 		{
-			Reset_DOPLER_FREQ_PID();					// Сброс при первом запуске
+			Reset_DOPLER_FREQ_PID();					// РЎР±СЂРѕСЃ РїСЂРё РїРµСЂРІРѕРј Р·Р°РїСѓСЃРєРµ
 			flagProcess_DOPLER_FREQ = true;
 		}
-		if (flagUpdateCompute_DOPLER_FREQ == true){		// Прошло 2 группы по 16 миллисекунд, дискриминатор рассчитан
+		if (flagUpdateCompute_DOPLER_FREQ == true){		// РџСЂРѕС€Р»Рѕ 2 РіСЂСѓРїРїС‹ РїРѕ 16 РјРёР»Р»РёСЃРµРєСѓРЅРґ, РґРёСЃРєСЂРёРјРёРЅР°С‚РѕСЂ СЂР°СЃСЃС‡РёС‚Р°РЅ
 			flagUpdateCompute_DOPLER_FREQ = false;
 				delta = resultDOPLER_FREQ;
 
@@ -596,21 +596,21 @@ static inline void ProgressPID_DOPLER_FREQ(void){
 		}
 }
 
-// Работа с петлей температуры лазера
+// Р Р°Р±РѕС‚Р° СЃ РїРµС‚Р»РµР№ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ Р»Р°Р·РµСЂР°
 static inline void ProgressPID_TEC_CTRL(void){
 	static float delta;
 	static float deltaPID;
-	// Захват включен
+	// Р—Р°С…РІР°С‚ РІРєР»СЋС‡РµРЅ
 	if ((statusLoopPID & PID_FLAG_LOOP_TEC_CTRL) == PID_FLAG_LOOP_TEC_CTRL){
-		// Расчет воздействия PID регулятора
-		// для компенсации температуры лазера 100 Hz
-		// Есть новые данные
+		// Р Р°СЃС‡РµС‚ РІРѕР·РґРµР№СЃС‚РІРёСЏ PID СЂРµРіСѓР»СЏС‚РѕСЂР°
+		// РґР»СЏ РєРѕРјРїРµРЅСЃР°С†РёРё С‚РµРјРїРµСЂР°С‚СѓСЂС‹ Р»Р°Р·РµСЂР° 100 Hz
+		// Р•СЃС‚СЊ РЅРѕРІС‹Рµ РґР°РЅРЅС‹Рµ
 		if (flagUpdateCompute_TEC_CTRL == true){
 			flagUpdateCompute_TEC_CTRL = false;
 			delta = level_CONTR - avrResult_CONTR;
 			resultTec =	delta;
 
-			// Определяем выполнен ли захват
+			// РћРїСЂРµРґРµР»СЏРµРј РІС‹РїРѕР»РЅРµРЅ Р»Рё Р·Р°С…РІР°С‚
 			float absDelta = delta;
 			if (absDelta < 0){
 				absDelta = -absDelta;
@@ -644,7 +644,7 @@ static inline void ProgressPID_TEC_CTRL(void){
 static inline void ProgressPID_FREQ(void){
 	static float delta;
 	static float deltaPID;
-	// Захват включен
+	// Р—Р°С…РІР°С‚ РІРєР»СЋС‡РµРЅ
 	if ((statusLoopPID & PID_FLAG_LOOP_FREQ) == PID_FLAG_LOOP_FREQ){
 		if (flagUpdateCompute_OUT2_CPT_FREQ == true){
 			flagUpdateCompute_OUT2_CPT_FREQ = false;
@@ -664,10 +664,10 @@ static inline void ProgressPID_FREQ(void){
 	}
 }
 
-static inline void ProgressPID_DOPLER_TEC(void){	// Регулировка длины волны температурой лазера
+static inline void ProgressPID_DOPLER_TEC(void){	// Р РµРіСѓР»РёСЂРѕРІРєР° РґР»РёРЅС‹ РІРѕР»РЅС‹ С‚РµРјРїРµСЂР°С‚СѓСЂРѕР№ Р»Р°Р·РµСЂР°
 	static float delta;
 	static float deltaPID;
-	// Захват включен
+	// Р—Р°С…РІР°С‚ РІРєР»СЋС‡РµРЅ
 	if ((statusLoopPID & PID_FLAG_LOOP_DOPLER_TEC) == PID_FLAG_LOOP_DOPLER_TEC){
 		if (flagUpdateCompute_OUT2_DOPLER_TEC == true){
 			flagUpdateCompute_OUT2_DOPLER_TEC = false;
@@ -716,9 +716,9 @@ static inline void Progress_MESSAGE(void){
 			//F3 = (float)(my_F2F1_rez);
 			//F3 = (float)(0x0000ffff & my_F1F2_rez);
 
-			//F1 = (float)(my_DMA2_Data[36]);	// работает
-			//F1 = (float)(my_DMA2_Data[0]);	// работает
-			//F3 = (float)(p_my_DMA2_Data[36]);	// работает
+			//F1 = (float)(my_DMA2_Data[36]);	// СЂР°Р±РѕС‚Р°РµС‚
+			//F1 = (float)(my_DMA2_Data[0]);	// СЂР°Р±РѕС‚Р°РµС‚
+			//F3 = (float)(p_my_DMA2_Data[36]);	// СЂР°Р±РѕС‚Р°РµС‚
 			
 																	//F3 = (float)i_MESSAGE_2;
 	//F3 = (float)(my_DMA2_Data_F0[12]);
@@ -750,17 +750,17 @@ static inline void ProgressPID_OPTICS_PWR(void){
 	static float delta;
 	static float deltaPID;
 	static int iF0 = 0;
-	// Захват включен
+	// Р—Р°С…РІР°С‚ РІРєР»СЋС‡РµРЅ
 	if ((statusLoopPID & PID_FLAG_LOOP_OPTICS_PWR) == PID_FLAG_LOOP_OPTICS_PWR){
 		if (flagUpdateCompute_OUT1_OPTICS_PWR == true){
 			flagUpdateCompute_OUT1_OPTICS_PWR = false;
 			if(!flagProcess_OUT1_OPTICS_PWR)
 			{
-				Reset_OPTICS_PWR_PID();	// фиксируем величины fix_avrResult_OUT_DC и fixValue_VY
+				Reset_OPTICS_PWR_PID();	// С„РёРєСЃРёСЂСѓРµРј РІРµР»РёС‡РёРЅС‹ fix_avrResult_OUT_DC Рё fixValue_VY
 				flagProcess_OUT1_OPTICS_PWR = true;
 			}
 				
-			// ProgressPID_DOPLER_CTRL() уже работает !!
+			// ProgressPID_DOPLER_CTRL() СѓР¶Рµ СЂР°Р±РѕС‚Р°РµС‚ !!
 			result_OUT1_OPTICS_PWR = avrResult_OUT_DC - fix_avrResult_OUT_DC;	// ??? avrResult_OUT_0R
 			delta = result_OUT1_OPTICS_PWR;
 
@@ -779,8 +779,8 @@ static inline void ProgressPID_OPTICS_PWR(void){
 				GetOptionPID((int)GET_MESSAGE, &F1, &F2, &F3);
 			}
 			
-			// ЗДЕСЬ ПОКА ОСТАНОВИЛСЯ, дальше не правил
-			// нужно управлять величиной value_VY
+			// Р—Р”Р•РЎР¬ РџРћРљРђ РћРЎРўРђРќРћР’РР›РЎРЇ, РґР°Р»СЊС€Рµ РЅРµ РїСЂР°РІРёР»
+			// РЅСѓР¶РЅРѕ СѓРїСЂР°РІР»СЏС‚СЊ РІРµР»РёС‡РёРЅРѕР№ value_VY
 			
 			//ltaPID = Compute_TECCTRL_PID(delta);
 			value_VY = fixValue_VY - deltaPID;
@@ -796,10 +796,10 @@ static inline void ProgressPID_OPTICS_PWR(void){
 	}
 }
 
-static inline void ProgressPID_DOPLER_CTRL(void){	// Регулировка длины волны током лазера
+static inline void ProgressPID_DOPLER_CTRL(void){	// Р РµРіСѓР»РёСЂРѕРІРєР° РґР»РёРЅС‹ РІРѕР»РЅС‹ С‚РѕРєРѕРј Р»Р°Р·РµСЂР°
 	static float delta;
 	static float deltaPID;
-	// Захват включен
+	// Р—Р°С…РІР°С‚ РІРєР»СЋС‡РµРЅ
 	if ((statusLoopPID & PID_FLAG_LOOP_DOPLER_CRNT) == PID_FLAG_LOOP_DOPLER_CRNT){
 		if (flagUpdateCompute_OUT2_DOPLER_CRNT == true){
 			flagUpdateCompute_OUT2_DOPLER_CRNT = false;
@@ -823,16 +823,16 @@ static inline void ProgressPID_DOPLER_CTRL(void){	// Регулировка длины волны ток
 static inline void ProgressPID_CELL(void){
 	static float delta;
 	static float deltaPID;
-	// При установке ранее не установленного флага PID_FLAG_LOOP_CELL
-	// вызывать Reset_CELL_PID();
-	// Захват включен
+	// РџСЂРё СѓСЃС‚Р°РЅРѕРІРєРµ СЂР°РЅРµРµ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕРіРѕ С„Р»Р°РіР° PID_FLAG_LOOP_CELL
+	// РІС‹Р·С‹РІР°С‚СЊ Reset_CELL_PID();
+	// Р—Р°С…РІР°С‚ РІРєР»СЋС‡РµРЅ
 	if ((statusLoopPID & PID_FLAG_LOOP_CELL) == PID_FLAG_LOOP_CELL){
 		if(!b_PID_FLAG_LOOP_CELL)
 		{
-			Reset_CELL_PID();						// Сброс PID регулятора температуры ячейки
+			Reset_CELL_PID();						// РЎР±СЂРѕСЃ PID СЂРµРіСѓР»СЏС‚РѕСЂР° С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё
 			b_PID_FLAG_LOOP_CELL = true;
 		}
-		if (flagUpdateCompute_CELL == true){		// flagUpdateCompute_CELL - 1 РАЗ в 16 миллисекунд resultTemp_CELL = avrResult_OUT_0R; sum_OUT_0R = 0;
+		if (flagUpdateCompute_CELL == true){		// flagUpdateCompute_CELL - 1 Р РђР— РІ 16 РјРёР»Р»РёСЃРµРєСѓРЅРґ resultTemp_CELL = avrResult_OUT_0R; sum_OUT_0R = 0;
 			flagUpdateCompute_CELL = false;
 			delta = resultTemp_CELL;
 
@@ -861,23 +861,23 @@ static inline void ProgressPID_CELL(void){
 static inline void ProgressPID_SENSOR_CELL(void){
 	static float delta;
 	static float deltaPID;
-	// Захват включен
+	// Р—Р°С…РІР°С‚ РІРєР»СЋС‡РµРЅ
 	if ((statusLoopPID & PID_FLAG_LOOP_SENSOR_TEMP_CELL) == PID_FLAG_LOOP_SENSOR_TEMP_CELL){
 		if(!b_PID_FLAG_LOOP_SENSOR_TEMP_CELL)
 		{
-			Reset_CELL_PID();						// Сброс PID регулятора температуры ячейки
+			Reset_CELL_PID();						// РЎР±СЂРѕСЃ PID СЂРµРіСѓР»СЏС‚РѕСЂР° С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё
 			b_PID_FLAG_LOOP_SENSOR_TEMP_CELL = true;
 		}
-		// Есть новые данные
-		if (flagUpdateTempCell == true ){			// СЕЙЧАС ФЛАГ НЕ ОПРЕДЕЛЕН СОВСЕМ, он = false
+		// Р•СЃС‚СЊ РЅРѕРІС‹Рµ РґР°РЅРЅС‹Рµ
+		if (flagUpdateTempCell == true ){			// РЎР•Р™Р§РђРЎ Р¤Р›РђР“ РќР• РћРџР Р•Р”Р•Р›Р•Рќ РЎРћР’РЎР•Рњ, РѕРЅ = false
 			flagUpdateTempCell = false;
-			GetTEMP(); // value_TempCell - это температура
+			GetTEMP(); // value_TempCell - СЌС‚Рѕ С‚РµРјРїРµСЂР°С‚СѓСЂР°
 			//value_TempCell = 335577;
 			f_MESSAGE_3 = value_Temp_D_Cell;
 
 			delta = levelTemp_D_CELL - value_Temp_D_Cell;
-			resultTemp_D_CELL = delta*98.0f; // ДЛЯ мониторинга funWork_TEST_ADC() dataSend[4] = (int)(resultTemp_CELL*1000);
-			// КОЭФФИЦИЕНТЫ
+			resultTemp_D_CELL = delta*98.0f; // Р”Р›РЇ РјРѕРЅРёС‚РѕСЂРёРЅРіР° funWork_TEST_ADC() dataSend[4] = (int)(resultTemp_CELL*1000);
+			// РљРћР­Р¤Р¤РР¦РР•РќРўР«
 			// 62 ==> 2048
 			// 65 ==> 1755
 			//  3 ==> -293
@@ -892,14 +892,14 @@ static inline void ProgressPID_SENSOR_CELL(void){
 				value__T5 = 55000;
 			}
 			value_T5 = value__T5;
-			flagUpdate_T5 = true; // управляем нагревателем пока
+			flagUpdate_T5 = true; // СѓРїСЂР°РІР»СЏРµРј РЅР°РіСЂРµРІР°С‚РµР»РµРј РїРѕРєР°
 		}
 	}	
 }
 //*/
 
 
-// Настраиваем датчик температуры ячейки по I2C
+// РќР°СЃС‚СЂР°РёРІР°РµРј РґР°С‚С‡РёРє С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё РїРѕ I2C
 /*
 void InitTEMP(void){
 	//=======================================================
@@ -907,7 +907,7 @@ void InitTEMP(void){
 	I2C3_TxBuffer[0]	= ADT7410_REG_CONF;
 	I2C3_TxBuffer[1]	= ADT7410_RES_16 | ADT7410_CONV_SPS;
 	if (HAL_I2C_Master_Transmit(&hi2c3, addressI2C3<<1, &I2C3_TxBuffer[0], 2, 200) != HAL_OK){}
-	// Забираем данные
+	// Р—Р°Р±РёСЂР°РµРј РґР°РЅРЅС‹Рµ
 	if (HAL_I2C_Master_Receive(&hi2c3, addressI2C3<<1, &I2C3_RxBuffer[0], 2, 200) == HAL_OK){
 		value_TempCell = ((int)(I2C3_RxBuffer[0] << 8 | I2C3_RxBuffer[1]))/128.0f;
 		TempCellIsCorrect = true;

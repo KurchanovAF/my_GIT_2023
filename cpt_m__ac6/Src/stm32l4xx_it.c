@@ -233,44 +233,44 @@ void DMA1_Channel1_IRQHandler(void)
   /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
 	// ADC1 Priority Very High
 	uint32_t flag_it = DMA1->ISR;
-	// Первая половина буфера заполнена
+	// РџРµСЂРІР°СЏ РїРѕР»РѕРІРёРЅР° Р±СѓС„РµСЂР° Р·Р°РїРѕР»РЅРµРЅР°
 	if ( (flag_it & DMA_FLAG_HT1) == DMA_FLAG_HT1){
-		// Отключаем прерывание по заполнению первой половины
+		// РћС‚РєР»СЋС‡Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ РїРѕ Р·Р°РїРѕР»РЅРµРЅРёСЋ РїРµСЂРІРѕР№ РїРѕР»РѕРІРёРЅС‹
 		DMA1_Channel1->CCR &= ~DMA_IT_HT;
-		// Номер заполненной части буфера = 1
+		// РќРѕРјРµСЂ Р·Р°РїРѕР»РЅРµРЅРЅРѕР№ С‡Р°СЃС‚Рё Р±СѓС„РµСЂР° = 1
 		itemPartResultDMA1_ADC1 = 1;
-		// Часть 1 буфера уже заполнена
+		// Р§Р°СЃС‚СЊ 1 Р±СѓС„РµСЂР° СѓР¶Рµ Р·Р°РїРѕР»РЅРµРЅР°
 		}
 	else if ((flag_it & DMA_ISR_TCIF1) == DMA_ISR_TCIF1){
-		// Включаем прерывание по заполнению первой половины
+		// Р’РєР»СЋС‡Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ РїРѕ Р·Р°РїРѕР»РЅРµРЅРёСЋ РїРµСЂРІРѕР№ РїРѕР»РѕРІРёРЅС‹
 		DMA1_Channel1->CCR |= DMA_IT_HT;
-		// Номер заполненной части буфера = 2
+		// РќРѕРјРµСЂ Р·Р°РїРѕР»РЅРµРЅРЅРѕР№ С‡Р°СЃС‚Рё Р±СѓС„РµСЂР° = 2
 		itemPartResultDMA1_ADC1 = 2;
 	}
-	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
+	// Clear all interrupt flags ERRATA РЅРµ РѕС‡РёС‰Р°С‚СЊ CGIF, РІР·Р°РјРµРЅ HTIFx, TCIFx Рё TEIFx
 	DMA1->IFCR |= DMA_IFCR_CTCIF1;
 	DMA1->IFCR |= DMA_IFCR_CHTIF1;
 	DMA1->IFCR |= DMA_IFCR_CTEIF1;
 	
 
 	//=================================
-	//iT1__ = DWT->CYCCNT;	// ПЕРИОД = 60000 - 60003
+	//iT1__ = DWT->CYCCNT;	// РџР•Р РРћР” = 60000 - 60003
 	//DWT->CYCCNT = 0;
 
-	// Вся партия данных получена
+	// Р’СЃСЏ РїР°СЂС‚РёСЏ РґР°РЅРЅС‹С… РїРѕР»СѓС‡РµРЅР°
 	if ( itemPartResultDMA1_ADC1 != 0 && 
 		 itemPartResultDMA2_ADC2 != 0){
-		if(1) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		//  Прерывание вызывать НЕЛЬЗЯ
+		if(1) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		//  РџСЂРµСЂС‹РІР°РЅРёРµ РІС‹Р·С‹РІР°С‚СЊ РќР•Р›Р¬Р—РЇ
 		{
-			// Вызов программного прерывания
-			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
-			my_alarm |= 0x01;							// ВЫПОЛНЯЕТСЯ
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Проявляется при сканировании длины волны
+			// Р’С‹Р·РѕРІ РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
+			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// РџР•Р РРћР” = 60000
+			my_alarm |= 0x01;							// Р’Р«РџРћР›РќРЇР•РўРЎРЇ
+			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// РџСЂРѕСЏРІР»СЏРµС‚СЃСЏ РїСЂРё СЃРєР°РЅРёСЂРѕРІР°РЅРёРё РґР»РёРЅС‹ РІРѕР»РЅС‹
 		}
-		else										// Прерывание вызывать МОЖНО
+		else										// РџСЂРµСЂС‹РІР°РЅРёРµ РІС‹Р·С‹РІР°С‚СЊ РњРћР–РќРћ
 		{
-			//my_alarm |= 0x02;	// НЕ ВЫПОЛНЯЕТСЯ // Приоритет Very High
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// Не проявляется
+			//my_alarm |= 0x02;	// РќР• Р’Р«РџРћР›РќРЇР•РўРЎРЇ // РџСЂРёРѕСЂРёС‚РµС‚ Very High
+			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;	// РќРµ РїСЂРѕСЏРІР»СЏРµС‚СЃСЏ
 		}
 	}
 	#if defined(AUTODMA1)
@@ -287,33 +287,33 @@ void DMA1_Channel1_IRQHandler(void)
 void TIM4_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM4_IRQn 0 */
-  // 1) увеличить счетчик №1
-  // 2) если стал равен 19 установить признак 2-й части периода если была первая и одновременно
-  // записать нужное значение в регистр sConfigOC.Pulse
+  // 1) СѓРІРµР»РёС‡РёС‚СЊ СЃС‡РµС‚С‡РёРє в„–1
+  // 2) РµСЃР»Рё СЃС‚Р°Р» СЂР°РІРµРЅ 19 СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РїСЂРёР·РЅР°Рє 2-Р№ С‡Р°СЃС‚Рё РїРµСЂРёРѕРґР° РµСЃР»Рё Р±С‹Р»Р° РїРµСЂРІР°СЏ Рё РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ
+  // Р·Р°РїРёСЃР°С‚СЊ РЅСѓР¶РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РІ СЂРµРіРёСЃС‚СЂ sConfigOC.Pulse
   //htim4->Instance->
   num_TIM4++;
   if(num_TIM4 == 40)	// 10 ==> 5 + 5
   {
 	  if(b_TIM4)
 	  {
-		  // первая половина окончилась
+		  // РїРµСЂРІР°СЏ РїРѕР»РѕРІРёРЅР° РѕРєРѕРЅС‡РёР»Р°СЃСЊ
 		  //htim4.Instance->CCR3 = (uint32_t)69;//40;//55;//40;
 		  b_TIM4 = false;
 	  }
 	  else
 	  {
-		  // вторая половина окончилась
+		  // РІС‚РѕСЂР°СЏ РїРѕР»РѕРІРёРЅР° РѕРєРѕРЅС‡РёР»Р°СЃСЊ
 		  //htim4.Instance->CCR3 = (uint32_t)65;//85;//70;//85;
 		  b_TIM4 = true;
 	  }
 	  num_TIM4 = 0;
   }
-  //TIM4->SR &= ~TIM_SR_UIF; // сбрасываем прерывание
-  TIM4->SR = ~TIM_SR_UIF; // сбрасываем прерывание
+  //TIM4->SR &= ~TIM_SR_UIF; // СЃР±СЂР°СЃС‹РІР°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ
+  TIM4->SR = ~TIM_SR_UIF; // СЃР±СЂР°СЃС‹РІР°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ
 
-  // СТРОЧКУ НИЖЕ:
+  // РЎРўР РћР§РљРЈ РќРР–Р•:
   // HAL_TIM_IRQHandler(&htim4);
-  // НУЖНО ЗАКОММЕНТИРОВАТЬ !!
+  // РќРЈР–РќРћ Р—РђРљРћРњРњР•РќРўРР РћР’РђРўР¬ !!
   /* USER CODE END TIM4_IRQn 0 */
   HAL_TIM_IRQHandler(&htim4);
   /* USER CODE BEGIN TIM4_IRQn 1 */
@@ -344,46 +344,46 @@ void DMA2_Channel4_IRQHandler(void)
   /* USER CODE BEGIN DMA2_Channel4_IRQn 0 */
 	// ADC2 Priority High
 	uint32_t flag_it = DMA2->ISR;
-	// Первая половина буфера заполнена
+	// РџРµСЂРІР°СЏ РїРѕР»РѕРІРёРЅР° Р±СѓС„РµСЂР° Р·Р°РїРѕР»РЅРµРЅР°
 	if ( (flag_it & DMA_FLAG_HT4) == DMA_FLAG_HT4){
-		// Отключаем прерывание по заполнению первой половины
+		// РћС‚РєР»СЋС‡Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ РїРѕ Р·Р°РїРѕР»РЅРµРЅРёСЋ РїРµСЂРІРѕР№ РїРѕР»РѕРІРёРЅС‹
     DMA2_Channel4->CCR &= ~DMA_IT_HT;
-		// Номер части буфера, заполнена 1
+		// РќРѕРјРµСЂ С‡Р°СЃС‚Рё Р±СѓС„РµСЂР°, Р·Р°РїРѕР»РЅРµРЅР° 1
 		itemPartResultDMA2_ADC2 = 1;	
-	// Буфер был заполнен
+	// Р‘СѓС„РµСЂ Р±С‹Р» Р·Р°РїРѕР»РЅРµРЅ
   } else if ((flag_it & DMA_ISR_TCIF4) == DMA_ISR_TCIF4){ 
-		// Включаем прерывание по заполнению первой половины
+		// Р’РєР»СЋС‡Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ РїРѕ Р·Р°РїРѕР»РЅРµРЅРёСЋ РїРµСЂРІРѕР№ РїРѕР»РѕРІРёРЅС‹
     DMA2_Channel4->CCR |= DMA_IT_HT;
-		// Номер части буфера, заполнена 2
+		// РќРѕРјРµСЂ С‡Р°СЃС‚Рё Р±СѓС„РµСЂР°, Р·Р°РїРѕР»РЅРµРЅР° 2
 		itemPartResultDMA2_ADC2 = 2;			
   }
-	// Clear all interrupt flags ERRATA не очищать CGIF, взамен HTIFx, TCIFx и TEIFx
+	// Clear all interrupt flags ERRATA РЅРµ РѕС‡РёС‰Р°С‚СЊ CGIF, РІР·Р°РјРµРЅ HTIFx, TCIFx Рё TEIFx
 	DMA2->IFCR |= DMA_IFCR_CTCIF4;
 	DMA2->IFCR |= DMA_IFCR_CHTIF4;
 	DMA2->IFCR |= DMA_IFCR_CTEIF4;
 	
 	//=================================
-	//iT1__ = DWT->CYCCNT;	// ПЕРИОД = 60121 - 60125
+	//iT1__ = DWT->CYCCNT;	// РџР•Р РРћР” = 60121 - 60125
 	//DWT->CYCCNT = 0;
 
-	// Вся партия данных получена
+	// Р’СЃСЏ РїР°СЂС‚РёСЏ РґР°РЅРЅС‹С… РїРѕР»СѓС‡РµРЅР°
 	if ( itemPartResultDMA1_ADC1 != 0 && 
 		 itemPartResultDMA2_ADC2 != 0){
-		if(1) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		// Прерывание вызывать НЕЛЬЗЯ
+		if(1) //(EXTI->PR1 & EXTI_PR1_PIF0) == 0)		// РџСЂРµСЂС‹РІР°РЅРёРµ РІС‹Р·С‹РІР°С‚СЊ РќР•Р›Р¬Р—РЇ
 		{
-			// Вызов программного прерывания
-			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// Всегда выполняется именно здесь
-			my_alarm |= 0x04;							// НЕ ВЫПОЛНЯЕТСЯ
+			// Р’С‹Р·РѕРІ РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
+			EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// Р’СЃРµРіРґР° РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РёРјРµРЅРЅРѕ Р·РґРµСЃСЊ
+			my_alarm |= 0x04;							// РќР• Р’Р«РџРћР›РќРЇР•РўРЎРЇ
 			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x20;
 			//EXTI->PR1 |= EXTI_PR1_PIF0;
 		}
-		else										// Прерывание вызывать МОЖНО
+		else										// РџСЂРµСЂС‹РІР°РЅРёРµ РІС‹Р·С‹РІР°С‚СЊ РњРћР–РќРћ
 		{
-			// Вызов программного прерывания
-			//EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// ПЕРИОД = 60000
+			// Р’С‹Р·РѕРІ РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
+			//EXTI->SWIER1 |= EXTI_SWIER1_SWI0;			// РџР•Р РРћР” = 60000
 			//EXTI->SWIER1 |= EXTI_SWIER1_SWI0;
-			//my_alarm |= 0x08;							// ВЫПОЛНЯЕТСЯ		// Приоритет High
-			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x20;	// Проявляется при сканировании длины волны
+			//my_alarm |= 0x08;							// Р’Р«РџРћР›РќРЇР•РўРЎРЇ		// РџСЂРёРѕСЂРёС‚РµС‚ High
+			//if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x20;	// РџСЂРѕСЏРІР»СЏРµС‚СЃСЏ РїСЂРё СЃРєР°РЅРёСЂРѕРІР°РЅРёРё РґР»РёРЅС‹ РІРѕР»РЅС‹
 		}
 	}
 	#if defined(AUTODMA2)
@@ -395,21 +395,21 @@ void DMA2_Channel4_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-// Обработчик программного прерывания
+// РћР±СЂР°Р±РѕС‚С‡РёРє РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
 void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 										//	HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 2, 0);
 										//	HAL_NVIC_SetPriority(DMA2_Channel4_IRQn, 3, 0);
 										//	HAL_NVIC_SetPriority(USART3_IRQn, 1, 0);					main()
 										//	HAL_NVIC_SetPriority(USART3_IRQn, 0, 0);					HAL_UART_MspInit()
-										//	HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);		Приоритет = 11
-										//	Прерывания от таймеров раньше были не установлены (а теперь TIM4)
+										//	HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);		РџСЂРёРѕСЂРёС‚РµС‚ = 11
+										//	РџСЂРµСЂС‹РІР°РЅРёСЏ РѕС‚ С‚Р°Р№РјРµСЂРѕРІ СЂР°РЅСЊС€Рµ Р±С‹Р»Рё РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅС‹ (Р° С‚РµРїРµСЂСЊ TIM4)
 										//  HAL_NVIC_SetPriority(TIM4_IRQn, 0, 0);
-										//  UART3 - наивысший приоритет (зачем?)
-	// Очистили флаг прерывания
+										//  UART3 - РЅР°РёРІС‹СЃС€РёР№ РїСЂРёРѕСЂРёС‚РµС‚ (Р·Р°С‡РµРј?)
+	// РћС‡РёСЃС‚РёР»Рё С„Р»Р°Рі РїСЂРµСЂС‹РІР°РЅРёСЏ
 	EXTI->PR1 |= EXTI_PR1_PIF0;
 
 	//=================================
-	iT1__ = DWT->CYCCNT;	// ПЕРИОД = 119992 - 119995 // 119985 - 119990
+	iT1__ = DWT->CYCCNT;	// РџР•Р РРћР” = 119992 - 119995 // 119985 - 119990
 	DWT->CYCCNT = 0;
 
 	/*
@@ -418,7 +418,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	}
 	//*/
 	DEBUG_maxDWT3 = DWT->CYCCNT;	// 59984 59986 59993 60007
-	// DEBUG_maxDWT3 = 68437, 60 МГц, 1141 мкс > 1 мс !!!
+	// DEBUG_maxDWT3 = 68437, 60 РњР“С†, 1141 РјРєСЃ > 1 РјСЃ !!!
 	// UpdateDataADC1() ==> maxDWT = 8329
 	 
 	DEBUG_maxDWT2 = DWT->CYCCNT;
@@ -428,7 +428,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	//DWT->CYCCNT = 0;
 	iT__n++;
 
-	// Забираем все данные из буфера
+	// Р—Р°Р±РёСЂР°РµРј РІСЃРµ РґР°РЅРЅС‹Рµ РёР· Р±СѓС„РµСЂР°
 	if(itemPartResultDMA1_ADC1 != itemPartResultDMA2_ADC2) my_alarm |= 0x10;
 	if(itemPartResultDMA1_ADC1 == itemPartResultDMA2_ADC2) my_alarm |= 0x20;
 
@@ -445,10 +445,10 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	itemPartResultDMA2_ADC2 = 0;
 
 	//my_alarm = 1;
-	// Установка управляющих параметров,
-	// выделено 12 последовательных порций
-	// каждая - в свою идущую друг за другом
-	// миллисекунду
+	// РЈСЃС‚Р°РЅРѕРІРєР° СѓРїСЂР°РІР»СЏСЋС‰РёС… РїР°СЂР°РјРµС‚СЂРѕРІ,
+	// РІС‹РґРµР»РµРЅРѕ 12 РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅС‹С… РїРѕСЂС†РёР№
+	// РєР°Р¶РґР°СЏ - РІ СЃРІРѕСЋ РёРґСѓС‰СѓСЋ РґСЂСѓРі Р·Р° РґСЂСѓРіРѕРј
+	// РјРёР»Р»РёСЃРµРєСѓРЅРґСѓ
 	//
 	/*
 	switch(itemWork)
@@ -459,7 +459,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	}
 	//*/
 
-	// Вне очереди !!
+	// Р’РЅРµ РѕС‡РµСЂРµРґРё !!
 	if (flagUpdate_U2R == true){
 		flagUpdate_U2R = false;
 		AD5668_WriteValue(AD5668_DAC_U2R , value_U2R);
@@ -469,26 +469,26 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 		flagUpdate_VY = false;
 		AD5668_WriteValue(AD5668_DAC_VY , value_VY);
 	}
-	if(b_my_ms_num)			// 1-й цикл из 16 мс уже пройден
+	if(b_my_ms_num)			// 1-Р№ С†РёРєР» РёР· 16 РјСЃ СѓР¶Рµ РїСЂРѕР№РґРµРЅ
 	switch(my_ms_num){
 		case 0:
-			// Параметры не меняются
-			//  1 - точное управление частотой (UT1A - перепутан с UT2A)
-			//  2 - мощность нагрева лазера
-			//  3 - грубая настройка тока лазера
-			//  4 - заказанный уровень температуры лазера
-			//  5 - настройка тока катушек
-			//  6 - мощность нагрева ячейки
-			//  7 - тонкая настройка тока лазера
-			//  8 - грубая настройка частоты (UT2A)
-			//  9 - уровень СВЧ
-			// 10 - параметры делителя ФАПЧ
-			// 11 - усиление фотоприемника
-			//HAL_GPIO_WritePin(PPS1_GPIO_Port, PPS1_Pin, GPIO_PIN_RESET);	// не работает
+			// РџР°СЂР°РјРµС‚СЂС‹ РЅРµ РјРµРЅСЏСЋС‚СЃСЏ
+			//  1 - С‚РѕС‡РЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ С‡Р°СЃС‚РѕС‚РѕР№ (UT1A - РїРµСЂРµРїСѓС‚Р°РЅ СЃ UT2A)
+			//  2 - РјРѕС‰РЅРѕСЃС‚СЊ РЅР°РіСЂРµРІР° Р»Р°Р·РµСЂР°
+			//  3 - РіСЂСѓР±Р°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° Р»Р°Р·РµСЂР°
+			//  4 - Р·Р°РєР°Р·Р°РЅРЅС‹Р№ СѓСЂРѕРІРµРЅСЊ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ Р»Р°Р·РµСЂР°
+			//  5 - РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° РєР°С‚СѓС€РµРє
+			//  6 - РјРѕС‰РЅРѕСЃС‚СЊ РЅР°РіСЂРµРІР° СЏС‡РµР№РєРё
+			//  7 - С‚РѕРЅРєР°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° Р»Р°Р·РµСЂР°
+			//  8 - РіСЂСѓР±Р°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‡Р°СЃС‚РѕС‚С‹ (UT2A)
+			//  9 - СѓСЂРѕРІРµРЅСЊ РЎР’Р§
+			// 10 - РїР°СЂР°РјРµС‚СЂС‹ РґРµР»РёС‚РµР»СЏ Р¤РђРџР§
+			// 11 - СѓСЃРёР»РµРЅРёРµ С„РѕС‚РѕРїСЂРёРµРјРЅРёРєР°
+			//HAL_GPIO_WritePin(PPS1_GPIO_Port, PPS1_Pin, GPIO_PIN_RESET);	// РЅРµ СЂР°Р±РѕС‚Р°РµС‚
 			break;
 		case 1:
 			//HAL_GPIO_WritePin(PPS1_GPIO_Port, PPS1_Pin, GPIO_PIN_RESET);
-			// Устанавливаются важнейшие параметры, точное управление частотой
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РІР°Р¶РЅРµР№С€РёРµ РїР°СЂР°РјРµС‚СЂС‹, С‚РѕС‡РЅРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ С‡Р°СЃС‚РѕС‚РѕР№
 			if (flagUpdate_UT1A == true){
 				flagUpdate_UT1A = false;
 				iT2__ = DWT->CYCCNT;
@@ -499,7 +499,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 2:
-			// Устанавливаются параметры 2-й очереди, мощность нагрева лазера
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 2-Р№ РѕС‡РµСЂРµРґРё, РјРѕС‰РЅРѕСЃС‚СЊ РЅР°РіСЂРµРІР° Р»Р°Р·РµСЂР°
 			if (flagUpdate_DTX == true){
 				flagUpdate_DTX = false;
 				AD5668_WriteValue(AD5668_DAC_DTX , value_DTX);
@@ -507,7 +507,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 3:
-			// Устанавливаются параметры 3-й очереди, грубая настройка тока лазера
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 3-Р№ РѕС‡РµСЂРµРґРё, РіСЂСѓР±Р°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° Р»Р°Р·РµСЂР°
 			/*
 			if (flagUpdate_VY == true){
 				flagUpdate_VY = false;
@@ -517,8 +517,8 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 4:
-			// Устанавливаются параметры 4-й очереди, заказанный уровень температуры
-			// управление мостом датчика температуры лазера
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 4-Р№ РѕС‡РµСЂРµРґРё, Р·Р°РєР°Р·Р°РЅРЅС‹Р№ СѓСЂРѕРІРµРЅСЊ С‚РµРјРїРµСЂР°С‚СѓСЂС‹
+			// СѓРїСЂР°РІР»РµРЅРёРµ РјРѕСЃС‚РѕРј РґР°С‚С‡РёРєР° С‚РµРјРїРµСЂР°С‚СѓСЂС‹ Р»Р°Р·РµСЂР°
 			//HAL_GPIO_WritePin(PPS1_GPIO_Port, PPS1_Pin, GPIO_PIN_SET);
 			if (flagUpdate_VT1 == true){
 				flagUpdate_VT1 = false;
@@ -527,7 +527,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 5:
-			// Устанавливаются параметры 5-й очереди, настройка тока катушек
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 5-Р№ РѕС‡РµСЂРµРґРё, РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° РєР°С‚СѓС€РµРє
 			if (flagUpdate_L1 == true){
 				flagUpdate_L1 = false;
 				AD5668_WriteValue(AD5668_DAC_L1 , value_L1);
@@ -535,7 +535,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 6:
-			// Устанавливаются параметры 6-й очереди, мощность нагрева ячейки
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 6-Р№ РѕС‡РµСЂРµРґРё, РјРѕС‰РЅРѕСЃС‚СЊ РЅР°РіСЂРµРІР° СЏС‡РµР№РєРё
 			if (flagUpdate_T5 == true){
 				flagUpdate_T5 = false;
 				AD5668_WriteValue(AD5668_DAC_T5 , value_T5);
@@ -543,7 +543,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 7:
-			// Устанавливаются параметры 7-й очереди, тонкая настройка тока лазера
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 7-Р№ РѕС‡РµСЂРµРґРё, С‚РѕРЅРєР°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‚РѕРєР° Р»Р°Р·РµСЂР°
 			/*
 			if (flagUpdate_U2R == true){
 				flagUpdate_U2R = false;
@@ -553,7 +553,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 8:
-			// Устанавливаются параметры 8-й очереди, грубая настройка частоты
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 8-Р№ РѕС‡РµСЂРµРґРё, РіСЂСѓР±Р°СЏ РЅР°СЃС‚СЂРѕР№РєР° С‡Р°СЃС‚РѕС‚С‹
 			if (flagUpdate_UT2A == true){
 				flagUpdate_UT2A = false;
 				AD5668_WriteValue(AD5668_DAC_UT2A , value_UT2A);
@@ -561,7 +561,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 9:
-			// Устанавливаются параметры 9-й очереди, уровень СВЧ
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 9-Р№ РѕС‡РµСЂРµРґРё, СѓСЂРѕРІРµРЅСЊ РЎР’Р§
 			if (flagUpdate_RFI == true){
 				flagUpdate_RFI = false;
 				value_RFI = value_RFI & 0xFFF;
@@ -571,7 +571,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 10:
-			// Устанавливаются параметры 10-й очереди, параметры делителя ФАПЧ
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 10-Р№ РѕС‡РµСЂРµРґРё, РїР°СЂР°РјРµС‚СЂС‹ РґРµР»РёС‚РµР»СЏ Р¤РђРџР§
 			if (flagUpdate_LMX2486 == true){
 				flagUpdate_LMX2486 = false;
 				LMX2486_SetFreq(LMX_ValueN, LMX_ValueFN, LMX_ValueFD);
@@ -580,19 +580,19 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			//my_ms_num++;
 			break;
 		case 11:
-			// Устанавливаются параметры 11-й очереди, усиление фотоприемника
+			// РЈСЃС‚Р°РЅР°РІР»РёРІР°СЋС‚СЃСЏ РїР°СЂР°РјРµС‚СЂС‹ 11-Р№ РѕС‡РµСЂРµРґРё, СѓСЃРёР»РµРЅРёРµ С„РѕС‚РѕРїСЂРёРµРјРЅРёРєР°
 			if (flagUpdate_OutFactor == true){
 				flagUpdate_OutFactor = false;
 				AD8400_SetValue(value_OutFactor);
 			}
-			//my_ms_num = 0;	// РЎРўРћРџ
+			//my_ms_num = 0;	// Р РЋР СћР С›Р Сџ
 			break;
 		default:
 			break;
 	}
 	if(my_ms_num == 16) my_ms_num = 0;
 
-	// Программная модуляция
+	// РџСЂРѕРіСЂР°РјРјРЅР°СЏ РјРѕРґСѓР»СЏС†РёСЏ
 	switch(itemMOD_CRNT){
 		case 0:
 			//value_U2R = fixValue_U2R + MOD_CRNT_width;
@@ -623,7 +623,7 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 			break;
 	}
 	
-	// Потоковые функции
+	// РџРѕС‚РѕРєРѕРІС‹Рµ С„СѓРЅРєС†РёРё
 	switch(itemWork){
 		case WORK_NONE:
 			funWork_VOID_TEST();
@@ -728,9 +728,9 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 	{
 		flagUpdateTempCell = true;
 		iF0 = 0;
-		i_MESSAGE_1 = iT1__; // Период главного прерывания
-		i_MESSAGE_2 = iT4__; // Длительность главного прерывания
-		i_MESSAGE_3 = (int)delta_DOPLER_DC; // Количество произошедших главных прерываний
+		i_MESSAGE_1 = iT1__; // РџРµСЂРёРѕРґ РіР»Р°РІРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
+		i_MESSAGE_2 = iT4__; // Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ РіР»Р°РІРЅРѕРіРѕ РїСЂРµСЂС‹РІР°РЅРёСЏ
+		i_MESSAGE_3 = (int)delta_DOPLER_DC; // РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРѕРёР·РѕС€РµРґС€РёС… РіР»Р°РІРЅС‹С… РїСЂРµСЂС‹РІР°РЅРёР№
 		//i_MESSAGE_3 = 141570;	// TEST
 
 
@@ -745,21 +745,21 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 		//if(b_eq == false) i_MESSAGE_1 = 0;
 		b_MESSAGE = true;
 	};
-	// Очистили флаг прерывания
+	// РћС‡РёСЃС‚РёР»Рё С„Р»Р°Рі РїСЂРµСЂС‹РІР°РЅРёСЏ
 	//EXTI->PR1 |= EXTI_PR1_PIF0;
 }
 
-// Разбираем данные с ADC1
+// Р Р°Р·Р±РёСЂР°РµРј РґР°РЅРЅС‹Рµ СЃ ADC1
 static inline void UpdateDataADC1(void){
-// Обрабатываем результирующий буфер DMA1
+// РћР±СЂР°Р±Р°С‚С‹РІР°РµРј СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РёР№ Р±СѓС„РµСЂ DMA1
 	switch(itemPartResultDMA1_ADC1){
-		// Первая часть буфера
+		// РџРµСЂРІР°СЏ С‡Р°СЃС‚СЊ Р±СѓС„РµСЂР°
 		case 1:
 			for (int i = 0, j = 0; i < ADC_ARRAY_DMA1_HALF_SIZE-3; i+=4, j++){
 				sum_OUT_DC += DMA1_Data[i];
-				sum_CONTR += DMA1_Data[i + 3];	// поменяли позицию
+				sum_CONTR += DMA1_Data[i + 3];	// РїРѕРјРµРЅСЏР»Рё РїРѕР·РёС†РёСЋ
 				sum_SD1 += DMA1_Data[i + 2];
-				sum_OUT_DC_2 += DMA1_Data[i + 3]; // пока не трогаем
+				sum_OUT_DC_2 += DMA1_Data[i + 3]; // РїРѕРєР° РЅРµ С‚СЂРѕРіР°РµРј
 				
 				index_CONTR++;
 				index_OUT_DC_2++;
@@ -768,13 +768,13 @@ static inline void UpdateDataADC1(void){
 			}			
 			pDataDMA1 = &DMA1_Data[0];
 			break;
-		// Вторая часть буфера
+		// Р’С‚РѕСЂР°СЏ С‡Р°СЃС‚СЊ Р±СѓС„РµСЂР°
 		case 2:
 			for (int i = 0, j = 0; i < ADC_ARRAY_DMA1_HALF_SIZE-3; i+=4, j++){
 				sum_OUT_DC += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i];
-				sum_CONTR += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];	// поменяли позицию
+				sum_CONTR += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];	// РїРѕРјРµРЅСЏР»Рё РїРѕР·РёС†РёСЋ
 				sum_SD1 += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 2];
-				sum_OUT_DC_2 += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];	// пока не трогаем
+				sum_OUT_DC_2 += DMA1_Data[ADC_ARRAY_DMA1_HALF_SIZE + i + 3];	// РїРѕРєР° РЅРµ С‚СЂРѕРіР°РµРј
 				
 				index_CONTR++;
 				index_OUT_DC_2++;
@@ -786,7 +786,7 @@ static inline void UpdateDataADC1(void){
 	}
 	
 	/*
-	// Синхронный детектор длины волны Kurchanov 08.07.2020
+	// РЎРёРЅС…СЂРѕРЅРЅС‹Р№ РґРµС‚РµРєС‚РѕСЂ РґР»РёРЅС‹ РІРѕР»РЅС‹ Kurchanov 08.07.2020
 	//for (int i = 12; i < ADC_ARRAY_DMA2_HALF_SIZE; i += 4*12){
 	for (int i = 0; i < ADC_ARRAY_DMA1_HALF_SIZE - 36; i += 4*10){ // Kurchanov 08.07.2020
 		sum_OUT1_CPT_CRNT[0] += pDataDMA1[i] 		- 	pDataDMA1[i + 20];
@@ -817,7 +817,7 @@ static inline void UpdateDataADC1(void){
 	//*/
 	
 	/*
-	// Синхронный детектор частоты
+	// РЎРёРЅС…СЂРѕРЅРЅС‹Р№ РґРµС‚РµРєС‚РѕСЂ С‡Р°СЃС‚РѕС‚С‹
 	for (int i = 12; i < ADC_ARRAY_DMA2_HALF_SIZE; i += 4*12){
 	// for (int i = 12; i < ADC_ARRAY_DMA1_HALF_SIZE - 32; i += 4*12){ // Kurchanov 08.07.2020
 		sum_OUT1_CPT_FREQ[0] += pDataDMA1[i-12] - 	pDataDMA1[i + 12];
@@ -839,7 +839,7 @@ static inline void UpdateDataADC1(void){
 	//*/
 	
 	/*
-	// Синхронный детектор программной модуляции тока
+	// РЎРёРЅС…СЂРѕРЅРЅС‹Р№ РґРµС‚РµРєС‚РѕСЂ РїСЂРѕРіСЂР°РјРјРЅРѕР№ РјРѕРґСѓР»СЏС†РёРё С‚РѕРєР°
 	if (index_OUT1_DOPLER_CRNT >= count_OUT1_DOPLER_CRNT){		
 		result_OUT1_DOPLER_CRNT = (float)(sum_OUT1_DOPLER_CRNT[0]-sum_OUT1_DOPLER_CRNT[1])/(float)index_OUT1_DOPLER_CRNT;
 		result_OUT1_DOPLER_CRNT /= -120.0f;
@@ -850,41 +850,41 @@ static inline void UpdateDataADC1(void){
 	}
 	//*/
 
-	// Среднее значение постоянной составляющей
+	// РЎСЂРµРґРЅРµРµ Р·РЅР°С‡РµРЅРёРµ РїРѕСЃС‚РѕСЏРЅРЅРѕР№ СЃРѕСЃС‚Р°РІР»СЏСЋС‰РµР№
 	if (index_OUT_DC >= count_OUT_DC){
 		avrResult_OUT_DC = (float)(sum_OUT_DC) / (float)index_OUT_DC;
 		flagUpdateCompute_OUT1_OPTICS_PWR = true;
 		index_OUT_DC = 0;
 		sum_OUT_DC = 0;
 	}
-	// Среднее значение сигнала невязки с терморезистора лазера
+	// РЎСЂРµРґРЅРµРµ Р·РЅР°С‡РµРЅРёРµ СЃРёРіРЅР°Р»Р° РЅРµРІСЏР·РєРё СЃ С‚РµСЂРјРѕСЂРµР·РёСЃС‚РѕСЂР° Р»Р°Р·РµСЂР°
 	if (index_CONTR >= count_CONTR){
 		avrResult_CONTR = (float)sum_CONTR / (float)index_CONTR;
 		flagUpdateCompute_TEC_CTRL = true;
 		index_CONTR = 0;
 		sum_CONTR = 0;
 	}
-	// Среднее значение СВЧ мощности
-	if (index_OUT_DC_2 >= count_OUT_DC_2){	// count_OUT_3R = 6000 (6 секунд)
+	// РЎСЂРµРґРЅРµРµ Р·РЅР°С‡РµРЅРёРµ РЎР’Р§ РјРѕС‰РЅРѕСЃС‚Рё
+	if (index_OUT_DC_2 >= count_OUT_DC_2){	// count_OUT_3R = 6000 (6 СЃРµРєСѓРЅРґ)
 		avrResult_OUT_DC_2 = (float)sum_OUT_DC_2 / (float)index_OUT_DC_2;
 		flagUpdateCompute_MICROWAVE = true;
 		index_OUT_DC_2 = 0;
 		sum_OUT_DC_2 = 0;
 	}
 	//*
-	// Аппаратный синхронный детектор 1 (был)
-	// Датчик температуры контроллера (теперь стал)
-	// 1000 раз в секунду sum_SD1 = сумма массива из 120 отсчетов
-	if (index_SD1 >= count_SD1){							// count_SD1 = 1920 = 120*16, 1 раз в 16 мс
+	// РђРїРїР°СЂР°С‚РЅС‹Р№ СЃРёРЅС…СЂРѕРЅРЅС‹Р№ РґРµС‚РµРєС‚РѕСЂ 1 (Р±С‹Р»)
+	// Р”Р°С‚С‡РёРє С‚РµРјРїРµСЂР°С‚СѓСЂС‹ РєРѕРЅС‚СЂРѕР»Р»РµСЂР° (С‚РµРїРµСЂСЊ СЃС‚Р°Р»)
+	// 1000 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ sum_SD1 = СЃСѓРјРјР° РјР°СЃСЃРёРІР° РёР· 120 РѕС‚СЃС‡РµС‚РѕРІ
+	if (index_SD1 >= count_SD1){							// count_SD1 = 1920 = 120*16, 1 СЂР°Р· РІ 16 РјСЃ
 		avrResult_SD1 = (float)sum_SD1 / (float)index_SD1;
 		index_SD1 = 0;
 		sum_SD1 = 0;
-		// тут пора подсчитать смещение частоты и применить его
-		// при первом включении режима компенсации запоминаем avrResult_SD1_start = avrResult_SD1
-		// и далее находим разность SD1_d = avrResult_SD1 - avrResult_SD1_start
-		// вычисляем смещение порога дискриминатора частоты shift_OUT2_FREQ
+		// С‚СѓС‚ РїРѕСЂР° РїРѕРґСЃС‡РёС‚Р°С‚СЊ СЃРјРµС‰РµРЅРёРµ С‡Р°СЃС‚РѕС‚С‹ Рё РїСЂРёРјРµРЅРёС‚СЊ РµРіРѕ
+		// РїСЂРё РїРµСЂРІРѕРј РІРєР»СЋС‡РµРЅРёРё СЂРµР¶РёРјР° РєРѕРјРїРµРЅСЃР°С†РёРё Р·Р°РїРѕРјРёРЅР°РµРј avrResult_SD1_start = avrResult_SD1
+		// Рё РґР°Р»РµРµ РЅР°С…РѕРґРёРј СЂР°Р·РЅРѕСЃС‚СЊ SD1_d = avrResult_SD1 - avrResult_SD1_start
+		// РІС‹С‡РёСЃР»СЏРµРј СЃРјРµС‰РµРЅРёРµ РїРѕСЂРѕРіР° РґРёСЃРєСЂРёРјРёРЅР°С‚РѕСЂР° С‡Р°СЃС‚РѕС‚С‹ shift_OUT2_FREQ
 		//shift_OUT2_FREQ = 0;
-		if(bCompFreqTK)	//  Компенсация частоты по температуре контроллера
+		if(bCompFreqTK)	//  РљРѕРјРїРµРЅСЃР°С†РёСЏ С‡Р°СЃС‚РѕС‚С‹ РїРѕ С‚РµРјРїРµСЂР°С‚СѓСЂРµ РєРѕРЅС‚СЂРѕР»Р»РµСЂР°
 		{
 			if(!bCompFreqTK_1)
 			{
@@ -892,12 +892,12 @@ static inline void UpdateDataADC1(void){
 				bCompFreqTK_1 = true;
 			}
 			SD1_d = avrResult_SD1 - avrResult_SD1_start;
-			SD1_d *= 1.2e-10f;			// Относительное изменение частоты
-			//SD1_d /= 6.95e-11f;		// Смещение порога при том же изменении частоты						//SD1_d /= 6.07e-11f;			// Смещение порога при том же изменении частоты
-			//SD1_d /= 5.7e-11f;		// Смещение порога при том же изменении частоты
-			SD1_d /= 11.0e-11f;			// Смещение порога при том же изменении частоты
-			//shift_OUT2_FREQ = -SD1_d;	// Компенсация установкой порога для дискриминатора
-			shift_OUT2_FREQ = shift_OUT2_FREQ*0.999f-SD1_d*0.001f;	// Компенсация установкой порога для дискриминатора, скользящее среднее 16 секунды
+			SD1_d *= 1.2e-10f;			// РћС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕРµ РёР·РјРµРЅРµРЅРёРµ С‡Р°СЃС‚РѕС‚С‹
+			//SD1_d /= 6.95e-11f;		// РЎРјРµС‰РµРЅРёРµ РїРѕСЂРѕРіР° РїСЂРё С‚РѕРј Р¶Рµ РёР·РјРµРЅРµРЅРёРё С‡Р°СЃС‚РѕС‚С‹						//SD1_d /= 6.07e-11f;			// РЎРјРµС‰РµРЅРёРµ РїРѕСЂРѕРіР° РїСЂРё С‚РѕРј Р¶Рµ РёР·РјРµРЅРµРЅРёРё С‡Р°СЃС‚РѕС‚С‹
+			//SD1_d /= 5.7e-11f;		// РЎРјРµС‰РµРЅРёРµ РїРѕСЂРѕРіР° РїСЂРё С‚РѕРј Р¶Рµ РёР·РјРµРЅРµРЅРёРё С‡Р°СЃС‚РѕС‚С‹
+			SD1_d /= 11.0e-11f;			// РЎРјРµС‰РµРЅРёРµ РїРѕСЂРѕРіР° РїСЂРё С‚РѕРј Р¶Рµ РёР·РјРµРЅРµРЅРёРё С‡Р°СЃС‚РѕС‚С‹
+			//shift_OUT2_FREQ = -SD1_d;	// РљРѕРјРїРµРЅСЃР°С†РёСЏ СѓСЃС‚Р°РЅРѕРІРєРѕР№ РїРѕСЂРѕРіР° РґР»СЏ РґРёСЃРєСЂРёРјРёРЅР°С‚РѕСЂР°
+			shift_OUT2_FREQ = shift_OUT2_FREQ*0.999f-SD1_d*0.001f;	// РљРѕРјРїРµРЅСЃР°С†РёСЏ СѓСЃС‚Р°РЅРѕРІРєРѕР№ РїРѕСЂРѕРіР° РґР»СЏ РґРёСЃРєСЂРёРјРёРЅР°С‚РѕСЂР°, СЃРєРѕР»СЊР·СЏС‰РµРµ СЃСЂРµРґРЅРµРµ 16 СЃРµРєСѓРЅРґС‹
 		}
 		else
 		{
@@ -908,7 +908,7 @@ static inline void UpdateDataADC1(void){
 }
 
 static inline void my_ADC2_0(void){
-	// Вариант Парехина
+	// Р’Р°СЂРёР°РЅС‚ РџР°СЂРµС…РёРЅР°
 	switch(itemPartResultDMA2_ADC2){
 		case 1:
 			for (int i = 0; i < ADC_ARRAY_DMA2_HALF_SIZE-3; i+=3){
@@ -943,7 +943,7 @@ static inline void my_ADC2_0(void){
 	if (index_OUT2_CPT_FREQ >= count_OUT2_CPT_FREQ){
 		count_OUT2_CPT_FREQ = index_OUT2_CPT_FREQ;
 		for (int i = 0; i < 6; i++){
-			// Умножаем на 2 для уменьшения отличия с результатом при режекции
+			// РЈРјРЅРѕР¶Р°РµРј РЅР° 2 РґР»СЏ СѓРјРµРЅСЊС€РµРЅРёСЏ РѕС‚Р»РёС‡РёСЏ СЃ СЂРµР·СѓР»СЊС‚Р°С‚РѕРј РїСЂРё СЂРµР¶РµРєС†РёРё
 			result_OUT2_CPT_FREQ[i] = (float)(sum_OUT2_CPT_FREQ[i])*2.0f /(float)index_OUT2_CPT_FREQ;
 			sum_OUT2_CPT_FREQ[i] = 0;
 		}
@@ -972,11 +972,11 @@ static inline void my_ADC2_0(void){
 		my_F1F2_P_sum[i] += my_F1F2_P_rez[i];
 	}
 
-	if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// Один раз за 16 мс
-		// Один раз за 16 мс
+	if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
+		// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
 		count_OUT2_CPT_CRNT = index_OUT2_CPT_CRNT;
 		for (int i = 0; i < 5; i++){
-			// Умножаем на 2 для уменьшения отличия с результатом при режекции
+			// РЈРјРЅРѕР¶Р°РµРј РЅР° 2 РґР»СЏ СѓРјРµРЅСЊС€РµРЅРёСЏ РѕС‚Р»РёС‡РёСЏ СЃ СЂРµР·СѓР»СЊС‚Р°С‚РѕРј РїСЂРё СЂРµР¶РµРєС†РёРё
 			result_OUT2_CPT_CRNT[i] = (float)(sum_OUT2_CPT_CRNT[i])*2.0f /(float)index_OUT2_CPT_CRNT;
 			sum_OUT2_CPT_CRNT[i] = 0;
 
@@ -1000,22 +1000,22 @@ static inline void my_ADC2_0(void){
 
 static inline void my_ADC1_1(void){
 	{
-	// Мои функции ASM
-	my_DataADC1_0();		// Время выполнения my_DataADC1_0() ____ тактов
-	my_DataADC1_2();		// Время выполнения my_DataADC1_0()+my_DataADC1_2() ____ тактов
-	my_OUT1_F1();			// ___ тактов
-	my_OUT1_F2();			// ___ тактов
-	my_OUT1_F1F2();			//  ___ тактов
+	// РњРѕРё С„СѓРЅРєС†РёРё ASM
+	my_DataADC1_0();		// Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ my_DataADC1_0() ____ С‚Р°РєС‚РѕРІ
+	my_DataADC1_2();		// Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ my_DataADC1_0()+my_DataADC1_2() ____ С‚Р°РєС‚РѕРІ
+	my_OUT1_F1();			// ___ С‚Р°РєС‚РѕРІ
+	my_OUT1_F2();			// ___ С‚Р°РєС‚РѕРІ
+	my_OUT1_F1F2();			//  ___ С‚Р°РєС‚РѕРІ
 	//my_F1F2_P();
-	my_OUT1_F2F1();			//  ___ такта, измеренная сумма = ___
-	my_OUT1_F1_F2();		//  ___ такта, измеренная сумма = ___
+	my_OUT1_F2F1();			//  ___ С‚Р°РєС‚Р°, РёР·РјРµСЂРµРЅРЅР°СЏ СЃСѓРјРјР° = ___
+	my_OUT1_F1_F2();		//  ___ С‚Р°РєС‚Р°, РёР·РјРµСЂРµРЅРЅР°СЏ СЃСѓРјРјР° = ___
 	}
 
 	/*
 
 	//if (index_OUT_0R >= count_OUT_0R){		// 1920/120 = 16
 
-	// Аналоговый датчик температуры, усреднение закончено
+	// РђРЅР°Р»РѕРіРѕРІС‹Р№ РґР°С‚С‡РёРє С‚РµРјРїРµСЂР°С‚СѓСЂС‹, СѓСЃСЂРµРґРЅРµРЅРёРµ Р·Р°РєРѕРЅС‡РµРЅРѕ
 	if(my_ms_num >= 16){
 		avrResult_OUT_0R = (float)sum_OUT_0R / (float)index_OUT_0R;
 		//resultTemp_CELL = avrResult_OUT_0RN;
@@ -1037,7 +1037,7 @@ static inline void my_ADC1_1(void){
 		my_F1F2_P_sum[i] += my_F1F2_P_rez[i];
 	}
 
-	// Каждые 16 мс, частота 62,5 Гц
+	// РљР°Р¶РґС‹Рµ 16 РјСЃ, С‡Р°СЃС‚РѕС‚Р° 62,5 Р“С†
 	//if (index_OUT2_CPT_FREQ >= count_OUT2_CPT_FREQ){
 	if(my_ms_num >= 16){
 		//count_OUT2_CPT_FREQ = index_OUT2_CPT_FREQ;
@@ -1049,9 +1049,9 @@ static inline void my_ADC1_1(void){
 				F2F1_rezult[i] = F2F1_rezult_1[i] = -(float)my_F2F1_sum[i] / (float)count_OUT2_CPT_FREQ;
 				my_F2F1_sum[i] = 0;
 			}
-			// Установить новую длину волны и флаг обновления длины волны
-			value_U2R = value_U2R - value_U2R_D; // +/- 10000 тонкой настройки = +/- 271 грубой настройки
-			// нужно +/- 100 грубых кодов = +/- 3690 тонких кодов
+			// РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РЅРѕРІСѓСЋ РґР»РёРЅСѓ РІРѕР»РЅС‹ Рё С„Р»Р°Рі РѕР±РЅРѕРІР»РµРЅРёСЏ РґР»РёРЅС‹ РІРѕР»РЅС‹
+			value_U2R = value_U2R - value_U2R_D; // +/- 10000 С‚РѕРЅРєРѕР№ РЅР°СЃС‚СЂРѕР№РєРё = +/- 271 РіСЂСѓР±РѕР№ РЅР°СЃС‚СЂРѕР№РєРё
+			// РЅСѓР¶РЅРѕ +/- 100 РіСЂСѓР±С‹С… РєРѕРґРѕРІ = +/- 3690 С‚РѕРЅРєРёС… РєРѕРґРѕРІ
 			flagUpdate_U2R = true;
 		}
 		else
@@ -1062,7 +1062,7 @@ static inline void my_ADC1_1(void){
 				my_F2F1_sum[i] = 0;
 				F2F1_rezult_D[i] = F2F1_rezult_2[i] - F2F1_rezult_1[i];
 			}
-			// Установить новую длину волны и флаг обновления длины волны
+			// РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РЅРѕРІСѓСЋ РґР»РёРЅСѓ РІРѕР»РЅС‹ Рё С„Р»Р°Рі РѕР±РЅРѕРІР»РµРЅРёСЏ РґР»РёРЅС‹ РІРѕР»РЅС‹
 			value_U2R = value_U2R + value_U2R_D;
 			//resultDOPLER_FREQ = F2F1_rezult_D[0] - F2F1_rezult_D[5];
 			//resultDOPLER_FREQ = F2F1_rezult_D[1];
@@ -1083,178 +1083,6 @@ static inline void my_ADC1_1(void){
 		}
 		//*/
 	/*
-
-		//F2F1_rezult_A = -2.95*F2F1_rezult[4];
-		F2F1_rezult_A = F2F1_rezult[4];
-		//F2F1_rezult_A = (F2F1_rezult[0]*(-0.37461) + F2F1_rezult[1]*(-0.6976) + F2F1_rezult[2]*(+0.241922) + F2F1_rezult[3]*(+0.529919) + F2F1_rezult[4]*(0.766044))/1.093523;
-		F2F1_rezult_A_30 += F2F1_rezult_A;
-		//result_OUT2_CPT_FREQ_CPT = F2F1_rezult[1] + 2.95*F2F1_rezult[4];// - F2F1_rezult_X;
-		result_OUT2_CPT_FREQ_CPT = F2F1_rezult[1];// - F2F1_rezult_X;
-		F2F1_rezult_N_30++;
-		if(F2F1_rezult_N_30 == 30)
-		{
-			F2F1_rezult_A_30 /= 30;
-			F2F1_rezult_A_900 += F2F1_rezult_A_30;
-			F2F1_rezult_A_30 = 0;
-			F2F1_rezult_N_30 = 0;
-			F2F1_rezult_N_900++;
-			if(F2F1_rezult_N_900 == 30)
-			{
-				F2F1_rezult_A_900 /= 30;
-				F2F1_rezult_X = F2F1_rezult_A_900;
-				F2F1_rezult_A_900 = 0;
-				F2F1_rezult_N_900 = 0;
-			}
-		}
-	}
-
-	//if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// Один раз за 16 мс
-	if(my_ms_num >= 16){
-		// Один раз за 16 мс
-		//count_OUT2_CPT_CRNT = index_OUT2_CPT_CRNT;
-
-		// Обработка буфера OUT1
-		for (int i = 0; i < 5; i++){
-					F1F2_OUT1_rezult[i] = -(float)my_F1F2_OUT1_sum[i] / (float)count_OUT1_CPT_CRNT;
-					my_F1F2_OUT1_sum[i] = 0;
-				}
-
-		// Обработка буфера OUT2
-		for (int i = 0; i < 5; i++){
-			F1F2_rezult[i] = -(float)my_F1F2_sum[i] / (float)count_OUT2_CPT_CRNT;
-			F1F2_P_rezult[i] = (float)my_F1F2_P_sum[i] / (float)count_OUT2_CPT_CRNT;
-			my_F1F2_sum[i] = 0;
-			my_F1F2_P_sum[i] = 0;
-		}
-		F1F2_P_S = 0;
-		for (int i = 0; i < 5; i++)
-		{
-			F1F2_P_S += F1F2_P_rezult[i];
-		}
-		F1F2_P_S /= 5;
-		for (int i = 0; i < 5; i++)
-		{
-			F1F2_P_rezult[i] -= F1F2_P_S;
-		}
-
-		//F1F2_rezult_A = (F1F2_rezult[3]*0.35 + F1F2_rezult[4])/1.35;
-		//F1F2_rezult_A = (F1F2_rezult[0]*(-0.37461) + F1F2_rezult[1]*(-0.6976) + F1F2_rezult[2]*(+0.241922) + F1F2_rezult[3]*(+0.529919) + F1F2_rezult[4]*(0.766044))/1.093523;
-		F1F2_rezult_A = (F1F2_rezult[2] + F1F2_rezult[3])/2.0;
-		F1F2_rezult_A_30 += F1F2_rezult_A;
-		//result_OUT2_CPT_CRNT_DOPLER = F1F2_rezult[1] - F1F2_rezult_X;
-		//result_OUT2_CPT_CRNT_DOPLER = (F1F2_rezult[0]*0.927184 + F1F2_rezult[1]*0.997564 + F1F2_rezult[2]*0.970296 + F1F2_rezult[3]*0.848048 +  F1F2_rezult[4]*0.642788)/4.385879 - F1F2_rezult_X;
-
-
-		// 2021_04_08 Я убрал это вычитание, и "скачки" на графике пропали
-		// присканировании длины волны (или частоты) нужно отключать вычитание усредненной "неправильной" фазы, либо уменьшить интервал усреднения
-		result_OUT2_CPT_CRNT_DOPLER = (F1F2_rezult[1] + F1F2_rezult[2])/2.0;// - F1F2_rezult_X;
-		F1F2_rezult_N_30++;
-		if(F1F2_rezult_N_30 == 30)
-		{
-			F1F2_rezult_N_30 = 0;
-			F1F2_rezult_N_900++;
-
-			F1F2_rezult_A_30 /= 30;
-			F1F2_rezult_A_900 += F1F2_rezult_A_30;
-			F1F2_rezult_A_30 = 0;
-
-			if(F1F2_rezult_N_900 == 30)
-			{
-				F1F2_rezult_N_900 = 0;
-
-				F1F2_rezult_A_900 /= 30;
-				F1F2_rezult_X = F1F2_rezult_A_900;
-				F1F2_rezult_A_900 = 0;
-			}
-		}
-	}
-	//*/
-}
-
-static inline void my_ADC2_1(void){
-	// Мои функции ASM
-	my_DataADC2_0();		// Время выполнения my_DataADC2_0() 818 тактов
-	my_DataADC2_2();		// Время выполнения my_DataADC2_0()+my_DataADC2_2() 3404 тактов
-	my_F1();				//  513 тактов
-	my_F2();				// 1203 тактов
-	my_F1F2();				//  707 тактов
-	my_F1F2_P();
-	my_F2F1();		//  694 такта, измеренная сумма = 3054
-	my_F1_F2();		//  520 тактов, измеренная сумма =
-	if(itemWork == WORK_HIST){
-		Difference();
-	}
-
-	//if (index_OUT_0R >= count_OUT_0R){		// 1920/120 = 16
-
-	// Аналоговый датчик температуры (было), усреднение закончено
-	// Теперь это уровень DC фотоприемника №2
-	if(my_ms_num >= 16){
-		avrResult_OUT_1N = (float)sum_OUT_1N / (float)index_OUT_1N;
-		//resultTemp_CELL = avrResult_OUT_0RN;
-		//resultTemp_CELL = avrResult_OUT_0R;
-		resultTemp_CELL = resultTemp_CELL - levelTemp_CELL;
-		flagUpdateCompute_CELL = true;
-		sum_OUT_1N = 0;
-		}
-
-	//=====================================================================================================
-	for(int i = 0; i < 6; i++)
-	{
-		my_F2F1_sum[i] += my_F2F1_rez[i];
-		//my_F2F1_P_sum[i] += my_F2F1_P_rez[i];
-	}
-	for(int i = 0; i < 5; i++)
-	{
-		my_F1F2_sum[i] += my_F1F2_rez[i];
-		my_F1F2_P_sum[i] += my_F1F2_P_rez[i];
-	}
-
-	// Каждые 16 мс, частота 62,5 Гц
-	//if (index_OUT2_CPT_FREQ >= count_OUT2_CPT_FREQ){
-	if(my_ms_num >= 16){
-		//count_OUT2_CPT_FREQ = index_OUT2_CPT_FREQ;
-		//*
-		if(!b_F2F1_rezult)
-		{
-			b_F2F1_rezult = true;
-			for (int i = 0; i < 6; i++){
-				F2F1_rezult[i] = F2F1_rezult_1[i] = -(float)my_F2F1_sum[i] / (float)count_OUT2_CPT_FREQ;
-				my_F2F1_sum[i] = 0;
-			}
-			// Установить новую длину волны и флаг обновления длины волны
-			value_U2R = value_U2R - value_U2R_D; // +/- 10000 тонкой настройки = +/- 271 грубой настройки
-			// нужно +/- 100 грубых кодов = +/- 3690 тонких кодов
-			flagUpdate_U2R = true;
-		}
-		else
-		{
-			b_F2F1_rezult = false;
-			for (int i = 0; i < 6; i++){
-				F2F1_rezult[i] = F2F1_rezult_2[i] = -(float)my_F2F1_sum[i] / (float)count_OUT2_CPT_FREQ;
-				my_F2F1_sum[i] = 0;
-				F2F1_rezult_D[i] = F2F1_rezult_2[i] - F2F1_rezult_1[i];
-			}
-			// Установить новую длину волны и флаг обновления длины волны
-			value_U2R = value_U2R + value_U2R_D;
-			//resultDOPLER_FREQ = F2F1_rezult_D[0] - F2F1_rezult_D[5];
-			//resultDOPLER_FREQ = F2F1_rezult_D[1];
-			//resultDOPLER_FREQ = -F2F1_rezult_D[5];
-			resultDOPLER_FREQ = F2F1_rezult_D[1];
-			flagUpdateCompute_DOPLER_FREQ = true;
-			flagUpdate_U2R = true;
-		}
-		//*/
-
-		/*
-		for (int i = 0; i < 6; i++){
-			F2F1_rezult[i] = -(float)my_F2F1_sum[i] / (float)index_OUT2_CPT_FREQ;
-			//F2F1_P_rezult[i] = -(float)my_F2F1_P_sum[i] / (float)index_OUT2_CPT_FREQ;
-			//p_my_F2F1_sum[i] = 0;
-			my_F2F1_sum[i] = 0;
-			//my_F2F1_P_sum[i] = 0;
-		}
-		//*/
 
 		//F2F1_rezult_A = -2.95*F2F1_rezult[4];
 		F2F1_rezult_A = F2F1_rezult[4];
@@ -1282,16 +1110,16 @@ static inline void my_ADC2_1(void){
 
 	//if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
 	if(my_ms_num >= 16){
-		// Один раз за 16 мс
+		// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
 		//count_OUT2_CPT_CRNT = index_OUT2_CPT_CRNT;
 
-		// Обработка буфера OUT1
+		// РћР±СЂР°Р±РѕС‚РєР° Р±СѓС„РµСЂР° OUT1
 		for (int i = 0; i < 5; i++){
-					//F1F2_OUT1_rezult[i] = -(float)my_F1F2_OUT1_sum[i] / (float)count_OUT1_CPT_CRNT;
+					F1F2_OUT1_rezult[i] = -(float)my_F1F2_OUT1_sum[i] / (float)count_OUT1_CPT_CRNT;
 					my_F1F2_OUT1_sum[i] = 0;
 				}
 
-		// Обработка буфера OUT2
+		// РћР±СЂР°Р±РѕС‚РєР° Р±СѓС„РµСЂР° OUT2
 		for (int i = 0; i < 5; i++){
 			F1F2_rezult[i] = -(float)my_F1F2_sum[i] / (float)count_OUT2_CPT_CRNT;
 			F1F2_P_rezult[i] = (float)my_F1F2_P_sum[i] / (float)count_OUT2_CPT_CRNT;
@@ -1317,8 +1145,180 @@ static inline void my_ADC2_1(void){
 		//result_OUT2_CPT_CRNT_DOPLER = (F1F2_rezult[0]*0.927184 + F1F2_rezult[1]*0.997564 + F1F2_rezult[2]*0.970296 + F1F2_rezult[3]*0.848048 +  F1F2_rezult[4]*0.642788)/4.385879 - F1F2_rezult_X;
 
 
-		// 2021_04_08 Я убрал это вычитание, и "скачки" на графике пропали
-		// при сканировании длины волны (или частоты) нужно отключать вычитание усредненной "неправильной" фазы, либо уменьшить интервал усреднения
+		// 2021_04_08 РЇ СѓР±СЂР°Р» СЌС‚Рѕ РІС‹С‡РёС‚Р°РЅРёРµ, Рё "СЃРєР°С‡РєРё" РЅР° РіСЂР°С„РёРєРµ РїСЂРѕРїР°Р»Рё
+		// РїСЂРёСЃРєР°РЅРёСЂРѕРІР°РЅРёРё РґР»РёРЅС‹ РІРѕР»РЅС‹ (РёР»Рё С‡Р°СЃС‚РѕС‚С‹) РЅСѓР¶РЅРѕ РѕС‚РєР»СЋС‡Р°С‚СЊ РІС‹С‡РёС‚Р°РЅРёРµ СѓСЃСЂРµРґРЅРµРЅРЅРѕР№ "РЅРµРїСЂР°РІРёР»СЊРЅРѕР№" С„Р°Р·С‹, Р»РёР±Рѕ СѓРјРµРЅСЊС€РёС‚СЊ РёРЅС‚РµСЂРІР°Р» СѓСЃСЂРµРґРЅРµРЅРёСЏ
+		result_OUT2_CPT_CRNT_DOPLER = (F1F2_rezult[1] + F1F2_rezult[2])/2.0;// - F1F2_rezult_X;
+		F1F2_rezult_N_30++;
+		if(F1F2_rezult_N_30 == 30)
+		{
+			F1F2_rezult_N_30 = 0;
+			F1F2_rezult_N_900++;
+
+			F1F2_rezult_A_30 /= 30;
+			F1F2_rezult_A_900 += F1F2_rezult_A_30;
+			F1F2_rezult_A_30 = 0;
+
+			if(F1F2_rezult_N_900 == 30)
+			{
+				F1F2_rezult_N_900 = 0;
+
+				F1F2_rezult_A_900 /= 30;
+				F1F2_rezult_X = F1F2_rezult_A_900;
+				F1F2_rezult_A_900 = 0;
+			}
+		}
+	}
+	//*/
+}
+
+static inline void my_ADC2_1(void){
+	// РњРѕРё С„СѓРЅРєС†РёРё ASM
+	my_DataADC2_0();		// Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ my_DataADC2_0() 818 С‚Р°РєС‚РѕРІ
+	my_DataADC2_2();		// Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ my_DataADC2_0()+my_DataADC2_2() 3404 С‚Р°РєС‚РѕРІ
+	my_F1();				//  513 С‚Р°РєС‚РѕРІ
+	my_F2();				// 1203 С‚Р°РєС‚РѕРІ
+	my_F1F2();				//  707 С‚Р°РєС‚РѕРІ
+	my_F1F2_P();
+	my_F2F1();		//  694 С‚Р°РєС‚Р°, РёР·РјРµСЂРµРЅРЅР°СЏ СЃСѓРјРјР° = 3054
+	my_F1_F2();		//  520 С‚Р°РєС‚РѕРІ, РёР·РјРµСЂРµРЅРЅР°СЏ СЃСѓРјРјР° =
+	if(itemWork == WORK_HIST){
+		Difference();
+	}
+
+	//if (index_OUT_0R >= count_OUT_0R){		// 1920/120 = 16
+
+	// РђРЅР°Р»РѕРіРѕРІС‹Р№ РґР°С‚С‡РёРє С‚РµРјРїРµСЂР°С‚СѓСЂС‹ (Р±С‹Р»Рѕ), СѓСЃСЂРµРґРЅРµРЅРёРµ Р·Р°РєРѕРЅС‡РµРЅРѕ
+	// РўРµРїРµСЂСЊ СЌС‚Рѕ СѓСЂРѕРІРµРЅСЊ DC С„РѕС‚РѕРїСЂРёРµРјРЅРёРєР° в„–2
+	if(my_ms_num >= 16){
+		avrResult_OUT_1N = (float)sum_OUT_1N / (float)index_OUT_1N;
+		//resultTemp_CELL = avrResult_OUT_0RN;
+		//resultTemp_CELL = avrResult_OUT_0R;
+		resultTemp_CELL = resultTemp_CELL - levelTemp_CELL;
+		flagUpdateCompute_CELL = true;
+		sum_OUT_1N = 0;
+		}
+
+	//=====================================================================================================
+	for(int i = 0; i < 6; i++)
+	{
+		my_F2F1_sum[i] += my_F2F1_rez[i];
+		//my_F2F1_P_sum[i] += my_F2F1_P_rez[i];
+	}
+	for(int i = 0; i < 5; i++)
+	{
+		my_F1F2_sum[i] += my_F1F2_rez[i];
+		my_F1F2_P_sum[i] += my_F1F2_P_rez[i];
+	}
+
+	// РљР°Р¶РґС‹Рµ 16 РјСЃ, С‡Р°СЃС‚РѕС‚Р° 62,5 Р“С†
+	//if (index_OUT2_CPT_FREQ >= count_OUT2_CPT_FREQ){
+	if(my_ms_num >= 16){
+		//count_OUT2_CPT_FREQ = index_OUT2_CPT_FREQ;
+		//*
+		if(!b_F2F1_rezult)
+		{
+			b_F2F1_rezult = true;
+			for (int i = 0; i < 6; i++){
+				F2F1_rezult[i] = F2F1_rezult_1[i] = -(float)my_F2F1_sum[i] / (float)count_OUT2_CPT_FREQ;
+				my_F2F1_sum[i] = 0;
+			}
+			// РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РЅРѕРІСѓСЋ РґР»РёРЅСѓ РІРѕР»РЅС‹ Рё С„Р»Р°Рі РѕР±РЅРѕРІР»РµРЅРёСЏ РґР»РёРЅС‹ РІРѕР»РЅС‹
+			value_U2R = value_U2R - value_U2R_D; // +/- 10000 С‚РѕРЅРєРѕР№ РЅР°СЃС‚СЂРѕР№РєРё = +/- 271 РіСЂСѓР±РѕР№ РЅР°СЃС‚СЂРѕР№РєРё
+			// РЅСѓР¶РЅРѕ +/- 100 РіСЂСѓР±С‹С… РєРѕРґРѕРІ = +/- 3690 С‚РѕРЅРєРёС… РєРѕРґРѕРІ
+			flagUpdate_U2R = true;
+		}
+		else
+		{
+			b_F2F1_rezult = false;
+			for (int i = 0; i < 6; i++){
+				F2F1_rezult[i] = F2F1_rezult_2[i] = -(float)my_F2F1_sum[i] / (float)count_OUT2_CPT_FREQ;
+				my_F2F1_sum[i] = 0;
+				F2F1_rezult_D[i] = F2F1_rezult_2[i] - F2F1_rezult_1[i];
+			}
+			// РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РЅРѕРІСѓСЋ РґР»РёРЅСѓ РІРѕР»РЅС‹ Рё С„Р»Р°Рі РѕР±РЅРѕРІР»РµРЅРёСЏ РґР»РёРЅС‹ РІРѕР»РЅС‹
+			value_U2R = value_U2R + value_U2R_D;
+			//resultDOPLER_FREQ = F2F1_rezult_D[0] - F2F1_rezult_D[5];
+			//resultDOPLER_FREQ = F2F1_rezult_D[1];
+			//resultDOPLER_FREQ = -F2F1_rezult_D[5];
+			resultDOPLER_FREQ = F2F1_rezult_D[1];
+			flagUpdateCompute_DOPLER_FREQ = true;
+			flagUpdate_U2R = true;
+		}
+		//*/
+
+		/*
+		for (int i = 0; i < 6; i++){
+			F2F1_rezult[i] = -(float)my_F2F1_sum[i] / (float)index_OUT2_CPT_FREQ;
+			//F2F1_P_rezult[i] = -(float)my_F2F1_P_sum[i] / (float)index_OUT2_CPT_FREQ;
+			//p_my_F2F1_sum[i] = 0;
+			my_F2F1_sum[i] = 0;
+			//my_F2F1_P_sum[i] = 0;
+		}
+		//*/
+
+		//F2F1_rezult_A = -2.95*F2F1_rezult[4];
+		F2F1_rezult_A = F2F1_rezult[4];
+		//F2F1_rezult_A = (F2F1_rezult[0]*(-0.37461) + F2F1_rezult[1]*(-0.6976) + F2F1_rezult[2]*(+0.241922) + F2F1_rezult[3]*(+0.529919) + F2F1_rezult[4]*(0.766044))/1.093523;
+		F2F1_rezult_A_30 += F2F1_rezult_A;
+		//result_OUT2_CPT_FREQ_CPT = F2F1_rezult[1] + 2.95*F2F1_rezult[4];// - F2F1_rezult_X;
+		result_OUT2_CPT_FREQ_CPT = F2F1_rezult[1];// - F2F1_rezult_X;
+		F2F1_rezult_N_30++;
+		if(F2F1_rezult_N_30 == 30)
+		{
+			F2F1_rezult_A_30 /= 30;
+			F2F1_rezult_A_900 += F2F1_rezult_A_30;
+			F2F1_rezult_A_30 = 0;
+			F2F1_rezult_N_30 = 0;
+			F2F1_rezult_N_900++;
+			if(F2F1_rezult_N_900 == 30)
+			{
+				F2F1_rezult_A_900 /= 30;
+				F2F1_rezult_X = F2F1_rezult_A_900;
+				F2F1_rezult_A_900 = 0;
+				F2F1_rezult_N_900 = 0;
+			}
+		}
+	}
+
+	//if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// Р С›Р Т‘Р С‘Р Р… РЎР‚Р В°Р В· Р В·Р В° 16 Р СРЎРѓ
+	if(my_ms_num >= 16){
+		// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
+		//count_OUT2_CPT_CRNT = index_OUT2_CPT_CRNT;
+
+		// РћР±СЂР°Р±РѕС‚РєР° Р±СѓС„РµСЂР° OUT1
+		for (int i = 0; i < 5; i++){
+					//F1F2_OUT1_rezult[i] = -(float)my_F1F2_OUT1_sum[i] / (float)count_OUT1_CPT_CRNT;
+					my_F1F2_OUT1_sum[i] = 0;
+				}
+
+		// РћР±СЂР°Р±РѕС‚РєР° Р±СѓС„РµСЂР° OUT2
+		for (int i = 0; i < 5; i++){
+			F1F2_rezult[i] = -(float)my_F1F2_sum[i] / (float)count_OUT2_CPT_CRNT;
+			F1F2_P_rezult[i] = (float)my_F1F2_P_sum[i] / (float)count_OUT2_CPT_CRNT;
+			my_F1F2_sum[i] = 0;
+			my_F1F2_P_sum[i] = 0;
+		}
+		F1F2_P_S = 0;
+		for (int i = 0; i < 5; i++)
+		{
+			F1F2_P_S += F1F2_P_rezult[i];
+		}
+		F1F2_P_S /= 5;
+		for (int i = 0; i < 5; i++)
+		{
+			F1F2_P_rezult[i] -= F1F2_P_S;
+		}
+
+		//F1F2_rezult_A = (F1F2_rezult[3]*0.35 + F1F2_rezult[4])/1.35;
+		//F1F2_rezult_A = (F1F2_rezult[0]*(-0.37461) + F1F2_rezult[1]*(-0.6976) + F1F2_rezult[2]*(+0.241922) + F1F2_rezult[3]*(+0.529919) + F1F2_rezult[4]*(0.766044))/1.093523;
+		F1F2_rezult_A = (F1F2_rezult[2] + F1F2_rezult[3])/2.0;
+		F1F2_rezult_A_30 += F1F2_rezult_A;
+		//result_OUT2_CPT_CRNT_DOPLER = F1F2_rezult[1] - F1F2_rezult_X;
+		//result_OUT2_CPT_CRNT_DOPLER = (F1F2_rezult[0]*0.927184 + F1F2_rezult[1]*0.997564 + F1F2_rezult[2]*0.970296 + F1F2_rezult[3]*0.848048 +  F1F2_rezult[4]*0.642788)/4.385879 - F1F2_rezult_X;
+
+
+		// 2021_04_08 РЇ СѓР±СЂР°Р» СЌС‚Рѕ РІС‹С‡РёС‚Р°РЅРёРµ, Рё "СЃРєР°С‡РєРё" РЅР° РіСЂР°С„РёРєРµ РїСЂРѕРїР°Р»Рё
+		// РїСЂРё СЃРєР°РЅРёСЂРѕРІР°РЅРёРё РґР»РёРЅС‹ РІРѕР»РЅС‹ (РёР»Рё С‡Р°СЃС‚РѕС‚С‹) РЅСѓР¶РЅРѕ РѕС‚РєР»СЋС‡Р°С‚СЊ РІС‹С‡РёС‚Р°РЅРёРµ СѓСЃСЂРµРґРЅРµРЅРЅРѕР№ "РЅРµРїСЂР°РІРёР»СЊРЅРѕР№" С„Р°Р·С‹, Р»РёР±Рѕ СѓРјРµРЅСЊС€РёС‚СЊ РёРЅС‚РµСЂРІР°Р» СѓСЃСЂРµРґРЅРµРЅРёСЏ
 		result_OUT2_CPT_CRNT_DOPLER = (F1F2_rezult[1] + F1F2_rezult[2])/2.0;// - F1F2_rezult_X;
 		F1F2_rezult_N_30++;
 		if(F1F2_rezult_N_30 == 30)
@@ -1343,9 +1343,9 @@ static inline void my_ADC2_1(void){
 }
 
 static inline void my_ADC2_2(void){
-	// Мои функции C
-	my_DataADC2_1_();		// Время выполнения my_DataADC2_1_() 6518 тактов
-	my_DataADC2_2_();		// Время выполнения my_DataADC2_1_()+my_DataADC2_2_() 17634 тактов
+	// РњРѕРё С„СѓРЅРєС†РёРё C
+	my_DataADC2_1_();		// Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ my_DataADC2_1_() 6518 С‚Р°РєС‚РѕРІ
+	my_DataADC2_2_();		// Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ my_DataADC2_1_()+my_DataADC2_2_() 17634 С‚Р°РєС‚РѕРІ
 	my_F1_();
 	my_F2_();
 	my_F1F2_();
@@ -1379,8 +1379,8 @@ static inline void my_ADC2_2(void){
 		result_OUT2_CPT_FREQ_CPT = F2F1_rezult_[0];// Kurchanov 2021.01.19
 	}
 
-	if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// Один раз за 16 мс
-		// Один раз за 16 мс
+	if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
+		// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
 		count_OUT2_CPT_CRNT = index_OUT2_CPT_CRNT;
 		for (int i = 0; i < 5; i++){
 			F1F2_rezult_[i] = -(float)my_F1F2_sum_[i] / (float)index_OUT2_CPT_CRNT;
@@ -1390,13 +1390,13 @@ static inline void my_ADC2_2(void){
 	}
 }
 
-// Разбираем данные с ADC2
+// Р Р°Р·Р±РёСЂР°РµРј РґР°РЅРЅС‹Рµ СЃ ADC2
 static inline void UpdateDataADC2(void){
-	// Обрабатываем результирующий буфер DMA2
+	// РћР±СЂР°Р±Р°С‚С‹РІР°РµРј СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РёР№ Р±СѓС„РµСЂ DMA2
 	iT2__ = DWT->CYCCNT;
-	// Вариант 2 - функции цифровой фильтрации на С		- 33384 такта,  период = 60022
-	// Вариант 1 - функции цифровой фильтрации на ASM	-  8315 тактов, период = 60022 (60021 - 60025) (температура ячейки - Ok!)
-	// Вариант 0 - нет цифровой фильтрации на С			-  8325 тактов, период = 60022 (60022 - 60027) нет температуры ячейки !
+	// Р’Р°СЂРёР°РЅС‚ 2 - С„СѓРЅРєС†РёРё С†РёС„СЂРѕРІРѕР№ С„РёР»СЊС‚СЂР°С†РёРё РЅР° РЎ		- 33384 С‚Р°РєС‚Р°,  РїРµСЂРёРѕРґ = 60022
+	// Р’Р°СЂРёР°РЅС‚ 1 - С„СѓРЅРєС†РёРё С†РёС„СЂРѕРІРѕР№ С„РёР»СЊС‚СЂР°С†РёРё РЅР° ASM	-  8315 С‚Р°РєС‚РѕРІ, РїРµСЂРёРѕРґ = 60022 (60021 - 60025) (С‚РµРјРїРµСЂР°С‚СѓСЂР° СЏС‡РµР№РєРё - Ok!)
+	// Р’Р°СЂРёР°РЅС‚ 0 - РЅРµС‚ С†РёС„СЂРѕРІРѕР№ С„РёР»СЊС‚СЂР°С†РёРё РЅР° РЎ			-  8325 С‚Р°РєС‚РѕРІ, РїРµСЂРёРѕРґ = 60022 (60022 - 60027) РЅРµС‚ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё !
 	// int var_my_ADC2;
 
 	//static int iF0 = 0;	// Kurchanov 27.07.2020
@@ -1419,7 +1419,7 @@ static inline void UpdateDataADC2(void){
 	index_OUT2_CPT_FREQ += 10;
 	index_OUT2_CPT_CRNT += 12;
 
-	//my_ms_num++;					// счетчик миллисекунд
+	//my_ms_num++;					// СЃС‡РµС‚С‡РёРє РјРёР»Р»РёСЃРµРєСѓРЅРґ
 
 	switch(var_my_ADC2){
 		case 0:
@@ -1449,7 +1449,7 @@ static inline void UpdateDataADC2(void){
 
 	
 /*
- // Заготовка (ниже есть продолжение)
+ // Р—Р°РіРѕС‚РѕРІРєР° (РЅРёР¶Рµ РµСЃС‚СЊ РїСЂРѕРґРѕР»Р¶РµРЅРёРµ)
 	switch(itemMOD_FREQ){
 		case 0:
 		case 1:
@@ -1474,10 +1474,10 @@ static inline void UpdateDataADC2(void){
 	//my_EQ_test_7();
 #endif
 
-	// Начало блока ГННС
+	// РќР°С‡Р°Р»Рѕ Р±Р»РѕРєР° Р“РќРќРЎ
 	static int i_h   = 0;
-	static int i_hh  = 0;	// первый
-	static int i_hL  = 0;	// предыдущий
+	static int i_hh  = 0;	// РїРµСЂРІС‹Р№
+	static int i_hL  = 0;	// РїСЂРµРґС‹РґСѓС‰РёР№
 	static int i_N  = 0;
 	static int i_NN = 0;
 	static int i_NL = 0;
@@ -1494,10 +1494,10 @@ static inline void UpdateDataADC2(void){
 	i_N++;
 	if(i_N == 1000) 
 	{
-		i_N = 0; // счетчик номеров миллисекунд
-		flagUpdateCompute_FREQ_GNSS = true;	// один раз в секунду
+		i_N = 0; // СЃС‡РµС‚С‡РёРє РЅРѕРјРµСЂРѕРІ РјРёР»Р»РёСЃРµРєСѓРЅРґ
+		flagUpdateCompute_FREQ_GNSS = true;	// РѕРґРёРЅ СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ
 	}
-	// Захват включен
+	// Р—Р°С…РІР°С‚ РІРєР»СЋС‡РµРЅ
 	if ((statusLoopPID & PID_FLAG_LOOP_FREQ_GNSS) == PID_FLAG_LOOP_FREQ_GNSS){
 		if (flagUpdateCompute_FREQ_GNSS == true){
 			flagUpdateCompute_FREQ_GNSS = false;
@@ -1510,12 +1510,12 @@ static inline void UpdateDataADC2(void){
 				flagStartCompute_FREQ_GNSS = true;
 			}			
 			i_dNX = 0;
-			i_Diff_F = i_h - i_hh;	// Должны чередоваться 0 и 1,
-									// в среднем нужно получить 0,5
+			i_Diff_F = i_h - i_hh;	// Р”РѕР»Р¶РЅС‹ С‡РµСЂРµРґРѕРІР°С‚СЊСЃСЏ 0 Рё 1,
+									// РІ СЃСЂРµРґРЅРµРј РЅСѓР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ 0,5
 			if(i_Diff_F)			// i_hh + 0.5
 			{
-				// Период меньше, чем надо (счет на уменьшение)
-				// Частота больше, чем надо
+				// РџРµСЂРёРѕРґ РјРµРЅСЊС€Рµ, С‡РµРј РЅР°РґРѕ (СЃС‡РµС‚ РЅР° СѓРјРµРЅСЊС€РµРЅРёРµ)
+				// Р§Р°СЃС‚РѕС‚Р° Р±РѕР»СЊС€Рµ, С‡РµРј РЅР°РґРѕ
 				i_dNX = 1;
 			}
 			else
@@ -1534,8 +1534,8 @@ static inline void UpdateDataADC2(void){
 			i_dNL = 0;
 			if(i_h > i_hL)	// i_hh + 0.5
 			{
-				// Период меньше, чем надо (счет на уменьшение)
-				// Частота больше, чем надо
+				// РџРµСЂРёРѕРґ РјРµРЅСЊС€Рµ, С‡РµРј РЅР°РґРѕ (СЃС‡РµС‚ РЅР° СѓРјРµРЅСЊС€РµРЅРёРµ)
+				// Р§Р°СЃС‚РѕС‚Р° Р±РѕР»СЊС€Рµ, С‡РµРј РЅР°РґРѕ
 				i_dNL = 1;
 			}
 			if(i_h < i_hL)
@@ -1546,8 +1546,8 @@ static inline void UpdateDataADC2(void){
 			
 			if(i_dNX > 0)
 			{
-				// Период меньше, чем надо (счет на уменьшение)
-				// Частота больше, чем надо
+				// РџРµСЂРёРѕРґ РјРµРЅСЊС€Рµ, С‡РµРј РЅР°РґРѕ (СЃС‡РµС‚ РЅР° СѓРјРµРЅСЊС€РµРЅРёРµ)
+				// Р§Р°СЃС‚РѕС‚Р° Р±РѕР»СЊС€Рµ, С‡РµРј РЅР°РґРѕ
 				shift_Freq_GNSS_I -= step_Freq_GNSS;
 			}
 			else
@@ -1555,7 +1555,7 @@ static inline void UpdateDataADC2(void){
 				shift_Freq_GNSS_I += step_Freq_GNSS;
 			}
 			//
-			// Нужно не только думать, но и соображать !!
+			// РќСѓР¶РЅРѕ РЅРµ С‚РѕР»СЊРєРѕ РґСѓРјР°С‚СЊ, РЅРѕ Рё СЃРѕРѕР±СЂР°Р¶Р°С‚СЊ !!
 			//
 			shift_Freq_GNSS = -shift_Freq_GNSS_I*0.5f 
 												- ((float)i_dNL)*4.0f 
@@ -1566,7 +1566,7 @@ static inline void UpdateDataADC2(void){
 			f_MESSAGE_3 = shift_Freq_GNSS;
 		}
 	}
-	// Конец блока ГННС
+	// РљРѕРЅРµС† Р±Р»РѕРєР° Р“РќРќРЎ
 	if (index_OUT2_CPT_FREQ >= count_OUT2_CPT_FREQ){
 		index_OUT2_CPT_FREQ = 0;
 		result_OUT2_CPT_FREQ_CPT += shift_OUT2_FREQ;
@@ -1578,7 +1578,7 @@ static inline void UpdateDataADC2(void){
 	
 
 	/*
-	// Аппаратный синхронный детектор 1
+	// РђРїРїР°СЂР°С‚РЅС‹Р№ СЃРёРЅС…СЂРѕРЅРЅС‹Р№ РґРµС‚РµРєС‚РѕСЂ 1
 	if (index_SD2 >= count_SD2){
 		index_SD2 = 0;
 #ifdef my_ASM_fun
@@ -1606,18 +1606,18 @@ static inline void UpdateDataADC2(void){
 #endif
 	//*/
 	
-	//if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// Один раз за 16 мс
+	//if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
 	if(my_ms_num == 16){
 		index_OUT2_CPT_CRNT = 0;
-		// Один раз за 16 мс
+		// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
 		result_OUT2_CPT_CRNT_DOPLER += shift_OUT2_DOPLER_CRNT;								// ??
 		result_OUT2_CPT_CRNT_DOPLER += delta_DOPLER_DC;										// ??
 		result_OUT2_CPT_FREQ_CPT -= result_OUT2_CPT_CRNT_DOPLER*value_mult_To_FREQ;			// !!!!!!!
 		result_OUT2_CPT_CRNT_DOPLER_tmp = result_OUT2_CPT_CRNT_DOPLER;
 
-		flag_SCAN_CRNT = true;									// значение можно использовать для накопления и дальнейшего вывода
+		flag_SCAN_CRNT = true;									// Р·РЅР°С‡РµРЅРёРµ РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РЅР°РєРѕРїР»РµРЅРёСЏ Рё РґР°Р»СЊРЅРµР№С€РµРіРѕ РІС‹РІРѕРґР°
 		flagUpdateCompute_OUT2_DOPLER_CRNT = true;				// ??
-		// Привязка температурой
+		// РџСЂРёРІСЏР·РєР° С‚РµРјРїРµСЂР°С‚СѓСЂРѕР№
 		result_OUT2_DOPLER_TEC = result_OUT2_CPT_CRNT_DOPLER;	// ??
 		flagUpdateCompute_OUT2_DOPLER_TEC = true;
 
@@ -1693,11 +1693,11 @@ static inline void UpdateDataADC2(void){
 			num_corr_TEST_ADC_2 = 0;
 		}
 		//*/
-		//my_ms_num = 1;	// Устанавливаем флаг активности 1-й миллисекунды
+		//my_ms_num = 1;	// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј С„Р»Р°Рі Р°РєС‚РёРІРЅРѕСЃС‚Рё 1-Р№ РјРёР»Р»РёСЃРµРєСѓРЅРґС‹
 	}
 
 	/*
-	// Р—Р°РіРѕС‚РѕРІРєР°
+	// Р вЂ”Р В°Р С–Р С•РЎвЂљР С•Р Р†Р С”Р В°
 	index_OUT2_CPT++;
 	if (index_OUT2_CPT >= count_OUT2_CPT){
 		count_OUT2_CPT = index_OUT2_CPT;
@@ -1732,7 +1732,7 @@ static inline void UpdateDataADC2(void){
 	tickDelayUpdateTempCell += 1;
 	if (tickDelayUpdateTempCell == 1000){
 		tickDelayUpdateTempCell = 0;
-		// Запрашиваем температуры ячейки
+		// Р—Р°РїСЂР°С€РёРІР°РµРј С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё
 		if (flagConnectedTempSensor == true){
 			uint8_t addressI2C3 = ADT7410_ADDRESS;
 			I2C3_RxBuffer[0] = 0;
@@ -1749,21 +1749,21 @@ static inline void UpdateDataADC2(void){
 }
 
 // Kurchanov 2020_10_23
-static inline void funWork_VOID_TEST(){	// вызывается 1000 раз в секунду, каждую миллисекунду
+static inline void funWork_VOID_TEST(){	// РІС‹Р·С‹РІР°РµС‚СЃСЏ 1000 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ, РєР°Р¶РґСѓСЋ РјРёР»Р»РёСЃРµРєСѓРЅРґСѓ
 	static int i_Num = 0;
 	static int delaySend = 0;
 	static bool b_Start = false;
 	static uint32_t dataSend[9];
 	if ((statusLoopPID & PID_FLAG_LOOP_VOID_TEST ) == PID_FLAG_LOOP_VOID_TEST ){
-		if(!b_Start) b_Start = true; // Поток начался
-		// Установлен режим VOID_TEST, другие потоки вывода отсутствуют
-		// потому что itemWork == WORK_NONE
+		if(!b_Start) b_Start = true; // РџРѕС‚РѕРє РЅР°С‡Р°Р»СЃСЏ
+		// РЈСЃС‚Р°РЅРѕРІР»РµРЅ СЂРµР¶РёРј VOID_TEST, РґСЂСѓРіРёРµ РїРѕС‚РѕРєРё РІС‹РІРѕРґР° РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚
+		// РїРѕС‚РѕРјСѓ С‡С‚Рѕ itemWork == WORK_NONE
 		delaySend++;
 		if (delaySend % 100 == 0){
 			delaySend = 0;
-			// вызывается 10 раз в секунду, выводим 9 отладочных значений по 4 байта
+			// РІС‹Р·С‹РІР°РµС‚СЃСЏ 10 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ, РІС‹РІРѕРґРёРј 9 РѕС‚Р»Р°РґРѕС‡РЅС‹С… Р·РЅР°С‡РµРЅРёР№ РїРѕ 4 Р±Р°Р№С‚Р°
 			i_Num++;
-			dataSend[0] = i_Num;	// Номер отсчета после включение режима контроля
+			dataSend[0] = i_Num;	// РќРѕРјРµСЂ РѕС‚СЃС‡РµС‚Р° РїРѕСЃР»Рµ РІРєР»СЋС‡РµРЅРёРµ СЂРµР¶РёРјР° РєРѕРЅС‚СЂРѕР»СЏ
 			dataSend[1] = (int)(avrResult_OUT_DC_2*1000.0f);
 			dataSend[2] = (int)(avrResult_CONTR*1000.0f);
 			dataSend[3] = (int)(avrResult_OUT_DC*1000.0f);
@@ -1771,13 +1771,13 @@ static inline void funWork_VOID_TEST(){	// вызывается 1000 раз в секунду, каждую
 			dataSend[5] = value_UT1A*1000;
 			dataSend[6] = value_DTX*1000;
 			dataSend[7] = value_T5*1000;
-			dataSend[8] = 0;	// Настоящая частота с прибора !!
-								// Организовать ввод частоты с измерителя фазовых шумов
+			dataSend[8] = 0;	// РќР°СЃС‚РѕСЏС‰Р°СЏ С‡Р°СЃС‚РѕС‚Р° СЃ РїСЂРёР±РѕСЂР° !!
+								// РћСЂРіР°РЅРёР·РѕРІР°С‚СЊ РІРІРѕРґ С‡Р°СЃС‚РѕС‚С‹ СЃ РёР·РјРµСЂРёС‚РµР»СЏ С„Р°Р·РѕРІС‹С… С€СѓРјРѕРІ
 			SendPkgData(STREAM_DATA, ((uint8_t*)&dataSend), 9*4);
 			}
 		}
 	else{
-		if(b_Start)	// Поток остановлен
+		if(b_Start)	// РџРѕС‚РѕРє РѕСЃС‚Р°РЅРѕРІР»РµРЅ
 		{
 			b_Start = false;
 			i_Num = 0;
@@ -1786,8 +1786,8 @@ static inline void funWork_VOID_TEST(){	// вызывается 1000 раз в секунду, каждую
 	}
 }
 
-static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в секунду, каждую миллисекунду
-	// После выполнения UpdateDataADC2()
+static inline void funWork_SCAN_CRNT(){	// РІС‹Р·С‹РІР°РµС‚СЃСЏ 1000 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ, РєР°Р¶РґСѓСЋ РјРёР»Р»РёСЃРµРєСѓРЅРґСѓ
+	// РџРѕСЃР»Рµ РІС‹РїРѕР»РЅРµРЅРёСЏ UpdateDataADC2()
 	//my_TST++;
 	static int delaySend = 0;
 	static int delaySend_2 = 0;
@@ -1801,7 +1801,7 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в секунду, каждую
 	static int dS_8 = 0;
 	static uint32_t dataSend[9];
 
-	if(flag_SCAN_CRNT)	// 1 раз в 16 мс, 62,5 раза в секунду
+	if(flag_SCAN_CRNT)	// 1 СЂР°Р· РІ 16 РјСЃ, 62,5 СЂР°Р·Р° РІ СЃРµРєСѓРЅРґСѓ
 	{
 		//my_TST++;
 
@@ -1883,7 +1883,7 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в секунду, каждую
 
 		delaySend++;
 
-		if (delaySend % 6 == 0){			// Выполняется 10,42 раз в секунду
+		if (delaySend % 6 == 0){			// Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ 10,42 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ
 			delaySend_2++;					// Kurchanov
 
 			if(delaySend_2  >= value_N_STEP_L){
@@ -1916,7 +1916,7 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в секунду, каждую
 	/*
 	delaySend++;
 
-	if (delaySend % 6 == 0){			// Выполняется 8 раз в секунду, 125=2*62,5=2/0,016; 125 раз = 2 секунды
+	if (delaySend % 6 == 0){			// Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ 8 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ, 125=2*62,5=2/0,016; 125 СЂР°Р· = 2 СЃРµРєСѓРЅРґС‹
 		delaySend_2++;					// Kurchanov
 
 		if(delaySend_2  >= value_N_STEP_L){
@@ -1944,29 +1944,29 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в секунду, каждую
 }
 
 // 
-// Нужно примерно как funWork_TEST_ADC()
-// выводить dataSend[0] - dataSend[8]
-// причем в новых строках - новые элементы массива
-// до тех пор, пока не выведем весь тестовый массив
+// РќСѓР¶РЅРѕ РїСЂРёРјРµСЂРЅРѕ РєР°Рє funWork_TEST_ADC()
+// РІС‹РІРѕРґРёС‚СЊ dataSend[0] - dataSend[8]
+// РїСЂРёС‡РµРј РІ РЅРѕРІС‹С… СЃС‚СЂРѕРєР°С… - РЅРѕРІС‹Рµ СЌР»РµРјРµРЅС‚С‹ РјР°СЃСЃРёРІР°
+// РґРѕ С‚РµС… РїРѕСЂ, РїРѕРєР° РЅРµ РІС‹РІРµРґРµРј РІРµСЃСЊ С‚РµСЃС‚РѕРІС‹Р№ РјР°СЃСЃРёРІ
 // 
-// массив мгновенно запоминаем, потом передаем не спеша
-// и анализируем его
+// РјР°СЃСЃРёРІ РјРіРЅРѕРІРµРЅРЅРѕ Р·Р°РїРѕРјРёРЅР°РµРј, РїРѕС‚РѕРј РїРµСЂРµРґР°РµРј РЅРµ СЃРїРµС€Р°
+// Рё Р°РЅР°Р»РёР·РёСЂСѓРµРј РµРіРѕ
 //
-// добавляем режим работы TEST
+// РґРѕР±Р°РІР»СЏРµРј СЂРµР¶РёРј СЂР°Р±РѕС‚С‹ TEST
 //
-// Пробую положить проект в SourceTree 21.08.2020
+// РџСЂРѕР±СѓСЋ РїРѕР»РѕР¶РёС‚СЊ РїСЂРѕРµРєС‚ РІ SourceTree 21.08.2020
 //
 
 	
 static inline void funWork_TEST_ADC(){
 	static int delaySend = 0;
 	delaySend++;
-	if (delaySend % 100 == 0){		// 10 раз в 1секунду ровно
+	if (delaySend % 100 == 0){		// 10 СЂР°Р· РІ 1СЃРµРєСѓРЅРґСѓ СЂРѕРІРЅРѕ
 		static uint32_t dataSend[6];
 		dataSend[0] = delaySend / 100;
 		dataSend[1] = (int)(avrResult_OUT_DC*1000);
 		dataSend[2] = (int)(result_OUT2_CPT_CRNT_DOPLER*1000);
-		// avrResult_SD1 - температура контроллера
+		// avrResult_SD1 - С‚РµРјРїРµСЂР°С‚СѓСЂР° РєРѕРЅС‚СЂРѕР»Р»РµСЂР°
 		avrResult_SD1_ /= 1000;
 		dataSend[3] = (int)(avrResult_SD1_*1000);
 		avrResult_SD1_ = 0;
@@ -2030,7 +2030,7 @@ static inline void funWork_TEST_ADC_3(){
 			SendPkgData(STREAM_DATA, ((uint8_t*)&dataSend), 9*4);
 
 			if(numPos == 2400){
-				// Конец передачи
+				// РљРѕРЅРµС† РїРµСЂРµРґР°С‡Рё
 				pkgPos = 0;
 				numPos = 0;
 				b_buf_TEST_ADC_3 = false;
@@ -2053,14 +2053,14 @@ static inline void funWork_SCAN_FREQ(){
 	static int dS_8 = 0;
 	static uint32_t dataSend[9];
 
-	if(flag_SCAN_CRNT)	// 1 раз в 16 мс
+	if(flag_SCAN_CRNT)	// 1 СЂР°Р· РІ 16 РјСЃ
 	{
 		/*
-		// my_alarm |= 0x80; 	- свободный признак
-		// my_alarm &= ~(0x80);	- свободный признак
+		// my_alarm |= 0x80; 	- СЃРІРѕР±РѕРґРЅС‹Р№ РїСЂРёР·РЅР°Рє
+		// my_alarm &= ~(0x80);	- СЃРІРѕР±РѕРґРЅС‹Р№ РїСЂРёР·РЅР°Рє
 		if(b_OUT_DC)
 		{
-			my_alarm |= 0xF0;	// работает
+			my_alarm |= 0xF0;	// СЂР°Р±РѕС‚Р°РµС‚
 			b_OUT_DC = false;
 		}
 		else
@@ -2071,12 +2071,12 @@ static inline void funWork_SCAN_FREQ(){
 		i_MESSAGE_3 = index_OUT_DC;
 		if(index_OUT_DC != 0)
 		{
-			my_alarm |= 0x80;	// работает
+			my_alarm |= 0x80;	// СЂР°Р±РѕС‚Р°РµС‚
 			//i_MESSAGE_3 = index_OUT_DC;
 		}
 		else
 		{
-			//my_alarm &= ~(0x80);	// работает
+			//my_alarm &= ~(0x80);	// СЂР°Р±РѕС‚Р°РµС‚
 			//i_MESSAGE_3 = index_OUT_DC;
 		}
 		//*/
@@ -2136,7 +2136,7 @@ static inline void funWork_SCAN_FREQ(){
 
 	delaySend++;
 
-	if (delaySend % 6 == 0){			// Выполняется 10 раз в секунду
+	if (delaySend % 6 == 0){			// Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ 10 СЂР°Р· РІ СЃРµРєСѓРЅРґСѓ
 		delaySend_2++;					// Kurchanov
 
 		if(delaySend_2  >= value_N_STEP_L){
@@ -2163,30 +2163,30 @@ static inline void funWork_SCAN_FREQ(){
 	}
 }
 
-static inline void Difference(){           // функция поиска  разницы частот в 1 мс
+static inline void Difference(){           // С„СѓРЅРєС†РёСЏ РїРѕРёСЃРєР°  СЂР°Р·РЅРёС†С‹ С‡Р°СЃС‚РѕС‚ РІ 1 РјСЃ
 
   maxfreq = 0;
   minfreq = 65535;
   for(int i = 0; i < 120; i++){
-	  tmp = my_DMA2_Data_F1_F2[i];             // поиск мин и макс частоты
+	  tmp = my_DMA2_Data_F1_F2[i];             // РїРѕРёСЃРє РјРёРЅ Рё РјР°РєСЃ С‡Р°СЃС‚РѕС‚С‹
 	  if(minfreq > tmp)
 	  minfreq = tmp;
 	  if(maxfreq < tmp)
 	  maxfreq = tmp;
   }
 
-  diff[no] = maxfreq - minfreq;      // формируем m-элементов массива разниц частот
+  diff[no] = maxfreq - minfreq;      // С„РѕСЂРјРёСЂСѓРµРј m-СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР° СЂР°Р·РЅРёС† С‡Р°СЃС‚РѕС‚
   no++;
 
-  if( no == 1000) flagHist=true;     // при заполнении 1000 элементов начинается строение гистограммы (флаг на построение = true)
-  if( no == 2000)                    // при заполнении 2000 элементов флаг на построение = true, формирование diff[] начинается с начала
+  if( no == 1000) flagHist=true;     // РїСЂРё Р·Р°РїРѕР»РЅРµРЅРёРё 1000 СЌР»РµРјРµРЅС‚РѕРІ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃС‚СЂРѕРµРЅРёРµ РіРёСЃС‚РѕРіСЂР°РјРјС‹ (С„Р»Р°Рі РЅР° РїРѕСЃС‚СЂРѕРµРЅРёРµ = true)
+  if( no == 2000)                    // РїСЂРё Р·Р°РїРѕР»РЅРµРЅРёРё 2000 СЌР»РµРјРµРЅС‚РѕРІ С„Р»Р°Рі РЅР° РїРѕСЃС‚СЂРѕРµРЅРёРµ = true, С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ diff[] РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ РЅР°С‡Р°Р»Р°
   {
 	  flagHist = true;
 	  no = 0;
   }
 }
 
-static inline void funWork_HIST(void){     // функция передачи гистограммы на компьютер
+static inline void funWork_HIST(void){     // С„СѓРЅРєС†РёСЏ РїРµСЂРµРґР°С‡Рё РіРёСЃС‚РѕРіСЂР°РјРјС‹ РЅР° РєРѕРјРїСЊСЋС‚РµСЂ
   	static uint32_t dataSend[9];
 	static int delaySend = 0;
 	if(b_buf_HIST){
@@ -2197,12 +2197,12 @@ static inline void funWork_HIST(void){     // функция передачи гистограммы на ко
 			{
 				dataSend[i] = rez_cell[numPosHist + i];
 			}
-			numPosHist += 8;  			// номер порции
+			numPosHist += 8;  			// РЅРѕРјРµСЂ РїРѕСЂС†РёРё
 			SendPkgData(STREAM_DATA, ((uint8_t*)&dataSend), 9*4);
 
 			if(numPosHist >= num_cell) {
-				numPosHist = 0; 		// сбрасываем номер порции
-				b_buf_HIST = false; 	//сброс флага на передачу данных на компьютер
+				numPosHist = 0; 		// СЃР±СЂР°СЃС‹РІР°РµРј РЅРѕРјРµСЂ РїРѕСЂС†РёРё
+				b_buf_HIST = false; 	//СЃР±СЂРѕСЃ С„Р»Р°РіР° РЅР° РїРµСЂРµРґР°С‡Сѓ РґР°РЅРЅС‹С… РЅР° РєРѕРјРїСЊСЋС‚РµСЂ
 				}
 		}
 	}
@@ -2232,22 +2232,22 @@ static inline void funWork_TEST_FACTOR_OUT(){
 	
 }
 
-// Обрабатываем запрос USART
+// РћР±СЂР°Р±Р°С‚С‹РІР°РµРј Р·Р°РїСЂРѕСЃ USART
 static inline void UpdateRS232(void){
-  // Забираем данные с UART
+  // Р—Р°Р±РёСЂР°РµРј РґР°РЅРЅС‹Рµ СЃ UART
   uint32_t isrflags = USART3->ISR;
   uint32_t cr1its = USART3->CR1;
   uint32_t cr3its = USART3->CR3;
-  // Есть байт на прием
+  // Р•СЃС‚СЊ Р±Р°Р№С‚ РЅР° РїСЂРёРµРј
   if(((isrflags & USART_ISR_RXNE) == USART_ISR_RXNE)){
-  // Забираем байт с USART
+  // Р—Р°Р±РёСЂР°РµРј Р±Р°Р№С‚ СЃ USART
 	  USART_rx_buffer[USART_rx_wr_index]= (uint8_t)USART3->RDR;
-	  // Очистили флаг приёма байта
+	  // РћС‡РёСЃС‚РёР»Рё С„Р»Р°Рі РїСЂРёС‘РјР° Р±Р°Р№С‚Р°
 	  USART3->ICR = USART_ISR_RXNE;
-	  // Количество принятых байт
+	  // РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРёРЅСЏС‚С‹С… Р±Р°Р№С‚
   USART_rx_count++;
   USART_rx_wr_index++;
-  // Буфер цикличный
+  // Р‘СѓС„РµСЂ С†РёРєР»РёС‡РЅС‹Р№
   if (USART_rx_wr_index == 255) {
 	  USART_rx_wr_index=0;
       }
@@ -2257,20 +2257,20 @@ static inline void UpdateRS232(void){
       }
   }
   
-  // Передатчик готов передавать данные
+  // РџРµСЂРµРґР°С‚С‡РёРє РіРѕС‚РѕРІ РїРµСЂРµРґР°РІР°С‚СЊ РґР°РЅРЅС‹Рµ
   if ((isrflags & UART_FLAG_TXE) == UART_FLAG_TXE){
 	  if ( USART_tx_buffer_overflow == true ){
-		  // количество байт на передачу при переполнении
+		  // РєРѕР»РёС‡РµСЃС‚РІРѕ Р±Р°Р№С‚ РЅР° РїРµСЂРµРґР°С‡Сѓ РїСЂРё РїРµСЂРµРїРѕР»РЅРµРЅРёРё
 		  USART_tx_count = USART_tx_wr_index + (255 - USART_tx_rd_index);
 	  } else {
-		  // количество байт на передачу при нормальной работе
+		  // РєРѕР»РёС‡РµСЃС‚РІРѕ Р±Р°Р№С‚ РЅР° РїРµСЂРµРґР°С‡Сѓ РїСЂРё РЅРѕСЂРјР°Р»СЊРЅРѕР№ СЂР°Р±РѕС‚Рµ
 		  USART_tx_count = USART_tx_wr_index - USART_tx_rd_index;
 	  }
-	  // Есть байт на передачу
+	  // Р•СЃС‚СЊ Р±Р°Р№С‚ РЅР° РїРµСЂРµРґР°С‡Сѓ
 	  if (USART_tx_count > 0){
-		  // Отправляем байt
+		  // РћС‚РїСЂР°РІР»СЏРµРј Р±Р°Р№t
 		  USART3->TDR = (uint16_t)USART_tx_buffer[USART_tx_rd_index];
-		  // Очистили флаг передачи байта
+		  // РћС‡РёСЃС‚РёР»Рё С„Р»Р°Рі РїРµСЂРµРґР°С‡Рё Р±Р°Р№С‚Р°
 		  USART3->ICR = UART_FLAG_TXE;
 		  USART_tx_rd_index++;
 		  if (USART_tx_rd_index == 255) {
@@ -2279,12 +2279,12 @@ static inline void UpdateRS232(void){
 		  }
 		  USART_tx_count--;
 		  if (USART_tx_count == 0){
-			  // Отключаем прерывание по окончанию передачи
+			  // РћС‚РєР»СЋС‡Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ РїРѕ РѕРєРѕРЅС‡Р°РЅРёСЋ РїРµСЂРµРґР°С‡Рё
 			  USART3->CR1 &= ~USART_CR1_TCIE;
 		  }
 	  }
   }
-  // Очищаем флаг ошибки, если не успели принять байт
+  // РћС‡РёС‰Р°РµРј С„Р»Р°Рі РѕС€РёР±РєРё, РµСЃР»Рё РЅРµ СѓСЃРїРµР»Рё РїСЂРёРЅСЏС‚СЊ Р±Р°Р№С‚
   USART3->ICR = UART_CLEAR_OREF;
 }
 

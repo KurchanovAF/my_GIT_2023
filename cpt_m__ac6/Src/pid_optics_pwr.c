@@ -2,9 +2,9 @@
 #include "var.h"
 
 //=========================================================
-// ÏÈÄ ðåãóëÿòîð äëÿ óäåðæàíèÿ îïòè÷åñêîé ìîùíîñòè ëàçåðà
+// ÐŸÐ˜Ð” Ñ€ÐµÐ³ÑƒÐ»ÑÑ‚Ð¾Ñ€ Ð´Ð»Ñ ÑƒÐ´ÐµÑ€Ð¶Ð°Ð½Ð¸Ñ Ð¾Ð¿Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ð¹ Ð¼Ð¾Ñ‰Ð½Ð¾ÑÑ‚Ð¸ Ð»Ð°Ð·ÐµÑ€Ð°
 //=========================================================
-// Êîýôôèöèåíòû ðåãóëÿòîðà
+// ÐšÐ¾ÑÑ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚Ñ‹ Ñ€ÐµÐ³ÑƒÐ»ÑÑ‚Ð¾Ñ€Ð°
 float OPTICS_PWR_factorKp = 0.1f;
 float OPTICS_PWR_factorKi = 0.001f;
 float OPTICS_PWR_factorKd = 0.00f;
@@ -31,18 +31,18 @@ void Reset_OPTICS_PWR_PID(void){
 	OPTICS_PWR_flagRun = false;
 	fix_avrResult_OUT_DC = avrResult_OUT_DC;
 }
-// Ðàñ÷åò âîçäåéñòâèÿ
+// Ð Ð°ÑÑ‡ÐµÑ‚ Ð²Ð¾Ð·Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ
 float Compute_OPTICS_PWR_PID(float value){
-	// Ïðåäûäóùèå çíà÷åíèå
+	// ÐŸÑ€ÐµÐ´Ñ‹Ð´ÑƒÑ‰Ð¸Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ
 	OPTICS_PWR_backValue = OPTICS_PWR_nowValue;
-	// Òåêóùèå çíà÷åíèå
+	// Ð¢ÐµÐºÑƒÑ‰Ð¸Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ
 	OPTICS_PWR_nowValue = value;
 	//===================================================
-	// Ïðîïîðöèîíàëüíàÿ ñîñòàâëÿþùàÿ
+	// ÐŸÑ€Ð¾Ð¿Ð¾Ñ€Ñ†Ð¸Ð¾Ð½Ð°Ð»ÑŒÐ½Ð°Ñ ÑÐ¾ÑÑ‚Ð°Ð²Ð»ÑÑŽÑ‰Ð°Ñ
 	//===================================================
 	OPTICS_PWR_valueP = OPTICS_PWR_nowValue;
 	//===================================================
-	// Èíòåãðàëüíàÿ ñîñòàâëÿþùàÿ
+	// Ð˜Ð½Ñ‚ÐµÐ³Ñ€Ð°Ð»ÑŒÐ½Ð°Ñ ÑÐ¾ÑÑ‚Ð°Ð²Ð»ÑÑŽÑ‰Ð°Ñ
 	//===================================================
 	if (OPTICS_PWR_factorKi != 0){
 		OPTICS_PWR_valueI += OPTICS_PWR_factorKi * OPTICS_PWR_valueP;
@@ -50,19 +50,19 @@ float Compute_OPTICS_PWR_PID(float value){
 		if (OPTICS_PWR_valueI > OPTICS_PWR_rangeMax){
 			OPTICS_PWR_valueI = OPTICS_PWR_rangeMax;
 		}
-		if(OPTICS_PWR_valueI < OPTICS_PWR_rangeMin){	// åñëè OPTICS_PWR_factorKi < 0, òî ïîëó÷èòñÿ íåõîðîøî !!
+		if(OPTICS_PWR_valueI < OPTICS_PWR_rangeMin){	// ÐµÑÐ»Ð¸ OPTICS_PWR_factorKi < 0, Ñ‚Ð¾ Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ñ‚ÑÑ Ð½ÐµÑ…Ð¾Ñ€Ð¾ÑˆÐ¾ !!
 			OPTICS_PWR_valueI = OPTICS_PWR_rangeMin;
 		}
 		//*/
 	}
 	//===================================================
-	// Äèôôåðåíöèàëüíàÿ ñîñòàâëÿþùàÿ
+	// Ð”Ð¸Ñ„Ñ„ÐµÑ€ÐµÐ½Ñ†Ð¸Ð°Ð»ÑŒÐ½Ð°Ñ ÑÐ¾ÑÑ‚Ð°Ð²Ð»ÑÑŽÑ‰Ð°Ñ
 	//===================================================
 	OPTICS_PWR_valueD = OPTICS_PWR_nowValue - OPTICS_PWR_backValue;
 	//===================================================
-	// Ñóììàðíîå âîçäåéñòâèå
+	// Ð¡ÑƒÐ¼Ð¼Ð°Ñ€Ð½Ð¾Ðµ Ð²Ð¾Ð·Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ
 	//===================================================	
-	// Ïåðâûé ïðîõîä (íåò äèôôåðåíöèàëüíîé ÷àñòè)
+	// ÐŸÐµÑ€Ð²Ñ‹Ð¹ Ð¿Ñ€Ð¾Ñ…Ð¾Ð´ (Ð½ÐµÑ‚ Ð´Ð¸Ñ„Ñ„ÐµÑ€ÐµÐ½Ñ†Ð¸Ð°Ð»ÑŒÐ½Ð¾Ð¹ Ñ‡Ð°ÑÑ‚Ð¸)
 	if (OPTICS_PWR_flagRun == false){
 		OPTICS_PWR_flagRun = true;
 		OPTICS_PWR_valueS = OPTICS_PWR_factorKp * OPTICS_PWR_valueP + 

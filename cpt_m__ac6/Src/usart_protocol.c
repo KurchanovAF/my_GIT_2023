@@ -7,31 +7,31 @@ float ConvertToTemp(float value);
 void CamputeBufferModulationVCSEL(uint32_t scale, uint32_t shift);
 void AD9956_WriteProfile(uint8_t u8ShiftProfile, uint64_t u64Freq, uint16_t u16Phase);
 void LMX2486_SetFreq(uint32_t valueN, uint32_t valueFN, uint32_t valueFD);
-// Копия текущей командаы
+// РљРѕРїРёСЏ С‚РµРєСѓС‰РµР№ РєРѕРјР°РЅРґР°С‹
 static uint8_t strCommand[256];
 
 ///////////////////////////////////////////////////////////
-// Приём данных из USART3
+// РџСЂРёС‘Рј РґР°РЅРЅС‹С… РёР· USART3
 ///////////////////////////////////////////////////////////
 int USART_GetByte(void){
 	int data; 
-	// Контейнер пустой
+	// РљРѕРЅС‚РµР№РЅРµСЂ РїСѓСЃС‚РѕР№
 	if (USART_rx_count == 0){
 		return (-1);
 	}
-	// Забираем данные из начала буфера
+	// Р—Р°Р±РёСЂР°РµРј РґР°РЅРЅС‹Рµ РёР· РЅР°С‡Р°Р»Р° Р±СѓС„РµСЂР°
 	data = USART_rx_buffer[USART_rx_rd_index];
 	USART_rx_rd_index++;
-	// Цикличный буфер
+	// Р¦РёРєР»РёС‡РЅС‹Р№ Р±СѓС„РµСЂ
 	if (USART_rx_rd_index == 255) {
 		USART_rx_rd_index = 0; 
 	}
-	// Уменьшаем счетчик принятых данных (достали из буфера)
+	// РЈРјРµРЅСЊС€Р°РµРј СЃС‡РµС‚С‡РёРє РїСЂРёРЅСЏС‚С‹С… РґР°РЅРЅС‹С… (РґРѕСЃС‚Р°Р»Рё РёР· Р±СѓС„РµСЂР°)
 	USART_rx_count--;
 	return data;
 }
 
-// Передача байта
+// РџРµСЂРµРґР°С‡Р° Р±Р°Р№С‚Р°
 void USART_SendByte(uint8_t byte){
 		USART_tx_buffer[USART_tx_wr_index] = byte;
 		USART_tx_wr_index++;
@@ -88,75 +88,75 @@ void SendPkgData(int type, uint8_t* data, uint8_t countByte){
 	msg[0] = BYTE_START;
 	msg[1] = type;
 	msg[2] = countByte;
-	// Данные
+	// Р”Р°РЅРЅС‹Рµ
 	for ( i = 0; i < countByte; i++){
 		msg[3+i] = (data[i]) & 0xFF;
 	}
-	// Стоповый байт
+	// РЎС‚РѕРїРѕРІС‹Р№ Р±Р°Р№С‚
 	msg[2+countByte+1] = BYTE_STOP;
 	USART_SendString((uint8_t*)msg, 4+countByte);	
-	// Включаем прерывание по окончанию передачи
+	// Р’РєР»СЋС‡Р°РµРј РїСЂРµСЂС‹РІР°РЅРёРµ РїРѕ РѕРєРѕРЅС‡Р°РЅРёСЋ РїРµСЂРµРґР°С‡Рё
 	USART3->CR1 |= USART_CR1_TCIE;	
 }
 
-// Рекурсивный поиск до первой найденой команды
+// Р РµРєСѓСЂСЃРёРІРЅС‹Р№ РїРѕРёСЃРє РґРѕ РїРµСЂРІРѕР№ РЅР°Р№РґРµРЅРѕР№ РєРѕРјР°РЅРґС‹
 int GetCmdID(uint8_t* strCMD, uint16_t* countByte){
-  // Посылка отсутствует
+  // РџРѕСЃС‹Р»РєР° РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚
 	static bool flagFindedPkg = false;
   static uint8_t indexStartByte = 0;
   static uint8_t indexStopByte = 0;
   static uint8_t i;
-  // Ищем стартовый-стоповый байт
+  // РС‰РµРј СЃС‚Р°СЂС‚РѕРІС‹Р№-СЃС‚РѕРїРѕРІС‹Р№ Р±Р°Р№С‚
   for ( i = 0; i < (*countByte); i++){
-    // Первый найденный стартовый байт
+    // РџРµСЂРІС‹Р№ РЅР°Р№РґРµРЅРЅС‹Р№ СЃС‚Р°СЂС‚РѕРІС‹Р№ Р±Р°Р№С‚
     if (strCMD[i] == BYTE_START){
       indexStartByte = i;
 			flagFindedPkg = true;
       break;
     }
   }
-	// Не нашли стартовый байт
+	// РќРµ РЅР°С€Р»Рё СЃС‚Р°СЂС‚РѕРІС‹Р№ Р±Р°Р№С‚
 	if (flagFindedPkg == false){
-		// Удаляем все данные
+		// РЈРґР°Р»СЏРµРј РІСЃРµ РґР°РЅРЅС‹Рµ
 		EraseStr(strCMD, (*countByte), (*countByte));
     (*countByte) = 0;
 		return 0;
 	}
-  // Слишком мало данных
+  // РЎР»РёС€РєРѕРј РјР°Р»Рѕ РґР°РЅРЅС‹С…
   if (indexStartByte + 4 > (*countByte)){
-    // Ждем данные
+    // Р–РґРµРј РґР°РЅРЅС‹Рµ
     return 0;
   }
   static uint16_t countData;
 	countData = strCMD[indexStartByte+2];
-  // Ошибка размера пакета
+  // РћС€РёР±РєР° СЂР°Р·РјРµСЂР° РїР°РєРµС‚Р°
   if (countData > 128){
-    // Удаляем все включая стартовый байт
+    // РЈРґР°Р»СЏРµРј РІСЃРµ РІРєР»СЋС‡Р°СЏ СЃС‚Р°СЂС‚РѕРІС‹Р№ Р±Р°Р№С‚
       EraseStr(strCMD, (*countByte), indexStartByte + 1);
       (*countByte) -= indexStartByte + 1;
       return GetCmdID(strCMD, countByte);
   }
-	 // Слишком мало данных
+	 // РЎР»РёС€РєРѕРј РјР°Р»Рѕ РґР°РЅРЅС‹С…
   if (indexStartByte + 4 + countData  > (*countByte)){
-    // Ждем данные
+    // Р–РґРµРј РґР°РЅРЅС‹Рµ
     return 0;
   }
-  // Ошибка стопового байта
+  // РћС€РёР±РєР° СЃС‚РѕРїРѕРІРѕРіРѕ Р±Р°Р№С‚Р°
   if (strCMD[indexStartByte + countData + 3] != BYTE_STOP){
-    // Удаляем все включая стартовый байт
+    // РЈРґР°Р»СЏРµРј РІСЃРµ РІРєР»СЋС‡Р°СЏ СЃС‚Р°СЂС‚РѕРІС‹Р№ Р±Р°Р№С‚
     EraseStr(strCMD, (*countByte), indexStartByte + 1);
     (*countByte) -= indexStartByte + 1;
     return GetCmdID(strCMD, countByte);
   }
   indexStopByte = indexStartByte + countData + 3;
-  // Посылка нужной длины
-  // Определяем ID посылки и данные
+  // РџРѕСЃС‹Р»РєР° РЅСѓР¶РЅРѕР№ РґР»РёРЅС‹
+  // РћРїСЂРµРґРµР»СЏРµРј ID РїРѕСЃС‹Р»РєРё Рё РґР°РЅРЅС‹Рµ
   uint8_t ID = strCMD[indexStartByte + 1];
-	// Копируем команду
+	// РљРѕРїРёСЂСѓРµРј РєРѕРјР°РЅРґСѓ
 	for ( i = 0; i < (indexStopByte - indexStartByte) + 1; i++){
 		strCommand[i] = strCMD[indexStartByte + i];
 	}
-  // Удаляем все включая стоповый байт
+  // РЈРґР°Р»СЏРµРј РІСЃРµ РІРєР»СЋС‡Р°СЏ СЃС‚РѕРїРѕРІС‹Р№ Р±Р°Р№С‚
   EraseStr(strCMD, (*countByte), indexStopByte + 1);
   (*countByte) -= indexStopByte + 1;
   return ID;
@@ -186,16 +186,16 @@ void GetOptionPID(int id, float* Kp, float* Ki, float* Kd){
 	SendPkgData(id, ((uint8_t*)&dataSend), 12);
 }
 //=========================================================
-// Выполнение команд
+// Р’С‹РїРѕР»РЅРµРЅРёРµ РєРѕРјР°РЅРґ
 //=========================================================
 void ComputeCmd(int id){
 	static uint8_t ID;
 	ID = (uint8_t)(id&0xFF);
-	//На 63 case все ломается
+	//РќР° 63 case РІСЃРµ Р»РѕРјР°РµС‚СЃСЏ
 	switch (ID){
 		case NONE:
 			break;
-		// Канал частоты 1
+		// РљР°РЅР°Р» С‡Р°СЃС‚РѕС‚С‹ 1
 		case GET_UT1A:
 			SendPkgData(id, ((uint8_t*)&value_UT1A), 4);
 			break;
@@ -206,7 +206,7 @@ void ComputeCmd(int id){
 			flagUpdate_UT1A = true;
 			SendPkgData(id, ((uint8_t*)&value_UT1A), 4);
 			break;
-		// Канал частоты 2
+		// РљР°РЅР°Р» С‡Р°СЃС‚РѕС‚С‹ 2
 		case GET_UT2A:
 			SendPkgData(id, ((uint8_t*)&value_UT2A), 4);
 			break;
@@ -216,7 +216,7 @@ void ComputeCmd(int id){
 			//Reset_FREQ_PID();	// Kurchanov
 			SendPkgData(id, ((uint8_t*)&value_UT2A), 4);
 			break;
-		// Ток лазера грубый
+		// РўРѕРє Р»Р°Р·РµСЂР° РіСЂСѓР±С‹Р№
 		case SET_VY:
 			value_VY = (*((int*)(&strCommand[3])));
 			flagUpdate_VY = true;
@@ -228,7 +228,7 @@ void ComputeCmd(int id){
 		case GET_VY:
 			SendPkgData(id, ((uint8_t*)&value_VY), 4);
 			break;
-		// Ток лазера тонкий
+		// РўРѕРє Р»Р°Р·РµСЂР° С‚РѕРЅРєРёР№
 		case SET_U2R:
 			value_U2R = (*((int*)(&strCommand[3])));
 			flagUpdate_U2R = true;
@@ -237,7 +237,7 @@ void ComputeCmd(int id){
 		case GET_U2R:
 			SendPkgData(id, ((uint8_t*)&value_U2R), 4);
 			break;		
-		// Опорная температура лазера
+		// РћРїРѕСЂРЅР°СЏ С‚РµРјРїРµСЂР°С‚СѓСЂР° Р»Р°Р·РµСЂР°
 		case SET_VT1:
 			value_VT1 = (*((int*)(&strCommand[3])));
 			flagUpdate_VT1 = true;
@@ -246,7 +246,7 @@ void ComputeCmd(int id){
 		case GET_VT1:
 			SendPkgData(id, ((uint8_t*)&value_VT1), 4);
 			break;
-		// Ток катушки
+		// РўРѕРє РєР°С‚СѓС€РєРё
 		case SET_L1:
 			value_L1 = (*((int*)(&strCommand[3])));
 			flagUpdate_L1 = true;
@@ -255,7 +255,7 @@ void ComputeCmd(int id){
 		case GET_L1:
 			SendPkgData(id, ((uint8_t*)&value_L1), 4);
 			break;
-		// Мощность нагрева ячейки
+		// РњРѕС‰РЅРѕСЃС‚СЊ РЅР°РіСЂРµРІР° СЏС‡РµР№РєРё
 		case SET_T5:
 			value_T5 = (*((int*)(&strCommand[3])));
 			flagUpdate_T5 = true;
@@ -264,7 +264,7 @@ void ComputeCmd(int id){
 		case GET_T5:
 			SendPkgData(id, ((uint8_t*)&value_T5), 4);
 			break;
-		// Мощность нагрева лазера
+		// РњРѕС‰РЅРѕСЃС‚СЊ РЅР°РіСЂРµРІР° Р»Р°Р·РµСЂР°
 		case SET_DTX:
 			value_DTX = (*((int*)(&strCommand[3])));
 			flagUpdate_DTX = true;
@@ -289,7 +289,7 @@ void ComputeCmd(int id){
 		case GET_OUT_FACTOR:
 			SendPkgData(id, ((uint8_t*)&value_OutFactor), 4);
 			break;
-		// Установка новых значений регистров синтезатора
+		// РЈСЃС‚Р°РЅРѕРІРєР° РЅРѕРІС‹С… Р·РЅР°С‡РµРЅРёР№ СЂРµРіРёСЃС‚СЂРѕРІ СЃРёРЅС‚РµР·Р°С‚РѕСЂР°
 		case SET_REG_FREQ_PLL:
 			LMX_ValueN = (*((int*)(&strCommand[3])));
 			LMX_ValueFN = (*((int*)(&strCommand[7])));
@@ -300,7 +300,7 @@ void ComputeCmd(int id){
 			BufferDataPack[2] = LMX_ValueFD;
 			SendPkgData(id, ((uint8_t*)&BufferDataPack[0]), 12);
 			break;
-		// Отправка текущих значений реистров синтезатора
+		// РћС‚РїСЂР°РІРєР° С‚РµРєСѓС‰РёС… Р·РЅР°С‡РµРЅРёР№ СЂРµРёСЃС‚СЂРѕРІ СЃРёРЅС‚РµР·Р°С‚РѕСЂР°
 		case GET_REG_FREQ_PLL:
 			BufferDataPack[0] = LMX_ValueN;
 			BufferDataPack[1] = LMX_ValueFN;
@@ -333,7 +333,7 @@ void ComputeCmd(int id){
 				statusLoopPID &= ~PID_FLAG_LOOP_TEC_CTRL;
 		    }
 		    if ((statusLoopPID & PID_FLAG_LOOP_SENSOR_TEMP_CELL) == PID_FLAG_LOOP_SENSOR_TEMP_CELL){
-		    	// При включении цифрового захвата температуры ячейки отключаем аналоговый захват
+		    	// РџСЂРё РІРєР»СЋС‡РµРЅРёРё С†РёС„СЂРѕРІРѕРіРѕ Р·Р°С…РІР°С‚Р° С‚РµРјРїРµСЂР°С‚СѓСЂС‹ СЏС‡РµР№РєРё РѕС‚РєР»СЋС‡Р°РµРј Р°РЅР°Р»РѕРіРѕРІС‹Р№ Р·Р°С…РІР°С‚
 		    	if ((statusLoopPID & PID_FLAG_LOOP_CELL) == PID_FLAG_LOOP_CELL){
 		    		statusLoopPID &= ~PID_FLAG_LOOP_CELL;
 		    	}
@@ -412,7 +412,7 @@ void ComputeCmd(int id){
 		case SET_TC:
 			value_TC = (*((int*)(&strCommand[3])));
 		  levelTemp_CELL = value_TC;
-			//Reset_CELL_PID();								// ПЛОХО !! очень медленно восстанавливается
+			//Reset_CELL_PID();								// РџР›РћРҐРћ !! РѕС‡РµРЅСЊ РјРµРґР»РµРЅРЅРѕ РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ
 			SendPkgData(id, ((uint8_t*)&value_TC), 4);			
 			break;
 		case GET_TC:
@@ -424,7 +424,7 @@ void ComputeCmd(int id){
 		case SET_D_TC:
 			value_D_TC = (*((float*)(&strCommand[3])));
 			levelTemp_D_CELL = value_D_TC;
-			//Reset_CELL_PID();								// ПЛОХО !! очень медленно восстанавливается
+			//Reset_CELL_PID();								// РџР›РћРҐРћ !! РѕС‡РµРЅСЊ РјРµРґР»РµРЅРЅРѕ РІРѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ
 			SendPkgData(id, ((uint8_t*)&value_D_TC), 4);
 			break;
 		case GET_D_TC:
