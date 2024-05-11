@@ -414,6 +414,7 @@ int sum_OUT_DC_2 = 0;
 
 #ifdef my_ASM_fun
 int sum_OUT_2R = 0;
+int sum_OUT_0R = 0;
 int sum_OUT_1N = 0;
 int sum_SD2 = 0;
 #endif
@@ -444,6 +445,7 @@ float avrResult_SD1_ = 0.0f;
 float avrResult_OUT_DC_2 = 0.0f;
 float startResult_OUT_DC_2 = 0.0f;
 float avrResult_OUT_2R = 0.0f;
+float avrResult_OUT_0R  = 0.0f;
 float avrResult_OUT_1N  = 0.0f;
 float avrResult_OUT_0R_ = 0.0f;
 float avrResult_SD2 = 0.0f;
@@ -460,6 +462,7 @@ int count_CONTR    = 1920;		//
 int count_SD1 	   = 1920;		//
 int count_OUT_DC_2 = 1920;		//
 int count_OUT_2R   = 1920;		// OUT2
+int count_OUT_0R   = 1920;		//
 int count_OUT_1N   = 1920;		//
 int count_SD2 	   = 1920;		//
 
@@ -471,6 +474,7 @@ int index_SD1 = 0;
 int index_OUT_DC_2 = 0;
 int index_OUT_2R = 0;
 //int index_OUT_2RN = 0;
+int index_OUT_0R = 0;
 int index_OUT_1N = 0;
 int index_SD2 = 0;
 
