@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;pid_cell.h, pid_dopler_crnt.h, pid_DOPLER_FREQ.h, pid_dopler_tec.h, pid_freq.h, pid_MICROWAVE.h, pid_optics_pwr.h, pid_tec_ctrl.h&apos; to &apos;Pid&apos;" description="Move 8 resources to &apos;Pid&apos;" destination="Inc/Pid" element1="Inc/pid_cell.h" element2="Inc/pid_dopler_crnt.h" element3="Inc/pid_DOPLER_FREQ.h" element4="Inc/pid_dopler_tec.h" element5="Inc/pid_freq.h" element6="Inc/pid_MICROWAVE.h" element7="Inc/pid_optics_pwr.h" element8="Inc/pid_tec_ctrl.h" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="8" stamp="1715445496992" updateReferences="true"/>
+</session>

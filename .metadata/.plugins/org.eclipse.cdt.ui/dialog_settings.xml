@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration.internal">
+		<item value="180" key="size.height"/>
+		<item value="384" key="size.width"/>
+	</section>
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
 	</section>
 	<section name="PDOMSearchPage">
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="itemMOD_FREQ"/>
+			<item value="flagUpdate_VY"/>
+			<item value="my_F1F2_sum"/>
+			<item value="result_OUT2_CPT_CRNT_DOPLER"/>
+			<item value="flagUpdateCompute_OUT2_DOPLER_CRNT"/>
+			<item value="resultDOPLER_FREQ"/>
+			<item value="result_OUT2_CPT_FREQ_CPT"/>
+			<item value="flagUpdateCompute_OUT2_CPT_FREQ"/>
+			<item value="F2F1_rezult"/>
+			<item value="my_F2F1_sum"/>
+			<item value="flagUpdateCompute_DOPLER_FREQ"/>
 			<item value="count_OUT_"/>
 			<item value="index_OUT_0R"/>
 			<item value="p_sum_OUT_0R"/>
