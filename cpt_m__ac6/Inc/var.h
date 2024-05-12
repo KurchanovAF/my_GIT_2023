@@ -10,9 +10,8 @@
 
 #define my_ASM_fun
 #define my_C_fun
-//#define my_EQ_test
-extern int my_TST;
-extern uint32_t  my_TST_U32;
+
+extern uint32_t  my_TST_U32;	// TEST TIM4->DIER;
 
 extern int my_N_1;
 extern int my_N_2;
@@ -33,7 +32,7 @@ extern float avrResult_SD1_start;	// Начальное значение код�
 extern float SD1_d;
 
 extern int var_my_ADC2;
-extern bool b_my_ms_num;			// признак прохождения первого цикла из 16 мсРёР· 16 РјСЃ
+extern bool b_my_ms_num;			// признак прохождения первого цикла из 16 микросекунд
 extern int my_ms_num;
 extern int my_alarm;
 extern int my_Tick;
@@ -45,18 +44,10 @@ extern bool     b_TIM4;
 extern uint8_t LSM303_BufferTx[16];
 extern uint8_t LSM303_BufferRx[16];
 // Kurchanov 24.02.2021
-extern uint8_t I2C3_RxBuffer[16];
+extern uint8_t I2C3_RxBuffer[16];			// для датчика температуры ADT7410
 extern uint8_t I2C3_TxBuffer[16];
 // Kurchanov 24.02.2021
 extern uint16_t my_LSM303D_Temperature;
-
-// Kurchanov 05.03.2021
-extern float F2F1_rezult_X;
-extern float F2F1_rezult_A;
-extern float F2F1_rezult_A_30;		//   3 секунды
-extern float F2F1_rezult_A_900;		//  90 секунд
-extern int   F2F1_rezult_N_30;
-extern int   F2F1_rezult_N_900;
 
 // Kurchanov 09.03.2021
 extern float F1F2_rezult_X;

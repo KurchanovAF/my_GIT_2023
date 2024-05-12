@@ -1198,30 +1198,13 @@ static inline void my_ADC2_1(void){
 		//*/
 
 		//F2F1_rezult_A = -2.95*F2F1_rezult[4];
-		F2F1_rezult_A = F2F1_rezult[4];
+
 		//F2F1_rezult_A = (F2F1_rezult[0]*(-0.37461) + F2F1_rezult[1]*(-0.6976) + F2F1_rezult[2]*(+0.241922) + F2F1_rezult[3]*(+0.529919) + F2F1_rezult[4]*(0.766044))/1.093523;
-		F2F1_rezult_A_30 += F2F1_rezult_A;
+
 		//result_OUT2_CPT_FREQ_CPT = F2F1_rezult[1] + 2.95*F2F1_rezult[4];// - F2F1_rezult_X;
 		result_OUT2_CPT_FREQ_CPT = F2F1_rezult[1];// - F2F1_rezult_X;
-		F2F1_rezult_N_30++;
-		if(F2F1_rezult_N_30 == 30)
-		{
-			F2F1_rezult_A_30 /= 30;
-			F2F1_rezult_A_900 += F2F1_rezult_A_30;
-			F2F1_rezult_A_30 = 0;
-			F2F1_rezult_N_30 = 0;
-			F2F1_rezult_N_900++;
-			if(F2F1_rezult_N_900 == 30)
-			{
-				F2F1_rezult_A_900 /= 30;
-				F2F1_rezult_X = F2F1_rezult_A_900;
-				F2F1_rezult_A_900 = 0;
-				F2F1_rezult_N_900 = 0;
-			}
-		}
 	}
 
-	//if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// РћРґРёРЅ СЂР°Р· Р·Р° 16 РјСЃ
 	if(my_ms_num >= 16){
 		// Один раз за 16 мс
 		//count_OUT2_CPT_CRNT = index_OUT2_CPT_CRNT;
@@ -1547,7 +1530,6 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в �
 				dataSend[8] = dS_8/6/value_N_STEP_L; dS_8 =0;
 
 				SendPkgData(STREAM_DATA, ((uint8_t*)&dataSend), 9*4);
-				my_TST++;
 				value_VY += scanStep_VY;
 				if (value_VY > scanMax_VY){
 					value_VY = scanMin_VY;

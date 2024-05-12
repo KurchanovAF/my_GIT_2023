@@ -28,6 +28,8 @@
 #define ADT7410_RES_13 						(0x00)
 #define ADT7410_RES_16 						(0x80)
 
+void InitTEMP(void);
+void GetTEMP(void);
   
 #endif
 

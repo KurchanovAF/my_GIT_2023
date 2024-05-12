@@ -4,4 +4,7 @@
 float Compute_DOPLER_CRNT_PID(float value);
 void Reset_DOPLER_CRNT_PID(void);
 
+void reset_DOP_pi(void);
+void DOP_pi_(void);
+
 #endif

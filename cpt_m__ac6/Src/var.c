@@ -3,7 +3,6 @@
 int ID_keyTest = 1;
 int itemWork = WORK_SCAN_CRNT;
 
-int my_TST = 0;
 //=========================================================
 
 uint32_t  my_TST_U32;
@@ -67,14 +66,6 @@ uint8_t I2C3_RxBuffer[16];
 uint8_t I2C3_TxBuffer[16];
 // Kurchanov 24.02.2021
 uint16_t my_LSM303D_Temperature = 0;
-
-// Kurchanov 05.03.2021
-float F2F1_rezult_X      = 0;
-float F2F1_rezult_A      = 0;
-float F2F1_rezult_A_30   = 0;		//   3 секунды
-float F2F1_rezult_A_900  = 0;		//  90 секунд
-int   F2F1_rezult_N_30   = 0;
-int   F2F1_rezult_N_900  = 0;
 
 // Kurchanov 09.03.2021
 float F1F2_rezult_X      = 0;

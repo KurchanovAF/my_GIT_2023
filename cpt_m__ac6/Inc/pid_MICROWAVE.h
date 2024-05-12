@@ -10,6 +10,6 @@
 #include <stdbool.h>
 float Compute_MICROWAVE_PID(float value);
 void Reset_MICROWAVE_PID(void);
-
+float Compute_MICROWAVE_PID(float value);
 
 #endif /* APPLICATION_INC_PID_MICROWAVE_H_ */

@@ -1,162 +1,9 @@
-16:24:02 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
+18:15:05 **** Incremental Build of configuration Debug for project cpt_m__ac6 ****
 make -j12 all 
-Building file: ../Src/Pid/pid_DOPLER_FREQ.c
-Building file: ../Src/Pid/pid_MICROWAVE.c
-Building file: ../Src/Pid/pid_optics_pwr.c
-Invoking: MCU GCC Compiler
-Invoking: MCU GCC Compiler
-Invoking: MCU GCC Compiler
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/Pid/pid_DOPLER_FREQ.d" -MT"Src/Pid/pid_DOPLER_FREQ.o" -o "Src/Pid/pid_DOPLER_FREQ.o" "../Src/Pid/pid_DOPLER_FREQ.c"
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/Pid/pid_MICROWAVE.d" -MT"Src/Pid/pid_MICROWAVE.o" -o "Src/Pid/pid_MICROWAVE.o" "../Src/Pid/pid_MICROWAVE.c"
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/Pid/pid_optics_pwr.d" -MT"Src/Pid/pid_optics_pwr.o" -o "Src/Pid/pid_optics_pwr.o" "../Src/Pid/pid_optics_pwr.c"
-Building file: ../Src/hist.c
-Building file: ../Src/interface_ADT7410.c
-Invoking: MCU GCC Compiler
-Invoking: MCU GCC Compiler
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/hist.d" -MT"Src/hist.o" -o "Src/hist.o" "../Src/hist.c"
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/interface_ADT7410.d" -MT"Src/interface_ADT7410.o" -o "Src/interface_ADT7410.o" "../Src/interface_ADT7410.c"
-Building file: ../Src/interface_LMX2486.c
 Building file: ../Src/main.c
-Invoking: MCU GCC Compiler
-Building file: ../Src/my_FUN_.c
-Invoking: MCU GCC Compiler
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/interface_LMX2486.d" -MT"Src/interface_LMX2486.o" -o "Src/interface_LMX2486.o" "../Src/interface_LMX2486.c"
 Invoking: MCU GCC Compiler
 D:\my_GIT_2023\cpt_m__ac6\Debug
 arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/my_FUN_.d" -MT"Src/my_FUN_.o" -o "Src/my_FUN_.o" "../Src/my_FUN_.c"
-Building file: ../Src/stm32l4xx_it.c
-Invoking: MCU GCC Compiler
-../Src/hist.c: In function 'HIST':
-../Src/hist.c:64:25: warning: 'i' may be used uninitialized in this function [-Wmaybe-uninitialized]
-   for(int i; i < 1000; i++)       //формируем значения ячеек гистограммы
-                        ~^~
-Building file: ../Src/usart_protocol.c
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/stm32l4xx_it.d" -MT"Src/stm32l4xx_it.o" -o "Src/stm32l4xx_it.o" "../Src/stm32l4xx_it.c"
-Invoking: MCU GCC Compiler
-Building file: ../Src/var.c
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/usart_protocol.d" -MT"Src/usart_protocol.o" -o "Src/usart_protocol.o" "../Src/usart_protocol.c"
-Invoking: MCU GCC Compiler
-../Src/interface_LMX2486.c: In function 'LMX2486_SendData':
-../Src/interface_LMX2486.c:8:19: warning: variable 'rx' set but not used [-Wunused-but-set-variable]
-  volatile uint8_t rx = 0;
-                   ^~
-D:\my_GIT_2023\cpt_m__ac6\Debug
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DUSE_HAL_DRIVER -DSTM32L476xx -I"D:/my_GIT_2023/cpt_m__ac6/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"D:/my_GIT_2023/cpt_m__ac6/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/var.d" -MT"Src/var.o" -o "Src/var.o" "../Src/var.c"
-../Src/main.c: In function 'main':
-../Src/main.c:169:2: warning: implicit declaration of function 'reset_freq_pi' [-Wimplicit-function-declaration]
-  reset_freq_pi();
-  ^~~~~~~~~~~~~
-../Src/main.c:170:2: warning: implicit declaration of function 'reset_DOP_pi' [-Wimplicit-function-declaration]
-  reset_DOP_pi();
-  ^~~~~~~~~~~~
-../Src/main.c:189:2: warning: implicit declaration of function 'AD5668_Init'; did you mean 'AD5668_PD_C'? [-Wimplicit-function-declaration]
-  AD5668_Init();
-  ^~~~~~~~~~~
-  AD5668_PD_C
-../Src/main.c:191:2: warning: implicit declaration of function 'LMX2486_Init'; did you mean 'MX_DMA_Init'? [-Wimplicit-function-declaration]
-  LMX2486_Init();
-  ^~~~~~~~~~~~
-  MX_DMA_Init
-../Src/main.c:215:2: warning: implicit declaration of function 'AD5668_SetValue'; did you mean 'HAL_DAC_SetValue'? [-Wimplicit-function-declaration]
-  AD5668_SetValue(AD5668_DAC_ALL, 0);
-  ^~~~~~~~~~~~~~~
-  HAL_DAC_SetValue
-../Src/main.c:226:2: warning: implicit declaration of function 'AD8400_SetValue'; did you mean 'HAL_DAC_SetValue'? [-Wimplicit-function-declaration]
-  AD8400_SetValue(value_OutFactor);
-  ^~~~~~~~~~~~~~~
-  HAL_DAC_SetValue
-../Src/main.c:356:4: warning: implicit declaration of function 'InitTEMP' [-Wimplicit-function-declaration]
-    InitTEMP();
-    ^~~~~~~~
-Finished building: ../Src/Pid/pid_DOPLER_FREQ.c
- 
-Finished building: ../Src/Pid/pid_MICROWAVE.c
-../Src/main.c: In function 'ProgressPID_MICROWAVE':
-../Src/main.c:532:15: warning: implicit declaration of function 'Compute_MICROWAVE_PID' [-Wimplicit-function-declaration]
-    deltaPID = Compute_MICROWAVE_PID(delta);
-               ^~~~~~~~~~~~~~~~~~~~~
-Finished building: ../Src/Pid/pid_optics_pwr.c
- 
- 
-../Src/main.c:553:4: warning: implicit declaration of function 'Reset_MICROWAVE_PID' [-Wimplicit-function-declaration]
-    Reset_MICROWAVE_PID();
-    ^~~~~~~~~~~~~~~~~~~
-../Src/usart_protocol.c: In function 'ComputeCmd':
-../Src/usart_protocol.c:205:4: warning: implicit declaration of function 'Reset_FREQ_PID' [-Wimplicit-function-declaration]
-    Reset_FREQ_PID();
-    ^~~~~~~~~~~~~~
-Finished building: ../Src/hist.c
-../Src/main.c: In function 'ProgressPID_DOPLER_FREQ':
-../Src/main.c:575:4: warning: implicit declaration of function 'Reset_DOPLER_FREQ_PID' [-Wimplicit-function-declaration]
-    Reset_DOPLER_FREQ_PID();     // Сброс при первом запуске
-    ^~~~~~~~~~~~~~~~~~~~~
-../Src/usart_protocol.c:224:4: warning: implicit declaration of function 'Reset_DOPLER_CRNT_PID' [-Wimplicit-function-declaration]
-    Reset_DOPLER_CRNT_PID();
-    ^~~~~~~~~~~~~~~~~~~~~
- 
-Finished building: ../Src/interface_ADT7410.c
- 
-../Src/main.c:582:16: warning: implicit declaration of function 'Compute_DOPLER_FREQ_PID' [-Wimplicit-function-declaration]
-     deltaPID = Compute_DOPLER_FREQ_PID(delta);
-                ^~~~~~~~~~~~~~~~~~~~~~~
-../Src/usart_protocol.c:225:4: warning: implicit declaration of function 'Reset_DOPLER_TEC_PID' [-Wimplicit-function-declaration]
-    Reset_DOPLER_TEC_PID();
-    ^~~~~~~~~~~~~~~~~~~~
-../Src/main.c: In function 'ProgressPID_TEC_CTRL':
-../Src/main.c:631:15: warning: implicit declaration of function 'Compute_TECCTRL_PID' [-Wimplicit-function-declaration]
-    deltaPID = Compute_TECCTRL_PID(delta);
-               ^~~~~~~~~~~~~~~~~~~
-../Src/main.c: In function 'ProgressPID_FREQ':
-../Src/main.c:656:15: warning: implicit declaration of function 'Compute_FREQ_PID' [-Wimplicit-function-declaration]
-    deltaPID = Compute_FREQ_PID(delta);
-               ^~~~~~~~~~~~~~~~
-Finished building: ../Src/interface_LMX2486.c
- 
-Finished building: ../Src/my_FUN_.c
-../Src/main.c: In function 'ProgressPID_DOPLER_TEC':
-../Src/main.c:680:15: warning: implicit declaration of function 'Compute_DOPLER_TEC_PID' [-Wimplicit-function-declaration]
-    deltaPID = Compute_DOPLER_TEC_PID(delta);
-               ^~~~~~~~~~~~~~~~~~~~~~
- 
-../Src/main.c: In function 'ProgressPID_OPTICS_PWR':
-../Src/main.c:762:5: warning: implicit declaration of function 'Reset_OPTICS_PWR_PID' [-Wimplicit-function-declaration]
-     Reset_OPTICS_PWR_PID(); // фиксируем величины fix_avrResult_OUT_DC и fixValue_VY
-     ^~~~~~~~~~~~~~~~~~~~
-../Src/main.c:770:15: warning: implicit declaration of function 'Compute_OPTICS_PWR_PID' [-Wimplicit-function-declaration]
-    deltaPID = Compute_OPTICS_PWR_PID(delta);
-               ^~~~~~~~~~~~~~~~~~~~~~
-../Src/main.c: In function 'ProgressPID_DOPLER_CTRL':
-../Src/main.c:812:15: warning: implicit declaration of function 'Compute_DOPLER_CRNT_PID' [-Wimplicit-function-declaration]
-    deltaPID = Compute_DOPLER_CRNT_PID(delta);
-               ^~~~~~~~~~~~~~~~~~~~~~~
-../Src/main.c: In function 'ProgressPID_CELL':
-../Src/main.c:835:4: warning: implicit declaration of function 'Reset_CELL_PID' [-Wimplicit-function-declaration]
-    Reset_CELL_PID();      // Сброс PID регулятора температуры ячейки
-    ^~~~~~~~~~~~~~
-Finished building: ../Src/var.c
-../Src/main.c:842:15: warning: implicit declaration of function 'Compute_CELL_PID'; did you mean 'ComputeCmd'? [-Wimplicit-function-declaration]
-    deltaPID = Compute_CELL_PID(delta);
-               ^~~~~~~~~~~~~~~~
-               ComputeCmd
-../Src/main.c: In function 'ProgressPID_SENSOR_CELL':
-../Src/main.c:877:4: warning: implicit declaration of function 'GetTEMP' [-Wimplicit-function-declaration]
-    GetTEMP(); // value_TempCell - это температура
-    ^~~~~~~
-Finished building: ../Src/stm32l4xx_it.c
- 
- 
-Finished building: ../Src/usart_protocol.c
- 
 Finished building: ../Src/main.c
  
 Building target: cpt_m__ac6.elf
@@ -169,8 +16,8 @@ Generating hex and Printing size information:
 arm-none-eabi-objcopy -O ihex "cpt_m__ac6.elf" "cpt_m__ac6.hex"
 arm-none-eabi-size "cpt_m__ac6.elf"
    text	   data	    bss	    dec	    hex	filename
-  42128	    384	  33944	  76456	  12aa8	cpt_m__ac6.elf
+  41864	    384	  33912	  76160	  12980	cpt_m__ac6.elf
  
 
-16:24:05 Build Finished (took 2s.490ms)
+18:15:06 Build Finished (took 1s.675ms)
 

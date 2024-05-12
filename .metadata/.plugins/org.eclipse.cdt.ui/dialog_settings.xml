@@ -10,6 +10,21 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="Compute_DOPLER_FREQ_PID"/>
+			<item value="Compute_TECCTRL_PID"/>
+			<item value="Compute_OPTICS_PWR_PID"/>
+			<item value="Compute_CELL_PID"/>
+			<item value="InitTEMP"/>
+			<item value="F2F1_rezult_N_900"/>
+			<item value="F2F1_rezult_N_30"/>
+			<item value="F2F1_rezult_A_900"/>
+			<item value="F2F1_rezult_A_30"/>
+			<item value="F2F1_rezult_A"/>
+			<item value="F2F1_rezult_X"/>
+			<item value="I2C3_RxBuffer"/>
+			<item value="LSM303_BufferTx"/>
+			<item value="my_TST_U32"/>
+			<item value="my_TST"/>
 			<item value="my_ADC2_0"/>
 			<item value="my_ADC2_2"/>
 			<item value="my_F1_"/>
