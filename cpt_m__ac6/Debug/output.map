@@ -82,6 +82,7 @@ resultData_CONTR    0x3c0             Src/var.o
 F1F2_rezult         0x14              Src/var.o
 F2F1_rezult_1       0x18              Src/var.o
 pDataDMA2           0x4               Src/var.o
+pi_freq             0x14              Src/Pid/pid_freq.o
 htim3               0x40              Src/tim.o
 hspi3               0x64              Src/spi.o
 my_F1F2_P_rez       0x14              Src/var.o
@@ -4212,9 +4213,6 @@ Discarded input sections
  .group         0x00000000        0xc Src/hist.o
  .group         0x00000000        0xc Src/hist.o
  .group         0x00000000        0xc Src/hist.o
- .group         0x00000000        0xc Src/hist.o
- .group         0x00000000        0xc Src/hist.o
- .group         0x00000000        0xc Src/hist.o
  .text          0x00000000        0x0 Src/hist.o
  .debug_macro   0x00000000      0xa54 Src/hist.o
  .debug_macro   0x00000000       0x22 Src/hist.o
@@ -4453,7 +4451,6 @@ Discarded input sections
  .debug_macro   0x00000000       0x44 Src/interface_AD5668.o
  .debug_macro   0x00000000      0x349 Src/interface_AD5668.o
  .debug_macro   0x00000000       0x22 Src/interface_AD5668.o
- .debug_macro   0x00000000       0xe8 Src/interface_AD5668.o
  .group         0x00000000        0xc Src/interface_AD8400.o
  .group         0x00000000        0xc Src/interface_AD8400.o
  .group         0x00000000        0xc Src/interface_AD8400.o
@@ -4600,8 +4597,6 @@ Discarded input sections
  .group         0x00000000        0xc Src/interface_ADT7410.o
  .group         0x00000000        0xc Src/interface_ADT7410.o
  .group         0x00000000        0xc Src/interface_ADT7410.o
- .group         0x00000000        0xc Src/interface_ADT7410.o
- .group         0x00000000        0xc Src/interface_ADT7410.o
  .text          0x00000000        0x0 Src/interface_ADT7410.o
  .data          0x00000000        0x0 Src/interface_ADT7410.o
  .bss           0x00000000        0x0 Src/interface_ADT7410.o
@@ -4653,12 +4648,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x100 Src/interface_ADT7410.o
  .debug_macro   0x00000000       0x22 Src/interface_ADT7410.o
  .debug_macro   0x00000000       0x10 Src/interface_ADT7410.o
- .debug_macro   0x00000000       0xe8 Src/interface_ADT7410.o
- .debug_macro   0x00000000      0x1d0 Src/interface_ADT7410.o
- .debug_macro   0x00000000       0x52 Src/interface_ADT7410.o
  .debug_macro   0x00000000       0xb1 Src/interface_ADT7410.o
- .group         0x00000000        0xc Src/interface_LMX2486.o
- .group         0x00000000        0xc Src/interface_LMX2486.o
  .group         0x00000000        0xc Src/interface_LMX2486.o
  .group         0x00000000        0xc Src/interface_LMX2486.o
  .group         0x00000000        0xc Src/interface_LMX2486.o
@@ -4765,14 +4755,10 @@ Discarded input sections
  .debug_macro   0x00000000      0x57b Src/interface_LMX2486.o
  .debug_macro   0x00000000       0x44 Src/interface_LMX2486.o
  .debug_macro   0x00000000      0x349 Src/interface_LMX2486.o
- .debug_macro   0x00000000      0x1d0 Src/interface_LMX2486.o
  .debug_macro   0x00000000       0x22 Src/interface_LMX2486.o
  .debug_macro   0x00000000       0x10 Src/interface_LMX2486.o
- .debug_macro   0x00000000       0xe8 Src/interface_LMX2486.o
- .debug_macro   0x00000000       0x52 Src/interface_LMX2486.o
  .debug_macro   0x00000000       0x10 Src/interface_LMX2486.o
  .debug_macro   0x00000000       0xb1 Src/interface_LMX2486.o
- .group         0x00000000        0xc Src/main.o
  .group         0x00000000        0xc Src/main.o
  .group         0x00000000        0xc Src/main.o
  .group         0x00000000        0xc Src/main.o
@@ -4876,16 +4862,12 @@ Discarded input sections
  .debug_macro   0x00000000      0x100 Src/main.o
  .debug_macro   0x00000000       0x22 Src/main.o
  .debug_macro   0x00000000       0x10 Src/main.o
- .debug_macro   0x00000000       0xe8 Src/main.o
- .debug_macro   0x00000000      0x1d0 Src/main.o
- .debug_macro   0x00000000       0x52 Src/main.o
  .debug_macro   0x00000000       0x10 Src/main.o
  .debug_macro   0x00000000       0xb1 Src/main.o
+ .debug_macro   0x00000000       0xe8 Src/main.o
+ .debug_macro   0x00000000       0x52 Src/main.o
  .data          0x00000000        0x0 Src/my_FUN.o
  .bss           0x00000000        0x0 Src/my_FUN.o
- .group         0x00000000        0xc Src/my_FUN_.o
- .group         0x00000000        0xc Src/my_FUN_.o
- .group         0x00000000        0xc Src/my_FUN_.o
  .group         0x00000000        0xc Src/my_FUN_.o
  .group         0x00000000        0xc Src/my_FUN_.o
  .group         0x00000000        0xc Src/my_FUN_.o
@@ -4985,9 +4967,6 @@ Discarded input sections
  .debug_macro   0x00000000       0x44 Src/my_FUN_.o
  .debug_macro   0x00000000      0x349 Src/my_FUN_.o
  .debug_macro   0x00000000       0x10 Src/my_FUN_.o
- .debug_macro   0x00000000       0xe8 Src/my_FUN_.o
- .debug_macro   0x00000000      0x1d0 Src/my_FUN_.o
- .debug_macro   0x00000000       0x52 Src/my_FUN_.o
  .debug_macro   0x00000000       0x10 Src/my_FUN_.o
  .debug_macro   0x00000000       0xb1 Src/my_FUN_.o
  .text          0x00000000       0x24 Src/my_tst_1.o
@@ -5001,352 +4980,6 @@ Discarded input sections
  .debug_str     0x00000000       0x40 Src/my_tst_1.o
  .ARM.attributes
                 0x00000000       0x25 Src/my_tst_1.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_DOPLER_FREQ.o
- .text          0x00000000        0x0 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0xa54 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x22 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x22 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x8e Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x51 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0xef Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x6a Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x1df Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x1bf Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x2e Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x28 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x1c Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x22 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0xdf Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000     0x102d Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x11f Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000    0x1a11f Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x43 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000     0x3820 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x174 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x5a Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000     0x155f Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x59e Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x13d Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x18b Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x26b Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x236 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0xf83 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x632 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x30c Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x153 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0xd8 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x241 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x36e Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0xe4 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x22c Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x5e Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0xa5 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x122 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x3d4 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x2fe Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x9f7 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x1e7 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x57b Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x44 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x349 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x10 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0xe8 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000      0x1d0 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x52 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0x10 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x00000000       0xb1 Src/pid_DOPLER_FREQ.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_MICROWAVE.o
- .text          0x00000000        0x0 Src/pid_MICROWAVE.o
- .text.Reset_MICROWAVE_PID
-                0x00000000       0x1c Src/pid_MICROWAVE.o
- .text.Compute_MICROWAVE_PID
-                0x00000000       0xc8 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0xa54 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x22 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x22 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x8e Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x51 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0xef Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x6a Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x1df Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x1bf Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x2e Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x28 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x1c Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x22 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0xdf Src/pid_MICROWAVE.o
- .debug_macro   0x00000000     0x102d Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x11f Src/pid_MICROWAVE.o
- .debug_macro   0x00000000    0x1a11f Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x43 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000     0x3820 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x174 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x5a Src/pid_MICROWAVE.o
- .debug_macro   0x00000000     0x155f Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x59e Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x13d Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x18b Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x26b Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x236 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0xf83 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x632 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x30c Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x153 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0xd8 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x241 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x36e Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0xe4 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x22c Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x5e Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0xa5 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x122 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x3d4 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x2fe Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x9f7 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x1e7 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x57b Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x44 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x349 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x10 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0xe8 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000      0x1d0 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x52 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0x10 Src/pid_MICROWAVE.o
- .debug_macro   0x00000000       0xb1 Src/pid_MICROWAVE.o
- .group         0x00000000        0xc Src/pid_cell.o
- .group         0x00000000        0xc Src/pid_cell.o
- .text          0x00000000        0x0 Src/pid_cell.o
- .debug_macro   0x00000000      0xa54 Src/pid_cell.o
- .debug_macro   0x00000000       0x22 Src/pid_cell.o
- .group         0x00000000        0xc Src/pid_dopler_crnt.o
- .group         0x00000000        0xc Src/pid_dopler_crnt.o
- .text          0x00000000        0x0 Src/pid_dopler_crnt.o
- .debug_macro   0x00000000      0xa54 Src/pid_dopler_crnt.o
- .debug_macro   0x00000000       0x22 Src/pid_dopler_crnt.o
- .group         0x00000000        0xc Src/pid_dopler_tec.o
- .group         0x00000000        0xc Src/pid_dopler_tec.o
- .text          0x00000000        0x0 Src/pid_dopler_tec.o
- .debug_macro   0x00000000      0xa54 Src/pid_dopler_tec.o
- .debug_macro   0x00000000       0x22 Src/pid_dopler_tec.o
- .group         0x00000000        0xc Src/pid_freq.o
- .group         0x00000000        0xc Src/pid_freq.o
- .text          0x00000000        0x0 Src/pid_freq.o
- .debug_macro   0x00000000      0xa54 Src/pid_freq.o
- .debug_macro   0x00000000       0x22 Src/pid_freq.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_optics_pwr.o
- .text          0x00000000        0x0 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0xa54 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x22 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x22 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x8e Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x51 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0xef Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x6a Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x1df Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x1bf Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x2e Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x28 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x1c Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x22 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0xdf Src/pid_optics_pwr.o
- .debug_macro   0x00000000     0x102d Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x11f Src/pid_optics_pwr.o
- .debug_macro   0x00000000    0x1a11f Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x43 Src/pid_optics_pwr.o
- .debug_macro   0x00000000     0x3820 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x174 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x5a Src/pid_optics_pwr.o
- .debug_macro   0x00000000     0x155f Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x59e Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x13d Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x18b Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x26b Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x236 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0xf83 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x632 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x30c Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x153 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0xd8 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x241 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x36e Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0xe4 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x22c Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x5e Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0xa5 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x122 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x3d4 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x2fe Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x9f7 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x1e7 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x57b Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x44 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x349 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x10 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0xe8 Src/pid_optics_pwr.o
- .debug_macro   0x00000000      0x1d0 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x52 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0x10 Src/pid_optics_pwr.o
- .debug_macro   0x00000000       0xb1 Src/pid_optics_pwr.o
- .group         0x00000000        0xc Src/pid_tec_ctrl.o
- .group         0x00000000        0xc Src/pid_tec_ctrl.o
- .text          0x00000000        0x0 Src/pid_tec_ctrl.o
- .text.Reset_TECCTRL_PID
-                0x00000000       0x1c Src/pid_tec_ctrl.o
- .debug_macro   0x00000000      0xa54 Src/pid_tec_ctrl.o
- .debug_macro   0x00000000       0x22 Src/pid_tec_ctrl.o
  .group         0x00000000        0xc Src/spi.o
  .group         0x00000000        0xc Src/spi.o
  .group         0x00000000        0xc Src/spi.o
@@ -5591,7 +5224,6 @@ Discarded input sections
  .group         0x00000000        0xc Src/stm32l4xx_it.o
  .group         0x00000000        0xc Src/stm32l4xx_it.o
  .group         0x00000000        0xc Src/stm32l4xx_it.o
- .group         0x00000000        0xc Src/stm32l4xx_it.o
  .text          0x00000000        0x0 Src/stm32l4xx_it.o
  .data          0x00000000        0x0 Src/stm32l4xx_it.o
  .debug_macro   0x00000000      0xa54 Src/stm32l4xx_it.o
@@ -5642,11 +5274,10 @@ Discarded input sections
  .debug_macro   0x00000000      0x100 Src/stm32l4xx_it.o
  .debug_macro   0x00000000       0x22 Src/stm32l4xx_it.o
  .debug_macro   0x00000000       0x10 Src/stm32l4xx_it.o
- .debug_macro   0x00000000       0xe8 Src/stm32l4xx_it.o
- .debug_macro   0x00000000      0x1d0 Src/stm32l4xx_it.o
- .debug_macro   0x00000000       0x52 Src/stm32l4xx_it.o
  .debug_macro   0x00000000       0x10 Src/stm32l4xx_it.o
  .debug_macro   0x00000000       0xb1 Src/stm32l4xx_it.o
+ .debug_macro   0x00000000       0xe8 Src/stm32l4xx_it.o
+ .debug_macro   0x00000000      0x1d0 Src/stm32l4xx_it.o
  .group         0x00000000        0xc Src/syscalls.o
  .group         0x00000000        0xc Src/syscalls.o
  .group         0x00000000        0xc Src/syscalls.o
@@ -6108,9 +5739,6 @@ Discarded input sections
  .group         0x00000000        0xc Src/usart_protocol.o
  .group         0x00000000        0xc Src/usart_protocol.o
  .group         0x00000000        0xc Src/usart_protocol.o
- .group         0x00000000        0xc Src/usart_protocol.o
- .group         0x00000000        0xc Src/usart_protocol.o
- .group         0x00000000        0xc Src/usart_protocol.o
  .text          0x00000000        0x0 Src/usart_protocol.o
  .data          0x00000000        0x0 Src/usart_protocol.o
  .debug_macro   0x00000000      0xa54 Src/usart_protocol.o
@@ -6159,15 +5787,9 @@ Discarded input sections
  .debug_macro   0x00000000       0x44 Src/usart_protocol.o
  .debug_macro   0x00000000      0x349 Src/usart_protocol.o
  .debug_macro   0x00000000       0x22 Src/usart_protocol.o
- .debug_macro   0x00000000       0xe8 Src/usart_protocol.o
- .debug_macro   0x00000000      0x1d0 Src/usart_protocol.o
- .debug_macro   0x00000000       0x52 Src/usart_protocol.o
  .debug_macro   0x00000000       0x10 Src/usart_protocol.o
  .debug_macro   0x00000000       0xb1 Src/usart_protocol.o
  .debug_macro   0x00000000       0x10 Src/usart_protocol.o
- .group         0x00000000        0xc Src/var.o
- .group         0x00000000        0xc Src/var.o
- .group         0x00000000        0xc Src/var.o
  .group         0x00000000        0xc Src/var.o
  .group         0x00000000        0xc Src/var.o
  .group         0x00000000        0xc Src/var.o
@@ -6265,11 +5887,338 @@ Discarded input sections
  .debug_macro   0x00000000       0x44 Src/var.o
  .debug_macro   0x00000000      0x349 Src/var.o
  .debug_macro   0x00000000       0x10 Src/var.o
- .debug_macro   0x00000000       0xe8 Src/var.o
- .debug_macro   0x00000000      0x1d0 Src/var.o
- .debug_macro   0x00000000       0x52 Src/var.o
  .debug_macro   0x00000000       0x10 Src/var.o
  .debug_macro   0x00000000       0xb1 Src/var.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_DOPLER_FREQ.o
+ .text          0x00000000        0x0 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0xa54 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x8e Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x51 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0xef Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x6a Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x1df Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x1bf Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x2e Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x28 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x1c Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0xdf Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000     0x102d Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x11f Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000    0x1a11f Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x43 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000     0x3820 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x174 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x5a Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000     0x155f Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x59e Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x13d Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x18b Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x26b Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x236 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0xf83 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x632 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x30c Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x153 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0xd8 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x241 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x36e Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0xe4 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x22c Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x5e Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0xa5 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x122 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x3d4 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x2fe Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x9f7 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x1e7 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x57b Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x44 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000      0x349 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x10 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0x10 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x00000000       0xb1 Src/Pid/pid_DOPLER_FREQ.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_MICROWAVE.o
+ .text          0x00000000        0x0 Src/Pid/pid_MICROWAVE.o
+ .text.Reset_MICROWAVE_PID
+                0x00000000       0x1c Src/Pid/pid_MICROWAVE.o
+ .text.Compute_MICROWAVE_PID
+                0x00000000       0xc8 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0xa54 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x8e Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x51 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0xef Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x6a Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x1df Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x1bf Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x2e Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x28 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x1c Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0xdf Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000     0x102d Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x11f Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000    0x1a11f Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x43 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000     0x3820 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x174 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x5a Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000     0x155f Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x59e Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x13d Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x18b Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x26b Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x236 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0xf83 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x632 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x30c Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x153 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0xd8 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x241 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x36e Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0xe4 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x22c Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x5e Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0xa5 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x122 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x3d4 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x2fe Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x9f7 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x1e7 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x57b Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x44 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000      0x349 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x10 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0x10 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x00000000       0xb1 Src/Pid/pid_MICROWAVE.o
+ .group         0x00000000        0xc Src/Pid/pid_cell.o
+ .group         0x00000000        0xc Src/Pid/pid_cell.o
+ .text          0x00000000        0x0 Src/Pid/pid_cell.o
+ .debug_macro   0x00000000      0xa54 Src/Pid/pid_cell.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_cell.o
+ .group         0x00000000        0xc Src/Pid/pid_dopler_crnt.o
+ .group         0x00000000        0xc Src/Pid/pid_dopler_crnt.o
+ .text          0x00000000        0x0 Src/Pid/pid_dopler_crnt.o
+ .debug_macro   0x00000000      0xa54 Src/Pid/pid_dopler_crnt.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_dopler_crnt.o
+ .group         0x00000000        0xc Src/Pid/pid_dopler_tec.o
+ .group         0x00000000        0xc Src/Pid/pid_dopler_tec.o
+ .text          0x00000000        0x0 Src/Pid/pid_dopler_tec.o
+ .debug_macro   0x00000000      0xa54 Src/Pid/pid_dopler_tec.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_dopler_tec.o
+ .group         0x00000000        0xc Src/Pid/pid_freq.o
+ .group         0x00000000        0xc Src/Pid/pid_freq.o
+ .text          0x00000000        0x0 Src/Pid/pid_freq.o
+ .text.set_freq_pi
+                0x00000000       0x18 Src/Pid/pid_freq.o
+ .debug_macro   0x00000000      0xa54 Src/Pid/pid_freq.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_freq.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_optics_pwr.o
+ .text          0x00000000        0x0 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0xa54 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x8e Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x51 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0xef Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x6a Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x1df Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x1bf Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x2e Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x28 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x1c Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0xdf Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000     0x102d Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x11f Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000    0x1a11f Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x43 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000     0x3820 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x174 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x5a Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000     0x155f Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x59e Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x13d Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x18b Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x26b Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x236 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0xf83 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x632 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x30c Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x153 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0xd8 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x241 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x36e Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0xe4 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x22c Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x5e Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0xa5 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x122 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x3d4 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x2fe Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x9f7 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x1e7 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x57b Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x44 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000      0x349 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x10 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0x10 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x00000000       0xb1 Src/Pid/pid_optics_pwr.o
+ .group         0x00000000        0xc Src/Pid/pid_tec_ctrl.o
+ .group         0x00000000        0xc Src/Pid/pid_tec_ctrl.o
+ .text          0x00000000        0x0 Src/Pid/pid_tec_ctrl.o
+ .text.Reset_TECCTRL_PID
+                0x00000000       0x1c Src/Pid/pid_tec_ctrl.o
+ .debug_macro   0x00000000      0xa54 Src/Pid/pid_tec_ctrl.o
+ .debug_macro   0x00000000       0x22 Src/Pid/pid_tec_ctrl.o
  .text          0x00000000       0x14 startup/startup_stm32l476xx.o
  .data          0x00000000        0x0 startup/startup_stm32l476xx.o
  .bss           0x00000000        0x0 startup/startup_stm32l476xx.o
@@ -6416,14 +6365,6 @@ LOAD Src/main.o
 LOAD Src/my_FUN.o
 LOAD Src/my_FUN_.o
 LOAD Src/my_tst_1.o
-LOAD Src/pid_DOPLER_FREQ.o
-LOAD Src/pid_MICROWAVE.o
-LOAD Src/pid_cell.o
-LOAD Src/pid_dopler_crnt.o
-LOAD Src/pid_dopler_tec.o
-LOAD Src/pid_freq.o
-LOAD Src/pid_optics_pwr.o
-LOAD Src/pid_tec_ctrl.o
 LOAD Src/spi.o
 LOAD Src/stm32l4xx_hal_msp.o
 LOAD Src/stm32l4xx_it.o
@@ -6433,6 +6374,14 @@ LOAD Src/tim.o
 LOAD Src/usart.o
 LOAD Src/usart_protocol.o
 LOAD Src/var.o
+LOAD Src/Pid/pid_DOPLER_FREQ.o
+LOAD Src/Pid/pid_MICROWAVE.o
+LOAD Src/Pid/pid_cell.o
+LOAD Src/Pid/pid_dopler_crnt.o
+LOAD Src/Pid/pid_dopler_tec.o
+LOAD Src/Pid/pid_freq.o
+LOAD Src/Pid/pid_optics_pwr.o
+LOAD Src/Pid/pid_tec_ctrl.o
 LOAD startup/startup_stm32l476xx.o
 LOAD d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libm.a
 START GROUP
@@ -6462,7 +6411,7 @@ LOAD d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17
                 0x08000000                g_pfnVectors
                 0x08000188                . = ALIGN (0x8)
 
-.text           0x08000188     0xac98
+.text           0x08000188     0xaea8
                 0x08000188                . = ALIGN (0x8)
  *(.text)
  .text          0x08000188       0x40 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
@@ -6881,363 +6830,373 @@ LOAD d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17
                 0x08006096       0xa8 Src/main.o
                 0x08006096                SystemClock_Config
  *fill*         0x0800613e        0x2 
- .text.main     0x08006140      0xbb8 Src/main.o
+ .text.main     0x08006140      0xc38 Src/main.o
                 0x08006140                main
  .text.my_DataADC2_1_
-                0x08006cf8       0x24 Src/my_FUN_.o
-                0x08006cf8                my_DataADC2_1_
+                0x08006d78       0x24 Src/my_FUN_.o
+                0x08006d78                my_DataADC2_1_
  .text.my_DataADC2_2_
-                0x08006d1c       0x78 Src/my_FUN_.o
-                0x08006d1c                my_DataADC2_2_
- .text.my_F1_   0x08006d94       0x40 Src/my_FUN_.o
-                0x08006d94                my_F1_
- .text.my_F2_   0x08006dd4       0x68 Src/my_FUN_.o
-                0x08006dd4                my_F2_
+                0x08006d9c       0x78 Src/my_FUN_.o
+                0x08006d9c                my_DataADC2_2_
+ .text.my_F1_   0x08006e14       0x40 Src/my_FUN_.o
+                0x08006e14                my_F1_
+ .text.my_F2_   0x08006e54       0x68 Src/my_FUN_.o
+                0x08006e54                my_F2_
  .text.my_F1F2_
-                0x08006e3c       0xa4 Src/my_FUN_.o
-                0x08006e3c                my_F1F2_
+                0x08006ebc       0xa4 Src/my_FUN_.o
+                0x08006ebc                my_F1F2_
  .text.my_F2F1_
-                0x08006ee0       0xcc Src/my_FUN_.o
-                0x08006ee0                my_F2F1_
+                0x08006f60       0xcc Src/my_FUN_.o
+                0x08006f60                my_F2F1_
  .text.my_F1_F2_
-                0x08006fac       0x3c Src/my_FUN_.o
-                0x08006fac                my_F1_F2_
- .text.Reset_DOPLER_FREQ_PID
-                0x08006fe8       0x1c Src/pid_DOPLER_FREQ.o
-                0x08006fe8                Reset_DOPLER_FREQ_PID
- .text.Compute_DOPLER_FREQ_PID
-                0x08007004       0xc8 Src/pid_DOPLER_FREQ.o
-                0x08007004                Compute_DOPLER_FREQ_PID
- .text.Reset_CELL_PID
-                0x080070cc       0x1c Src/pid_cell.o
-                0x080070cc                Reset_CELL_PID
- .text.Compute_CELL_PID
-                0x080070e8       0xc4 Src/pid_cell.o
-                0x080070e8                Compute_CELL_PID
- .text.Reset_DOPLER_CRNT_PID
-                0x080071ac       0x1c Src/pid_dopler_crnt.o
-                0x080071ac                Reset_DOPLER_CRNT_PID
- .text.Compute_DOPLER_CRNT_PID
-                0x080071c8       0xc8 Src/pid_dopler_crnt.o
-                0x080071c8                Compute_DOPLER_CRNT_PID
- .text.Reset_DOPLER_TEC_PID
-                0x08007290       0x1c Src/pid_dopler_tec.o
-                0x08007290                Reset_DOPLER_TEC_PID
- .text.Compute_DOPLER_TEC_PID
-                0x080072ac       0xc8 Src/pid_dopler_tec.o
-                0x080072ac                Compute_DOPLER_TEC_PID
- .text.Reset_FREQ_PID
-                0x08007374       0x1c Src/pid_freq.o
-                0x08007374                Reset_FREQ_PID
- .text.Compute_FREQ_PID
-                0x08007390       0xc8 Src/pid_freq.o
-                0x08007390                Compute_FREQ_PID
- .text.Reset_OPTICS_PWR_PID
-                0x08007458       0x2c Src/pid_optics_pwr.o
-                0x08007458                Reset_OPTICS_PWR_PID
- .text.Compute_OPTICS_PWR_PID
-                0x08007484       0xc8 Src/pid_optics_pwr.o
-                0x08007484                Compute_OPTICS_PWR_PID
- .text.Compute_TECCTRL_PID
-                0x0800754c       0xc8 Src/pid_tec_ctrl.o
-                0x0800754c                Compute_TECCTRL_PID
+                0x0800702c       0x3c Src/my_FUN_.o
+                0x0800702c                my_F1_F2_
  .text.MX_SPI1_Init
-                0x08007614       0x4c Src/spi.o
-                0x08007614                MX_SPI1_Init
+                0x08007068       0x4c Src/spi.o
+                0x08007068                MX_SPI1_Init
  .text.MX_SPI2_Init
-                0x08007660       0x4c Src/spi.o
-                0x08007660                MX_SPI2_Init
+                0x080070b4       0x4c Src/spi.o
+                0x080070b4                MX_SPI2_Init
  .text.MX_SPI3_Init
-                0x080076ac       0x4c Src/spi.o
-                0x080076ac                MX_SPI3_Init
+                0x08007100       0x4c Src/spi.o
+                0x08007100                MX_SPI3_Init
  .text.HAL_SPI_MspInit
-                0x080076f8      0x108 Src/spi.o
-                0x080076f8                HAL_SPI_MspInit
+                0x0800714c      0x108 Src/spi.o
+                0x0800714c                HAL_SPI_MspInit
  .text.HAL_MspInit
-                0x08007800       0x30 Src/stm32l4xx_hal_msp.o
-                0x08007800                HAL_MspInit
+                0x08007254       0x30 Src/stm32l4xx_hal_msp.o
+                0x08007254                HAL_MspInit
  .text.NMI_Handler
-                0x08007830        0x2 Src/stm32l4xx_it.o
-                0x08007830                NMI_Handler
+                0x08007284        0x2 Src/stm32l4xx_it.o
+                0x08007284                NMI_Handler
  .text.HardFault_Handler
-                0x08007832        0x2 Src/stm32l4xx_it.o
-                0x08007832                HardFault_Handler
+                0x08007286        0x2 Src/stm32l4xx_it.o
+                0x08007286                HardFault_Handler
  .text.MemManage_Handler
-                0x08007834        0x2 Src/stm32l4xx_it.o
-                0x08007834                MemManage_Handler
+                0x08007288        0x2 Src/stm32l4xx_it.o
+                0x08007288                MemManage_Handler
  .text.BusFault_Handler
-                0x08007836        0x2 Src/stm32l4xx_it.o
-                0x08007836                BusFault_Handler
+                0x0800728a        0x2 Src/stm32l4xx_it.o
+                0x0800728a                BusFault_Handler
  .text.UsageFault_Handler
-                0x08007838        0x2 Src/stm32l4xx_it.o
-                0x08007838                UsageFault_Handler
+                0x0800728c        0x2 Src/stm32l4xx_it.o
+                0x0800728c                UsageFault_Handler
  .text.SVC_Handler
-                0x0800783a        0x2 Src/stm32l4xx_it.o
-                0x0800783a                SVC_Handler
+                0x0800728e        0x2 Src/stm32l4xx_it.o
+                0x0800728e                SVC_Handler
  .text.DebugMon_Handler
-                0x0800783c        0x2 Src/stm32l4xx_it.o
-                0x0800783c                DebugMon_Handler
+                0x08007290        0x2 Src/stm32l4xx_it.o
+                0x08007290                DebugMon_Handler
  .text.PendSV_Handler
-                0x0800783e        0x2 Src/stm32l4xx_it.o
-                0x0800783e                PendSV_Handler
+                0x08007292        0x2 Src/stm32l4xx_it.o
+                0x08007292                PendSV_Handler
  .text.SysTick_Handler
-                0x08007840       0x1c Src/stm32l4xx_it.o
-                0x08007840                SysTick_Handler
+                0x08007294       0x1c Src/stm32l4xx_it.o
+                0x08007294                SysTick_Handler
  .text.DMA1_Channel1_IRQHandler
-                0x0800785c       0x88 Src/stm32l4xx_it.o
-                0x0800785c                DMA1_Channel1_IRQHandler
+                0x080072b0       0x88 Src/stm32l4xx_it.o
+                0x080072b0                DMA1_Channel1_IRQHandler
  .text.TIM4_IRQHandler
-                0x080078e4       0x4c Src/stm32l4xx_it.o
-                0x080078e4                TIM4_IRQHandler
+                0x08007338       0x4c Src/stm32l4xx_it.o
+                0x08007338                TIM4_IRQHandler
  .text.USART3_IRQHandler
-                0x08007930      0x110 Src/stm32l4xx_it.o
-                0x08007930                USART3_IRQHandler
+                0x08007384      0x10c Src/stm32l4xx_it.o
+                0x08007384                USART3_IRQHandler
  .text.DMA2_Channel4_IRQHandler
-                0x08007a40       0x88 Src/stm32l4xx_it.o
-                0x08007a40                DMA2_Channel4_IRQHandler
+                0x08007490       0x88 Src/stm32l4xx_it.o
+                0x08007490                DMA2_Channel4_IRQHandler
  .text.EXTI0_IRQHandler
-                0x08007ac8     0x1f90 Src/stm32l4xx_it.o
-                0x08007ac8                EXTI0_IRQHandler
+                0x08007518     0x207c Src/stm32l4xx_it.o
+                0x08007518                EXTI0_IRQHandler
  .text.SystemInit
-                0x08009a58       0x48 Src/system_stm32l4xx.o
-                0x08009a58                SystemInit
+                0x08009594       0x48 Src/system_stm32l4xx.o
+                0x08009594                SystemInit
  .text.MX_TIM2_Init
-                0x08009aa0       0x94 Src/tim.o
-                0x08009aa0                MX_TIM2_Init
+                0x080095dc       0x94 Src/tim.o
+                0x080095dc                MX_TIM2_Init
  .text.MX_TIM17_Init
-                0x08009b34       0x68 Src/tim.o
-                0x08009b34                MX_TIM17_Init
+                0x08009670       0x68 Src/tim.o
+                0x08009670                MX_TIM17_Init
  .text.HAL_TIM_Base_MspInit
-                0x08009b9c      0x114 Src/tim.o
-                0x08009b9c                HAL_TIM_Base_MspInit
+                0x080096d8      0x114 Src/tim.o
+                0x080096d8                HAL_TIM_Base_MspInit
  .text.HAL_TIM_MspPostInit
-                0x08009cb0       0xfc Src/tim.o
-                0x08009cb0                HAL_TIM_MspPostInit
+                0x080097ec       0xfc Src/tim.o
+                0x080097ec                HAL_TIM_MspPostInit
  .text.MX_TIM1_Init
-                0x08009dac      0x100 Src/tim.o
-                0x08009dac                MX_TIM1_Init
+                0x080098e8      0x100 Src/tim.o
+                0x080098e8                MX_TIM1_Init
  .text.MX_TIM3_Init
-                0x08009eac       0xd8 Src/tim.o
-                0x08009eac                MX_TIM3_Init
+                0x080099e8       0xd8 Src/tim.o
+                0x080099e8                MX_TIM3_Init
  .text.MX_TIM4_Init
-                0x08009f84       0xb8 Src/tim.o
-                0x08009f84                MX_TIM4_Init
+                0x08009ac0       0xb8 Src/tim.o
+                0x08009ac0                MX_TIM4_Init
  .text.MX_TIM8_Init
-                0x0800a03c      0x124 Src/tim.o
-                0x0800a03c                MX_TIM8_Init
+                0x08009b78      0x124 Src/tim.o
+                0x08009b78                MX_TIM8_Init
  .text.MX_USART3_UART_Init
-                0x0800a160       0x38 Src/usart.o
-                0x0800a160                MX_USART3_UART_Init
+                0x08009c9c       0x38 Src/usart.o
+                0x08009c9c                MX_USART3_UART_Init
  .text.HAL_UART_MspInit
-                0x0800a198       0x7c Src/usart.o
-                0x0800a198                HAL_UART_MspInit
+                0x08009cd4       0x7c Src/usart.o
+                0x08009cd4                HAL_UART_MspInit
  .text.USART_GetByte
-                0x0800a214       0x4c Src/usart_protocol.o
-                0x0800a214                USART_GetByte
+                0x08009d50       0x4c Src/usart_protocol.o
+                0x08009d50                USART_GetByte
  .text.USART_SendByte
-                0x0800a260       0x44 Src/usart_protocol.o
-                0x0800a260                USART_SendByte
+                0x08009d9c       0x44 Src/usart_protocol.o
+                0x08009d9c                USART_SendByte
  .text.USART_SendString
-                0x0800a2a4       0x1a Src/usart_protocol.o
-                0x0800a2a4                USART_SendString
+                0x08009de0       0x1a Src/usart_protocol.o
+                0x08009de0                USART_SendString
  .text.EraseStr
-                0x0800a2be       0x2c Src/usart_protocol.o
-                0x0800a2be                EraseStr
+                0x08009dfa       0x2c Src/usart_protocol.o
+                0x08009dfa                EraseStr
  .text.unpackFloat
-                0x0800a2ea       0x22 Src/usart_protocol.o
-                0x0800a2ea                unpackFloat
+                0x08009e26       0x22 Src/usart_protocol.o
+                0x08009e26                unpackFloat
  .text.packFloat
-                0x0800a30c       0x1a Src/usart_protocol.o
-                0x0800a30c                packFloat
- *fill*         0x0800a326        0x2 
+                0x08009e48       0x1a Src/usart_protocol.o
+                0x08009e48                packFloat
+ *fill*         0x08009e62        0x2 
  .text.SendPkgData
-                0x0800a328       0x44 Src/usart_protocol.o
-                0x0800a328                SendPkgData
+                0x08009e64       0x44 Src/usart_protocol.o
+                0x08009e64                SendPkgData
  .text.GetCmdID
-                0x0800a36c      0x11c Src/usart_protocol.o
-                0x0800a36c                GetCmdID
+                0x08009ea8      0x11c Src/usart_protocol.o
+                0x08009ea8                GetCmdID
  .text.SetValueFloat
-                0x0800a488       0x2c Src/usart_protocol.o
-                0x0800a488                SetValueFloat
+                0x08009fc4       0x2c Src/usart_protocol.o
+                0x08009fc4                SetValueFloat
  .text.SetOptionPID
-                0x0800a4b4       0x68 Src/usart_protocol.o
-                0x0800a4b4                SetOptionPID
+                0x08009ff0       0x68 Src/usart_protocol.o
+                0x08009ff0                SetOptionPID
  .text.GetOptionPID
-                0x0800a51c       0x40 Src/usart_protocol.o
-                0x0800a51c                GetOptionPID
+                0x0800a058       0x40 Src/usart_protocol.o
+                0x0800a058                GetOptionPID
  .text.ComputeCmd
-                0x0800a55c      0x7fc Src/usart_protocol.o
-                0x0800a55c                ComputeCmd
+                0x0800a098      0x7fc Src/usart_protocol.o
+                0x0800a098                ComputeCmd
+ .text.Reset_DOPLER_FREQ_PID
+                0x0800a894       0x1c Src/Pid/pid_DOPLER_FREQ.o
+                0x0800a894                Reset_DOPLER_FREQ_PID
+ .text.Compute_DOPLER_FREQ_PID
+                0x0800a8b0       0xc8 Src/Pid/pid_DOPLER_FREQ.o
+                0x0800a8b0                Compute_DOPLER_FREQ_PID
+ .text.Reset_CELL_PID
+                0x0800a978       0x1c Src/Pid/pid_cell.o
+                0x0800a978                Reset_CELL_PID
+ .text.Compute_CELL_PID
+                0x0800a994       0xc4 Src/Pid/pid_cell.o
+                0x0800a994                Compute_CELL_PID
+ .text.Reset_DOPLER_CRNT_PID
+                0x0800aa58       0x1c Src/Pid/pid_dopler_crnt.o
+                0x0800aa58                Reset_DOPLER_CRNT_PID
+ .text.Compute_DOPLER_CRNT_PID
+                0x0800aa74       0xc8 Src/Pid/pid_dopler_crnt.o
+                0x0800aa74                Compute_DOPLER_CRNT_PID
+ .text.reset_DOP_pi
+                0x0800ab3c       0x10 Src/Pid/pid_dopler_crnt.o
+                0x0800ab3c                reset_DOP_pi
+ .text.DOP_pi_  0x0800ab4c       0x38 Src/Pid/pid_dopler_crnt.o
+                0x0800ab4c                DOP_pi_
+ .text.Reset_DOPLER_TEC_PID
+                0x0800ab84       0x1c Src/Pid/pid_dopler_tec.o
+                0x0800ab84                Reset_DOPLER_TEC_PID
+ .text.Compute_DOPLER_TEC_PID
+                0x0800aba0       0xc8 Src/Pid/pid_dopler_tec.o
+                0x0800aba0                Compute_DOPLER_TEC_PID
+ .text.Reset_FREQ_PID
+                0x0800ac68       0x1c Src/Pid/pid_freq.o
+                0x0800ac68                Reset_FREQ_PID
+ .text.Compute_FREQ_PID
+                0x0800ac84       0xc8 Src/Pid/pid_freq.o
+                0x0800ac84                Compute_FREQ_PID
+ .text.reset_freq_pi
+                0x0800ad4c       0x2c Src/Pid/pid_freq.o
+                0x0800ad4c                reset_freq_pi
+ .text.freq_pi_
+                0x0800ad78       0x38 Src/Pid/pid_freq.o
+                0x0800ad78                freq_pi_
+ .text.Reset_OPTICS_PWR_PID
+                0x0800adb0       0x2c Src/Pid/pid_optics_pwr.o
+                0x0800adb0                Reset_OPTICS_PWR_PID
+ .text.Compute_OPTICS_PWR_PID
+                0x0800addc       0xc8 Src/Pid/pid_optics_pwr.o
+                0x0800addc                Compute_OPTICS_PWR_PID
+ .text.Compute_TECCTRL_PID
+                0x0800aea4       0xc8 Src/Pid/pid_tec_ctrl.o
+                0x0800aea4                Compute_TECCTRL_PID
  .text.Reset_Handler
-                0x0800ad58       0x50 startup/startup_stm32l476xx.o
-                0x0800ad58                Reset_Handler
+                0x0800af6c       0x50 startup/startup_stm32l476xx.o
+                0x0800af6c                Reset_Handler
  .text.Default_Handler
-                0x0800ada8        0x2 startup/startup_stm32l476xx.o
-                0x0800ada8                RTC_Alarm_IRQHandler
-                0x0800ada8                EXTI2_IRQHandler
-                0x0800ada8                TIM8_TRG_COM_IRQHandler
-                0x0800ada8                TIM8_CC_IRQHandler
-                0x0800ada8                TIM1_CC_IRQHandler
-                0x0800ada8                TSC_IRQHandler
-                0x0800ada8                TAMP_STAMP_IRQHandler
-                0x0800ada8                EXTI3_IRQHandler
-                0x0800ada8                LPTIM2_IRQHandler
-                0x0800ada8                DFSDM1_FLT1_IRQHandler
-                0x0800ada8                I2C3_ER_IRQHandler
-                0x0800ada8                DFSDM1_FLT2_IRQHandler
-                0x0800ada8                I2C2_EV_IRQHandler
-                0x0800ada8                CAN1_RX0_IRQHandler
-                0x0800ada8                FPU_IRQHandler
-                0x0800ada8                TIM1_UP_TIM16_IRQHandler
-                0x0800ada8                ADC1_2_IRQHandler
-                0x0800ada8                SPI1_IRQHandler
-                0x0800ada8                TIM6_DAC_IRQHandler
-                0x0800ada8                TIM8_UP_IRQHandler
-                0x0800ada8                DMA2_Channel2_IRQHandler
-                0x0800ada8                DMA1_Channel4_IRQHandler
-                0x0800ada8                SAI2_IRQHandler
-                0x0800ada8                DFSDM1_FLT3_IRQHandler
-                0x0800ada8                DMA1_Channel7_IRQHandler
-                0x0800ada8                CAN1_RX1_IRQHandler
-                0x0800ada8                LCD_IRQHandler
-                0x0800ada8                UART5_IRQHandler
-                0x0800ada8                ADC3_IRQHandler
-                0x0800ada8                DMA2_Channel1_IRQHandler
-                0x0800ada8                QUADSPI_IRQHandler
-                0x0800ada8                I2C1_EV_IRQHandler
-                0x0800ada8                DMA1_Channel6_IRQHandler
-                0x0800ada8                UART4_IRQHandler
-                0x0800ada8                TIM3_IRQHandler
-                0x0800ada8                RCC_IRQHandler
-                0x0800ada8                Default_Handler
-                0x0800ada8                DMA2_Channel7_IRQHandler
-                0x0800ada8                EXTI15_10_IRQHandler
-                0x0800ada8                TIM7_IRQHandler
-                0x0800ada8                SDMMC1_IRQHandler
-                0x0800ada8                TIM5_IRQHandler
-                0x0800ada8                I2C3_EV_IRQHandler
-                0x0800ada8                EXTI9_5_IRQHandler
-                0x0800ada8                RTC_WKUP_IRQHandler
-                0x0800ada8                PVD_PVM_IRQHandler
-                0x0800ada8                SPI2_IRQHandler
-                0x0800ada8                CAN1_TX_IRQHandler
-                0x0800ada8                DMA2_Channel5_IRQHandler
-                0x0800ada8                DMA1_Channel5_IRQHandler
-                0x0800ada8                EXTI4_IRQHandler
-                0x0800ada8                RNG_IRQHandler
-                0x0800ada8                TIM1_TRG_COM_TIM17_IRQHandler
-                0x0800ada8                DMA1_Channel3_IRQHandler
-                0x0800ada8                COMP_IRQHandler
-                0x0800ada8                WWDG_IRQHandler
-                0x0800ada8                LPUART1_IRQHandler
-                0x0800ada8                DMA2_Channel6_IRQHandler
-                0x0800ada8                TIM2_IRQHandler
-                0x0800ada8                EXTI1_IRQHandler
-                0x0800ada8                USART2_IRQHandler
-                0x0800ada8                DFSDM1_FLT0_IRQHandler
-                0x0800ada8                I2C2_ER_IRQHandler
-                0x0800ada8                DMA1_Channel2_IRQHandler
-                0x0800ada8                TIM8_BRK_IRQHandler
-                0x0800ada8                CAN1_SCE_IRQHandler
-                0x0800ada8                FLASH_IRQHandler
-                0x0800ada8                USART1_IRQHandler
-                0x0800ada8                OTG_FS_IRQHandler
-                0x0800ada8                SPI3_IRQHandler
-                0x0800ada8                I2C1_ER_IRQHandler
-                0x0800ada8                FMC_IRQHandler
-                0x0800ada8                SWPMI1_IRQHandler
-                0x0800ada8                LPTIM1_IRQHandler
-                0x0800ada8                SAI1_IRQHandler
-                0x0800ada8                DMA2_Channel3_IRQHandler
-                0x0800ada8                TIM1_BRK_TIM15_IRQHandler
- *fill*         0x0800adaa        0x2 
+                0x0800afbc        0x2 startup/startup_stm32l476xx.o
+                0x0800afbc                RTC_Alarm_IRQHandler
+                0x0800afbc                EXTI2_IRQHandler
+                0x0800afbc                TIM8_TRG_COM_IRQHandler
+                0x0800afbc                TIM8_CC_IRQHandler
+                0x0800afbc                TIM1_CC_IRQHandler
+                0x0800afbc                TSC_IRQHandler
+                0x0800afbc                TAMP_STAMP_IRQHandler
+                0x0800afbc                EXTI3_IRQHandler
+                0x0800afbc                LPTIM2_IRQHandler
+                0x0800afbc                DFSDM1_FLT1_IRQHandler
+                0x0800afbc                I2C3_ER_IRQHandler
+                0x0800afbc                DFSDM1_FLT2_IRQHandler
+                0x0800afbc                I2C2_EV_IRQHandler
+                0x0800afbc                CAN1_RX0_IRQHandler
+                0x0800afbc                FPU_IRQHandler
+                0x0800afbc                TIM1_UP_TIM16_IRQHandler
+                0x0800afbc                ADC1_2_IRQHandler
+                0x0800afbc                SPI1_IRQHandler
+                0x0800afbc                TIM6_DAC_IRQHandler
+                0x0800afbc                TIM8_UP_IRQHandler
+                0x0800afbc                DMA2_Channel2_IRQHandler
+                0x0800afbc                DMA1_Channel4_IRQHandler
+                0x0800afbc                SAI2_IRQHandler
+                0x0800afbc                DFSDM1_FLT3_IRQHandler
+                0x0800afbc                DMA1_Channel7_IRQHandler
+                0x0800afbc                CAN1_RX1_IRQHandler
+                0x0800afbc                LCD_IRQHandler
+                0x0800afbc                UART5_IRQHandler
+                0x0800afbc                ADC3_IRQHandler
+                0x0800afbc                DMA2_Channel1_IRQHandler
+                0x0800afbc                QUADSPI_IRQHandler
+                0x0800afbc                I2C1_EV_IRQHandler
+                0x0800afbc                DMA1_Channel6_IRQHandler
+                0x0800afbc                UART4_IRQHandler
+                0x0800afbc                TIM3_IRQHandler
+                0x0800afbc                RCC_IRQHandler
+                0x0800afbc                Default_Handler
+                0x0800afbc                DMA2_Channel7_IRQHandler
+                0x0800afbc                EXTI15_10_IRQHandler
+                0x0800afbc                TIM7_IRQHandler
+                0x0800afbc                SDMMC1_IRQHandler
+                0x0800afbc                TIM5_IRQHandler
+                0x0800afbc                I2C3_EV_IRQHandler
+                0x0800afbc                EXTI9_5_IRQHandler
+                0x0800afbc                RTC_WKUP_IRQHandler
+                0x0800afbc                PVD_PVM_IRQHandler
+                0x0800afbc                SPI2_IRQHandler
+                0x0800afbc                CAN1_TX_IRQHandler
+                0x0800afbc                DMA2_Channel5_IRQHandler
+                0x0800afbc                DMA1_Channel5_IRQHandler
+                0x0800afbc                EXTI4_IRQHandler
+                0x0800afbc                RNG_IRQHandler
+                0x0800afbc                TIM1_TRG_COM_TIM17_IRQHandler
+                0x0800afbc                DMA1_Channel3_IRQHandler
+                0x0800afbc                COMP_IRQHandler
+                0x0800afbc                WWDG_IRQHandler
+                0x0800afbc                LPUART1_IRQHandler
+                0x0800afbc                DMA2_Channel6_IRQHandler
+                0x0800afbc                TIM2_IRQHandler
+                0x0800afbc                EXTI1_IRQHandler
+                0x0800afbc                USART2_IRQHandler
+                0x0800afbc                DFSDM1_FLT0_IRQHandler
+                0x0800afbc                I2C2_ER_IRQHandler
+                0x0800afbc                DMA1_Channel2_IRQHandler
+                0x0800afbc                TIM8_BRK_IRQHandler
+                0x0800afbc                CAN1_SCE_IRQHandler
+                0x0800afbc                FLASH_IRQHandler
+                0x0800afbc                USART1_IRQHandler
+                0x0800afbc                OTG_FS_IRQHandler
+                0x0800afbc                SPI3_IRQHandler
+                0x0800afbc                I2C1_ER_IRQHandler
+                0x0800afbc                FMC_IRQHandler
+                0x0800afbc                SWPMI1_IRQHandler
+                0x0800afbc                LPTIM1_IRQHandler
+                0x0800afbc                SAI1_IRQHandler
+                0x0800afbc                DMA2_Channel3_IRQHandler
+                0x0800afbc                TIM1_BRK_TIM15_IRQHandler
+ *fill*         0x0800afbe        0x2 
  .text.__libc_init_array
-                0x0800adac       0x48 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
-                0x0800adac                __libc_init_array
- .text.memset   0x0800adf4       0x10 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)
-                0x0800adf4                memset
+                0x0800afc0       0x48 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
+                0x0800afc0                __libc_init_array
+ .text.memset   0x0800b008       0x10 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)
+                0x0800b008                memset
  *(.glue_7)
- .glue_7        0x0800ae04        0x0 linker stubs
+ .glue_7        0x0800b018        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x0800ae04        0x0 linker stubs
+ .glue_7t       0x0800b018        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x0800ae04        0x0 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .eh_frame      0x0800b018        0x0 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
  *(.init)
- .init          0x0800ae04        0x4 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
-                0x0800ae04                _init
- .init          0x0800ae08        0x8 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+ .init          0x0800b018        0x4 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x0800b018                _init
+ .init          0x0800b01c        0x8 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
  *(.fini)
- .fini          0x0800ae10        0x4 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
-                0x0800ae10                _fini
- .fini          0x0800ae14        0x8 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
-                0x0800ae20                . = ALIGN (0x8)
- *fill*         0x0800ae1c        0x4 
-                0x0800ae20                _etext = .
+ .fini          0x0800b024        0x4 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x0800b024                _fini
+ .fini          0x0800b028        0x8 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+                0x0800b030                . = ALIGN (0x8)
+                0x0800b030                _etext = .
 
-.vfp11_veneer   0x0800ae20        0x0
- .vfp11_veneer  0x0800ae20        0x0 linker stubs
+.vfp11_veneer   0x0800b030        0x0
+ .vfp11_veneer  0x0800b030        0x0 linker stubs
 
-.v4_bx          0x0800ae20        0x0
- .v4_bx         0x0800ae20        0x0 linker stubs
+.v4_bx          0x0800b030        0x0
+ .v4_bx         0x0800b030        0x0 linker stubs
 
-.iplt           0x0800ae20        0x0
- .iplt          0x0800ae20        0x0 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.iplt           0x0800b030        0x0
+ .iplt          0x0800b030        0x0 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.rodata         0x0800ae20       0x48
-                0x0800ae20                . = ALIGN (0x8)
+.rodata         0x0800b030       0x48
+                0x0800b030                . = ALIGN (0x8)
  *(.rodata)
- .rodata        0x0800ae20       0x48 Src/system_stm32l4xx.o
-                0x0800ae20                MSIRangeTable
-                0x0800ae50                AHBPrescTable
-                0x0800ae60                APBPrescTable
+ .rodata        0x0800b030       0x48 Src/system_stm32l4xx.o
+                0x0800b030                MSIRangeTable
+                0x0800b060                AHBPrescTable
+                0x0800b070                APBPrescTable
  *(.rodata*)
-                0x0800ae68                . = ALIGN (0x8)
+                0x0800b078                . = ALIGN (0x8)
 
-.ARM.extab      0x0800ae68        0x0
-                0x0800ae68                . = ALIGN (0x8)
+.ARM.extab      0x0800b078        0x0
+                0x0800b078                . = ALIGN (0x8)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0800ae68                . = ALIGN (0x8)
+                0x0800b078                . = ALIGN (0x8)
 
-.ARM            0x0800ae68        0x8
-                0x0800ae68                . = ALIGN (0x8)
-                0x0800ae68                __exidx_start = .
+.ARM            0x0800b078        0x8
+                0x0800b078                . = ALIGN (0x8)
+                0x0800b078                __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x0800ae68        0x8 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_udivmoddi4.o)
-                0x0800ae70                __exidx_end = .
-                0x0800ae70                . = ALIGN (0x8)
+ .ARM.exidx     0x0800b078        0x8 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_udivmoddi4.o)
+                0x0800b080                __exidx_end = .
+                0x0800b080                . = ALIGN (0x8)
 
-.rel.dyn        0x0800ae70        0x0
- .rel.iplt      0x0800ae70        0x0 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+.rel.dyn        0x0800b080        0x0
+ .rel.iplt      0x0800b080        0x0 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
 
-.preinit_array  0x0800ae70        0x0
-                0x0800ae70                . = ALIGN (0x8)
-                0x0800ae70                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x0800b080        0x0
+                0x0800b080                . = ALIGN (0x8)
+                0x0800b080                PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x0800ae70                PROVIDE (__preinit_array_end = .)
-                0x0800ae70                . = ALIGN (0x8)
+                0x0800b080                PROVIDE (__preinit_array_end = .)
+                0x0800b080                . = ALIGN (0x8)
 
-.init_array     0x0800ae70        0x8
-                0x0800ae70                . = ALIGN (0x8)
-                0x0800ae70                PROVIDE (__init_array_start = .)
+.init_array     0x0800b080        0x8
+                0x0800b080                . = ALIGN (0x8)
+                0x0800b080                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0800ae70        0x4 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
-                0x0800ae74                PROVIDE (__init_array_end = .)
-                0x0800ae78                . = ALIGN (0x8)
- *fill*         0x0800ae74        0x4 
+ .init_array    0x0800b080        0x4 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+                0x0800b084                PROVIDE (__init_array_end = .)
+                0x0800b088                . = ALIGN (0x8)
+ *fill*         0x0800b084        0x4 
 
-.fini_array     0x0800ae78        0x8
-                0x0800ae78                . = ALIGN (0x8)
+.fini_array     0x0800b088        0x8
+                0x0800b088                . = ALIGN (0x8)
                 [!provide]                PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0800ae78        0x4 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .fini_array    0x0800b088        0x4 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
                 [!provide]                PROVIDE (__fini_array_end = .)
-                0x0800ae80                . = ALIGN (0x8)
- *fill*         0x0800ae7c        0x4 
-                0x0800ae80                _sidata = LOADADDR (.data)
+                0x0800b090                . = ALIGN (0x8)
+ *fill*         0x0800b08c        0x4 
+                0x0800b090                _sidata = LOADADDR (.data)
 
-.data           0x20000000      0x170 load address 0x0800ae80
+.data           0x20000000      0x170 load address 0x0800b090
                 0x20000000                . = ALIGN (0x8)
                 0x20000000                _sdata = .
  *(.data)
@@ -7247,114 +7206,114 @@ LOAD d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17
  .data          0x20000008        0x2 Src/hist.o
                 0x20000008                max_diff
  *fill*         0x2000000a        0x2 
- .data          0x2000000c       0x10 Src/pid_DOPLER_FREQ.o
-                0x2000000c                DOPLER_FREQ_factorKi
-                0x20000010                DOPLER_FREQ_rangeMax
-                0x20000014                DOPLER_FREQ_rangeMin
-                0x20000018                DOPLER_FREQ_factorKp
- .data          0x2000001c       0x10 Src/pid_MICROWAVE.o
-                0x2000001c                MICROWAVE_factorKi
-                0x20000020                MICROWAVE_rangeMax
-                0x20000024                MICROWAVE_rangeMin
-                0x20000028                MICROWAVE_factorKp
- .data          0x2000002c        0xc Src/pid_cell.o
-                0x2000002c                CELL_factorKi
-                0x20000030                CELL_rangeMax
-                0x20000034                CELL_factorKp
- .data          0x20000038       0x10 Src/pid_dopler_crnt.o
-                0x20000038                DOPLER_CRNT_factorKi
-                0x2000003c                DOPLER_CRNT_rangeMax
-                0x20000040                DOPLER_CRNT_rangeMin
-                0x20000044                DOPLER_CRNT_factorKp
- .data          0x20000048       0x10 Src/pid_dopler_tec.o
-                0x20000048                DOPLER_TEC_factorKi
-                0x2000004c                DOPLER_TEC_rangeMax
-                0x20000050                DOPLER_TEC_rangeMin
-                0x20000054                DOPLER_TEC_factorKp
- .data          0x20000058       0x10 Src/pid_freq.o
-                0x20000058                FREQ_factorKi
-                0x2000005c                FREQ_rangeMax
-                0x20000060                FREQ_rangeMin
-                0x20000064                FREQ_factorKp
- .data          0x20000068       0x10 Src/pid_optics_pwr.o
-                0x20000068                OPTICS_PWR_factorKi
-                0x2000006c                OPTICS_PWR_rangeMax
-                0x20000070                OPTICS_PWR_rangeMin
-                0x20000074                OPTICS_PWR_factorKp
- .data          0x20000078       0x10 Src/pid_tec_ctrl.o
-                0x20000078                TECCTRL_factorKi
-                0x2000007c                TECCTRL_rangeMax
-                0x20000080                TECCTRL_rangeMin
-                0x20000084                TECCTRL_factorKp
- .data          0x20000088        0x4 Src/system_stm32l4xx.o
-                0x20000088                SystemCoreClock
- .data          0x2000008c       0xe0 Src/var.o
-                0x2000008c                byteUSART
-                0x20000090                count_OUT1_CPT_FREQ
-                0x20000094                step_Freq_GNSS
-                0x20000098                flagUpdateCompute_FREQ_GNSS
-                0x2000009c                count_OUT2_CPT_FREQ
-                0x200000a0                count_OUT2_CPT_CRNT
-                0x200000a4                count_OUT1_CPT_CRNT
-                0x200000a8                count_OUT1_DOPLER_CRNT
-                0x200000ac                count_SD2
-                0x200000b0                count_OUT_1N
-                0x200000b4                count_OUT_0R
-                0x200000b8                count_OUT_2R
-                0x200000bc                count_OUT_DC_2
-                0x200000c0                count_SD1
-                0x200000c4                count_CONTR
-                0x200000c8                count_OUT_1R
-                0x200000cc                count_OUT_DC
-                0x200000d0                MOD_CRNT_width
-                0x200000d4                my_dat_2
-                0x200000d8                my_dat_1
-                0x200000dc                value_N_STEP_L
-                0x200000e0                levelValueSensor_TempCell
-                0x200000e4                levelTemp_D_CELL
-                0x200000e8                levelTemp_CELL
-                0x200000ec                timeLoopPID_MICROWAVE
-                0x200000f0                timeLoopPID_TEC_CTRL
-                0x200000f4                sigmaPID_CTRL
-                0x200000f8                level_CONTR
-                0x200000fc                statusLoopPID
-                0x20000100                itemOptionLMX
-                0x20000104                LMX_ShiftFreq
-                0x20000108                LMX_ValueFD
-                0x2000010c                LMX_ValueFN
-                0x20000110                LMX_ValueN
-                0x20000114                scanMax_UT2A
-                0x20000118                scanStep_UT2A
-                0x2000011c                scanMax_VY
-                0x20000120                scanMin_VY
-                0x20000124                scanStep_VY
-                0x20000128                fixValue_UT1A
-                0x2000012c                fixValue_U2R
-                0x20000130                fixValue_VY
-                0x20000134                value_OutFactor
-                0x20000138                value_RFI
-                0x2000013c                value_DTX
-                0x20000140                value_L1
-                0x20000144                value_VT1
-                0x20000148                value_U2R_D
-                0x2000014c                value_U2R
-                0x20000150                value_VY
-                0x20000154                value_UT2A
-                0x20000158                value_UT1A
-                0x2000015c                my_alarm
-                0x20000160                var_my_ADC2
-                0x20000164                itemWork
-                0x20000168                ID_keyTest
+ .data          0x2000000c        0x4 Src/system_stm32l4xx.o
+                0x2000000c                SystemCoreClock
+ .data          0x20000010       0xe0 Src/var.o
+                0x20000010                byteUSART
+                0x20000014                count_OUT1_CPT_FREQ
+                0x20000018                step_Freq_GNSS
+                0x2000001c                flagUpdateCompute_FREQ_GNSS
+                0x20000020                count_OUT2_CPT_FREQ
+                0x20000024                count_OUT2_CPT_CRNT
+                0x20000028                count_OUT1_CPT_CRNT
+                0x2000002c                count_OUT1_DOPLER_CRNT
+                0x20000030                count_SD2
+                0x20000034                count_OUT_1N
+                0x20000038                count_OUT_0R
+                0x2000003c                count_OUT_2R
+                0x20000040                count_OUT_DC_2
+                0x20000044                count_SD1
+                0x20000048                count_CONTR
+                0x2000004c                count_OUT_1R
+                0x20000050                count_OUT_DC
+                0x20000054                MOD_CRNT_width
+                0x20000058                my_dat_2
+                0x2000005c                my_dat_1
+                0x20000060                value_N_STEP_L
+                0x20000064                levelValueSensor_TempCell
+                0x20000068                levelTemp_D_CELL
+                0x2000006c                levelTemp_CELL
+                0x20000070                timeLoopPID_MICROWAVE
+                0x20000074                timeLoopPID_TEC_CTRL
+                0x20000078                sigmaPID_CTRL
+                0x2000007c                level_CONTR
+                0x20000080                statusLoopPID
+                0x20000084                itemOptionLMX
+                0x20000088                LMX_ShiftFreq
+                0x2000008c                LMX_ValueFD
+                0x20000090                LMX_ValueFN
+                0x20000094                LMX_ValueN
+                0x20000098                scanMax_UT2A
+                0x2000009c                scanStep_UT2A
+                0x200000a0                scanMax_VY
+                0x200000a4                scanMin_VY
+                0x200000a8                scanStep_VY
+                0x200000ac                fixValue_UT1A
+                0x200000b0                fixValue_U2R
+                0x200000b4                fixValue_VY
+                0x200000b8                value_OutFactor
+                0x200000bc                value_RFI
+                0x200000c0                value_DTX
+                0x200000c4                value_L1
+                0x200000c8                value_VT1
+                0x200000cc                value_U2R_D
+                0x200000d0                value_U2R
+                0x200000d4                value_VY
+                0x200000d8                value_UT2A
+                0x200000dc                value_UT1A
+                0x200000e0                my_alarm
+                0x200000e4                var_my_ADC2
+                0x200000e8                itemWork
+                0x200000ec                ID_keyTest
+ .data          0x200000f0       0x10 Src/Pid/pid_DOPLER_FREQ.o
+                0x200000f0                DOPLER_FREQ_factorKi
+                0x200000f4                DOPLER_FREQ_rangeMax
+                0x200000f8                DOPLER_FREQ_rangeMin
+                0x200000fc                DOPLER_FREQ_factorKp
+ .data          0x20000100       0x10 Src/Pid/pid_MICROWAVE.o
+                0x20000100                MICROWAVE_factorKi
+                0x20000104                MICROWAVE_rangeMax
+                0x20000108                MICROWAVE_rangeMin
+                0x2000010c                MICROWAVE_factorKp
+ .data          0x20000110        0xc Src/Pid/pid_cell.o
+                0x20000110                CELL_factorKi
+                0x20000114                CELL_rangeMax
+                0x20000118                CELL_factorKp
+ .data          0x2000011c       0x10 Src/Pid/pid_dopler_crnt.o
+                0x2000011c                DOPLER_CRNT_factorKi
+                0x20000120                DOPLER_CRNT_rangeMax
+                0x20000124                DOPLER_CRNT_rangeMin
+                0x20000128                DOPLER_CRNT_factorKp
+ .data          0x2000012c       0x10 Src/Pid/pid_dopler_tec.o
+                0x2000012c                DOPLER_TEC_factorKi
+                0x20000130                DOPLER_TEC_rangeMax
+                0x20000134                DOPLER_TEC_rangeMin
+                0x20000138                DOPLER_TEC_factorKp
+ .data          0x2000013c       0x10 Src/Pid/pid_freq.o
+                0x2000013c                FREQ_factorKi
+                0x20000140                FREQ_rangeMax
+                0x20000144                FREQ_rangeMin
+                0x20000148                FREQ_factorKp
+ .data          0x2000014c       0x10 Src/Pid/pid_optics_pwr.o
+                0x2000014c                OPTICS_PWR_factorKi
+                0x20000150                OPTICS_PWR_rangeMax
+                0x20000154                OPTICS_PWR_rangeMin
+                0x20000158                OPTICS_PWR_factorKp
+ .data          0x2000015c       0x10 Src/Pid/pid_tec_ctrl.o
+                0x2000015c                TECCTRL_factorKi
+                0x20000160                TECCTRL_rangeMax
+                0x20000164                TECCTRL_rangeMin
+                0x20000168                TECCTRL_factorKp
  *(.data*)
                 0x20000170                . = ALIGN (0x8)
  *fill*         0x2000016c        0x4 
                 0x20000170                _edata = .
 
-.igot.plt       0x20000170        0x0 load address 0x0800aff0
+.igot.plt       0x20000170        0x0 load address 0x0800b200
  .igot.plt      0x20000170        0x0 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
                 0x20000170                . = ALIGN (0x4)
 
-.bss            0x20000170     0x7e64 load address 0x0800aff0
+.bss            0x20000170     0x7e98 load address 0x0800b200
                 0x20000170                _sbss = .
                 0x20000170                __bss_start__ = _sbss
  *(.bss)
@@ -7368,442 +7327,450 @@ LOAD d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17
                 0x200001a0                numPosHist
  .bss           0x200001a4       0x10 Src/interface_AD5668.o
  .bss           0x200001b4       0x10 Src/main.o
- .bss           0x200001c4       0x20 Src/pid_DOPLER_FREQ.o
-                0x200001c4                DOPLER_FREQ_valueP
-                0x200001c8                DOPLER_FREQ_valueI
-                0x200001cc                DOPLER_FREQ_valueD
-                0x200001d0                DOPLER_FREQ_valueS
-                0x200001d4                DOPLER_FREQ_nowValue
-                0x200001d8                DOPLER_FREQ_backValue
-                0x200001dc                DOPLER_FREQ_flagRun
-                0x200001e0                DOPLER_FREQ_factorKd
- .bss           0x200001e4       0x20 Src/pid_MICROWAVE.o
-                0x200001e4                MICROWAVE_valueP
-                0x200001e8                MICROWAVE_valueI
-                0x200001ec                MICROWAVE_valueD
-                0x200001f0                MICROWAVE_valueS
-                0x200001f4                MICROWAVE_nowValue
-                0x200001f8                MICROWAVE_backValue
-                0x200001fc                MICROWAVE_flagRun
-                0x20000200                MICROWAVE_factorKd
- .bss           0x20000204       0x24 Src/pid_cell.o
-                0x20000204                CELL_valueP
-                0x20000208                CELL_valueI
-                0x2000020c                CELL_valueD
-                0x20000210                CELL_valueS
-                0x20000214                CELL_nowValue
-                0x20000218                CELL_backValue
-                0x2000021c                CELL_flagRun
-                0x20000220                CELL_rangeMin
-                0x20000224                CELL_factorKd
- .bss           0x20000228       0x20 Src/pid_dopler_crnt.o
-                0x20000228                DOPLER_CRNT_valueP
-                0x2000022c                DOPLER_CRNT_valueI
-                0x20000230                DOPLER_CRNT_valueD
-                0x20000234                DOPLER_CRNT_valueS
-                0x20000238                DOPLER_CRNT_nowValue
-                0x2000023c                DOPLER_CRNT_backValue
-                0x20000240                DOPLER_CRNT_flagRun
-                0x20000244                DOPLER_CRNT_factorKd
- .bss           0x20000248       0x20 Src/pid_dopler_tec.o
-                0x20000248                DOPLER_TEC_valueP
-                0x2000024c                DOPLER_TEC_valueI
-                0x20000250                DOPLER_TEC_valueD
-                0x20000254                DOPLER_TEC_valueS
-                0x20000258                DOPLER_TEC_nowValue
-                0x2000025c                DOPLER_TEC_backValue
-                0x20000260                DOPLER_TEC_flagRun
-                0x20000264                DOPLER_TEC_factorKd
- .bss           0x20000268       0x20 Src/pid_freq.o
-                0x20000268                FREQ_valueP
-                0x2000026c                FREQ_valueI
-                0x20000270                FREQ_valueD
-                0x20000274                FREQ_valueS
-                0x20000278                FREQ_nowValue
-                0x2000027c                FREQ_backValue
-                0x20000280                FREQ_flagRun
-                0x20000284                FREQ_factorKd
- .bss           0x20000288       0x20 Src/pid_optics_pwr.o
-                0x20000288                OPTICS_PWR_valueP
-                0x2000028c                OPTICS_PWR_valueI
-                0x20000290                OPTICS_PWR_valueD
-                0x20000294                OPTICS_PWR_valueS
-                0x20000298                OPTICS_PWR_nowValue
-                0x2000029c                OPTICS_PWR_backValue
-                0x200002a0                OPTICS_PWR_flagRun
-                0x200002a4                OPTICS_PWR_factorKd
- .bss           0x200002a8       0x20 Src/pid_tec_ctrl.o
-                0x200002a8                TECCTRL_valueP
-                0x200002ac                TECCTRL_valueI
-                0x200002b0                TECCTRL_valueD
-                0x200002b4                TECCTRL_valueS
-                0x200002b8                TECCTRL_nowValue
-                0x200002bc                TECCTRL_backValue
-                0x200002c0                TECCTRL_flagRun
-                0x200002c4                TECCTRL_factorKd
- .bss           0x200002c8      0x1c4 Src/stm32l4xx_it.o
- .bss           0x2000048c      0x161 Src/usart_protocol.o
- *fill*         0x200005ed        0x3 
- .bss           0x200005f0      0x680 Src/var.o
-                0x200005f0                cmdID
-                0x200005f4                lengthBufferCmd
-                0x200005f6                USART_rx_buffer_overflow
-                0x200005f8                USART_rx_rd_index
-                0x200005fa                USART_rx_wr_index
-                0x200005fc                USART_rx_count
-                0x200005fe                USART_tx_buffer_overflow
-                0x20000600                USART_tx_rd_index
-                0x20000602                USART_tx_wr_index
-                0x20000604                USART_tx_count
-                0x20000608                DEBUG_item_VT1
-                0x2000060c                DEBUG_item_RFI
-                0x20000610                DEBUG_item_DTX
-                0x20000614                DEBUG_item_VY
-                0x20000618                DEBUG_maxDWT3
-                0x2000061c                DEBUG_maxDWT2
-                0x20000620                DEBUG_maxDWT1
-                0x20000624                fixValue_CPT_FREQ
-                0x20000628                result_OUT1_CPT_FREQ
-                0x20000640                flagUpdateCompute_OUT1_CPT_FREQ
-                0x20000644                index_OUT1_CPT_FREQ
-                0x20000648                sum_OUT1_CPT_FREQ
-                0x20000660                shift_Freq_GNSS_I
-                0x20000664                shift_Freq_GNSS
-                0x20000668                shift_Lin_Freq
-                0x2000066c                b_Start_Shift_Freq
-                0x20000670                shift_OUT2_FREQ
-                0x20000674                result_OUT2_CPT_FREQ_CPT
-                0x20000678                result_OUT2_CPT_FREQ
-                0x20000690                flagStartCompute_FREQ_GNSS
-                0x20000691                flagUpdateCompute_OUT2_CPT_FREQ
-                0x20000694                index_OUT2_CPT_FREQ
-                0x20000698                sum_OUT2_CPT_FREQ
-                0x200006b0                delta_DOPLER_DC
-                0x200006b4                result_OUT2_CPT_CRNT_DOPLER
-                0x200006b8                result_OUT2_CRNT_2
-                0x200006cc                result_OUT2_CPT_CRNT
-                0x200006e0                result_OUT1_CPT_CRNT_DOPLER
-                0x200006e4                result_OUT1_CRNT_2
-                0x200006f8                result_OUT1_CPT_CRNT
-                0x2000070c                flagUpdateCompute_OUT2_CPT_CRNT
-                0x20000710                index_OUT2_CPT_CRNT
-                0x20000714                index_OUT1_CPT_CRNT
-                0x20000718                sum_OUT2_CRNT_2
-                0x2000072c                sum_OUT1_CRNT_2
-                0x20000740                sum_OUT2_CPT_CRNT
-                0x20000754                sum_OUT1_CPT_CRNT
-                0x20000768                fixValue_OUT1_DOPLER_CRNT
-                0x2000076c                result_OUT1_DOPLER_CRNT
-                0x20000770                flagUpdateCompute_OUT1_DOPLER_CRNT
-                0x20000774                sum_OUT1_DOPLER_CRNT
-                0x2000077c                shift_OUT2_DOPLER_CRNT
-                0x20000780                fixValue_OUT2_CPT
-                0x20000784                flagUpdateCompute_OUT2_CPT
-                0x20000788                index_SD2
-                0x2000078c                index_OUT_1N
-                0x20000790                index_OUT_0R
-                0x20000794                index_OUT_2R
-                0x20000798                index_OUT_DC_2
-                0x2000079c                index_SD1
-                0x200007a0                index_CONTR
-                0x200007a4                index_OUT_DC
-                0x200007a8                avrResult_OUT_0RN
-                0x200007ac                avrResult_OUT2_DC
-                0x200007b0                avrResult_SD2
-                0x200007b4                avrResult_OUT_0R_
-                0x200007b8                avrResult_OUT_1N
-                0x200007bc                avrResult_OUT_0R
-                0x200007c0                avrResult_OUT_2R
-                0x200007c4                startResult_OUT_DC_2
-                0x200007c8                avrResult_OUT_DC_2
-                0x200007cc                avrResult_SD1_
-                0x200007d0                avrResult_SD1
-                0x200007d4                avrResult_CONTR
-                0x200007d8                avrResult_OUT_1R
-                0x200007dc                avrResult_OUT_DC
-                0x200007e0                fix_avrResult_OUT_DC
-                0x200007e4                p_sum_OUT_3R
-                0x200007e8                p_sum_SD1
-                0x200007ec                p_sum_CONTR
-                0x200007f0                p_sum_OUT_1R
-                0x200007f4                p_sum_OUT_DC
-                0x200007f8                rez_OUT_2R
-                0x200007fc                sum_OUT_0RN
-                0x20000800                sum_OUT_2RN
-                0x20000804                sum_SD2_
-                0x20000808                sum_OUT_0R_
-                0x2000080c                sum_OUT_2R_
-                0x20000810                sum_SD2
-                0x20000814                sum_OUT_1N
-                0x20000818                sum_OUT_0R
-                0x2000081c                sum_OUT_2R
-                0x20000820                sum_OUT_DC_2
-                0x20000824                sum_SD1
-                0x20000828                sum_CONTR
-                0x2000082c                sum_OUT_DC
-                0x20000830                itemMOD_FREQ
-                0x20000834                itemMOD_CRNT
-                0x20000838                itemPartResultDMA2_ADC2
-                0x20000839                itemPartResultDMA1_ADC1
-                0x2000083c                sum_ampl_Data_F1_F2_
-                0x20000840                sum_ampl_Data_F2_
-                0x20000844                sum_ampl_Data_F1_
-                0x20000848                sum_ampl_Data_F0_
-                0x2000084c                numPos
-                0x20000850                pkgPos
-                0x20000854                num_corr_TEST_ADC_2
-                0x20000858                corr_TEST_ADC_2
-                0x2000085c                corr_12_TEST_ADC_2
-                0x20000860                corr_2_TEST_ADC_2
-                0x20000864                corr_1_TEST_ADC_2
-                0x20000868                b_buf_TEST_ADC_2
-                0x20000869                b_buf_TEST_ADC_3
-                0x2000086a                b_F2F1_rezult
-                0x20000870                my_DMA2_tst_Data
-                0x20000b40                resultAverage_SENSOR_TempCell
-                0x20000b44                tickDelayUpdateTempCell
-                0x20000b48                TempCellIsCorrect
-                0x20000b4c                value_Temp_D_Cell
-                0x20000b50                value_TempCell
-                0x20000b54                iT__n
-                0x20000b58                iT4__
-                0x20000b5c                iT3__
-                0x20000b60                iT2__
-                0x20000b64                iT1__
-                0x20000b68                iF0
-                0x20000b6c                b_eq
-                0x20000b6d                b_MESSAGE
-                0x20000b70                f_MESSAGE_3
-                0x20000b74                f_MESSAGE_2
-                0x20000b78                i_MESSAGE_3
-                0x20000b7c                i_MESSAGE_2
-                0x20000b80                i_MESSAGE_1
-                0x20000b84                value_mult_To_FREQ
-                0x20000b88                resultTemp_D_CELL
-                0x20000b8c                resultTemp_CELL
-                0x20000b90                resultDOPLER_FREQ
-                0x20000b94                resultMICROWAVE
-                0x20000b98                resultTec
-                0x20000b9c                isLoopPID_MICROWAVE
-                0x20000b9d                isLoopPID_TEC_CTRL
-                0x20000ba0                countLoopPID_TEC_CTRL
-                0x20000ba4                fixValue_OUT2_DOPLER_TEC
-                0x20000ba8                fixValue_OUT2_DOPLER_CRNT
-                0x20000bac                result_OUT1_OPTICS_PWR
-                0x20000bb0                result_OUT2_DOPLER_TEC
-                0x20000bb4                result_OUT2_DOPLER_CRNT
-                0x20000bb8                flagUpdateTempCell
-                0x20000bb9                flagUpdateCompute_CELL
-                0x20000bba                flagProcess_OUT1_OPTICS_PWR
-                0x20000bbb                flagUpdateCompute_OUT1_OPTICS_PWR
-                0x20000bbc                flagUpdateCompute_OUT2_DOPLER_TEC
-                0x20000bbd                flag_SCAN_CRNT
-                0x20000bbe                flagUpdateCompute_OUT2_DOPLER_CRNT
-                0x20000bbf                flagProcess_DOPLER_FREQ
-                0x20000bc0                flagUpdateCompute_DOPLER_FREQ
-                0x20000bc1                flagProcess_MICROWAVE
-                0x20000bc2                flagUpdateCompute_MICROWAVE
-                0x20000bc3                flagUpdateCompute_TEC_CTRL
-                0x20000bc4                LMX_ValueINT
-                0x20000bc8                b_PID_FLAG_LOOP_SENSOR_TEMP_CELL
-                0x20000bc9                b_PID_FLAG_LOOP_CELL
-                0x20000bcc                scanMin_UT2A
-                0x20000bd0                fixValue_T5
-                0x20000bd4                fixValue_DOPLER_FREQ
-                0x20000bd8                fixValue_MICROWAVE
-                0x20000bdc                fixValue_TEC_CTRL
-                0x20000be0                ticsDelayUpdateTempCell
-                0x20000be4                flagConnectedTempSensor
-                0x20000be5                flagUpdate_LMX2486
-                0x20000be6                flagUpdate_OutFactor
-                0x20000be7                flagUpdate_RFI
-                0x20000be8                flagUpdate_DTX
-                0x20000be9                flagUpdate_T5
-                0x20000bea                flagUpdate_L1
-                0x20000beb                flagUpdate_VT1
-                0x20000bec                flagUpdate_U2R
-                0x20000bed                flagUpdate_VY
-                0x20000bee                flagUpdate_UT2A
-                0x20000bef                flagUpdate_UT1A
-                0x20000bf0                value_DTX_rez
-                0x20000bf4                value_DTX_aver
-                0x20000bf8                value__T5
-                0x20000bfc                value_T5
-                0x20000c00                value_VY_rez
-                0x20000c04                value_VY_aver
-                0x20000c08                value_UT1A_rez
-                0x20000c0c                value_UT1A_aver
-                0x20000c10                F1F2_rezult_N_900
-                0x20000c14                F1F2_rezult_N_30
-                0x20000c18                F1F2_rezult_A_900
-                0x20000c1c                F1F2_rezult_A_30
-                0x20000c20                F1F2_rezult_A
-                0x20000c24                F1F2_rezult_X
-                0x20000c28                F2F1_rezult_N_900
-                0x20000c2c                F2F1_rezult_N_30
-                0x20000c30                F2F1_rezult_A_900
-                0x20000c34                F2F1_rezult_A_30
-                0x20000c38                F2F1_rezult_A
-                0x20000c3c                F2F1_rezult_X
-                0x20000c40                my_LSM303D_Temperature
-                0x20000c42                b_TIM4
-                0x20000c44                num_TIM4
-                0x20000c48                my_Tick
-                0x20000c4c                my_ms_num
-                0x20000c50                b_my_ms_num
-                0x20000c54                avrResult_SD1_start
-                0x20000c58                bCompFreqTK_1
-                0x20000c59                bCompFreqTK
-                0x20000c5c                my_N_4
-                0x20000c60                my_N_3
-                0x20000c64                my_N_2
-                0x20000c68                my_N_1
-                0x20000c6c                my_TST
+ .bss           0x200001c4      0x1c4 Src/stm32l4xx_it.o
+ .bss           0x20000388      0x161 Src/usart_protocol.o
+ *fill*         0x200004e9        0x7 
+ .bss           0x200004f0      0x680 Src/var.o
+                0x200004f0                cmdID
+                0x200004f4                lengthBufferCmd
+                0x200004f6                USART_rx_buffer_overflow
+                0x200004f8                USART_rx_rd_index
+                0x200004fa                USART_rx_wr_index
+                0x200004fc                USART_rx_count
+                0x200004fe                USART_tx_buffer_overflow
+                0x20000500                USART_tx_rd_index
+                0x20000502                USART_tx_wr_index
+                0x20000504                USART_tx_count
+                0x20000508                DEBUG_item_VT1
+                0x2000050c                DEBUG_item_RFI
+                0x20000510                DEBUG_item_DTX
+                0x20000514                DEBUG_item_VY
+                0x20000518                DEBUG_maxDWT3
+                0x2000051c                DEBUG_maxDWT2
+                0x20000520                DEBUG_maxDWT1
+                0x20000524                fixValue_CPT_FREQ
+                0x20000528                result_OUT1_CPT_FREQ
+                0x20000540                flagUpdateCompute_OUT1_CPT_FREQ
+                0x20000544                index_OUT1_CPT_FREQ
+                0x20000548                sum_OUT1_CPT_FREQ
+                0x20000560                shift_Freq_GNSS_I
+                0x20000564                shift_Freq_GNSS
+                0x20000568                shift_Lin_Freq
+                0x2000056c                b_Start_Shift_Freq
+                0x20000570                shift_OUT2_FREQ
+                0x20000574                result_OUT2_CPT_FREQ_CPT
+                0x20000578                result_OUT2_CPT_FREQ
+                0x20000590                flagStartCompute_FREQ_GNSS
+                0x20000591                flagUpdateCompute_OUT2_CPT_FREQ
+                0x20000594                index_OUT2_CPT_FREQ
+                0x20000598                sum_OUT2_CPT_FREQ
+                0x200005b0                delta_DOPLER_DC
+                0x200005b4                result_OUT2_CPT_CRNT_DOPLER
+                0x200005b8                result_OUT2_CRNT_2
+                0x200005cc                result_OUT2_CPT_CRNT
+                0x200005e0                result_OUT1_CPT_CRNT_DOPLER
+                0x200005e4                result_OUT1_CRNT_2
+                0x200005f8                result_OUT1_CPT_CRNT
+                0x2000060c                flagUpdateCompute_OUT2_CPT_CRNT
+                0x20000610                index_OUT2_CPT_CRNT
+                0x20000614                index_OUT1_CPT_CRNT
+                0x20000618                sum_OUT2_CRNT_2
+                0x2000062c                sum_OUT1_CRNT_2
+                0x20000640                sum_OUT2_CPT_CRNT
+                0x20000654                sum_OUT1_CPT_CRNT
+                0x20000668                fixValue_OUT1_DOPLER_CRNT
+                0x2000066c                result_OUT1_DOPLER_CRNT
+                0x20000670                flagUpdateCompute_OUT1_DOPLER_CRNT
+                0x20000674                sum_OUT1_DOPLER_CRNT
+                0x2000067c                shift_OUT2_DOPLER_CRNT
+                0x20000680                fixValue_OUT2_CPT
+                0x20000684                flagUpdateCompute_OUT2_CPT
+                0x20000688                index_SD2
+                0x2000068c                index_OUT_1N
+                0x20000690                index_OUT_0R
+                0x20000694                index_OUT_2R
+                0x20000698                index_OUT_DC_2
+                0x2000069c                index_SD1
+                0x200006a0                index_CONTR
+                0x200006a4                index_OUT_DC
+                0x200006a8                avrResult_OUT_0RN
+                0x200006ac                avrResult_OUT2_DC
+                0x200006b0                avrResult_SD2
+                0x200006b4                avrResult_OUT_0R_
+                0x200006b8                avrResult_OUT_1N
+                0x200006bc                avrResult_OUT_0R
+                0x200006c0                avrResult_OUT_2R
+                0x200006c4                startResult_OUT_DC_2
+                0x200006c8                avrResult_OUT_DC_2
+                0x200006cc                avrResult_SD1_
+                0x200006d0                avrResult_SD1
+                0x200006d4                avrResult_CONTR
+                0x200006d8                avrResult_OUT_1R
+                0x200006dc                avrResult_OUT_DC
+                0x200006e0                fix_avrResult_OUT_DC
+                0x200006e4                p_sum_OUT_3R
+                0x200006e8                p_sum_SD1
+                0x200006ec                p_sum_CONTR
+                0x200006f0                p_sum_OUT_1R
+                0x200006f4                p_sum_OUT_DC
+                0x200006f8                rez_OUT_2R
+                0x200006fc                sum_OUT_0RN
+                0x20000700                sum_OUT_2RN
+                0x20000704                sum_SD2_
+                0x20000708                sum_OUT_0R_
+                0x2000070c                sum_OUT_2R_
+                0x20000710                sum_SD2
+                0x20000714                sum_OUT_1N
+                0x20000718                sum_OUT_0R
+                0x2000071c                sum_OUT_2R
+                0x20000720                sum_OUT_DC_2
+                0x20000724                sum_SD1
+                0x20000728                sum_CONTR
+                0x2000072c                sum_OUT_DC
+                0x20000730                itemMOD_FREQ
+                0x20000734                itemMOD_CRNT
+                0x20000738                itemPartResultDMA2_ADC2
+                0x20000739                itemPartResultDMA1_ADC1
+                0x2000073c                sum_ampl_Data_F1_F2_
+                0x20000740                sum_ampl_Data_F2_
+                0x20000744                sum_ampl_Data_F1_
+                0x20000748                sum_ampl_Data_F0_
+                0x2000074c                numPos
+                0x20000750                pkgPos
+                0x20000754                num_corr_TEST_ADC_2
+                0x20000758                corr_TEST_ADC_2
+                0x2000075c                corr_12_TEST_ADC_2
+                0x20000760                corr_2_TEST_ADC_2
+                0x20000764                corr_1_TEST_ADC_2
+                0x20000768                b_buf_TEST_ADC_2
+                0x20000769                b_buf_TEST_ADC_3
+                0x2000076a                b_F2F1_rezult
+                0x20000770                my_DMA2_tst_Data
+                0x20000a40                resultAverage_SENSOR_TempCell
+                0x20000a44                tickDelayUpdateTempCell
+                0x20000a48                TempCellIsCorrect
+                0x20000a4c                value_Temp_D_Cell
+                0x20000a50                value_TempCell
+                0x20000a54                iT__n
+                0x20000a58                iT4__
+                0x20000a5c                iT3__
+                0x20000a60                iT2__
+                0x20000a64                iT1__
+                0x20000a68                iF0
+                0x20000a6c                b_eq
+                0x20000a6d                b_MESSAGE
+                0x20000a70                f_MESSAGE_3
+                0x20000a74                f_MESSAGE_2
+                0x20000a78                i_MESSAGE_3
+                0x20000a7c                i_MESSAGE_2
+                0x20000a80                i_MESSAGE_1
+                0x20000a84                value_mult_To_FREQ
+                0x20000a88                resultTemp_D_CELL
+                0x20000a8c                resultTemp_CELL
+                0x20000a90                resultDOPLER_FREQ
+                0x20000a94                resultMICROWAVE
+                0x20000a98                resultTec
+                0x20000a9c                isLoopPID_MICROWAVE
+                0x20000a9d                isLoopPID_TEC_CTRL
+                0x20000aa0                countLoopPID_TEC_CTRL
+                0x20000aa4                fixValue_OUT2_DOPLER_TEC
+                0x20000aa8                fixValue_OUT2_DOPLER_CRNT
+                0x20000aac                result_OUT1_OPTICS_PWR
+                0x20000ab0                result_OUT2_DOPLER_TEC
+                0x20000ab4                result_OUT2_DOPLER_CRNT
+                0x20000ab8                flagUpdateTempCell
+                0x20000ab9                flagUpdateCompute_CELL
+                0x20000aba                flagProcess_OUT1_OPTICS_PWR
+                0x20000abb                flagUpdateCompute_OUT1_OPTICS_PWR
+                0x20000abc                flagUpdateCompute_OUT2_DOPLER_TEC
+                0x20000abd                flag_SCAN_CRNT
+                0x20000abe                flagUpdateCompute_OUT2_DOPLER_CRNT
+                0x20000abf                flagProcess_DOPLER_FREQ
+                0x20000ac0                flagUpdateCompute_DOPLER_FREQ
+                0x20000ac1                flagProcess_MICROWAVE
+                0x20000ac2                flagUpdateCompute_MICROWAVE
+                0x20000ac3                flagUpdateCompute_TEC_CTRL
+                0x20000ac4                LMX_ValueINT
+                0x20000ac8                b_PID_FLAG_LOOP_SENSOR_TEMP_CELL
+                0x20000ac9                b_PID_FLAG_LOOP_CELL
+                0x20000acc                scanMin_UT2A
+                0x20000ad0                fixValue_T5
+                0x20000ad4                fixValue_DOPLER_FREQ
+                0x20000ad8                fixValue_MICROWAVE
+                0x20000adc                fixValue_TEC_CTRL
+                0x20000ae0                ticsDelayUpdateTempCell
+                0x20000ae4                flagConnectedTempSensor
+                0x20000ae5                flagUpdate_LMX2486
+                0x20000ae6                flagUpdate_OutFactor
+                0x20000ae7                flagUpdate_RFI
+                0x20000ae8                flagUpdate_DTX
+                0x20000ae9                flagUpdate_T5
+                0x20000aea                flagUpdate_L1
+                0x20000aeb                flagUpdate_VT1
+                0x20000aec                flagUpdate_U2R
+                0x20000aed                flagUpdate_VY
+                0x20000aee                flagUpdate_UT2A
+                0x20000aef                flagUpdate_UT1A
+                0x20000af0                value_DTX_rez
+                0x20000af4                value_DTX_aver
+                0x20000af8                value__T5
+                0x20000afc                value_T5
+                0x20000b00                value_VY_rez
+                0x20000b04                value_VY_aver
+                0x20000b08                value_UT1A_rez
+                0x20000b0c                value_UT1A_aver
+                0x20000b10                F1F2_rezult_N_900
+                0x20000b14                F1F2_rezult_N_30
+                0x20000b18                F1F2_rezult_A_900
+                0x20000b1c                F1F2_rezult_A_30
+                0x20000b20                F1F2_rezult_A
+                0x20000b24                F1F2_rezult_X
+                0x20000b28                F2F1_rezult_N_900
+                0x20000b2c                F2F1_rezult_N_30
+                0x20000b30                F2F1_rezult_A_900
+                0x20000b34                F2F1_rezult_A_30
+                0x20000b38                F2F1_rezult_A
+                0x20000b3c                F2F1_rezult_X
+                0x20000b40                my_LSM303D_Temperature
+                0x20000b42                b_TIM4
+                0x20000b44                num_TIM4
+                0x20000b48                my_Tick
+                0x20000b4c                my_ms_num
+                0x20000b50                b_my_ms_num
+                0x20000b54                avrResult_SD1_start
+                0x20000b58                bCompFreqTK_1
+                0x20000b59                bCompFreqTK
+                0x20000b5c                my_N_4
+                0x20000b60                my_N_3
+                0x20000b64                my_N_2
+                0x20000b68                my_N_1
+                0x20000b6c                my_TST
+ .bss           0x20000b70       0x20 Src/Pid/pid_DOPLER_FREQ.o
+                0x20000b70                DOPLER_FREQ_valueP
+                0x20000b74                DOPLER_FREQ_valueI
+                0x20000b78                DOPLER_FREQ_valueD
+                0x20000b7c                DOPLER_FREQ_valueS
+                0x20000b80                DOPLER_FREQ_nowValue
+                0x20000b84                DOPLER_FREQ_backValue
+                0x20000b88                DOPLER_FREQ_flagRun
+                0x20000b8c                DOPLER_FREQ_factorKd
+ .bss           0x20000b90       0x20 Src/Pid/pid_MICROWAVE.o
+                0x20000b90                MICROWAVE_valueP
+                0x20000b94                MICROWAVE_valueI
+                0x20000b98                MICROWAVE_valueD
+                0x20000b9c                MICROWAVE_valueS
+                0x20000ba0                MICROWAVE_nowValue
+                0x20000ba4                MICROWAVE_backValue
+                0x20000ba8                MICROWAVE_flagRun
+                0x20000bac                MICROWAVE_factorKd
+ .bss           0x20000bb0       0x24 Src/Pid/pid_cell.o
+                0x20000bb0                CELL_valueP
+                0x20000bb4                CELL_valueI
+                0x20000bb8                CELL_valueD
+                0x20000bbc                CELL_valueS
+                0x20000bc0                CELL_nowValue
+                0x20000bc4                CELL_backValue
+                0x20000bc8                CELL_flagRun
+                0x20000bcc                CELL_rangeMin
+                0x20000bd0                CELL_factorKd
+ .bss           0x20000bd4       0x2c Src/Pid/pid_dopler_crnt.o
+                0x20000bd4                DOPLER_CRNT_valueP
+                0x20000bd8                DOPLER_CRNT_valueI
+                0x20000bdc                DOPLER_CRNT_valueD
+                0x20000be0                DOPLER_CRNT_valueS
+                0x20000be4                DOPLER_CRNT_nowValue
+                0x20000be8                DOPLER_CRNT_backValue
+                0x20000bec                DOPLER_CRNT_flagRun
+                0x20000bf0                DOPLER_CRNT_factorKd
+                0x20000bf4                DOP_valueS
+                0x20000bf8                DOP_valueI
+                0x20000bfc                DOP_valueP
+ .bss           0x20000c00       0x20 Src/Pid/pid_dopler_tec.o
+                0x20000c00                DOPLER_TEC_valueP
+                0x20000c04                DOPLER_TEC_valueI
+                0x20000c08                DOPLER_TEC_valueD
+                0x20000c0c                DOPLER_TEC_valueS
+                0x20000c10                DOPLER_TEC_nowValue
+                0x20000c14                DOPLER_TEC_backValue
+                0x20000c18                DOPLER_TEC_flagRun
+                0x20000c1c                DOPLER_TEC_factorKd
+ .bss           0x20000c20       0x2c Src/Pid/pid_freq.o
+                0x20000c20                FREQ_valueP
+                0x20000c24                FREQ_valueI
+                0x20000c28                FREQ_valueD
+                0x20000c2c                FREQ_valueS
+                0x20000c30                FREQ_nowValue
+                0x20000c34                FREQ_backValue
+                0x20000c38                FREQ_flagRun
+                0x20000c3c                FREQ_factorKd
+                0x20000c40                FREQ_valueS_
+                0x20000c44                FREQ_valueI_
+                0x20000c48                FREQ_valueP_
+ .bss           0x20000c4c       0x20 Src/Pid/pid_optics_pwr.o
+                0x20000c4c                OPTICS_PWR_valueP
+                0x20000c50                OPTICS_PWR_valueI
+                0x20000c54                OPTICS_PWR_valueD
+                0x20000c58                OPTICS_PWR_valueS
+                0x20000c5c                OPTICS_PWR_nowValue
+                0x20000c60                OPTICS_PWR_backValue
+                0x20000c64                OPTICS_PWR_flagRun
+                0x20000c68                OPTICS_PWR_factorKd
+ .bss           0x20000c6c       0x20 Src/Pid/pid_tec_ctrl.o
+                0x20000c6c                TECCTRL_valueP
+                0x20000c70                TECCTRL_valueI
+                0x20000c74                TECCTRL_valueD
+                0x20000c78                TECCTRL_valueS
+                0x20000c7c                TECCTRL_nowValue
+                0x20000c80                TECCTRL_backValue
+                0x20000c84                TECCTRL_flagRun
+                0x20000c88                TECCTRL_factorKd
  *(.bss*)
  *(COMMON)
- COMMON         0x20000c70        0x4 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
-                0x20000c70                uwTick
- COMMON         0x20000c74      0x158 Src/adc.o
-                0x20000c74                hadc2
-                0x20000cd8                hadc1
-                0x20000d3c                hdma_adc1
-                0x20000d84                hdma_adc2
- COMMON         0x20000dcc       0x14 Src/dac.o
-                0x20000dcc                hdac1
- COMMON         0x20000de0     0x15ee Src/hist.o
-                0x20000de0                tmp
-                0x20000de4                rez_cell
-                0x20001104                step_diff
-                0x20001106                maxfreq
-                0x20001108                p_diff
-                0x2000110c                cell
-                0x2000142c                diff
-                0x200023cc                minfreq
- *fill*         0x200023ce        0x2 
- COMMON         0x200023d0       0x4c Src/i2c.o
-                0x200023d0                hi2c3
- COMMON         0x2000241c      0x12c Src/spi.o
-                0x2000241c                hspi2
-                0x20002480                hspi3
-                0x200024e4                hspi1
- COMMON         0x20002548      0x180 Src/tim.o
-                0x20002548                htim8
-                0x20002588                htim4
-                0x200025c8                htim17
-                0x20002608                htim3
-                0x20002648                htim1
-                0x20002688                htim2
- COMMON         0x200026c8       0x80 Src/usart.o
-                0x200026c8                huart3
- COMMON         0x20002748     0x588c Src/var.o
-                0x20002748                my_F2F1_P_rez
-                0x20002760                LMX_DataValueFD
-                0x20002b60                result_OUT2_CPT_FREQ_CPT_tmp
-                0x20002b64                min_Data_F0_
-                0x20002b68                value_TC
-                0x20002b6c                F1F2_P_S
-                0x20002b70                my_DMA2_Data_F0_
-                0x20002cd0                F2F1_rezult_2
-                0x20002ce8                F1F2_OUT1_rezult
-                0x20002cfc                p_my_F2F1_rez_
-                0x20002d00                max_Data_F1_
-                0x20002d04                my_F1F2_sum
-                0x20002d18                value_STEP_L
-                0x20002d1c                p_my_DMA2_Data_
-                0x20002d20                p_my_F1F2_OUT1_sum
-                0x20002d24                max_Data_F2_
-                0x20002d28                my_F1F2_P_sum
-                0x20002d3c                USART_tx_buffer
-                0x20002e3c                SD1_d
-                0x20002e40                value_FAZA_F
-                0x20002e44                result_OUT2_CPT_CRNT_DOPLER_tmp
-                0x20002e48                my_DMA2_Data_F1
-                0x20002f38                F1F2_P_rezult
-                0x20002f4c                my_F0_sum_
-                0x20002f50                my_DMA2_Data_
-                0x20003220                I2C3_RxBuffer
-                0x20003230                p_my_DMA2_Data_F0_
-                0x20003234                resultData_CONTR
-                0x200035f4                F1F2_rezult
-                0x20003608                F2F1_rezult_1
-                0x20003620                pDataDMA2
-                0x20003624                my_F1F2_P_rez
-                0x20003638                my_DMA2_Data_F2_
-                0x20003764                value_D_TC
-                0x20003768                p_my_DMA2_Data_F1_
-                0x2000376c                resultData_OUT_3R
-                0x20003b2c                BufferDataPack
-                0x20003b3c                min_Data_F1_
-                0x20003b40                my_F0_sum
-                0x20003b48                my_DMA2_Data
-                0x20003e18                my_F2F1_P_sum
-                0x20003e30                BufferMsg
-                0x20003f30                rez_ampl_Data_F2_
-                0x20003f34                pDataDMA1
-                0x20003f38                DMA2_Data
-                0x200044d8                my_F1F2_rez_
-                0x200044f0                my_DMA2_Data_F1_F2_
-                0x200045e0                min_Data_F2_
-                0x200045e4                value_FAZA_L
-                0x200045e8                F2F1_rezult_D
-                0x20004600                rez_ampl_Data_F1_F2_
-                0x20004604                rez_ampl_Data_F1_
-                0x20004608                LMX_DataValueFN
-                0x20004a08                F2F1_rezult_
-                0x20004a20                resultData_OUT_0R
-                0x20004de0                resultData_SD2
-                0x200051a0                buf_TEST_ADC_3
-                0x20006460                my_DMA2_Data_F1_F2
-                0x20006550                p_my_DMA2_Data_F2_
-                0x20006554                I2C3_TxBuffer
-                0x20006564                F1F2_rezult_
-                0x20006578                my_F2F1_sum_
-                0x20006590                p_my_F1F2_sum
-                0x20006594                my_F2F1_rez_
-                0x200065ac                F2F1_rezult
-                0x200065c4                resultData_OUT_2R
-                0x20006988                my_DMA2_Data_F0
-                0x20006ae8                my_DMA2_Data_F1_
-                0x20006bd8                min_Data_F1_F2_
-                0x20006bdc                DMA1_Data
-                0x2000735c                my_TST_U32
-                0x20007360                LSM303_BufferRx
-                0x20007370                UART_RxBuffer
-                0x20007470                my_F1F2_OUT1_sum
-                0x20007484                resultData_OUT_1R
-                0x20007844                my_F1F2_sum_
-                0x20007858                p_my_F1F2_rez_
-                0x2000785c                rez_ampl_Data_F0_
-                0x20007860                resultData_SD1
-                0x20007c20                UART_TxBuffer
-                0x20007d20                max_Data_F0_
-                0x20007d28                my_DMA2_Data_F2
-                0x20007e54                LSM303_BufferTx
-                0x20007e64                p_my_DMA2_Data_F1_F2_
-                0x20007e68                F2F1_P_rezult
-                0x20007e80                USART_rx_buffer
-                0x20007f80                max_Data_F1_F2_
-                0x20007f84                my_F2F1_sum
-                0x20007f9c                p_my_F2F1_sum
-                0x20007fa0                p_my_F2F1_sum_
-                0x20007fa4                p_my_F1F2_sum_
-                0x20007fa8                my_F1F2_rez
-                0x20007fbc                my_F2F1_rez
-                0x20007fd4                . = ALIGN (0x4)
-                0x20007fd4                _ebss = .
-                0x20007fd4                __bss_end__ = _ebss
+ COMMON         0x20000c8c        0x4 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
+                0x20000c8c                uwTick
+ COMMON         0x20000c90      0x158 Src/adc.o
+                0x20000c90                hadc2
+                0x20000cf4                hadc1
+                0x20000d58                hdma_adc1
+                0x20000da0                hdma_adc2
+ COMMON         0x20000de8       0x14 Src/dac.o
+                0x20000de8                hdac1
+ COMMON         0x20000dfc     0x15ee Src/hist.o
+                0x20000dfc                tmp
+                0x20000e00                rez_cell
+                0x20001120                step_diff
+                0x20001122                maxfreq
+                0x20001124                p_diff
+                0x20001128                cell
+                0x20001448                diff
+                0x200023e8                minfreq
+ *fill*         0x200023ea        0x2 
+ COMMON         0x200023ec       0x4c Src/i2c.o
+                0x200023ec                hi2c3
+ COMMON         0x20002438      0x12c Src/spi.o
+                0x20002438                hspi2
+                0x2000249c                hspi3
+                0x20002500                hspi1
+ COMMON         0x20002564      0x180 Src/tim.o
+                0x20002564                htim8
+                0x200025a4                htim4
+                0x200025e4                htim17
+                0x20002624                htim3
+                0x20002664                htim1
+                0x200026a4                htim2
+ COMMON         0x200026e4       0x80 Src/usart.o
+                0x200026e4                huart3
+ *fill*         0x20002764        0x4 
+ COMMON         0x20002768     0x588c Src/var.o
+                0x20002768                my_F2F1_P_rez
+                0x20002780                LMX_DataValueFD
+                0x20002b80                result_OUT2_CPT_FREQ_CPT_tmp
+                0x20002b84                min_Data_F0_
+                0x20002b88                value_TC
+                0x20002b8c                F1F2_P_S
+                0x20002b90                my_DMA2_Data_F0_
+                0x20002cf0                F2F1_rezult_2
+                0x20002d08                F1F2_OUT1_rezult
+                0x20002d1c                p_my_F2F1_rez_
+                0x20002d20                max_Data_F1_
+                0x20002d24                my_F1F2_sum
+                0x20002d38                value_STEP_L
+                0x20002d3c                p_my_DMA2_Data_
+                0x20002d40                p_my_F1F2_OUT1_sum
+                0x20002d44                max_Data_F2_
+                0x20002d48                my_F1F2_P_sum
+                0x20002d5c                USART_tx_buffer
+                0x20002e5c                SD1_d
+                0x20002e60                value_FAZA_F
+                0x20002e64                result_OUT2_CPT_CRNT_DOPLER_tmp
+                0x20002e68                my_DMA2_Data_F1
+                0x20002f58                F1F2_P_rezult
+                0x20002f6c                my_F0_sum_
+                0x20002f70                my_DMA2_Data_
+                0x20003240                I2C3_RxBuffer
+                0x20003250                p_my_DMA2_Data_F0_
+                0x20003254                resultData_CONTR
+                0x20003614                F1F2_rezult
+                0x20003628                F2F1_rezult_1
+                0x20003640                pDataDMA2
+                0x20003644                my_F1F2_P_rez
+                0x20003658                my_DMA2_Data_F2_
+                0x20003784                value_D_TC
+                0x20003788                p_my_DMA2_Data_F1_
+                0x2000378c                resultData_OUT_3R
+                0x20003b4c                BufferDataPack
+                0x20003b5c                min_Data_F1_
+                0x20003b60                my_F0_sum
+                0x20003b68                my_DMA2_Data
+                0x20003e38                my_F2F1_P_sum
+                0x20003e50                BufferMsg
+                0x20003f50                rez_ampl_Data_F2_
+                0x20003f54                pDataDMA1
+                0x20003f58                DMA2_Data
+                0x200044f8                my_F1F2_rez_
+                0x20004510                my_DMA2_Data_F1_F2_
+                0x20004600                min_Data_F2_
+                0x20004604                value_FAZA_L
+                0x20004608                F2F1_rezult_D
+                0x20004620                rez_ampl_Data_F1_F2_
+                0x20004624                rez_ampl_Data_F1_
+                0x20004628                LMX_DataValueFN
+                0x20004a28                F2F1_rezult_
+                0x20004a40                resultData_OUT_0R
+                0x20004e00                resultData_SD2
+                0x200051c0                buf_TEST_ADC_3
+                0x20006480                my_DMA2_Data_F1_F2
+                0x20006570                p_my_DMA2_Data_F2_
+                0x20006574                I2C3_TxBuffer
+                0x20006584                F1F2_rezult_
+                0x20006598                my_F2F1_sum_
+                0x200065b0                p_my_F1F2_sum
+                0x200065b4                my_F2F1_rez_
+                0x200065cc                F2F1_rezult
+                0x200065e4                resultData_OUT_2R
+                0x200069a8                my_DMA2_Data_F0
+                0x20006b08                my_DMA2_Data_F1_
+                0x20006bf8                min_Data_F1_F2_
+                0x20006bfc                DMA1_Data
+                0x2000737c                my_TST_U32
+                0x20007380                LSM303_BufferRx
+                0x20007390                UART_RxBuffer
+                0x20007490                my_F1F2_OUT1_sum
+                0x200074a4                resultData_OUT_1R
+                0x20007864                my_F1F2_sum_
+                0x20007878                p_my_F1F2_rez_
+                0x2000787c                rez_ampl_Data_F0_
+                0x20007880                resultData_SD1
+                0x20007c40                UART_TxBuffer
+                0x20007d40                max_Data_F0_
+                0x20007d48                my_DMA2_Data_F2
+                0x20007e74                LSM303_BufferTx
+                0x20007e84                p_my_DMA2_Data_F1_F2_
+                0x20007e88                F2F1_P_rezult
+                0x20007ea0                USART_rx_buffer
+                0x20007fa0                max_Data_F1_F2_
+                0x20007fa4                my_F2F1_sum
+                0x20007fbc                p_my_F2F1_sum
+                0x20007fc0                p_my_F2F1_sum_
+                0x20007fc4                p_my_F1F2_sum_
+                0x20007fc8                my_F1F2_rez
+                0x20007fdc                my_F2F1_rez
+ COMMON         0x20007ff4       0x14 Src/Pid/pid_freq.o
+                0x20007ff4                pi_freq
+                0x20008008                . = ALIGN (0x4)
+                0x20008008                _ebss = .
+                0x20008008                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x20007fd4      0x604 load address 0x0800aff0
-                0x20007fd8                . = ALIGN (0x8)
- *fill*         0x20007fd4        0x4 
-                0x20007fd8                PROVIDE (end = .)
+                0x20008008      0x600 load address 0x0800b200
+                0x20008008                . = ALIGN (0x8)
+                0x20008008                PROVIDE (end = .)
                 [!provide]                PROVIDE (_end = .)
-                0x200081d8                . = (. + _Min_Heap_Size)
- *fill*         0x20007fd8      0x200 
-                0x200085d8                . = (. + _Min_Stack_Size)
- *fill*         0x200081d8      0x400 
-                0x200085d8                . = ALIGN (0x8)
+                0x20008208                . = (. + _Min_Heap_Size)
+ *fill*         0x20008008      0x200 
+                0x20008608                . = (. + _Min_Stack_Size)
+ *fill*         0x20008208      0x400 
+                0x20008608                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -7878,37 +7845,37 @@ LOAD d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17
  .ARM.attributes
                 0x000006b7       0x39 Src/my_FUN_.o
  .ARM.attributes
-                0x000006f0       0x39 Src/pid_DOPLER_FREQ.o
+                0x000006f0       0x39 Src/spi.o
  .ARM.attributes
-                0x00000729       0x39 Src/pid_MICROWAVE.o
+                0x00000729       0x39 Src/stm32l4xx_hal_msp.o
  .ARM.attributes
-                0x00000762       0x39 Src/pid_cell.o
+                0x00000762       0x39 Src/stm32l4xx_it.o
  .ARM.attributes
-                0x0000079b       0x39 Src/pid_dopler_crnt.o
+                0x0000079b       0x39 Src/system_stm32l4xx.o
  .ARM.attributes
-                0x000007d4       0x39 Src/pid_dopler_tec.o
+                0x000007d4       0x39 Src/tim.o
  .ARM.attributes
-                0x0000080d       0x39 Src/pid_freq.o
+                0x0000080d       0x39 Src/usart.o
  .ARM.attributes
-                0x00000846       0x39 Src/pid_optics_pwr.o
+                0x00000846       0x39 Src/usart_protocol.o
  .ARM.attributes
-                0x0000087f       0x39 Src/pid_tec_ctrl.o
+                0x0000087f       0x39 Src/var.o
  .ARM.attributes
-                0x000008b8       0x39 Src/spi.o
+                0x000008b8       0x39 Src/Pid/pid_DOPLER_FREQ.o
  .ARM.attributes
-                0x000008f1       0x39 Src/stm32l4xx_hal_msp.o
+                0x000008f1       0x39 Src/Pid/pid_MICROWAVE.o
  .ARM.attributes
-                0x0000092a       0x39 Src/stm32l4xx_it.o
+                0x0000092a       0x39 Src/Pid/pid_cell.o
  .ARM.attributes
-                0x00000963       0x39 Src/system_stm32l4xx.o
+                0x00000963       0x39 Src/Pid/pid_dopler_crnt.o
  .ARM.attributes
-                0x0000099c       0x39 Src/tim.o
+                0x0000099c       0x39 Src/Pid/pid_dopler_tec.o
  .ARM.attributes
-                0x000009d5       0x39 Src/usart.o
+                0x000009d5       0x39 Src/Pid/pid_freq.o
  .ARM.attributes
-                0x00000a0e       0x39 Src/usart_protocol.o
+                0x00000a0e       0x39 Src/Pid/pid_optics_pwr.o
  .ARM.attributes
-                0x00000a47       0x39 Src/var.o
+                0x00000a47       0x39 Src/Pid/pid_tec_ctrl.o
  .ARM.attributes
                 0x00000a80       0x21 startup/startup_stm32l476xx.o
  .ARM.attributes
@@ -7931,7 +7898,7 @@ LOAD d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17
                 0x00000be7       0x22 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
 OUTPUT(cpt_m__ac6.elf elf32-littlearm)
 
-.debug_info     0x00000000    0x39cf4
+.debug_info     0x00000000    0x3a301
  .debug_info    0x00000000      0xca2 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_info    0x00000ca2     0x2b66 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o
  .debug_info    0x00003808     0x253b Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.o
@@ -7953,34 +7920,34 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_info    0x0001a441      0xbc9 Src/dac.o
  .debug_info    0x0001b00a      0x770 Src/dma.o
  .debug_info    0x0001b77a      0x7f5 Src/gpio.o
- .debug_info    0x0001bf6f     0x1841 Src/hist.o
- .debug_info    0x0001d7b0      0xc35 Src/i2c.o
- .debug_info    0x0001e3e5      0x652 Src/interface_AD5668.o
- .debug_info    0x0001ea37      0x474 Src/interface_AD8400.o
- .debug_info    0x0001eeab     0x1cd7 Src/interface_ADT7410.o
- .debug_info    0x00020b82     0x1e4d Src/interface_LMX2486.o
- .debug_info    0x000229cf     0x4371 Src/main.o
- .debug_info    0x00026d40       0x26 Src/my_FUN.o
- .debug_info    0x00026d66     0x18f6 Src/my_FUN_.o
- .debug_info    0x0002865c     0x1832 Src/pid_DOPLER_FREQ.o
- .debug_info    0x00029e8e     0x1832 Src/pid_MICROWAVE.o
- .debug_info    0x0002b6c0      0x13e Src/pid_cell.o
- .debug_info    0x0002b7fe      0x13e Src/pid_dopler_crnt.o
- .debug_info    0x0002b93c      0x13e Src/pid_dopler_tec.o
- .debug_info    0x0002ba7a      0x13e Src/pid_freq.o
- .debug_info    0x0002bbb8     0x1832 Src/pid_optics_pwr.o
- .debug_info    0x0002d3ea      0x13e Src/pid_tec_ctrl.o
- .debug_info    0x0002d528      0xcf3 Src/spi.o
- .debug_info    0x0002e21b      0x4c8 Src/stm32l4xx_hal_msp.o
- .debug_info    0x0002e6e3     0x36b1 Src/stm32l4xx_it.o
- .debug_info    0x00031d94      0x6fc Src/system_stm32l4xx.o
- .debug_info    0x00032490     0x1988 Src/tim.o
- .debug_info    0x00033e18      0xe9b Src/usart.o
- .debug_info    0x00034cb3     0x2554 Src/usart_protocol.o
- .debug_info    0x00037207     0x2acb Src/var.o
- .debug_info    0x00039cd2       0x22 startup/startup_stm32l476xx.o
+ .debug_info    0x0001bf6f     0x1885 Src/hist.o
+ .debug_info    0x0001d7f4      0xc35 Src/i2c.o
+ .debug_info    0x0001e429      0x652 Src/interface_AD5668.o
+ .debug_info    0x0001ea7b      0x474 Src/interface_AD8400.o
+ .debug_info    0x0001eeef     0x1d1b Src/interface_ADT7410.o
+ .debug_info    0x00020c0a     0x1e91 Src/interface_LMX2486.o
+ .debug_info    0x00022a9b     0x45b5 Src/main.o
+ .debug_info    0x00027050       0x26 Src/my_FUN.o
+ .debug_info    0x00027076     0x193a Src/my_FUN_.o
+ .debug_info    0x000289b0      0xcf3 Src/spi.o
+ .debug_info    0x000296a3      0x4c8 Src/stm32l4xx_hal_msp.o
+ .debug_info    0x00029b6b     0x36dc Src/stm32l4xx_it.o
+ .debug_info    0x0002d247      0x6fc Src/system_stm32l4xx.o
+ .debug_info    0x0002d943     0x1988 Src/tim.o
+ .debug_info    0x0002f2cb      0xe9b Src/usart.o
+ .debug_info    0x00030166     0x25d1 Src/usart_protocol.o
+ .debug_info    0x00032737     0x2aff Src/var.o
+ .debug_info    0x00035236     0x1876 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_info    0x00036aac     0x1876 Src/Pid/pid_MICROWAVE.o
+ .debug_info    0x00038322      0x13e Src/Pid/pid_cell.o
+ .debug_info    0x00038460      0x193 Src/Pid/pid_dopler_crnt.o
+ .debug_info    0x000385f3      0x13e Src/Pid/pid_dopler_tec.o
+ .debug_info    0x00038731      0x1fa Src/Pid/pid_freq.o
+ .debug_info    0x0003892b     0x1876 Src/Pid/pid_optics_pwr.o
+ .debug_info    0x0003a1a1      0x13e Src/Pid/pid_tec_ctrl.o
+ .debug_info    0x0003a2df       0x22 startup/startup_stm32l476xx.o
 
-.debug_abbrev   0x00000000     0x4fca
+.debug_abbrev   0x00000000     0x5023
  .debug_abbrev  0x00000000      0x209 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_abbrev  0x00000209      0x294 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o
  .debug_abbrev  0x0000049d      0x310 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.o
@@ -8008,26 +7975,26 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_abbrev  0x0000310e      0x164 Src/interface_AD8400.o
  .debug_abbrev  0x00003272      0x1b0 Src/interface_ADT7410.o
  .debug_abbrev  0x00003422      0x1de Src/interface_LMX2486.o
- .debug_abbrev  0x00003600      0x397 Src/main.o
- .debug_abbrev  0x00003997       0x14 Src/my_FUN.o
- .debug_abbrev  0x000039ab      0x154 Src/my_FUN_.o
- .debug_abbrev  0x00003aff      0x14a Src/pid_DOPLER_FREQ.o
- .debug_abbrev  0x00003c49      0x14a Src/pid_MICROWAVE.o
- .debug_abbrev  0x00003d93       0x76 Src/pid_cell.o
- .debug_abbrev  0x00003e09       0x76 Src/pid_dopler_crnt.o
- .debug_abbrev  0x00003e7f       0x76 Src/pid_dopler_tec.o
- .debug_abbrev  0x00003ef5       0x76 Src/pid_freq.o
- .debug_abbrev  0x00003f6b      0x14a Src/pid_optics_pwr.o
- .debug_abbrev  0x000040b5       0x76 Src/pid_tec_ctrl.o
- .debug_abbrev  0x0000412b      0x1c9 Src/spi.o
- .debug_abbrev  0x000042f4      0x125 Src/stm32l4xx_hal_msp.o
- .debug_abbrev  0x00004419      0x30c Src/stm32l4xx_it.o
- .debug_abbrev  0x00004725      0x150 Src/system_stm32l4xx.o
- .debug_abbrev  0x00004875      0x21f Src/tim.o
- .debug_abbrev  0x00004a94      0x1d2 Src/usart.o
- .debug_abbrev  0x00004c66      0x22f Src/usart_protocol.o
- .debug_abbrev  0x00004e95      0x123 Src/var.o
- .debug_abbrev  0x00004fb8       0x12 startup/startup_stm32l476xx.o
+ .debug_abbrev  0x00003600      0x3b1 Src/main.o
+ .debug_abbrev  0x000039b1       0x14 Src/my_FUN.o
+ .debug_abbrev  0x000039c5      0x154 Src/my_FUN_.o
+ .debug_abbrev  0x00003b19      0x1c9 Src/spi.o
+ .debug_abbrev  0x00003ce2      0x125 Src/stm32l4xx_hal_msp.o
+ .debug_abbrev  0x00003e07      0x303 Src/stm32l4xx_it.o
+ .debug_abbrev  0x0000410a      0x150 Src/system_stm32l4xx.o
+ .debug_abbrev  0x0000425a      0x21f Src/tim.o
+ .debug_abbrev  0x00004479      0x1d2 Src/usart.o
+ .debug_abbrev  0x0000464b      0x250 Src/usart_protocol.o
+ .debug_abbrev  0x0000489b      0x12e Src/var.o
+ .debug_abbrev  0x000049c9      0x14a Src/Pid/pid_DOPLER_FREQ.o
+ .debug_abbrev  0x00004b13      0x14a Src/Pid/pid_MICROWAVE.o
+ .debug_abbrev  0x00004c5d       0x76 Src/Pid/pid_cell.o
+ .debug_abbrev  0x00004cd3       0x76 Src/Pid/pid_dopler_crnt.o
+ .debug_abbrev  0x00004d49       0x76 Src/Pid/pid_dopler_tec.o
+ .debug_abbrev  0x00004dbf       0x92 Src/Pid/pid_freq.o
+ .debug_abbrev  0x00004e51      0x14a Src/Pid/pid_optics_pwr.o
+ .debug_abbrev  0x00004f9b       0x76 Src/Pid/pid_tec_ctrl.o
+ .debug_abbrev  0x00005011       0x12 startup/startup_stm32l476xx.o
 
 .debug_loc      0x00000000    0x16e0f
  .debug_loc     0x00000000      0x1f1 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
@@ -8056,22 +8023,22 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_loc     0x000153ae      0x89e Src/interface_LMX2486.o
  .debug_loc     0x00015c4c       0xff Src/main.o
  .debug_loc     0x00015d4b      0x173 Src/my_FUN_.o
- .debug_loc     0x00015ebe       0x3e Src/pid_DOPLER_FREQ.o
- .debug_loc     0x00015efc       0x3e Src/pid_MICROWAVE.o
- .debug_loc     0x00015f3a       0x3e Src/pid_cell.o
- .debug_loc     0x00015f78       0x3e Src/pid_dopler_crnt.o
- .debug_loc     0x00015fb6       0x3e Src/pid_dopler_tec.o
- .debug_loc     0x00015ff4       0x3e Src/pid_freq.o
- .debug_loc     0x00016032       0x3e Src/pid_optics_pwr.o
- .debug_loc     0x00016070       0x3e Src/pid_tec_ctrl.o
- .debug_loc     0x000160ae       0xd8 Src/spi.o
- .debug_loc     0x00016186      0x2f7 Src/stm32l4xx_it.o
- .debug_loc     0x0001647d      0x1b8 Src/system_stm32l4xx.o
- .debug_loc     0x00016635      0x141 Src/tim.o
- .debug_loc     0x00016776       0x74 Src/usart.o
- .debug_loc     0x000167ea      0x625 Src/usart_protocol.o
+ .debug_loc     0x00015ebe       0xd8 Src/spi.o
+ .debug_loc     0x00015f96      0x2f7 Src/stm32l4xx_it.o
+ .debug_loc     0x0001628d      0x1b8 Src/system_stm32l4xx.o
+ .debug_loc     0x00016445      0x141 Src/tim.o
+ .debug_loc     0x00016586       0x74 Src/usart.o
+ .debug_loc     0x000165fa      0x625 Src/usart_protocol.o
+ .debug_loc     0x00016c1f       0x3e Src/Pid/pid_DOPLER_FREQ.o
+ .debug_loc     0x00016c5d       0x3e Src/Pid/pid_MICROWAVE.o
+ .debug_loc     0x00016c9b       0x3e Src/Pid/pid_cell.o
+ .debug_loc     0x00016cd9       0x3e Src/Pid/pid_dopler_crnt.o
+ .debug_loc     0x00016d17       0x3e Src/Pid/pid_dopler_tec.o
+ .debug_loc     0x00016d55       0x3e Src/Pid/pid_freq.o
+ .debug_loc     0x00016d93       0x3e Src/Pid/pid_optics_pwr.o
+ .debug_loc     0x00016dd1       0x3e Src/Pid/pid_tec_ctrl.o
 
-.debug_aranges  0x00000000     0x19e8
+.debug_aranges  0x00000000     0x1a10
  .debug_aranges
                 0x00000000      0x130 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_aranges
@@ -8133,41 +8100,41 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_aranges
                 0x00001600       0x50 Src/my_FUN_.o
  .debug_aranges
-                0x00001650       0x28 Src/pid_DOPLER_FREQ.o
+                0x00001650       0x40 Src/spi.o
  .debug_aranges
-                0x00001678       0x28 Src/pid_MICROWAVE.o
+                0x00001690       0x20 Src/stm32l4xx_hal_msp.o
  .debug_aranges
-                0x000016a0       0x28 Src/pid_cell.o
+                0x000016b0       0x88 Src/stm32l4xx_it.o
  .debug_aranges
-                0x000016c8       0x28 Src/pid_dopler_crnt.o
+                0x00001738       0x28 Src/system_stm32l4xx.o
  .debug_aranges
-                0x000016f0       0x28 Src/pid_dopler_tec.o
+                0x00001760       0x60 Src/tim.o
  .debug_aranges
-                0x00001718       0x28 Src/pid_freq.o
+                0x000017c0       0x30 Src/usart.o
  .debug_aranges
-                0x00001740       0x28 Src/pid_optics_pwr.o
+                0x000017f0       0x78 Src/usart_protocol.o
  .debug_aranges
-                0x00001768       0x28 Src/pid_tec_ctrl.o
+                0x00001868       0x18 Src/var.o
  .debug_aranges
-                0x00001790       0x40 Src/spi.o
+                0x00001880       0x28 Src/Pid/pid_DOPLER_FREQ.o
  .debug_aranges
-                0x000017d0       0x20 Src/stm32l4xx_hal_msp.o
+                0x000018a8       0x28 Src/Pid/pid_MICROWAVE.o
  .debug_aranges
-                0x000017f0       0x88 Src/stm32l4xx_it.o
+                0x000018d0       0x28 Src/Pid/pid_cell.o
  .debug_aranges
-                0x00001878       0x28 Src/system_stm32l4xx.o
+                0x000018f8       0x38 Src/Pid/pid_dopler_crnt.o
  .debug_aranges
-                0x000018a0       0x60 Src/tim.o
+                0x00001930       0x28 Src/Pid/pid_dopler_tec.o
  .debug_aranges
-                0x00001900       0x30 Src/usart.o
+                0x00001958       0x40 Src/Pid/pid_freq.o
  .debug_aranges
-                0x00001930       0x78 Src/usart_protocol.o
+                0x00001998       0x28 Src/Pid/pid_optics_pwr.o
  .debug_aranges
-                0x000019a8       0x18 Src/var.o
+                0x000019c0       0x28 Src/Pid/pid_tec_ctrl.o
  .debug_aranges
-                0x000019c0       0x28 startup/startup_stm32l476xx.o
+                0x000019e8       0x28 startup/startup_stm32l476xx.o
 
-.debug_ranges   0x00000000     0x1de0
+.debug_ranges   0x00000000     0x1e38
  .debug_ranges  0x00000000      0x120 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_ranges  0x00000120      0x298 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o
  .debug_ranges  0x000003b8      0x2c0 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.o
@@ -8195,26 +8162,26 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_ranges  0x000017f0       0x10 Src/interface_AD8400.o
  .debug_ranges  0x00001800       0x18 Src/interface_ADT7410.o
  .debug_ranges  0x00001818       0x40 Src/interface_LMX2486.o
- .debug_ranges  0x00001858      0x140 Src/main.o
- .debug_ranges  0x00001998       0x88 Src/my_FUN_.o
- .debug_ranges  0x00001a20       0x18 Src/pid_DOPLER_FREQ.o
- .debug_ranges  0x00001a38       0x18 Src/pid_MICROWAVE.o
- .debug_ranges  0x00001a50       0x18 Src/pid_cell.o
- .debug_ranges  0x00001a68       0x18 Src/pid_dopler_crnt.o
- .debug_ranges  0x00001a80       0x18 Src/pid_dopler_tec.o
- .debug_ranges  0x00001a98       0x18 Src/pid_freq.o
- .debug_ranges  0x00001ab0       0x18 Src/pid_optics_pwr.o
- .debug_ranges  0x00001ac8       0x18 Src/pid_tec_ctrl.o
- .debug_ranges  0x00001ae0       0x30 Src/spi.o
- .debug_ranges  0x00001b10       0x10 Src/stm32l4xx_hal_msp.o
- .debug_ranges  0x00001b20      0x1b0 Src/stm32l4xx_it.o
- .debug_ranges  0x00001cd0       0x18 Src/system_stm32l4xx.o
- .debug_ranges  0x00001ce8       0x50 Src/tim.o
- .debug_ranges  0x00001d38       0x20 Src/usart.o
- .debug_ranges  0x00001d58       0x68 Src/usart_protocol.o
- .debug_ranges  0x00001dc0       0x20 startup/startup_stm32l476xx.o
+ .debug_ranges  0x00001858      0x158 Src/main.o
+ .debug_ranges  0x000019b0       0x88 Src/my_FUN_.o
+ .debug_ranges  0x00001a38       0x30 Src/spi.o
+ .debug_ranges  0x00001a68       0x10 Src/stm32l4xx_hal_msp.o
+ .debug_ranges  0x00001a78      0x1b0 Src/stm32l4xx_it.o
+ .debug_ranges  0x00001c28       0x18 Src/system_stm32l4xx.o
+ .debug_ranges  0x00001c40       0x50 Src/tim.o
+ .debug_ranges  0x00001c90       0x20 Src/usart.o
+ .debug_ranges  0x00001cb0       0x80 Src/usart_protocol.o
+ .debug_ranges  0x00001d30       0x18 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_ranges  0x00001d48       0x18 Src/Pid/pid_MICROWAVE.o
+ .debug_ranges  0x00001d60       0x18 Src/Pid/pid_cell.o
+ .debug_ranges  0x00001d78       0x28 Src/Pid/pid_dopler_crnt.o
+ .debug_ranges  0x00001da0       0x18 Src/Pid/pid_dopler_tec.o
+ .debug_ranges  0x00001db8       0x30 Src/Pid/pid_freq.o
+ .debug_ranges  0x00001de8       0x18 Src/Pid/pid_optics_pwr.o
+ .debug_ranges  0x00001e00       0x18 Src/Pid/pid_tec_ctrl.o
+ .debug_ranges  0x00001e18       0x20 startup/startup_stm32l476xx.o
 
-.debug_macro    0x00000000    0x2d1ff
+.debug_macro    0x00000000    0x2cc22
  .debug_macro   0x00000000      0x273 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_macro   0x00000273      0xa54 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_macro   0x00000cc7      0x1bf Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
@@ -8283,40 +8250,40 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_macro   0x00028fea      0x23e Src/dac.o
  .debug_macro   0x00029228      0x23e Src/dma.o
  .debug_macro   0x00029466      0x23e Src/gpio.o
- .debug_macro   0x000296a4      0x2f7 Src/hist.o
- .debug_macro   0x0002999b       0x22 Src/hist.o
- .debug_macro   0x000299bd       0x10 Src/hist.o
- .debug_macro   0x000299cd       0xe8 Src/hist.o
- .debug_macro   0x00029ab5      0x1d0 Src/hist.o
- .debug_macro   0x00029c85       0x52 Src/hist.o
- .debug_macro   0x00029cd7       0xb1 Src/hist.o
- .debug_macro   0x00029d88      0x23e Src/i2c.o
- .debug_macro   0x00029fc6      0x24d Src/interface_AD5668.o
- .debug_macro   0x0002a213      0x24e Src/interface_AD8400.o
- .debug_macro   0x0002a461      0x309 Src/interface_ADT7410.o
- .debug_macro   0x0002a76a       0x10 Src/interface_ADT7410.o
- .debug_macro   0x0002a77a      0x2fc Src/interface_LMX2486.o
- .debug_macro   0x0002aa76      0x36a Src/main.o
- .debug_macro   0x0002ade0      0x38b Src/main.o
- .debug_macro   0x0002b16b      0x2f6 Src/my_FUN_.o
- .debug_macro   0x0002b461      0x2f0 Src/pid_DOPLER_FREQ.o
- .debug_macro   0x0002b751      0x2f0 Src/pid_MICROWAVE.o
- .debug_macro   0x0002ba41       0x24 Src/pid_cell.o
- .debug_macro   0x0002ba65       0x24 Src/pid_dopler_crnt.o
- .debug_macro   0x0002ba89       0x24 Src/pid_dopler_tec.o
- .debug_macro   0x0002baad       0x24 Src/pid_freq.o
- .debug_macro   0x0002bad1      0x2f0 Src/pid_optics_pwr.o
- .debug_macro   0x0002bdc1       0x24 Src/pid_tec_ctrl.o
- .debug_macro   0x0002bde5      0x23e Src/spi.o
- .debug_macro   0x0002c023      0x234 Src/stm32l4xx_hal_msp.o
- .debug_macro   0x0002c257      0x321 Src/stm32l4xx_it.o
- .debug_macro   0x0002c578      0x22b Src/system_stm32l4xx.o
- .debug_macro   0x0002c7a3      0x23e Src/tim.o
- .debug_macro   0x0002c9e1      0x23e Src/usart.o
- .debug_macro   0x0002cc1f      0x2f4 Src/usart_protocol.o
- .debug_macro   0x0002cf13      0x2ec Src/var.o
+ .debug_macro   0x000296a4      0x264 Src/hist.o
+ .debug_macro   0x00029908       0x22 Src/hist.o
+ .debug_macro   0x0002992a       0x10 Src/hist.o
+ .debug_macro   0x0002993a       0xb1 Src/hist.o
+ .debug_macro   0x000299eb      0x23e Src/i2c.o
+ .debug_macro   0x00029c29      0x24d Src/interface_AD5668.o
+ .debug_macro   0x00029e76       0xe8 Src/interface_AD5668.o
+ .debug_macro   0x00029f5e      0x24e Src/interface_AD8400.o
+ .debug_macro   0x0002a1ac      0x27b Src/interface_ADT7410.o
+ .debug_macro   0x0002a427       0x10 Src/interface_ADT7410.o
+ .debug_macro   0x0002a437       0x52 Src/interface_ADT7410.o
+ .debug_macro   0x0002a489      0x278 Src/interface_LMX2486.o
+ .debug_macro   0x0002a701      0x1d0 Src/interface_LMX2486.o
+ .debug_macro   0x0002a8d1      0x2e1 Src/main.o
+ .debug_macro   0x0002abb2      0x38b Src/main.o
+ .debug_macro   0x0002af3d      0x263 Src/my_FUN_.o
+ .debug_macro   0x0002b1a0      0x23e Src/spi.o
+ .debug_macro   0x0002b3de      0x234 Src/stm32l4xx_hal_msp.o
+ .debug_macro   0x0002b612      0x2d6 Src/stm32l4xx_it.o
+ .debug_macro   0x0002b8e8      0x22b Src/system_stm32l4xx.o
+ .debug_macro   0x0002bb13      0x23e Src/tim.o
+ .debug_macro   0x0002bd51      0x23e Src/usart.o
+ .debug_macro   0x0002bf8f      0x25d Src/usart_protocol.o
+ .debug_macro   0x0002c1ec      0x259 Src/var.o
+ .debug_macro   0x0002c445      0x263 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_macro   0x0002c6a8      0x263 Src/Pid/pid_MICROWAVE.o
+ .debug_macro   0x0002c90b       0x24 Src/Pid/pid_cell.o
+ .debug_macro   0x0002c92f       0x24 Src/Pid/pid_dopler_crnt.o
+ .debug_macro   0x0002c953       0x24 Src/Pid/pid_dopler_tec.o
+ .debug_macro   0x0002c977       0x24 Src/Pid/pid_freq.o
+ .debug_macro   0x0002c99b      0x263 Src/Pid/pid_optics_pwr.o
+ .debug_macro   0x0002cbfe       0x24 Src/Pid/pid_tec_ctrl.o
 
-.debug_line     0x00000000    0x1c439
+.debug_line     0x00000000    0x1ba36
  .debug_line    0x00000000      0x9f0 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_line    0x000009f0     0x1381 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o
  .debug_line    0x00001d71     0x11a3 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.o
@@ -8338,34 +8305,34 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_line    0x0000fc25      0x794 Src/dac.o
  .debug_line    0x000103b9      0x747 Src/dma.o
  .debug_line    0x00010b00      0x772 Src/gpio.o
- .debug_line    0x00011272      0x8ad Src/hist.o
- .debug_line    0x00011b1f      0x788 Src/i2c.o
- .debug_line    0x000122a7      0x87b Src/interface_AD5668.o
- .debug_line    0x00012b22      0x78b Src/interface_AD8400.o
- .debug_line    0x000132ad      0x8ae Src/interface_ADT7410.o
- .debug_line    0x00013b5b      0x989 Src/interface_LMX2486.o
- .debug_line    0x000144e4      0xae5 Src/main.o
- .debug_line    0x00014fc9      0x1f3 Src/my_FUN.o
- .debug_line    0x000151bc      0xa5f Src/my_FUN_.o
- .debug_line    0x00015c1b      0x8a9 Src/pid_DOPLER_FREQ.o
- .debug_line    0x000164c4      0x8a7 Src/pid_MICROWAVE.o
- .debug_line    0x00016d6b      0x132 Src/pid_cell.o
- .debug_line    0x00016e9d      0x140 Src/pid_dopler_crnt.o
- .debug_line    0x00016fdd      0x13e Src/pid_dopler_tec.o
- .debug_line    0x0001711b      0x132 Src/pid_freq.o
- .debug_line    0x0001724d      0x8a9 Src/pid_optics_pwr.o
- .debug_line    0x00017af6      0x13a Src/pid_tec_ctrl.o
- .debug_line    0x00017c30      0x7f4 Src/spi.o
- .debug_line    0x00018424      0x749 Src/stm32l4xx_hal_msp.o
- .debug_line    0x00018b6d      0xcf6 Src/stm32l4xx_it.o
- .debug_line    0x00019863      0x781 Src/system_stm32l4xx.o
- .debug_line    0x00019fe4      0x931 Src/tim.o
- .debug_line    0x0001a915      0x78c Src/usart.o
- .debug_line    0x0001b0a1      0xab6 Src/usart_protocol.o
- .debug_line    0x0001bb57      0x864 Src/var.o
- .debug_line    0x0001c3bb       0x7e startup/startup_stm32l476xx.o
+ .debug_line    0x00011272      0x79b Src/hist.o
+ .debug_line    0x00011a0d      0x788 Src/i2c.o
+ .debug_line    0x00012195      0x87b Src/interface_AD5668.o
+ .debug_line    0x00012a10      0x78b Src/interface_AD8400.o
+ .debug_line    0x0001319b      0x7b3 Src/interface_ADT7410.o
+ .debug_line    0x0001394e      0x89b Src/interface_LMX2486.o
+ .debug_line    0x000141e9      0x9f8 Src/main.o
+ .debug_line    0x00014be1      0x1f3 Src/my_FUN.o
+ .debug_line    0x00014dd4      0x94d Src/my_FUN_.o
+ .debug_line    0x00015721      0x7f4 Src/spi.o
+ .debug_line    0x00015f15      0x749 Src/stm32l4xx_hal_msp.o
+ .debug_line    0x0001665e      0xc85 Src/stm32l4xx_it.o
+ .debug_line    0x000172e3      0x781 Src/system_stm32l4xx.o
+ .debug_line    0x00017a64      0x931 Src/tim.o
+ .debug_line    0x00018395      0x78c Src/usart.o
+ .debug_line    0x00018b21      0x9a4 Src/usart_protocol.o
+ .debug_line    0x000194c5      0x752 Src/var.o
+ .debug_line    0x00019c17      0x7b0 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_line    0x0001a3c7      0x7ac Src/Pid/pid_MICROWAVE.o
+ .debug_line    0x0001ab73      0x136 Src/Pid/pid_cell.o
+ .debug_line    0x0001aca9      0x16b Src/Pid/pid_dopler_crnt.o
+ .debug_line    0x0001ae14      0x142 Src/Pid/pid_dopler_tec.o
+ .debug_line    0x0001af56      0x175 Src/Pid/pid_freq.o
+ .debug_line    0x0001b0cb      0x7af Src/Pid/pid_optics_pwr.o
+ .debug_line    0x0001b87a      0x13e Src/Pid/pid_tec_ctrl.o
+ .debug_line    0x0001b9b8       0x7e startup/startup_stm32l476xx.o
 
-.debug_str      0x00000000   0x10b268
+.debug_str      0x00000000   0x10b2ff
  .debug_str     0x00000000    0xff631 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
                               0xffc93 (size before relaxing)
  .debug_str     0x000ff631      0xe5a Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o
@@ -8408,57 +8375,57 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
                               0xff9bf (size before relaxing)
  .debug_str     0x001071ff       0x27 Src/gpio.o
                               0xff57b (size before relaxing)
- .debug_str     0x00107226     0x2b18 Src/hist.o
-                             0x101c9d (size before relaxing)
- .debug_str     0x00109d3e       0x35 Src/i2c.o
+ .debug_str     0x00107226     0x1b62 Src/hist.o
+                             0x100ce7 (size before relaxing)
+ .debug_str     0x00108d88       0x35 Src/i2c.o
                               0xffa59 (size before relaxing)
- .debug_str     0x00109d73       0x65 Src/interface_AD5668.o
+ .debug_str     0x00108dbd      0x499 Src/interface_AD5668.o
                               0xff50e (size before relaxing)
- .debug_str     0x00109dd8       0x5f Src/interface_AD8400.o
+ .debug_str     0x00109256       0x85 Src/interface_AD8400.o
                               0xff0ca (size before relaxing)
- .debug_str     0x00109e37       0x38 Src/interface_ADT7410.o
-                             0x102564 (size before relaxing)
- .debug_str     0x00109e6f      0x195 Src/interface_LMX2486.o
-                             0x101ee9 (size before relaxing)
- .debug_str     0x0010a004      0x76a Src/main.o
-                             0x1050e7 (size before relaxing)
- .debug_str     0x0010a76e       0x1e Src/my_FUN.o
+ .debug_str     0x001092db      0x173 Src/interface_ADT7410.o
+                             0x1016e9 (size before relaxing)
+ .debug_str     0x0010944e      0xb42 Src/interface_LMX2486.o
+                             0x1018e0 (size before relaxing)
+ .debug_str     0x00109f90      0x785 Src/main.o
+                             0x1046a3 (size before relaxing)
+ .debug_str     0x0010a715       0x1e Src/my_FUN.o
                                  0x3e (size before relaxing)
- .debug_str     0x0010a78c       0x59 Src/my_FUN_.o
-                             0x101cec (size before relaxing)
- .debug_str     0x0010a7e5       0xce Src/pid_DOPLER_FREQ.o
-                             0x101d8c (size before relaxing)
- .debug_str     0x0010a8b3       0xe4 Src/pid_MICROWAVE.o
-                             0x101d74 (size before relaxing)
- .debug_str     0x0010a997       0x88 Src/pid_cell.o
-                               0x2def (size before relaxing)
- .debug_str     0x0010aa1f       0xe4 Src/pid_dopler_crnt.o
-                               0x2e5f (size before relaxing)
- .debug_str     0x0010ab03       0xd9 Src/pid_dopler_tec.o
-                               0x2e4f (size before relaxing)
- .debug_str     0x0010abdc       0x21 Src/pid_freq.o
-                               0x2def (size before relaxing)
- .debug_str     0x0010abfd       0xc4 Src/pid_optics_pwr.o
-                             0x101d80 (size before relaxing)
- .debug_str     0x0010acc1       0xb9 Src/pid_tec_ctrl.o
-                               0x2e20 (size before relaxing)
- .debug_str     0x0010ad7a       0x17 Src/spi.o
+ .debug_str     0x0010a733       0x59 Src/my_FUN_.o
+                             0x100d36 (size before relaxing)
+ .debug_str     0x0010a78c       0x17 Src/spi.o
                               0xff980 (size before relaxing)
- .debug_str     0x0010ad91       0x1b Src/stm32l4xx_hal_msp.o
+ .debug_str     0x0010a7a3       0x1b Src/stm32l4xx_hal_msp.o
                               0xff4b9 (size before relaxing)
- .debug_str     0x0010adac      0x2c4 Src/stm32l4xx_it.o
-                             0x10329a (size before relaxing)
- .debug_str     0x0010b070       0x50 Src/system_stm32l4xx.o
+ .debug_str     0x0010a7be      0x2e3 Src/stm32l4xx_it.o
+                             0x1030fc (size before relaxing)
+ .debug_str     0x0010aaa1       0x50 Src/system_stm32l4xx.o
                               0xff172 (size before relaxing)
- .debug_str     0x0010b0c0       0x4e Src/tim.o
+ .debug_str     0x0010aaf1       0x4e Src/tim.o
                              0x1002be (size before relaxing)
- .debug_str     0x0010b10e       0x1a Src/usart.o
+ .debug_str     0x0010ab3f       0x1a Src/usart.o
                               0xffe7a (size before relaxing)
- .debug_str     0x0010b128       0xca Src/usart_protocol.o
-                             0x10216c (size before relaxing)
- .debug_str     0x0010b1f2       0x55 Src/var.o
-                             0x101d4a (size before relaxing)
- .debug_str     0x0010b247       0x21 startup/startup_stm32l476xx.o
+ .debug_str     0x0010ab59      0x104 Src/usart_protocol.o
+                             0x1011b6 (size before relaxing)
+ .debug_str     0x0010ac5d       0x55 Src/var.o
+                             0x100d94 (size before relaxing)
+ .debug_str     0x0010acb2       0xf6 Src/Pid/pid_DOPLER_FREQ.o
+                             0x100dfe (size before relaxing)
+ .debug_str     0x0010ada8      0x10a Src/Pid/pid_MICROWAVE.o
+                             0x100de4 (size before relaxing)
+ .debug_str     0x0010aeb2       0x9c Src/Pid/pid_cell.o
+                               0x2df3 (size before relaxing)
+ .debug_str     0x0010af4e       0xe9 Src/Pid/pid_dopler_crnt.o
+                               0x2e99 (size before relaxing)
+ .debug_str     0x0010b037       0xde Src/Pid/pid_dopler_tec.o
+                               0x2e53 (size before relaxing)
+ .debug_str     0x0010b115       0x2e Src/Pid/pid_freq.o
+                               0x2e45 (size before relaxing)
+ .debug_str     0x0010b143       0xde Src/Pid/pid_optics_pwr.o
+                             0x100de4 (size before relaxing)
+ .debug_str     0x0010b221       0xbd Src/Pid/pid_tec_ctrl.o
+                               0x2e24 (size before relaxing)
+ .debug_str     0x0010b2de       0x21 startup/startup_stm32l476xx.o
                                  0x4f (size before relaxing)
 
 .comment        0x00000000       0x7f
@@ -8492,14 +8459,6 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .comment       0x0000007f       0x80 Src/interface_LMX2486.o
  .comment       0x0000007f       0x80 Src/main.o
  .comment       0x0000007f       0x80 Src/my_FUN_.o
- .comment       0x0000007f       0x80 Src/pid_DOPLER_FREQ.o
- .comment       0x0000007f       0x80 Src/pid_MICROWAVE.o
- .comment       0x0000007f       0x80 Src/pid_cell.o
- .comment       0x0000007f       0x80 Src/pid_dopler_crnt.o
- .comment       0x0000007f       0x80 Src/pid_dopler_tec.o
- .comment       0x0000007f       0x80 Src/pid_freq.o
- .comment       0x0000007f       0x80 Src/pid_optics_pwr.o
- .comment       0x0000007f       0x80 Src/pid_tec_ctrl.o
  .comment       0x0000007f       0x80 Src/spi.o
  .comment       0x0000007f       0x80 Src/stm32l4xx_hal_msp.o
  .comment       0x0000007f       0x80 Src/stm32l4xx_it.o
@@ -8508,8 +8467,16 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .comment       0x0000007f       0x80 Src/usart.o
  .comment       0x0000007f       0x80 Src/usart_protocol.o
  .comment       0x0000007f       0x80 Src/var.o
+ .comment       0x0000007f       0x80 Src/Pid/pid_DOPLER_FREQ.o
+ .comment       0x0000007f       0x80 Src/Pid/pid_MICROWAVE.o
+ .comment       0x0000007f       0x80 Src/Pid/pid_cell.o
+ .comment       0x0000007f       0x80 Src/Pid/pid_dopler_crnt.o
+ .comment       0x0000007f       0x80 Src/Pid/pid_dopler_tec.o
+ .comment       0x0000007f       0x80 Src/Pid/pid_freq.o
+ .comment       0x0000007f       0x80 Src/Pid/pid_optics_pwr.o
+ .comment       0x0000007f       0x80 Src/Pid/pid_tec_ctrl.o
 
-.debug_frame    0x00000000     0x452c
+.debug_frame    0x00000000     0x457c
  .debug_frame   0x00000000      0x278 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
  .debug_frame   0x00000278      0x2d8 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o
  .debug_frame   0x00000550      0x2d0 Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.o
@@ -8539,25 +8506,25 @@ OUTPUT(cpt_m__ac6.elf elf32-littlearm)
  .debug_frame   0x00003ae4       0xec Src/interface_LMX2486.o
  .debug_frame   0x00003bd0       0x64 Src/main.o
  .debug_frame   0x00003c34       0xb4 Src/my_FUN_.o
- .debug_frame   0x00003ce8       0x30 Src/pid_DOPLER_FREQ.o
- .debug_frame   0x00003d18       0x30 Src/pid_MICROWAVE.o
- .debug_frame   0x00003d48       0x30 Src/pid_cell.o
- .debug_frame   0x00003d78       0x30 Src/pid_dopler_crnt.o
- .debug_frame   0x00003da8       0x30 Src/pid_dopler_tec.o
- .debug_frame   0x00003dd8       0x30 Src/pid_freq.o
- .debug_frame   0x00003e08       0x30 Src/pid_optics_pwr.o
- .debug_frame   0x00003e38       0x30 Src/pid_tec_ctrl.o
- .debug_frame   0x00003e68       0x90 Src/spi.o
- .debug_frame   0x00003ef8       0x28 Src/stm32l4xx_hal_msp.o
- .debug_frame   0x00003f20      0x130 Src/stm32l4xx_it.o
- .debug_frame   0x00004050       0x30 Src/system_stm32l4xx.o
- .debug_frame   0x00004080      0x130 Src/tim.o
- .debug_frame   0x000041b0       0x60 Src/usart.o
- .debug_frame   0x00004210      0x150 Src/usart_protocol.o
- .debug_frame   0x00004360       0xac d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_addsubdf3.o)
- .debug_frame   0x0000440c       0x50 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_muldivdf3.o)
- .debug_frame   0x0000445c       0x24 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_truncdfsf2.o)
- .debug_frame   0x00004480       0x2c d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_aeabi_uldivmod.o)
- .debug_frame   0x000044ac       0x34 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_udivmoddi4.o)
- .debug_frame   0x000044e0       0x2c d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
- .debug_frame   0x0000450c       0x20 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)
+ .debug_frame   0x00003ce8       0x90 Src/spi.o
+ .debug_frame   0x00003d78       0x28 Src/stm32l4xx_hal_msp.o
+ .debug_frame   0x00003da0      0x130 Src/stm32l4xx_it.o
+ .debug_frame   0x00003ed0       0x30 Src/system_stm32l4xx.o
+ .debug_frame   0x00003f00      0x130 Src/tim.o
+ .debug_frame   0x00004030       0x60 Src/usart.o
+ .debug_frame   0x00004090      0x150 Src/usart_protocol.o
+ .debug_frame   0x000041e0       0x30 Src/Pid/pid_DOPLER_FREQ.o
+ .debug_frame   0x00004210       0x30 Src/Pid/pid_MICROWAVE.o
+ .debug_frame   0x00004240       0x30 Src/Pid/pid_cell.o
+ .debug_frame   0x00004270       0x50 Src/Pid/pid_dopler_crnt.o
+ .debug_frame   0x000042c0       0x30 Src/Pid/pid_dopler_tec.o
+ .debug_frame   0x000042f0       0x60 Src/Pid/pid_freq.o
+ .debug_frame   0x00004350       0x30 Src/Pid/pid_optics_pwr.o
+ .debug_frame   0x00004380       0x30 Src/Pid/pid_tec_ctrl.o
+ .debug_frame   0x000043b0       0xac d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_addsubdf3.o)
+ .debug_frame   0x0000445c       0x50 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_muldivdf3.o)
+ .debug_frame   0x000044ac       0x24 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_arm_truncdfsf2.o)
+ .debug_frame   0x000044d0       0x2c d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x000044fc       0x34 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/fpv4-sp/hard\libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x00004530       0x2c d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-init.o)
+ .debug_frame   0x0000455c       0x20 d:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard\libc_nano.a(lib_a-memset.o)

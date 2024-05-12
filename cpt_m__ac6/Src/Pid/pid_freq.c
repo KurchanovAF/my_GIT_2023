@@ -1,4 +1,4 @@
-#include <Pid/pid_freq.h>
+#include <pid_freq.h>
 
 //=========================================================
 // ПИД регулятор для удержания температуры лазера
@@ -20,10 +20,6 @@ float FREQ_nowValue = 0.0;
 float FREQ_backValue = 0.0;
 bool FREQ_flagRun = false;
 
-float FREQ_valueP_ = 0.0;
-float FREQ_valueI_ = 0.0;
-float FREQ_valueS_ = 0.0;
-
 void Reset_FREQ_PID(void){
 	FREQ_valueP = 0.0f;
 	FREQ_valueI = 0.0f;
@@ -32,10 +28,6 @@ void Reset_FREQ_PID(void){
 	FREQ_nowValue = 0.0;
 	FREQ_backValue = 0.0;
 	FREQ_flagRun = false;
-
-	FREQ_valueP_ = 0.0;
-	FREQ_valueI_ = 0.0;
-	FREQ_valueS_ = 0.0;
 }
 // Расчет воздействия
 float Compute_FREQ_PID(float value){
@@ -78,3 +70,44 @@ float Compute_FREQ_PID(float value){
 	}
 	return FREQ_valueS;
 }
+
+//=========================================================
+// ПИ регулятор для удержания частоты
+//=========================================================
+
+struct {
+	float FREQ_valueS;
+	float FREQ_valueI;
+	float FREQ_valueP;
+
+	float FREQ_factorKp;
+	float FREQ_factorKi;
+} pi_freq;
+
+float FREQ_valueP_ = 0.0f;
+float FREQ_valueI_ = 0.0f;
+float FREQ_valueS_ = 0.0f;
+
+void reset_freq_pi(void){
+	pi_freq.FREQ_valueS = 0.0f;
+	pi_freq.FREQ_valueI = 0.0f;
+	pi_freq.FREQ_valueP = 0.0f;
+
+	pi_freq.FREQ_factorKp = FREQ_factorKp;
+	pi_freq.FREQ_factorKi = FREQ_factorKi;
+
+	FREQ_valueS_ = 0.0f;
+	FREQ_valueI_ = 0.0f;
+	FREQ_valueP_ = 0.0f;
+}
+
+void set_freq_pi(void){
+	pi_freq.FREQ_factorKp = FREQ_factorKp;
+	pi_freq.FREQ_factorKi = FREQ_factorKi;
+}
+
+void freq_pi_(void){
+	FREQ_valueI_ += FREQ_valueP_*FREQ_factorKi;
+	FREQ_valueS_ = FREQ_valueP_*FREQ_factorKp + FREQ_valueI_;
+}
+

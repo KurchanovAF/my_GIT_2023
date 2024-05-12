@@ -26,6 +26,14 @@
 /* USER CODE BEGIN Includes */
 #include "my_FUN.h"
 #include "tim.h"
+
+#include "stm32l4xx_hal_gpio.h"
+#include "AD5668.h"
+#include "interface_AD5668.h"
+#include "interface_LMX2486.h"
+#include "interface_AD8400.h"
+
+#include "pid_tec_ctrl.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -465,10 +473,34 @@ void EXTI0_IRQHandler(void){			//	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
 		AD5668_WriteValue(AD5668_DAC_U2R , value_U2R);
 
 	}
+	// Обновим value_VY каждую миллисекунду
+
+	/*
 	if (flagUpdate_VY == true){
 		flagUpdate_VY = false;
 		AD5668_WriteValue(AD5668_DAC_VY , value_VY);
 	}
+	//*/
+
+	if ((statusLoopPID & PID_FLAG_LOOP_FREQ) == PID_FLAG_LOOP_FREQ){
+		FREQ_valueP_ = -(float)(my_F2F1_rez_[2]);
+		freq_pi_();
+		value_UT1A = fixValue_UT1A + (int)FREQ_valueS_;
+		if(value_UT1A < 0) value_UT1A = 0;
+		if(value_UT1A > 65535) value_UT1A = 65535;
+		AD5668_WriteValue(AD5668_DAC_UT1A , value_UT1A);
+	}
+
+	if ((statusLoopPID & PID_FLAG_LOOP_DOPLER_CRNT) == PID_FLAG_LOOP_DOPLER_CRNT){
+		DOP_valueP = ((float)(my_F1F2_rez[1] + my_F1F2_rez[2]))/2.0f + (float)(shift_OUT2_DOPLER_CRNT)*12.0f;
+		//(F1F2_rezult[1] + F1F2_rezult[2])/2.0
+		DOP_pi_();
+		value_VY = fixValue_OUT2_DOPLER_CRNT + (int)DOP_valueS;
+		if(value_VY < 0) value_VY = 0;
+		if(value_VY > 65535) value_VY = 65535;
+		AD5668_WriteValue(AD5668_DAC_VY , value_VY);		// VY  - грубая установка тока лазера
+	}
+
 	if(b_my_ms_num)			// 1-й цикл из 16 мс уже пройден
 	switch(my_ms_num){
 		case 0:
@@ -998,6 +1030,7 @@ static inline void my_ADC2_0(void){
 	}
 }
 
+/*
 static inline void my_ADC1_1(void){
 	{
 	// Мои функции ASM
@@ -1011,7 +1044,7 @@ static inline void my_ADC1_1(void){
 	my_OUT1_F1_F2();		//  ___ такта, измеренная сумма = ___
 	}
 
-	/*
+
 
 	//if (index_OUT_0R >= count_OUT_0R){		// 1920/120 = 16
 
@@ -1041,7 +1074,7 @@ static inline void my_ADC1_1(void){
 	//if (index_OUT2_CPT_FREQ >= count_OUT2_CPT_FREQ){
 	if(my_ms_num >= 16){
 		//count_OUT2_CPT_FREQ = index_OUT2_CPT_FREQ;
-		//*
+
 		if(!b_F2F1_rezult)
 		{
 			b_F2F1_rezult = true;
@@ -1071,9 +1104,9 @@ static inline void my_ADC1_1(void){
 			flagUpdateCompute_DOPLER_FREQ = true;
 			flagUpdate_U2R = true;
 		}
-		//*/
 
-		/*
+
+
 		for (int i = 0; i < 6; i++){
 			F2F1_rezult[i] = -(float)my_F2F1_sum[i] / (float)index_OUT2_CPT_FREQ;
 			//F2F1_P_rezult[i] = -(float)my_F2F1_P_sum[i] / (float)index_OUT2_CPT_FREQ;
@@ -1081,8 +1114,7 @@ static inline void my_ADC1_1(void){
 			my_F2F1_sum[i] = 0;
 			//my_F2F1_P_sum[i] = 0;
 		}
-		//*/
-	/*
+
 
 		//F2F1_rezult_A = -2.95*F2F1_rezult[4];
 		F2F1_rezult_A = F2F1_rezult[4];
@@ -1168,8 +1200,8 @@ static inline void my_ADC1_1(void){
 			}
 		}
 	}
-	//*/
 }
+//*/
 
 static inline void my_ADC2_1(void){
 	// Мои функции ASM
@@ -1400,9 +1432,9 @@ static inline void UpdateDataADC2(void){
 	// int var_my_ADC2;
 
 	//static int iF0 = 0;	// Kurchanov 27.07.2020
-	static int iT1 = 0;
-	static int iT2 = 0;
-	static int idT = 0;
+	//static int iT1 = 0;
+	//static int iT2 = 0;
+	//static int idT = 0;
 	
 	switch(itemPartResultDMA2_ADC2){
 		case 1:
@@ -1479,7 +1511,7 @@ static inline void UpdateDataADC2(void){
 	static int i_hh  = 0;	// первый
 	static int i_hL  = 0;	// предыдущий
 	static int i_N  = 0;
-	static int i_NN = 0;
+	//static int i_NN = 0;
 	static int i_NL = 0;
 	static int i_NX = 0;
 	static int i_dNX = 0;
@@ -1616,7 +1648,7 @@ static inline void UpdateDataADC2(void){
 		result_OUT2_CPT_CRNT_DOPLER_tmp = result_OUT2_CPT_CRNT_DOPLER;
 
 		flag_SCAN_CRNT = true;									// значение можно использовать для накопления и дальнейшего вывода
-		flagUpdateCompute_OUT2_DOPLER_CRNT = true;				// ??
+		//flagUpdateCompute_OUT2_DOPLER_CRNT = true;				// ??
 		// Привязка температурой
 		result_OUT2_DOPLER_TEC = result_OUT2_CPT_CRNT_DOPLER;	// ??
 		flagUpdateCompute_OUT2_DOPLER_TEC = true;
@@ -1832,30 +1864,6 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в �
 				//*/
 				break;
 			case 1:
-				/*
-				dS_4 += (int)(F1F2_P_rezult[0]*10000);
-				dS_5 += (int)(F1F2_P_rezult[1]*10000);
-				dS_6 += (int)(F1F2_P_rezult[2]*10000);
-				dS_7 += (int)(F1F2_P_rezult[3]*10000);
-				dS_8 += (int)(F1F2_P_rezult[4]*10000);
-				//*/
-
-				/*
-				dS_3 += (int)(F2F1_rezult_D[0]*1000);
-				dS_4 += (int)(F2F1_rezult_D[1]*1000);
-				dS_5 += (int)(F2F1_rezult_D[2]*1000);
-				dS_6 += (int)(F2F1_rezult_D[3]*1000);
-				dS_7 += (int)(F2F1_rezult_D[5]*1000);
-				dS_8 += 0;//(int)(F2F1_rezult_D[6]*1000);
-				/*
-				dS_4 += (int)(F2F1_rezult[1]*1000);
-				dS_5 += (int)(F2F1_rezult[2]*1000);
-				dS_6 += (int)(F2F1_rezult[3]*1000);
-				dS_7 += (int)(F2F1_rezult[4]*1000);
-				dS_8 += (int)(F2F1_rezult[5]*1000);
-				//*/
-
-				//*
 				dS_4 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
 				//dS_4 += (int)(F1F2_rezult[0]*1000);
 				dS_5 += (int)(F1F2_rezult[1]*1000);
@@ -2236,8 +2244,8 @@ static inline void funWork_TEST_FACTOR_OUT(){
 static inline void UpdateRS232(void){
   // Забираем данные с UART
   uint32_t isrflags = USART3->ISR;
-  uint32_t cr1its = USART3->CR1;
-  uint32_t cr3its = USART3->CR3;
+  //uint32_t cr1its = USART3->CR1;
+  //uint32_t cr3its = USART3->CR3;
   // Есть байт на прием
   if(((isrflags & USART_ISR_RXNE) == USART_ISR_RXNE)){
   // Забираем байт с USART

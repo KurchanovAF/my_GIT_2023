@@ -1,4 +1,4 @@
-#include <Pid/pid_dopler_crnt.h>
+#include <pid_dopler_crnt.h>
 
 //=========================================================
 // ПИД регулятор для удержания температуры лазера
@@ -20,10 +20,6 @@ float DOPLER_CRNT_nowValue = 0.0;
 float DOPLER_CRNT_backValue = 0.0;
 bool DOPLER_CRNT_flagRun = false;
 
-float DOP_valueP = 0.0;
-float DOP_valueI = 0.0;
-float DOP_valueS = 0.0;
-
 void Reset_DOPLER_CRNT_PID(void){
 	DOPLER_CRNT_valueP = 0.0f;
 	DOPLER_CRNT_valueI = 0.0f;
@@ -32,10 +28,6 @@ void Reset_DOPLER_CRNT_PID(void){
 	DOPLER_CRNT_nowValue = 0.0;
 	DOPLER_CRNT_backValue = 0.0;
 	DOPLER_CRNT_flagRun = false;
-
-	DOP_valueP = 0.0;
-	DOP_valueI = 0.0;
-	DOP_valueS = 0.0;
 }
 // Расчет воздействия
 float Compute_DOPLER_CRNT_PID(float value){
@@ -78,3 +70,19 @@ float Compute_DOPLER_CRNT_PID(float value){
 	}
 	return DOPLER_CRNT_valueS;
 }
+
+float DOP_valueP = 0.0;
+float DOP_valueI = 0.0;
+float DOP_valueS = 0.0;
+
+void reset_DOP_pi(void){
+	DOP_valueS = 0.0f;
+	DOP_valueI = 0.0f;
+	DOP_valueP = 0.0f;
+}
+
+void DOP_pi_(void){
+	DOP_valueI += DOP_valueP*DOPLER_CRNT_factorKi;
+	DOP_valueS = DOP_valueP*DOPLER_CRNT_factorKp + DOP_valueI;
+}
+

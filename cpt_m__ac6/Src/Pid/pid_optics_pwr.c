@@ -1,4 +1,4 @@
-#include <Pid/pid_optics_pwr.h>
+#include <pid_optics_pwr.h>
 #include "var.h"
 
 //=========================================================

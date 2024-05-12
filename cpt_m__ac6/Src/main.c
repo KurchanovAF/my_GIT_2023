@@ -166,6 +166,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	HAL_Delay(2000);
 
+	reset_freq_pi();
+	reset_DOP_pi();
+
 	HAL_GPIO_WritePin(DAC_CLR_GPIO_Port, DAC_CLR_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(DAC_LDAC_GPIO_Port, DAC_LDAC_Pin, GPIO_PIN_RESET);
 	

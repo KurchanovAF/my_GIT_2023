@@ -6,6 +6,7 @@
 
 #include "usart_protocol.h"
 
+/*
 #include "interface_AD5668.h"
 #include "interface_AD8400.h"
 #include "interface_LMX2486.h"
@@ -20,6 +21,7 @@
 #include "pid_optics_pwr.h"
 #include "pid_MICROWAVE.h"
 #include "pid_DOPLER_FREQ.h"
+//*/
 
 #include "hist.h"
 

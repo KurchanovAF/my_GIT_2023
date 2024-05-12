@@ -8,6 +8,9 @@
 #include <stdint.h>
 #include "var.h"
 
+void freq_pi_(void);
+void DOP_pi_(void);
+
 //uint16_t * DMA2_Data_TMP;
  #ifdef my_ASM_fun
 void my_tst_1(void);

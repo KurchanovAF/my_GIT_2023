@@ -10,6 +10,8 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="my_ADC1_1"/>
+			<item value="DOP_valueP"/>
 			<item value="itemMOD_FREQ"/>
 			<item value="flagUpdate_VY"/>
 			<item value="my_F1F2_sum"/>
