@@ -10,6 +10,12 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="my_ADC2_0"/>
+			<item value="my_ADC2_2"/>
+			<item value="my_F1_"/>
+			<item value="my_DataADC2_2_"/>
+			<item value="my_DataADC2_1_"/>
+			<item value="var_my_ADC2"/>
 			<item value="my_ADC1_1"/>
 			<item value="DOP_valueP"/>
 			<item value="itemMOD_FREQ"/>

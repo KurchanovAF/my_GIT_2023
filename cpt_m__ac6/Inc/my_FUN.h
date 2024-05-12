@@ -30,15 +30,6 @@ void my_F1_F2(void);		// режекция частоты F2 после реже�
 //extern int32_t my_F1F2_rez[5];
 //extern int32_t my_F0_sum;
 
- #ifdef my_C_fun
-void my_DataADC2_1_(void);
-void my_DataADC2_2_(void);
-void my_F1_(void);
-void my_F2_(void);
-void my_F1F2_(void);
-void my_F2F1_(void);
-void my_F1_F2_(void);
- #endif
 
 // 749
 

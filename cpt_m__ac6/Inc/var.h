@@ -6,23 +6,6 @@
 
 #include "usart_protocol.h"
 
-/*
-#include "interface_AD5668.h"
-#include "interface_AD8400.h"
-#include "interface_LMX2486.h"
-
-#include "interface_ADT7410.h"
-
-#include "pid_tec_ctrl.h"
-#include "pid_dopler_crnt.h"
-#include "pid_dopler_tec.h"
-#include "pid_freq.h"
-#include "pid_cell.h"
-#include "pid_optics_pwr.h"
-#include "pid_MICROWAVE.h"
-#include "pid_DOPLER_FREQ.h"
-//*/
-
 #include "hist.h"
 
 #define my_ASM_fun

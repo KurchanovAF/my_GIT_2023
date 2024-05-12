@@ -939,97 +939,6 @@ static inline void UpdateDataADC1(void){
 	//*/
 }
 
-static inline void my_ADC2_0(void){
-	// Вариант Парехина
-	switch(itemPartResultDMA2_ADC2){
-		case 1:
-			for (int i = 0; i < ADC_ARRAY_DMA2_HALF_SIZE-3; i+=3){
-				sum_OUT_2RN += DMA2_Data[i];
-				sum_OUT_0RN += DMA2_Data[i + 1];
-			}
-			break;
-		case 2:
-			for (int i = 0, j = 0; i < ADC_ARRAY_DMA2_HALF_SIZE-3; i+=3, j++){
-				sum_OUT_2RN += DMA2_Data[ADC_ARRAY_DMA2_HALF_SIZE + i];
-				sum_OUT_0RN += DMA2_Data[ADC_ARRAY_DMA2_HALF_SIZE + i + 1];
-			}
-			break;
-		}
-	if (index_OUT_1N >= count_OUT_1N){
-		avrResult_OUT2_DC = (float)sum_OUT_2RN / (float)index_OUT_1N;
-		avrResult_OUT_0RN = (float)sum_OUT_0RN / (float)index_OUT_1N;
-		resultTemp_CELL = avrResult_OUT_0RN;
-		resultTemp_CELL = resultTemp_CELL - levelTemp_CELL;
-		flagUpdateCompute_CELL = true;
-		sum_OUT_2RN = 0;
-		sum_OUT_0RN = 0;
-	}
-	for (int i = 0; i < ADC_ARRAY_DMA2_HALF_SIZE-33; i += 3*12){
-		sum_OUT2_CPT_FREQ[0] += pDataDMA2[i] 	- 	pDataDMA2[i + 18];
-		sum_OUT2_CPT_FREQ[1] += pDataDMA2[i+3] 	-  	pDataDMA2[i + 21];
-		sum_OUT2_CPT_FREQ[2] += pDataDMA2[i+6] 	-  	pDataDMA2[i + 24];
-		sum_OUT2_CPT_FREQ[3] += pDataDMA2[i+9] 	- 	pDataDMA2[i + 27];
-		sum_OUT2_CPT_FREQ[4] += pDataDMA2[i+12] -  	pDataDMA2[i + 30];
-		sum_OUT2_CPT_FREQ[5] += pDataDMA2[i+15] - 	pDataDMA2[i + 33];
-	}
-	if (index_OUT2_CPT_FREQ >= count_OUT2_CPT_FREQ){
-		count_OUT2_CPT_FREQ = index_OUT2_CPT_FREQ;
-		for (int i = 0; i < 6; i++){
-			// Умножаем на 2 для уменьшения отличия с результатом при режекции
-			result_OUT2_CPT_FREQ[i] = (float)(sum_OUT2_CPT_FREQ[i])*2.0f /(float)index_OUT2_CPT_FREQ;
-			sum_OUT2_CPT_FREQ[i] = 0;
-		}
-		result_OUT2_CPT_FREQ_CPT = result_OUT2_CPT_FREQ[0];
-	}
-	for(int i = 0; i < 5; i++)
-	{
-		my_F1F2_P_rez[i] = 0;
-	}
-	for (int i = 0; i < ADC_ARRAY_DMA2_HALF_SIZE-27; i += 3*10){
-		sum_OUT2_CPT_CRNT[0] += ((volatile uint16_t*)pDataDMA2)[i] 		- 	((volatile uint16_t*)pDataDMA2)[i + 15];
-		sum_OUT2_CPT_CRNT[1] += ((volatile uint16_t*)pDataDMA2)[i+3] 	- 	((volatile uint16_t*)pDataDMA2)[i + 18];
-		sum_OUT2_CPT_CRNT[2] += ((volatile uint16_t*)pDataDMA2)[i+6] 	- 	((volatile uint16_t*)pDataDMA2)[i + 21];
-		sum_OUT2_CPT_CRNT[3] += ((volatile uint16_t*)pDataDMA2)[i+9] 	- 	((volatile uint16_t*)pDataDMA2)[i + 24];
-		sum_OUT2_CPT_CRNT[4] += ((volatile uint16_t*)pDataDMA2)[i+12] 	- 	((volatile uint16_t*)pDataDMA2)[i + 27];
-
-		my_F1F2_P_rez[0] += ((volatile uint16_t*)pDataDMA2)[i] 		+ 	((volatile uint16_t*)pDataDMA2)[i + 15];
-		my_F1F2_P_rez[1] += ((volatile uint16_t*)pDataDMA2)[i+3] 	+ 	((volatile uint16_t*)pDataDMA2)[i + 18];
-		my_F1F2_P_rez[2] += ((volatile uint16_t*)pDataDMA2)[i+6] 	+ 	((volatile uint16_t*)pDataDMA2)[i + 21];
-		my_F1F2_P_rez[3] += ((volatile uint16_t*)pDataDMA2)[i+9] 	+ 	((volatile uint16_t*)pDataDMA2)[i + 24];
-		my_F1F2_P_rez[4] += ((volatile uint16_t*)pDataDMA2)[i+12] 	+ 	((volatile uint16_t*)pDataDMA2)[i + 27];
-	}
-
-	for(int i = 0; i < 5; i++)
-	{
-		my_F1F2_P_sum[i] += my_F1F2_P_rez[i];
-	}
-
-	if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// Один раз за 16 мс
-		// Один раз за 16 мс
-		count_OUT2_CPT_CRNT = index_OUT2_CPT_CRNT;
-		for (int i = 0; i < 5; i++){
-			// Умножаем на 2 для уменьшения отличия с результатом при режекции
-			result_OUT2_CPT_CRNT[i] = (float)(sum_OUT2_CPT_CRNT[i])*2.0f /(float)index_OUT2_CPT_CRNT;
-			sum_OUT2_CPT_CRNT[i] = 0;
-
-			F1F2_P_rezult[i] = (float)my_F1F2_P_sum[i] / (float)index_OUT2_CPT_CRNT;
-			my_F1F2_P_sum[i] = 0;
-		}
-		result_OUT2_CPT_CRNT_DOPLER = result_OUT2_CPT_CRNT[4];
-
-		F1F2_P_S = 0;
-		for (int i = 0; i < 5; i++)
-		{
-			F1F2_P_S += F1F2_P_rezult[i];
-		}
-		F1F2_P_S /= 5;
-		for (int i = 0; i < 5; i++)
-		{
-			F1F2_P_rezult[i] -= F1F2_P_S;
-		}
-	}
-}
-
 /*
 static inline void my_ADC1_1(void){
 	{
@@ -1374,53 +1283,7 @@ static inline void my_ADC2_1(void){
 	}
 }
 
-static inline void my_ADC2_2(void){
-	// Мои функции C
-	my_DataADC2_1_();		// Время выполнения my_DataADC2_1_() 6518 тактов
-	my_DataADC2_2_();		// Время выполнения my_DataADC2_1_()+my_DataADC2_2_() 17634 тактов
-	my_F1_();
-	my_F2_();
-	my_F1F2_();
-	my_F2F1_();
-	my_F1_F2_();
 
-	if (index_OUT_1N >= count_OUT_1N){
-		avrResult_OUT_0R_ = (float)sum_OUT_0R_ / (float)index_OUT_1N;
-		avrResult_OUT_2R = (float)sum_OUT_2R_ / (float)index_OUT_1N;
-		//resultTemp_CELL = avrResult_OUT_0RN;
-		resultTemp_CELL = avrResult_OUT_0R_;
-		resultTemp_CELL = resultTemp_CELL - levelTemp_CELL;
-		flagUpdateCompute_CELL = true;
-		sum_OUT_0R_ = 0;
-		sum_OUT_2R_ = 0;
-		}
-	for(int i = 0; i < 6; i++)
-	{
-		p_my_F2F1_sum_[i] += p_my_F2F1_rez_[i];
-	}
-	for(int i = 0; i < 5; i++)
-	{
-		p_my_F1F2_sum_[i] += p_my_F1F2_rez_[i];
-	}
-	if (index_OUT2_CPT_FREQ >= count_OUT2_CPT_FREQ){
-		count_OUT2_CPT_FREQ = index_OUT2_CPT_FREQ;
-		for (int i = 0; i < 6; i++){
-			F2F1_rezult_[i] = -(float)my_F2F1_sum_[i] / (float)index_OUT2_CPT_FREQ;
-			p_my_F2F1_sum_[i] = 0;
-		}
-		result_OUT2_CPT_FREQ_CPT = F2F1_rezult_[0];// Kurchanov 2021.01.19
-	}
-
-	if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// Один раз за 16 мс
-		// Один раз за 16 мс
-		count_OUT2_CPT_CRNT = index_OUT2_CPT_CRNT;
-		for (int i = 0; i < 5; i++){
-			F1F2_rezult_[i] = -(float)my_F1F2_sum_[i] / (float)index_OUT2_CPT_CRNT;
-			p_my_F1F2_sum_[i] = 0;
-		}
-		result_OUT2_CPT_CRNT_DOPLER = F1F2_rezult_[0];
-	}
-}
 
 // Разбираем данные с ADC2
 static inline void UpdateDataADC2(void){
@@ -1453,18 +1316,7 @@ static inline void UpdateDataADC2(void){
 
 	//my_ms_num++;					// счетчик миллисекунд
 
-	switch(var_my_ADC2){
-		case 0:
-			my_ADC2_0();
-			break;
-		case 1:
-			//my_ADC1_1();
-			my_ADC2_1();
-			break;
-		case 2:
-			my_ADC2_2();
-			break;
-	}
+	my_ADC2_1();
 
 	/*
 	if(!b_my_ms_num)
@@ -1476,35 +1328,6 @@ static inline void UpdateDataADC2(void){
 	if (index_OUT_1N >= count_OUT_1N){
 		index_OUT_1N = 0;
 	}
-
-
-
-	
-/*
- // Заготовка (ниже есть продолжение)
-	switch(itemMOD_FREQ){
-		case 0:
-		case 1:
-			sum_OUT2_CPT[0]	+= sum_OUT_2R_;
-			break;
-		case 2:
-		case 3:
-			sum_OUT2_CPT[1]	+= sum_OUT_2R_;
-			break;
-	}
-//*/
-
-
-#ifdef my_EQ_test
-	b_eq = true;
-	//my_EQ_test_1();
-	//my_EQ_test_2();
-	//my_EQ_test_3();
-	//my_EQ_test_4();
-	//my_EQ_test_5();
-	//my_EQ_test_6();
-	//my_EQ_test_7();
-#endif
 
 	// Начало блока ГННС
 	static int i_h   = 0;
@@ -1607,36 +1430,7 @@ static inline void UpdateDataADC2(void){
 		flagUpdateCompute_OUT2_CPT_FREQ = true;
 	}
 
-	
 
-	/*
-	// Аппаратный синхронный детектор 1
-	if (index_SD2 >= count_SD2){
-		index_SD2 = 0;
-#ifdef my_ASM_fun
-		//avrResult_SD2 = (float)sum_SD2 / (float)index_SD2;
-		//sum_SD2 = 0;
-#endif
-#ifdef my_C_fun
-		avrResult_SD2 = (float)sum_SD2_ / (float)index_SD2;		
-		sum_SD2_ = 0;
-#endif
-	}
-	//*/
-
-	/*
-	// Kurchanov 13.01.2021
-#ifdef my_C_fun
-	sum_ampl_Data_F0_ += (max_Data_F0_ - min_Data_F0_);
-	sum_ampl_Data_F1_ += (max_Data_F1_ - min_Data_F1_);
-	sum_ampl_Data_F2_ += (max_Data_F2_ - min_Data_F2_);
-	sum_ampl_Data_F1_F2_ += (max_Data_F1_F2_ - min_Data_F1_F2_);
-
-	value_UT1A_aver += value_UT1A;
-	value_DTX_aver += value_DTX;
-	value_VY_aver += value_VY;
-#endif
-	//*/
 	
 	//if (index_OUT2_CPT_CRNT >= count_OUT2_CPT_CRNT){	// Один раз за 16 мс
 	if(my_ms_num == 16){
@@ -1653,131 +1447,13 @@ static inline void UpdateDataADC2(void){
 		result_OUT2_DOPLER_TEC = result_OUT2_CPT_CRNT_DOPLER;	// ??
 		flagUpdateCompute_OUT2_DOPLER_TEC = true;
 
-		/*
-		// TOLIK
-				if((itemWork == WORK_TEST_ADC_3) && (!b_buf_TEST_ADC_3))
-				{
-					for(int i = 0; i < 120; i++)
-					{
-						buf_TEST_ADC_3[numPos + i] = my_DMA2_Data_F0_[i + 55];
-					}
-					numPos += 120;
-					if(numPos == 2400)
-					{
-						numPos = 0;
-						b_buf_TEST_ADC_3 = true;
-					}
-				}
-				//i_MESSAGE_3 = numPos;
-				if(b_buf_TEST_ADC_3)
-				{
-					i_MESSAGE_3 = 2400;
-				}
-				else
-				{
-					i_MESSAGE_3 = 0;
-				}
-		//*/
-		/*
-		if(itemWork == WORK_TEST_ADC_2)
-		{
-			b_buf_TEST_ADC_2 = true;
-			//i_MESSAGE_3 = 3600;
-			if(num_corr_TEST_ADC_2 < 1000){
-				corr_1_TEST_ADC_2 +=result_OUT2_CPT_FREQ_CPT_tmp*result_OUT2_CPT_FREQ_CPT_tmp;
-				corr_2_TEST_ADC_2 +=result_OUT2_CPT_CRNT_DOPLER_tmp*result_OUT2_CPT_CRNT_DOPLER_tmp;
-				corr_12_TEST_ADC_2 +=result_OUT2_CPT_FREQ_CPT_tmp*result_OUT2_CPT_CRNT_DOPLER_tmp;
-				num_corr_TEST_ADC_2++;
-			}
-			else
-			{
-				if(corr_1_TEST_ADC_2 > 0)
-				{
-					corr_1_TEST_ADC_2 = sqrt(corr_1_TEST_ADC_2);
-					if(corr_2_TEST_ADC_2 > 0)
-					{
-						corr_2_TEST_ADC_2 = sqrt(corr_2_TEST_ADC_2);
-						corr_TEST_ADC_2 = corr_12_TEST_ADC_2/(corr_2_TEST_ADC_2*corr_1_TEST_ADC_2);
-					}
-					else
-					{
-						corr_TEST_ADC_2 = 0;
-					}
-				}
-				else
-				{
-					corr_TEST_ADC_2 = 0;
-				}
-				corr_1_TEST_ADC_2 = 0;
-				corr_2_TEST_ADC_2 = 0;
-				corr_12_TEST_ADC_2 = 0;
-				num_corr_TEST_ADC_2 = 0;
-				i_MESSAGE_3 = (int)(corr_TEST_ADC_2*1000);
-			}
-		}
-		else
-		{
-			b_buf_TEST_ADC_2 = false;
-			//i_MESSAGE_3 = -1;
-			corr_1_TEST_ADC_2 = 0;
-			corr_2_TEST_ADC_2 = 0;
-			corr_12_TEST_ADC_2 = 0;
-			num_corr_TEST_ADC_2 = 0;
-		}
-		//*/
 		//my_ms_num = 1;	// Устанавливаем флаг активности 1-й миллисекунды
 	}
 
-	/*
-	// Р—Р°РіРѕС‚РѕРІРєР°
-	index_OUT2_CPT++;
-	if (index_OUT2_CPT >= count_OUT2_CPT){
-		count_OUT2_CPT = index_OUT2_CPT;
-		result_OUT2_CPT[0] = (float)(sum_OUT2_CPT[0])/(float)count_OUT2_CPT;
-		result_OUT2_CPT[1] = (float)(sum_OUT2_CPT[1])/(float)count_OUT2_CPT;
-		result_OUT2_CPT[0] /= 120.0f;
-		result_OUT2_CPT[1] /= 120.0f;
-		sum_OUT2_CPT[0] = 0;
-		sum_OUT2_CPT[1] = 0;
-		index_OUT2_CPT = 0;
-	}
-	//*/
-	
 	//*
 	// Kurchanov 27.07.2020	
 	iT3__ = DWT->CYCCNT;
 	iT__n = iT3__ - iT2__;
-	//i_MESSAGE_3 = idT__;
-	//i_MESSAGE_3 = iT__n;
-	/*
-	iF0 ++;
-	if(iF0 >= 2000)
-	{
-		iF0 = 0;
-		b_MESSAGE = true;
-	};
-	//*/
-	//*/
-	
-	/*
-	// Kurchanov 23.11.2020
-	tickDelayUpdateTempCell += 1;
-	if (tickDelayUpdateTempCell == 1000){
-		tickDelayUpdateTempCell = 0;
-		// Запрашиваем температуры ячейки
-		if (flagConnectedTempSensor == true){
-			uint8_t addressI2C3 = ADT7410_ADDRESS;
-			I2C3_RxBuffer[0] = 0;
-			I2C3_RxBuffer[1] = 0;
-			if (HAL_I2C_Master_Receive(&hi2c3, addressI2C3<<1, &I2C3_RxBuffer[0], 2, 200) == HAL_OK){
-				value_TempCell = ((int)(I2C3_RxBuffer[0] << 8 | I2C3_RxBuffer[1]))/128.0f;
-				resultAverage_SENSOR_TempCell = levelValueSensor_TempCell - value_TempCell;
-			}		
-			flagUpdateTempCell = true;
-		}
-		
-	}
-	//*/
 }
 
 // Kurchanov 2020_10_23
@@ -1844,49 +1520,13 @@ static inline void funWork_SCAN_CRNT(){	// вызывается 1000 раз в �
 		// value_UT1A
 		dS_3 += (int)(value_UT1A*10);
 
+		dS_4 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
+		//dS_4 += (int)(F1F2_rezult[0]*1000);
+		dS_5 += (int)(F1F2_rezult[1]*1000);
+		dS_6 += (int)(F1F2_rezult[2]*1000);
+		dS_7 += (int)(F1F2_rezult[3]*1000);
+		dS_8 += (int)(F1F2_rezult[4]*1000);
 
-		switch(var_my_ADC2){
-			case 0:
-				//*
-				dS_4 += (int)(F1F2_P_rezult[0]*10000);
-				dS_5 += (int)(F1F2_P_rezult[1]*10000);
-				dS_6 += (int)(F1F2_P_rezult[2]*10000);
-				dS_7 += (int)(F1F2_P_rezult[3]*10000);
-				dS_8 += (int)(F1F2_P_rezult[4]*10000);
-				//*/
-
-				/*
-				dS_4 += (int)(result_OUT2_CPT_CRNT[0]*1000);
-				dS_5 += (int)(result_OUT2_CPT_CRNT[1]*1000);
-				dS_6 += (int)(result_OUT2_CPT_CRNT[2]*1000);
-				dS_7 += (int)(result_OUT2_CPT_CRNT[3]*1000);
-				dS_8 += (int)(result_OUT2_CPT_CRNT[4]*1000);
-				//*/
-				break;
-			case 1:
-				dS_4 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
-				//dS_4 += (int)(F1F2_rezult[0]*1000);
-				dS_5 += (int)(F1F2_rezult[1]*1000);
-				dS_6 += (int)(F1F2_rezult[2]*1000);
-				dS_7 += (int)(F1F2_rezult[3]*1000);
-				dS_8 += (int)(F1F2_rezult[4]*1000);
-				//*/
-				break;
-			case 2:
-				dS_7 += (int)(F1F2_rezult_[0]*1000);
-				dS_8 += (int)(F1F2_rezult_[1]*1000);
-				dS_3 += (int)(F1F2_rezult_[2]*1000);
-				dS_4 += (int)(F1F2_rezult_[3]*1000);
-				dS_5 += (int)(F1F2_rezult_[4]*1000);
-				/*
-				dS_4 += (int)(F1F2_rezult_[0]*1000);
-				dS_5 += (int)(F1F2_rezult_[1]*1000);
-				dS_6 += (int)(F1F2_rezult_[2]*1000);
-				dS_7 += (int)(F1F2_rezult_[3]*1000);
-				dS_8 += (int)(F1F2_rezult_[4]*1000);
-				//*/
-				break;
-			}
 		flag_SCAN_CRNT = false;
 
 		delaySend++;
@@ -2063,78 +1703,18 @@ static inline void funWork_SCAN_FREQ(){
 
 	if(flag_SCAN_CRNT)	// 1 раз в 16 мс
 	{
-		/*
-		// my_alarm |= 0x80; 	- свободный признак
-		// my_alarm &= ~(0x80);	- свободный признак
-		if(b_OUT_DC)
-		{
-			my_alarm |= 0xF0;	// работает
-			b_OUT_DC = false;
-		}
-		else
-		{
-			my_alarm &= ~(0xF0);
-		}
-		i_MESSAGE_2 = my_ms_num;
-		i_MESSAGE_3 = index_OUT_DC;
-		if(index_OUT_DC != 0)
-		{
-			my_alarm |= 0x80;	// работает
-			//i_MESSAGE_3 = index_OUT_DC;
-		}
-		else
-		{
-			//my_alarm &= ~(0x80);	// работает
-			//i_MESSAGE_3 = index_OUT_DC;
-		}
-		//*/
-
-		/*			dS_1 += (int)(avrResult_OUT_DC*1000);
-		dS_2 += (int)(result_OUT2_CPT_CRNT_DOPLER*1000);//result_OUT2_CPT_CRNT_DOPLER*1000);
-		dS_3 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
-		//*/
-
-		/*
-		dS_7 += (int)(F1F2_rezult[0]*1000);
-		dS_8 += (int)(F1F2_rezult[1]*1000);
-		dS_3 += (int)(F1F2_rezult[2]*1000);
-		dS_4 += (int)(F1F2_rezult[3]*1000);
-		dS_5 += (int)(F1F2_rezult[4]*1000);
-
-		dS_6 += (int)(avrResult_OUT_DC*1000);
-		dS_1 += (int)(result_OUT2_CPT_CRNT_DOPLER*1000);
-		dS_2 += (int)(result_OUT2_CPT_FREQ_CPT*1000);
-		//*/
-
 		dS_1 += (int)(avrResult_OUT_DC*1000);
 		//dS_1 += (int)(value_VY*1000);
 
-		switch(var_my_ADC2){
-			case 0:
-				dS_4 += (int)(result_OUT2_CPT_FREQ[0]*1000);
-				dS_5 += (int)(result_OUT2_CPT_FREQ[1]*1000);
-				dS_6 += (int)(result_OUT2_CPT_FREQ[2]*1000);
-				dS_7 += (int)(result_OUT2_CPT_FREQ[3]*1000);
-				dS_8 += (int)(result_OUT2_CPT_FREQ[4]*1000);
-				break;
-			case 1:
-				//dS_1 += (int)(F2F1_rezult[0]*1000);
-				dS_2 += (int)(F2F1_rezult[1]*1000);
-				dS_3 += (int)(F2F1_rezult[2]*1000);
-				dS_4 += (int)(F2F1_rezult[3]*1000);
-				dS_8 += (int)(F2F1_rezult[4]*1000);
-				dS_7 += (int)(F2F1_rezult[5]*1000);
-				dS_5 += (int)(result_OUT2_CPT_FREQ_CPT*1000); //(int)(avrResult_OUT_DC*1000);
-				dS_6 += (int)(result_OUT2_CPT_CRNT_DOPLER*1000);
-				break;
-			case 2:
-				dS_4 += (int)(F2F1_rezult_[0]*1000);
-				dS_5 += (int)(F2F1_rezult_[1]*1000);
-				dS_6 += (int)(F2F1_rezult_[2]*1000);
-				dS_7 += (int)(F2F1_rezult_[3]*1000);
-				dS_8 += (int)(F2F1_rezult_[4]*1000);
-				break;
-			}
+		//dS_1 += (int)(F2F1_rezult[0]*1000);
+		dS_2 += (int)(F2F1_rezult[1]*1000);
+		dS_3 += (int)(F2F1_rezult[2]*1000);
+		dS_4 += (int)(F2F1_rezult[3]*1000);
+		dS_8 += (int)(F2F1_rezult[4]*1000);
+		dS_7 += (int)(F2F1_rezult[5]*1000);
+		dS_5 += (int)(result_OUT2_CPT_FREQ_CPT*1000); //(int)(avrResult_OUT_DC*1000);
+		dS_6 += (int)(result_OUT2_CPT_CRNT_DOPLER*1000);
+
 		flag_SCAN_CRNT = false;
 	}
 	else
