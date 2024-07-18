@@ -10,6 +10,8 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="sum_OUT_DC"/>
+			<item value="avrResult_OUT_DC"/>
 			<item value="Compute_DOPLER_FREQ_PID"/>
 			<item value="Compute_TECCTRL_PID"/>
 			<item value="Compute_OPTICS_PWR_PID"/>
